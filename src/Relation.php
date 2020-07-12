@@ -21,15 +21,17 @@ class Relation
 
 	public const GUARD = 32;
 
-	public const DISGUISE = 64;
+	public const PERCEPTION = 64;
 
-	public const SILVER = 128;
+	public const DISGUISE = 128;
 
-	public const FOOD = 256;
+	public const SILVER = 256;
 
-	public const COMBAT = 512;
+	public const FOOD = 512;
 
-	public const ALL = 1023;
+	public const COMBAT = 1024;
+
+	public const ALL = 2047;
 
 	private Party $party;
 
