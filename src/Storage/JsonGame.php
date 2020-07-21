@@ -43,6 +43,20 @@ abstract class JsonGame implements Game
 	}
 
 	/**
+	 * Get the report messages.
+	 *
+	 * @return array
+	 */
+	public function getMessages(): array {
+		$fileName = 'messages.json';
+		$path     = $this->storage . DIRECTORY_SEPARATOR . $fileName;
+		if (!is_file($path)) {
+			return [];
+		}
+		return $this->getData($fileName);
+	}
+
+	/**
 	 * Get the parties data.
 	 *
 	 * @return array
@@ -117,6 +131,16 @@ abstract class JsonGame implements Game
 			throw new ModelException('Sorting constructions failed.');
 		}
 		return $this->setData('constructions.json', array_values($constructions));
+	}
+
+	/**
+	 * Set the report messages.
+	 *
+	 * @param array $messages
+	 * @return Game
+	 */
+	public function setMessages(array $messages): Game {
+		return $this->setData('messages.json', $messages);
 	}
 
 	/**

@@ -2,13 +2,13 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Lemuria\Factory;
 
-use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\SingletonException;
 use Lemuria\Lemuria;
 use Lemuria\Model\Lemuria\Building;
 use Lemuria\Model\Lemuria\Building\Castle;
 use Lemuria\Model\Lemuria\Commodity;
 use Lemuria\Model\Lemuria\Landscape;
+use Lemuria\Model\Lemuria\MessageType;
 use Lemuria\Model\Lemuria\Race;
 use Lemuria\Model\Lemuria\Ship;
 use Lemuria\Model\Lemuria\Talent;
@@ -27,7 +27,7 @@ trait BuilderTrait
 		if ($building instanceof Building) {
 			return $building;
 		}
-		throw new LemuriaException($class . ' is not a building.');
+		throw new SingletonException($class, 'building');
 	}
 
 	/**
@@ -42,7 +42,7 @@ trait BuilderTrait
 		if ($commodity instanceof Castle) {
 			return $commodity;
 		}
-		throw new LemuriaException($class . ' is not a castle.');
+		throw new SingletonException($class, 'castle');
 	}
 
 	/**
@@ -57,7 +57,7 @@ trait BuilderTrait
 		if ($commodity instanceof Commodity) {
 			return $commodity;
 		}
-		throw new LemuriaException($class . ' is not a commodity.');
+		throw new SingletonException($class, 'commodity');
 	}
 
 	/**
@@ -72,7 +72,22 @@ trait BuilderTrait
 		if ($landscape instanceof Landscape) {
 			return $landscape;
 		}
-		throw new LemuriaException($class . ' is not a landscape.');
+		throw new SingletonException($class, 'landscape');
+	}
+
+	/**
+	 * Create a message type singleton.
+	 *
+	 * @param string $class
+	 * @return MessageType
+	 * @throws SingletonException
+	 */
+	protected static function createMessageType(string $class): MessageType {
+		$messageType = Lemuria::Builder()->create($class);
+		if ($messageType instanceof MessageType) {
+			return $messageType;
+		}
+		throw new SingletonException($class, 'message type');
 	}
 
 	/**
@@ -87,7 +102,7 @@ trait BuilderTrait
 		if ($race instanceof Race) {
 			return $race;
 		}
-		throw new LemuriaException($class . ' is not a race.');
+		throw new SingletonException($class, 'race');
 	}
 
 	/**
@@ -102,7 +117,7 @@ trait BuilderTrait
 		if ($ship instanceof Ship) {
 			return $ship;
 		}
-		throw new LemuriaException($class . ' is not a ship.');
+		throw new SingletonException($class, 'ship');
 	}
 
 	/**
@@ -117,6 +132,6 @@ trait BuilderTrait
 		if ($talent instanceof Talent) {
 			return $talent;
 		}
-		throw new LemuriaException($class . ' is not a talent.');
+		throw new SingletonException($class, 'talent');
 	}
 }
