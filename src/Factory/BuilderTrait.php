@@ -8,7 +8,6 @@ use Lemuria\Model\Lemuria\Building;
 use Lemuria\Model\Lemuria\Building\Castle;
 use Lemuria\Model\Lemuria\Commodity;
 use Lemuria\Model\Lemuria\Landscape;
-use Lemuria\Model\Lemuria\MessageType;
 use Lemuria\Model\Lemuria\Race;
 use Lemuria\Model\Lemuria\Ship;
 use Lemuria\Model\Lemuria\Talent;
@@ -73,21 +72,6 @@ trait BuilderTrait
 			return $landscape;
 		}
 		throw new SingletonException($class, 'landscape');
-	}
-
-	/**
-	 * Create a message type singleton.
-	 *
-	 * @param string $class
-	 * @return MessageType
-	 * @throws SingletonException
-	 */
-	protected static function createMessageType(string $class): MessageType {
-		$messageType = Lemuria::Builder()->create($class);
-		if ($messageType instanceof MessageType) {
-			return $messageType;
-		}
-		throw new SingletonException($class, 'message type');
 	}
 
 	/**
