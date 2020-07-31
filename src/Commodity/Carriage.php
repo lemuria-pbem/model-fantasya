@@ -28,9 +28,7 @@ final class Carriage implements Artifact, Commodity, Transport
 
 	private const WOOD = 5;
 
-	private Requirement $craft;
-
-	private Commodity $resource;
+	private ?Requirement $craft;
 
 	/**
 	 * Get the maximum weight of payload.

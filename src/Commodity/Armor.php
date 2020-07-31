@@ -25,8 +25,6 @@ final class Armor implements Artifact, Commodity
 
 	private Requirement $craft;
 
-	private Commodity $resource;
-
 	/**
 	 * Get the weight of a product.
 	 *
