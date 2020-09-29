@@ -9,7 +9,7 @@ use Lemuria\Model\Lemuria\Region;
 /**
  * A map represents the regions of the world as islands.
  */
-class Map implements \Countable
+class Map implements \Countable, \Iterator
 {
 	/**
 	 * @var Island[]
@@ -27,28 +27,58 @@ class Map implements \Countable
 	protected array $latitude = [];
 
 	/**
+	 * @var int
+	 */
+	private int $current = 0;
+
+	/**
+	 * @var int
+	 */
+	private int $count = 0;
+
+	/**
 	 * Get number of islands on the map.
 	 *
 	 * @return int
 	 */
 	public function count(): int {
-		return count($this->islands);
+		return $this->count;
 	}
 
-	/*
-	 * Find island that has a landmass at given coordinates.
-	 *
-	 * @param Coordinates $coordinates
+	/**
 	 * @return Island|null
-	 *
-	public function getIsland(Coordinates $coordinates): ?Island {
-		foreach ($this->findIslands($coordinates) as $island) {
-			if ($island->get($coordinates)) {
-				return $island;
-			}
-		}
-		return null;
-	}*/
+	 */
+	public function current(): ?Island {
+		return $this->islands[$this->current] ?? null;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function key(): int {
+		return $this->current;
+	}
+
+	/**
+	 * Iterate to next island.
+	 */
+	public function next(): void {
+		$this->current++;
+	}
+
+	/**
+	 * Reset iterator.
+	 */
+	public function rewind(): void {
+		$this->current = 0;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function valid(): bool {
+		return $this->current < $this->count;
+	}
 
 	/**
 	 * Find island that contains a region.
@@ -81,7 +111,7 @@ class Map implements \Countable
 		}
 
 		$island          = new Island($coordinates, $region);
-		$index           = count($this->islands);
+		$index           = ++$this->count;
 		$this->islands[] = $island;
 		if (!isset($this->longitude[$coordinates->X()])) {
 			$this->longitude[$coordinates->X()] = [];
@@ -118,7 +148,7 @@ class Map implements \Countable
 	protected function merge(): Map {
 		do {
 			$merged = null;
-			$last   = count($this->islands) - 1;
+			$last   = $this->count - 1;
 			$f      = 0;
 			while ($f < $last) {
 				$first = $this->islands[$f];
@@ -129,6 +159,7 @@ class Map implements \Countable
 						try {
 							$merged = $first->merge($second);
 							unset($this->islands[$s]);
+							$this->count--;
 							$this->islands = array_values($this->islands);
 							$this->updatePointers($f, $s);
 							break;

@@ -3,6 +3,7 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\World;
 
 use Lemuria\Exception\LemuriaException;
+use Lemuria\Id;
 use Lemuria\Model\Coordinates;
 use Lemuria\Model\Lemuria\Landscape\Ocean;
 use Lemuria\Model\Lemuria\Region;
@@ -16,6 +17,10 @@ use Lemuria\Model\World\MapCoordinates;
  */
 class Island
 {
+	private static int $nextId = 1;
+
+	private Id $id;
+
 	private Coordinates $origin;
 
 	/**
@@ -32,8 +37,16 @@ class Island
 	 * @param Region $region
 	 */
 	public function __construct(Coordinates $coordinates, Region $region) {
+		$this->id     = new Id(self::$nextId++);
 		$this->origin = $coordinates;
 		$this->map    = [[$region]];
+	}
+
+	/**
+	 * @return Id
+	 */
+	public function Id(): Id {
+		return $this->id;
 	}
 
 	/**
