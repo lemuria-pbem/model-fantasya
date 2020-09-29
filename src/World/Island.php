@@ -361,6 +361,22 @@ class Island
 	}
 
 	/**
+	 * @return Region[]
+	 */
+	public function getRegions(): array {
+		$regions = [];
+		for ($y = 0; $y < $this->height; $y++) {
+			for ($x = 0; $x < $this->width; $x++) {
+				$region = $this->map[$y][$x];
+				if ($region) {
+					$regions[] = $region;
+				}
+			}
+		}
+		return $regions;
+	}
+
+	/**
 	 * @return int
 	 */
 	protected function outerX(): int {
