@@ -2,6 +2,9 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
+
 use function Lemuria\getClass;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
@@ -45,9 +48,6 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 
 	private int $count = 0;
 
-	/**
-	 * @param Offer|null $offer
-	 */
 	public function __construct(?Offer $offer = null) {
 		$this->offer = $offer;
 		if ($offer) {
@@ -59,9 +59,8 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	 * Check if a luxury is in demand.
 	 *
 	 * @param Luxury|string $offset
-	 * @return bool
 	 */
-	public function offsetExists($offset): bool {
+	#[Pure] public function offsetExists(mixed $offset): bool {
 		$class = getClass($offset);
 		return isset($this->demand[$class]);
 	}
@@ -70,9 +69,8 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	 * Get a demand.
 	 *
 	 * @param Luxury|string $offset
-	 * @return Offer
 	 */
-	public function offsetGet($offset): Offer {
+	public function offsetGet(mixed $offset): Offer {
 		$class = getClass($offset);
 		if (!isset($this->demand[$class])) {
 			throw new LemuriaException('Demand ' . $class . ' does not exist.');
@@ -86,7 +84,7 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	 * @param Luxury|string $offset
 	 * @param Offer|int $value
 	 */
-	public function offsetSet($offset, $value): void {
+	public function offsetSet(mixed $offset, mixed $value): void {
 		$class = getClass($offset);
 		if (!isset($this->demand[$class])) {
 			throw new LemuriaException('Demand ' . $class . ' does not exist.');
@@ -104,7 +102,7 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	 *
 	 * @param Luxury|string $offset
 	 */
-	public function offsetUnset($offset): void {
+	public function offsetUnset(mixed $offset): void {
 		$class = getClass($offset);
 		if (!isset($this->demand[$class])) {
 			throw new LemuriaException('Demand ' . $class . ' does not exist.');
@@ -118,61 +116,36 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 
 	/**
 	 * Get number of demand luxuries.
-	 *
-	 * @return int
 	 */
-	public function count(): int {
+	#[Pure] public function count(): int {
 		return count($this->demand);
 	}
 
-	/**
-	 * Get current demand.
-	 *
-	 * @return Offer|null
-	 */
-	public function current(): ?Offer {
+	#[Pure]	public function current(): ?Offer {
 		$key = $this->key();
 		return $this->demand[$key] ?? null;
 	}
 
-	/**
-	 * Get the key.
-	 *
-	 * @return string|null
-	 */
-	public function key(): ?string {
+	#[Pure] public function key(): ?string {
 		return $this->indices[$this->index] ?? null;
 	}
 
-	/**
-	 * Set next iterator.
-	 */
 	public function next(): void {
 		$this->index++;
 	}
 
-	/**
-	 * Reset iterator.
-	 */
 	public function rewind(): void {
 		$this->index = 0;
 	}
 
-	/**
-	 * Check if iterator is valid.
-	 *
-	 * @return bool
-	 */
-	public function valid(): bool {
+	#[Pure] public function valid(): bool {
 		return $this->index < $this->count;
 	}
 
 	/**
 	 * Get a plain data array of the model's data.
-	 *
-	 * @return array
 	 */
-	public function serialize(): array {
+	#[ArrayShape(['offer' => "string", 'demand' => "array"])] public function serialize(): array {
 		$offer  = getClass($this->Offer()->Commodity());
 		$demand = [];
 		foreach ($this->demand as $class => $item/* @var Offer $item */) {
@@ -183,9 +156,6 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 
 	/**
 	 * Restore the model's data from serialized data.
-	 *
-	 * @param array $data
-	 * @return Serializable
 	 */
 	public function unserialize(array $data): Serializable {
 		$class  = $data['offer'];
@@ -213,11 +183,6 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 		return $this;
 	}
 
-	/**
-	 * Get the offer.
-	 *
-	 * @return Offer
-	 */
 	public function Offer(): Offer {
 		if (!$this->offer) {
 			throw new LemuriaException('Offer has not been initialized.');
@@ -228,9 +193,9 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array (string=>mixed) &$data
+	 * @param array (string=>mixed) $data
 	 */
-	protected function validateSerializedData(&$data): void {
+	protected function validateSerializedData(array &$data): void {
 		$this->validate($data, 'offer', 'string');
 		$this->validate($data, 'demand', 'array');
 		foreach ($data as $class => $price) {

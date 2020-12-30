@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Singleton;
 
 /**
@@ -11,8 +13,6 @@ interface Landscape extends Singleton
 {
 	/**
 	 * Get the number of workplaces available for peasants.
-	 *
-	 * @return int
 	 */
-	public function Workplaces(): int;
+	#[Pure] public function Workplaces(): int;
 }

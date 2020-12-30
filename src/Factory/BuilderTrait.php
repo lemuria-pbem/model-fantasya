@@ -17,8 +17,6 @@ trait BuilderTrait
 	/**
 	 * Create a building singleton.
 	 *
-	 * @param string $class
-	 * @return Building
 	 * @throws SingletonException
 	 */
 	protected static function createBuilding(string $class): Building {
@@ -32,8 +30,6 @@ trait BuilderTrait
 	/**
 	 * Create a commodity singleton.
 	 *
-	 * @param string $class
-	 * @return Castle
 	 * @throws SingletonException
 	 */
 	protected static function createCastle(string $class): Castle {
@@ -47,8 +43,6 @@ trait BuilderTrait
 	/**
 	 * Create a commodity singleton.
 	 *
-	 * @param string $class
-	 * @return Commodity
 	 * @throws SingletonException
 	 */
 	protected static function createCommodity(string $class): Commodity {
@@ -62,8 +56,6 @@ trait BuilderTrait
 	/**
 	 * Create a landscape singleton.
 	 *
-	 * @param string $class
-	 * @return Landscape
 	 * @throws SingletonException
 	 */
 	protected static function createLandscape(string $class): Landscape {
@@ -77,8 +69,6 @@ trait BuilderTrait
 	/**
 	 * Create a race singleton.
 	 *
-	 * @param string $class
-	 * @return Race
 	 * @throws SingletonException
 	 */
 	protected static function createRace(string $class): Race {
@@ -92,8 +82,6 @@ trait BuilderTrait
 	/**
 	 * Create a ship singleton.
 	 *
-	 * @param string $class
-	 * @return Ship
 	 * @throws SingletonException
 	 */
 	protected static function createShip(string $class): Ship {
@@ -107,8 +95,6 @@ trait BuilderTrait
 	/**
 	 * Create a talent singleton.
 	 *
-	 * @param string $class
-	 * @return Talent
 	 * @throws SingletonException
 	 */
 	protected static function createTalent(string $class): Talent {

@@ -2,11 +2,13 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
+
 use function Lemuria\getClass;
 use Lemuria\Collector;
 use Lemuria\CollectorTrait;
 use Lemuria\Entity;
-use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Lemuria;
 use Lemuria\Model\Catalog;
@@ -38,8 +40,6 @@ class Region extends Entity implements Collector, Location
 	/**
 	 * Get a Region.
 	 *
-	 * @param Id $id
-	 * @return Region
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): Region {
@@ -51,7 +51,7 @@ class Region extends Entity implements Collector, Location
 	/**
 	 * Create an empty region.
 	 */
-	public function __construct() {
+	#[Pure] public function __construct() {
 		$this->resources = new Resources();
 		$this->estate    = new Estate($this);
 		$this->fleet     = new Fleet($this);
@@ -60,9 +60,12 @@ class Region extends Entity implements Collector, Location
 
 	/**
 	 * Get a plain data array of the model's data.
-	 *
-	 * @return array
 	 */
+	#[ArrayShape([
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'luxuries' => 'array|null',
+		'residents' => 'int[]', 'fleet' => 'int[]', 'estate' => 'int[]', 'resources' => 'array',
+		'landscape' => 'string'
+	])]
 	public function serialize(): array {
 		$data              = parent::serialize();
 		$data['landscape'] = getClass($this->Landscape());
@@ -76,9 +79,6 @@ class Region extends Entity implements Collector, Location
 
 	/**
 	 * Restore the model's data from serialized data.
-	 *
-	 * @param array $data
-	 * @return Serializable
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
@@ -97,18 +97,14 @@ class Region extends Entity implements Collector, Location
 
 	/**
 	 * Get the catalog namespace.
-	 *
-	 * @return int
 	 */
-	public function Catalog(): int {
+	#[Pure] public function Catalog(): int {
 		return Catalog::LOCATIONS;
 	}
 
 	/**
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
-	 *
-	 * @return Collector
 	 */
 	public function collectAll(): Collector {
 		$this->Residents()->addCollectorsToAll();
@@ -117,78 +113,35 @@ class Region extends Entity implements Collector, Location
 		return $this;
 	}
 
-	/**
-	 * Get the landscape.
-	 *
-	 * @return Landscape
-	 */
-	public function Landscape(): Landscape {
+	#[Pure] public function Landscape(): Landscape {
 		return $this->landscape;
 	}
 
-	/**
-	 * Get the estate.
-	 *
-	 * @return Estate
-	 */
-	public function Estate(): Estate {
+	#[Pure] public function Estate(): Estate {
 		return $this->estate;
 	}
 
-	/**
-	 * Get the fleet.
-	 *
-	 * @return Fleet
-	 */
-	public function Fleet(): Fleet {
+	#[Pure] public function Fleet(): Fleet {
 		return $this->fleet;
 	}
 
-	/**
-	 * Get the resources.
-	 *
-	 * @return Resources
-	 */
-	public function Resources(): Resources {
+	#[Pure] public function Resources(): Resources {
 		return $this->resources;
 	}
 
-	/**
-	 * Get the residents.
-	 *
-	 * @return People
-	 */
-	public function Residents(): People {
+	#[Pure] public function Residents(): People {
 		return $this->residents;
 	}
 
-	/**
-	 * Get the luxuries.
-	 *
-	 * @return Luxuries|null
-	 */
-	public function Luxuries(): ?Luxuries {
+	#[Pure] public function Luxuries(): ?Luxuries {
 		return $this->luxuries;
 	}
 
-	/**
-	 * Set the landscape.
-	 *
-	 * @param Landscape $landscape
-	 * @return Region
-	 */
 	public function setLandscape(Landscape $landscape): Region {
 		$this->landscape = $landscape;
 		return $this;
 	}
 
-	/**
-	 * Set the luxuries.
-	 *
-	 * @param Luxuries $luxuries
-	 * @return Region
-	 * @throws LemuriaException
-	 */
 	public function setLuxuries(?Luxuries $luxuries): Region {
 		$this->luxuries = $luxuries;
 		return $this;
@@ -197,9 +150,9 @@ class Region extends Entity implements Collector, Location
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array (string=>mixed) &$data
+	 * @param array (string=>mixed) $data
 	 */
-	protected function validateSerializedData(&$data): void {
+	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);
 		$this->validate($data, 'landscape', 'string');
 		$this->validate($data, 'resources', 'array');

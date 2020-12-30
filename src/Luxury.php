@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\Pure;
+
 /**
  * Luxuries are special commodities that are produced by peasants only.
  */
@@ -9,8 +11,6 @@ interface Luxury extends Commodity
 {
 	/**
 	 * Get the value of one item.
-	 *
-	 * @return int
 	 */
-	public function Value(): int;
+	#[Pure] public function Value(): int;
 }

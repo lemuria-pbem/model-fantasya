@@ -11,12 +11,6 @@ use Lemuria\Id;
  */
 class Estate extends EntitySet
 {
-	/**
-	 * Add a construction.
-	 *
-	 * @param Construction $construction
-	 * @return Estate
-	 */
 	public function add(Construction $construction): self {
 		parent::addEntity($construction->Id());
 		if ($this->hasCollector()) {
@@ -25,23 +19,11 @@ class Estate extends EntitySet
 		return $this;
 	}
 
-	/**
-	 * Remove a construction.
-	 *
-	 * @param Construction $construction
-	 * @return Estate
-	 */
 	public function remove(Construction $construction): self {
 		parent::removeEntity($construction->Id());
 		return $this;
 	}
 
-	/**
-	 * Get an Entity by ID.
-	 *
-	 * @param Id $id
-	 * @return Entity
-	 */
 	protected function get(Id $id): Entity {
 		return Construction::get($id);
 	}

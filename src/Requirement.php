@@ -7,12 +7,6 @@ namespace Lemuria\Model\Lemuria;
  */
 class Requirement extends Ability
 {
-	/**
-	 * Create a requirement.
-	 *
-	 * @param Talent $talent
-	 * @param int $level
-	 */
 	public function __construct(Talent $talent, int $level = 1) {
 		$experience = Ability::getExperience($level);
 		parent::__construct($talent, $experience);

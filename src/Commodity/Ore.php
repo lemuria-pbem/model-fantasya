@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Commodity;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Lemuria\Commodity;
 use Lemuria\Model\Lemuria\RawMaterial;
 use Lemuria\Model\Lemuria\RawMaterialTrait;
@@ -20,12 +22,7 @@ final class Ore implements Commodity, RawMaterial
 
 	private string $requirement = Mining::class;
 
-	/**
-	 * Get the weight of a peasant.
-	 *
-	 * @return int
-	 */
-	public function Weight(): int {
+	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
 }

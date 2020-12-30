@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Ship;
 
+use JetBrains\PhpStorm\Pure;
+
 /**
  * A longboat.
  */
@@ -17,48 +19,23 @@ final class Longboat extends AbstractShip
 
 	private const WOOD = 50;
 
-	/**
-	 * Get the minimum total sailing ability to sail the ship.
-	 *
-	 * @return int
-	 */
-	public function Captain(): int {
+	#[Pure] public function Captain(): int {
 		return self::CAPTAIN;
 	}
 
-	/**
-	 * Get the minimum total sailing ability to sail the ship.
-	 *
-	 * @return int
-	 */
-	public function Crew(): int {
+	#[Pure] public function Crew(): int {
 		return self::CREW;
 	}
 
-	/**
-	 * Get the maximum weight of payload.
-	 *
-	 * @return int
-	 */
-	public function Payload(): int {
+	#[Pure] public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	/**
-	 * Get the speed when transporting.
-	 *
-	 * @return int
-	 */
-	public function Speed(): int {
+	#[Pure] public function Speed(): int {
 		return self::SPEED;
 	}
 
-	/**
-	 * Get the amount of wood.
-	 *
-	 * @return int
-	 */
-	protected function wood(): int {
+	#[Pure] protected function wood(): int {
 		return self::WOOD;
 	}
 }

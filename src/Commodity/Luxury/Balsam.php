@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Commodity\Luxury;
 
+use JetBrains\PhpStorm\Pure;
+
 /**
  * A small barrel of balsam.
  */
@@ -9,12 +11,7 @@ final class Balsam extends AbstractLuxury
 {
 	private const VALUE = 4;
 
-	/**
-	 * Get the value of one item.
-	 *
-	 * @return int
-	 */
-	public function Value(): int {
+	#[Pure] public function Value(): int {
 		return self::VALUE;
 	}
 }

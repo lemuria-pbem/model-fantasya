@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Commodity\Luxury;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Lemuria\Luxury;
 use Lemuria\SingletonTrait;
 
@@ -14,12 +16,7 @@ abstract class AbstractLuxury implements Luxury
 
 	private const WEIGHT = 1 * 100;
 
-	/**
-	 * Get the weight of a peasant.
-	 *
-	 * @return int
-	 */
-	public function Weight(): int {
+	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
 }

@@ -2,6 +2,9 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
+
 use function Lemuria\getClass;
 use Lemuria\Collector;
 use Lemuria\CollectorTrait;
@@ -34,8 +37,6 @@ class Party extends Entity implements Collector
 	/**
 	 * Get a Party.
 	 *
-	 * @param Id $id
-	 * @return Party
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): self {
@@ -47,7 +48,7 @@ class Party extends Entity implements Collector
 	/**
 	 * Create an empty party.
 	 */
-	public function __construct() {
+	#[Pure] public function __construct() {
 		$this->people    = new People($this);
 		$this->diplomacy = new Diplomacy($this);
 	}
@@ -57,6 +58,10 @@ class Party extends Entity implements Collector
 	 *
 	 * @return array
 	 */
+	#[ArrayShape([
+		'id' => "int", 'name' => "string", 'description' => "string", 'people' => "int[]", 'diplomacy' => "array",
+		'race' => "string", 'origin' => "int"
+	])]
 	public function serialize(): array {
 		$data              = parent::serialize();
 		$data['origin']    = $this->origin->Id();
@@ -68,9 +73,6 @@ class Party extends Entity implements Collector
 
 	/**
 	 * Restore the model's data from serialized data.
-	 *
-	 * @param array $data
-	 * @return Serializable
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
@@ -83,18 +85,14 @@ class Party extends Entity implements Collector
 
 	/**
 	 * Get the catalog namespace.
-	 *
-	 * @return int
 	 */
-	public function Catalog(): int {
+	#[Pure] public function Catalog(): int {
 		return Catalog::PARTIES;
 	}
 
 	/**
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
-	 *
-	 * @return Collector
 	 */
 	public function collectAll(): Collector {
 		$this->People()->addCollectorsToAll();
@@ -103,8 +101,6 @@ class Party extends Entity implements Collector
 
 	/**
 	 * Get the region in Lemuria where the party came into play.
-	 *
-	 * @return Region
 	 */
 	public function Origin(): Region {
 		return Region::get($this->origin);
@@ -112,26 +108,20 @@ class Party extends Entity implements Collector
 
 	/**
 	 * Get the party's race.
-	 *
-	 * @return Race
 	 */
-	public function Race(): Race {
+	#[Pure] public function Race(): Race {
 		return $this->race;
 	}
 
 	/**
 	 * Get all units.
-	 *
-	 * @return People
 	 */
-	public function People(): People {
+	#[Pure] public function People(): People {
 		return $this->people;
 	}
 
 	/**
 	 * Get all diplomatic relations.
-	 *
-	 * @return Diplomacy
 	 */
 	public function Diplomacy(): Diplomacy {
 		if (is_array($this->serializedDiplomacy)) {
@@ -143,22 +133,16 @@ class Party extends Entity implements Collector
 
 	/**
 	 * Set the region in Lemuria where the party came into play.
-	 *
-	 * @param Region $origin
-	 * @return Party
 	 */
-	public function setOrigin(Region $origin): self {
+	public function setOrigin(Region $origin): Party {
 		$this->origin = $origin->Id();
 		return $this;
 	}
 
 	/**
 	 * Set the party's race.
-	 *
-	 * @param Race $race
-	 * @return Party
 	 */
-	public function setRace(Race $race): self {
+	public function setRace(Race $race): Party {
 		$this->race = $race;
 		return $this;
 	}
@@ -166,9 +150,9 @@ class Party extends Entity implements Collector
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array(string=>mixed) &$data
+	 * @param array(string=>mixed) $data
 	 */
-	protected function validateSerializedData(&$data): void {
+	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);
 		$this->validate($data, 'origin', 'int');
 		$this->validate($data, 'race', 'string');

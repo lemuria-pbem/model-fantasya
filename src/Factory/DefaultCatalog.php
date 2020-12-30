@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Factory;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Identifiable;
@@ -30,14 +32,8 @@ class DefaultCatalog implements Catalog
 	 */
 	private array $nextId = [];
 
-	/**
-	 * @var bool
-	 */
 	private bool $isLoaded = false;
 
-	/**
-	 * Init the catalog.
-	 */
 	public function __construct() {
 		try {
 			$reflection = new \ReflectionClass(Catalog::class);
@@ -55,10 +51,6 @@ class DefaultCatalog implements Catalog
 
 	/**
 	 * Checks if an entity exists in the specified catalog namespace.
-	 *
-	 * @param Id $id
-	 * @param int $namespace
-	 * @return bool
 	 */
 	public function has(Id $id, int $namespace): bool {
 		$this->checkNamespace($namespace);
@@ -67,19 +59,14 @@ class DefaultCatalog implements Catalog
 
 	/**
 	 * Check if game data has been loaded.
-	 *
-	 * @return bool
 	 */
-	public function isLoaded(): bool {
+	#[Pure] public function isLoaded(): bool {
 		return $this->isLoaded;
 	}
 
 	/**
 	 * Get the specified entity.
 	 *
-	 * @param Id $id
-	 * @param int $namespace
-	 * @return Identifiable
 	 * @throws NotRegisteredException
 	 */
 	public function get(Id $id, int $namespace): Identifiable {
@@ -93,9 +80,6 @@ class DefaultCatalog implements Catalog
 
 	/**
 	 * Get all entities of a namespace.
-	 *
-	 * @param int $namespace
-	 * @return array
 	 */
 	public function getAll(int $namespace): array {
 		$this->checkNamespace($namespace);
@@ -104,8 +88,6 @@ class DefaultCatalog implements Catalog
 
 	/**
 	 * Load game data into catalog.
-	 *
-	 * @return Catalog
 	 */
 	public function load(): Catalog {
 		if (!$this->isLoaded) {
@@ -138,8 +120,6 @@ class DefaultCatalog implements Catalog
 
 	/**
 	 * Save game data from catalog.
-	 *
-	 * @return Catalog
 	 */
 	public function save(): Catalog {
 		$entities = [];
@@ -173,8 +153,6 @@ class DefaultCatalog implements Catalog
 	/**
 	 * Register an entity.
 	 *
-	 * @param Identifiable $identifiable
-	 * @return Catalog
 	 * @throws DuplicateIdException
 	 */
 	public function register(Identifiable $identifiable): Catalog {
@@ -195,8 +173,6 @@ class DefaultCatalog implements Catalog
 	/**
 	 * Remove an entity.
 	 *
-	 * @param Identifiable $identifiable
-	 * @return Catalog
 	 * @throws NotRegisteredException
 	 */
 	public function remove(Identifiable $identifiable): Catalog {
@@ -213,9 +189,6 @@ class DefaultCatalog implements Catalog
 
 	/**
 	 * Reserve the next ID that is available for a namespace.
-	 *
-	 * @param int $namespace
-	 * @return Id
 	 */
 	public function nextId(int $namespace): Id {
 		$id = new Id($this->nextId[$namespace]);
@@ -226,7 +199,6 @@ class DefaultCatalog implements Catalog
 	/**
 	 * Check if namespace is valid.
 	 *
-	 * @param int $namespace
 	 * @throws LemuriaException
 	 */
 	private function checkNamespace(int $namespace): void {
@@ -238,8 +210,6 @@ class DefaultCatalog implements Catalog
 
 	/**
 	 * Search for next available ID of given namespace.
-	 *
-	 * @param int $namespace
 	 */
 	private function searchNextId(int $namespace): void {
 		$id = $this->nextId[$namespace];

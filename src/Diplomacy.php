@@ -2,6 +2,10 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\ExpectedValues;
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Id;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
@@ -12,8 +16,6 @@ use Lemuria\SerializableTrait;
 final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializable
 {
 	use SerializableTrait;
-
-	private Party $party;
 
 	/**
 	 * @var array(string=>Relation)
@@ -41,20 +43,18 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	/**
 	 * Create the diplomacy of given party.
-	 *
-	 * @param Party $party
 	 */
-	public function __construct(Party $party) {
-		$this->party = $party;
+	#[Pure]
+	public function __construct(private Party $party) {
 	}
 
 	/**
 	 * Check if a relation is set.
 	 *
 	 * @param Relation|string $relation
-	 * @return bool
+	 * @noinspection PhpParameterNameChangedDuringInheritanceInspection
 	 */
-	public function offsetExists($relation): bool {
+	public function offsetExists(mixed $relation): bool {
 		$id = $this->getId($relation);
 		return isset($this->relations[$id]);
 	}
@@ -63,10 +63,10 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 * Get a relation.
 	 *
 	 * @param Relation|string $relation
-	 * @return Relation|null
 	 * @throws \InvalidArgumentException
+	 * @noinspection PhpParameterNameChangedDuringInheritanceInspection
 	 */
-	public function offsetGet($relation): ?Relation {
+	public function offsetGet(mixed $relation): ?Relation {
 		$id = $this->getId($relation);
 		return $this->relations[$id] ?? null;
 	}
@@ -77,7 +77,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 * @param Relation|string $offset
 	 * @param Relation $value
 	 */
-	public function offsetSet($offset, $value): void {
+	public function offsetSet(mixed $offset, mixed $value): void {
 		$this->add($value);
 	}
 
@@ -85,8 +85,9 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 * Remove a relation.
 	 *
 	 * @param Relation|string $relation
+	 * @noinspection PhpParameterNameChangedDuringInheritanceInspection
 	 */
-	public function offsetUnset($relation) {
+	public function offsetUnset(mixed $relation) {
 		$id = $this->getId($relation);
 		if (isset($this->relations[$id])) {
 			unset($this->relations[$id]);
@@ -95,63 +96,42 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	/**
 	 * Get number of relations.
-	 *
-	 * @return int
 	 */
-	public function count(): int {
+	#[Pure] public function count(): int {
 		return $this->count;
 	}
 
-	/**
-	 * Get current iterator.
-	 *
-	 * @return Relation|null
-	 */
-	public function current(): ?Relation {
+	#[Pure] public function current(): ?Relation {
 		$id = $this->key();
 		return $id ? $this->relations[$id] : null;
 	}
 
-	/**
-	 * Get current key.
-	 *
-	 * @return string|null
-	 */
-	public function key(): ?string {
+	#[Pure]	public function key(): ?string {
 		if ($this->valid()) {
 			return $this->indices[$this->index];
 		}
 		return null;
 	}
 
-	/**
-	 * Get next iterator.
-	 */
 	public function next(): void {
 		$this->index++;
 	}
 
-	/**
-	 * Reset iterator.
-	 */
 	public function rewind(): void {
 		$this->index = 0;
 	}
 
-	/**
-	 * Check if iterator is valid.
-	 *
-	 * @return bool
-	 */
-	public function valid(): bool {
+	#[Pure]	public function valid(): bool {
 		return $this->index < $this->count;
 	}
 
 	/**
 	 * Get a plain data array of the model's data.
 	 *
-	 * @return array
+	 * @noinspection PhpPureFunctionMayProduceSideEffectsInspection
 	 */
+	#[ArrayShape(['acquaintances' => 'array', 'relations' => 'array'])]
+	#[Pure]
 	public function serialize(): array {
 		$data      = ['acquaintances' => array_keys($this->acquaintances)];
 		$relations = [];
@@ -168,9 +148,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	/**
 	 * Restore the model's data from serialized data.
-	 *
-	 * @param array $data
-	 * @return Serializable
 	 */
 	public function unserialize(array $data): Serializable {
 		if (!empty($this->acquaintances)) {
@@ -199,12 +176,8 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	/**
 	 * Check if there is a specific agreement with a unit or the party of a unit.
-	 *
-	 * @param int $agreement
-	 * @param Unit $unit
-	 * @return bool
 	 */
-	public function has(int $agreement, Unit $unit): bool {
+	public function has(#[ExpectedValues(valuesFromClass: Relation::class)] int $agreement, Unit $unit): bool {
 		// Check contacts first.
 		if (isset($this->contacts[$unit->Id()->Id()])) {
 			if (Relation::isContactAgreement($agreement)) {
@@ -241,20 +214,15 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	/**
 	 * Check if given party is an acquaintance.
-	 *
-	 * @param Party $party
-	 * @return bool
 	 */
-	public function isKnown(Party $party): bool {
+	#[Pure] public function isKnown(Party $party): bool {
 		return isset($this->acquaintances[$party->Id()->Id()]);
 	}
 
 	/**
 	 * Add a relation.
-	 * If a relation for the same party and region exists, it will be replaced.
 	 *
-	 * @param Relation $relation
-	 * @return Diplomacy
+	 * If a relation for the same party and region exists, it will be replaced.
 	 */
 	public function add(Relation $relation): Diplomacy {
 		$id = (string)$relation;
@@ -274,9 +242,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	/**
 	 * Remove a relation.
-	 *
-	 * @param Relation $relation
-	 * @return Diplomacy
 	 */
 	public function remove(Relation $relation): Diplomacy {
 		$id = (string)$relation;
@@ -290,8 +255,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	/**
 	 * Clear all relations.
-	 *
-	 * @return Diplomacy
 	 */
 	public function clear(): Diplomacy {
 		$this->relations = [];
@@ -303,9 +266,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	/**
 	 * Add a temporary contact relation to a unit.
-	 *
-	 * @param Unit $unit
-	 * @return Diplomacy
 	 */
 	public function contact(Unit $unit): Diplomacy {
 		$this->contacts[$unit->Id()->Id()] = $unit;
@@ -315,9 +275,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	/**
 	 * Add a known party.
-	 *
-	 * @param Party $party
-	 * @return Diplomacy
 	 */
 	public function knows(Party $party): Diplomacy {
 		if ($party !== $this->party) {
@@ -333,8 +290,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Get a relation ID.
 	 *
-	 * @param $relation
-	 * @return string
 	 * @throws \InvalidArgumentException
 	 */
 	private function getId($relation): string {
@@ -350,9 +305,9 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array (string=>mixed) &$data
+	 * @param array (string=>mixed) $data
 	 */
-	protected function validateSerializedData(&$data): void {
+	protected function validateSerializedData(array &$data): void {
 		$this->validate($data, 'acquaintances', 'array');
 		$this->validate($data, 'relations', 'array');
 	}
@@ -360,9 +315,9 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Check that serialized relation is valid.
 	 *
-	 * @param array(string=>mixed) &$data
+	 * @param array(string=>mixed) $data
 	 */
-	protected function validateSerializedRelation(&$data): void {
+	protected function validateSerializedRelation(array &$data): void {
 		$this->validate($data, 'party', 'int');
 		$this->validate($data, 'region', '?int');
 		$this->validate($data, 'agreement', 'int');

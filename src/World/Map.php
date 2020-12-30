@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\World;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Coordinates;
 use Lemuria\Model\Lemuria\Region;
@@ -26,67 +28,41 @@ class Map implements \Countable, \Iterator
 	 */
 	protected array $latitude = [];
 
-	/**
-	 * @var int
-	 */
 	private int $current = 0;
 
-	/**
-	 * @var int
-	 */
 	private int $count = 0;
 
 	/**
 	 * Get number of islands on the map.
-	 *
-	 * @return int
 	 */
 	public function count(): int {
 		return $this->count;
 	}
 
-	/**
-	 * @return Island|null
-	 */
-	public function current(): ?Island {
+	#[Pure] public function current(): ?Island {
 		return $this->islands[$this->current] ?? null;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function key(): int {
+	#[Pure] public function key(): int {
 		return $this->current;
 	}
 
-	/**
-	 * Iterate to next island.
-	 */
 	public function next(): void {
 		$this->current++;
 	}
 
-	/**
-	 * Reset iterator.
-	 */
 	public function rewind(): void {
 		$this->current = 0;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function valid(): bool {
+	#[Pure] public function valid(): bool {
 		return $this->current < $this->count;
 	}
 
 	/**
 	 * Find island that contains a region.
-	 *
-	 * @param Region $region
-	 * @return Island|null
 	 */
-	public function search(Region $region): ?Island {
+	#[Pure] public function search(Region $region): ?Island {
 		foreach ($this->islands as $island) {
 			if ($island->contains($region)) {
 				return $island;
@@ -96,9 +72,6 @@ class Map implements \Countable, \Iterator
 	}
 
 	/**
-	 * @param Coordinates $coordinates
-	 * @param Region $region
-	 * @return Island
 	 * @throws LemuriaException
 	 */
 	public function add(Coordinates $coordinates, Region $region): Island {
@@ -125,10 +98,9 @@ class Map implements \Countable, \Iterator
 	}
 
 	/**
-	 * @param Coordinates $coordinates
 	 * @return Island[]
 	 */
-	protected function findIslands(Coordinates $coordinates): array {
+	#[Pure] protected function findIslands(Coordinates $coordinates): array {
 		$longitude = $this->longitude[$coordinates->X()] ?? [];
 		$latitude  = $this->latitude[$coordinates->Y()] ?? [];
 		$islands   = [];
@@ -142,9 +114,6 @@ class Map implements \Countable, \Iterator
 		return $islands;
 	}
 
-	/**
-	 * @return Map
-	 */
 	protected function merge(): Map {
 		do {
 			$merged = null;
@@ -177,10 +146,6 @@ class Map implements \Countable, \Iterator
 		return $this;
 	}
 
-	/**
-	 * @param int $first
-	 * @param int $second
-	 */
 	protected function updatePointers(int $first, int $second): void {
 		foreach (array_keys($this->longitude) as $w) {
 			$pointers = $this->longitude[$w];

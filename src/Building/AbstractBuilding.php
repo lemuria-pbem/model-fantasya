@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Building;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Lemuria\Building;
 use Lemuria\Model\Lemuria\ArtifactTrait;
 use Lemuria\Model\Lemuria\Factory\BuilderTrait;
@@ -20,8 +22,6 @@ abstract class AbstractBuilding implements Building
 
 	/**
 	 * Get the needed craft to create this artifact.
-	 *
-	 * @return Requirement
 	 */
 	public function getCraft(): Requirement {
 		if (!$this->craft) {
@@ -33,8 +33,6 @@ abstract class AbstractBuilding implements Building
 
 	/**
 	 * Get the minimum skill in Construction to build this building.
-	 *
-	 * @return int
 	 */
-	abstract protected function constructionLevel(): int;
+	#[Pure] abstract protected function constructionLevel(): int;
 }

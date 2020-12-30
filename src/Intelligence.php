@@ -2,29 +2,18 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\Pure;
+
 /**
  * Helper class for region information.
  */
 final class Intelligence
 {
-	/**
-	 * @var Region
-	 */
-	private Region $region;
-
-	/**
-	 * Create new intelligence.
-	 *
-	 * @param Region $region
-	 */
-	public function __construct(Region $region) {
-		$this->region = $region;
+	#[Pure]	public function __construct(private Region $region) {
 	}
 
 	/**
 	 * Get the guards of the region.
-	 *
-	 * @return People
 	 */
 	public function getGuards(): People {
 		$guards = new People();

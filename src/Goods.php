@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Item;
 use Lemuria\ItemSet;
 use Lemuria\Model\Lemuria\Factory\BuilderTrait;
@@ -15,9 +17,6 @@ class Goods extends ItemSet
 
 	/**
 	 * Add a quantity of a product.
-	 *
-	 * @param Quantity $quantity
-	 * @return Goods
 	 */
 	public function add(Quantity $quantity): Goods {
 		$this->addItem($quantity);
@@ -27,9 +26,6 @@ class Goods extends ItemSet
 
 	/**
 	 * Remove a quantity of a product.
-	 *
-	 * @param Quantity $quantity
-	 * @return Goods
 	 */
 	public function remove(Quantity $quantity): Goods {
 		$this->removeItem($quantity);
@@ -39,10 +35,6 @@ class Goods extends ItemSet
 
 	/**
 	 * Create an Item from unserialized data.
-	 *
-	 * @param string $class
-	 * @param int $count
-	 * @return Item
 	 */
 	protected function createItem(string $class, int $count): Item {
 		return new Quantity(self::createCommodity($class), $count);
@@ -50,11 +42,8 @@ class Goods extends ItemSet
 
 	/**
 	 * Check if an item is valid for this set.
-	 *
-	 * @param Item $item
-	 * @return bool
 	 */
-	protected function isValidItem($item): bool {
+	#[Pure] protected function isValidItem(Item $item): bool {
 		return $item instanceof Quantity;
 	}
 }

@@ -31,7 +31,6 @@ class IslandTest extends Test
 
 	/**
 	 * @test
-	 * @return Island
 	 */
 	public function construct(): Island {
 		$island = new Island(self::$origin, self::$region);
@@ -44,7 +43,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function origin(Island $island): void {
 		$this->assertSame(self::$origin, $island->Origin());
@@ -53,7 +51,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function width(Island $island): void {
 		$this->assertSame(1, $island->Width());
@@ -62,7 +59,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function height(Island $island): void {
 		$this->assertSame(1, $island->Height());
@@ -71,7 +67,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function size(Island $island): void {
 		$this->assertSame(1, $island->Size());
@@ -80,7 +75,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function isMapped(Island $island): void {
 		$this->assertTrue($island->isMapped(self::$origin));
@@ -97,7 +91,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function containsNoOtherRegion(Island $island): void {
 		$this->assertFalse($island->contains(new Region()));
@@ -106,7 +99,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function containsRegion(Island $island): void {
 		$this->assertTrue($island->contains(self::$region));
@@ -115,7 +107,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function get(Island $island): void {
 		$this->assertSame(self::$region, $island->get(self::$origin));
@@ -124,7 +115,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function getUnmappedCoordinates(Island $island): void {
 		$this->assertNull($island->get(self::createLocation(1, 0)));
@@ -217,7 +207,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function addSame(Island $island): void {
 		$this->assertSame($island, $island->add(self::$origin, self::$region));
@@ -227,7 +216,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function addThrowsExceptionIfOtherAdded(Island $island): void {
 		$region = new Region();
@@ -239,7 +227,6 @@ class IslandTest extends Test
 	/**
 	 * @test
 	 * @depends construct
-	 * @param Island $island
 	 */
 	public function addThrowsExceptionForOceans(Island $island): void {
 		$region = new Region();
@@ -464,11 +451,6 @@ class IslandTest extends Test
 		$island->add(self::createLocation(-1, 1), self::$secondRegion);
 	}
 
-	/**
-	 * @param int $xOffset
-	 * @param int $yOffset
-	 * @return MapCoordinates
-	 */
 	protected static function createLocation(int $xOffset, int $yOffset): MapCoordinates {
 		return new MapCoordinates(self::$origin->X() + $xOffset, self::$origin->Y() + $yOffset);
 	}

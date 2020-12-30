@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Party;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Lemuria\Exception\CensusException;
 use Lemuria\Model\Lemuria\Party;
 use Lemuria\Model\Lemuria\People;
@@ -14,8 +16,6 @@ use Lemuria\Model\World\Atlas;
  */
 class Census
 {
-	private Party $party;
-
 	private Atlas $atlas;
 
 	/**
@@ -25,10 +25,8 @@ class Census
 
 	/**
 	 * Create a Census for a Party.
-	 *
-	 * @param Party $party
 	 */
-	public function __construct(Party $party) {
+	public function __construct(private Party $party) {
 		$this->atlas = new Atlas();
 		foreach ($party->People() as $unit/* @var Unit $unit */) {
 			$region = $unit->Region();
@@ -44,18 +42,13 @@ class Census
 
 	/**
 	 * Get the Atlas of all regions known to the Party.
-	 *
-	 * @return Atlas
 	 */
-	public function getAtlas(): Atlas {
+	#[Pure] public function getAtlas(): Atlas {
 		return $this->atlas;
 	}
 
 	/**
 	 * Get the units of a region.
-	 *
-	 * @param Region $region
-	 * @return People
 	 */
 	public function getPeople(Region $region): People {
 		$id = $region->Id()->Id();

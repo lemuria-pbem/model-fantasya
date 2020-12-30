@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Race;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Lemuria\Talent\Armory;
 use Lemuria\Model\Lemuria\Talent\Bladefighting;
 use Lemuria\Model\Lemuria\Talent\Carriagemaking;
@@ -30,48 +32,23 @@ final class Aquan extends AbstractRace
 
 	private const WEIGHT = 10 * 100;
 
-	/**
-	 * Get the hitpoints of a person.
-	 *
-	 * @return int
-	 */
-	public function Hitpoints(): int {
+	#[Pure] public function Hitpoints(): int {
 		return self::HITPOINTS;
 	}
 
-	/**
-	 * Get the maximum weight of payload.
-	 *
-	 * @return int
-	 */
-	public function Payload(): int {
+	#[Pure] public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	/**
-	 * Get the recruiting cost for one person.
-	 *
-	 * @return int
-	 */
-	public function Recruiting(): int {
+	#[Pure] public function Recruiting(): int {
 		return self::RECRUITING;
 	}
 
-	/**
-	 * Get the weight of a person.
-	 *
-	 * @return int
-	 */
-	public function Weight(): int {
+	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	/**
-	 * Get the modifications.
-	 *
-	 * @return array(string=>int)
-	 */
-	protected function mods(): array {
+	#[Pure] protected function mods(): array {
 		return [
 			Armory::class      => -2, Bladefighting::class => -1, Carriagemaking::class => -1,
 			Catapulting::class => -2, Crossbowing::class   => -1, Horsetaming::class    => -1,

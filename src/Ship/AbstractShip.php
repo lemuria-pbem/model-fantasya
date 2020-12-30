@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Ship;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Lemuria\Commodity\Wood;
 use Lemuria\Model\Lemuria\Factory\BuilderTrait;
 use Lemuria\Model\Lemuria\Ship;
@@ -19,11 +21,6 @@ abstract class AbstractShip implements Ship
 
 	private Requirement $craft;
 
-	/**
-	 * Get the needed craft to create this artifact.
-	 *
-	 * @return Requirement
-	 */
 	public function getCraft(): Requirement {
 		if (!$this->craft) {
 			$talent      = self::createTalent(Shipbuilding::class);
@@ -32,29 +29,13 @@ abstract class AbstractShip implements Ship
 		return $this->craft;
 	}
 
-	/**
-	 * Get the amount of wood.
-	 *
-	 * @return int
-	 */
-	abstract protected function wood(): int;
+	#[Pure] abstract protected function wood(): int;
 
-	/**
-	 * Get the material.
-	 *
-	 * @return array(string=>int)
-	 */
-	protected function material(): array {
+	#[Pure] protected function material(): array {
 		return [Wood::class => $this->wood()];
 	}
 
-	/**
-	 * Get the minimum skill in Shipbuilding to build this ship.
-	 * The skill is equal to the captain's skill.
-	 *
-	 * @return int
-	 */
-	protected function shipbuildingLevel(): int {
+	#[Pure] protected function shipbuildingLevel(): int {
 		return $this->Captain();
 	}
 }

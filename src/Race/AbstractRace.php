@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Race;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Lemuria\Factory\BuilderTrait;
 use Lemuria\Model\Lemuria\Knowledge;
 use Lemuria\Model\Lemuria\Modification;
@@ -18,22 +20,12 @@ abstract class AbstractRace implements Race
 
 	private const SPEED = 1;
 
-	private ?Knowledge $modifications = null;
+	private ?Knowledge $modifications;
 
-	/**
-	 * Get the speed when transporting.
-	 *
-	 * @return int
-	 */
-	public function Speed(): int {
+	#[Pure] public function Speed(): int {
 		return self::SPEED;
 	}
 
-	/**
-	 * Get the bonuses and maluses of talents.
-	 *
-	 * @return Knowledge
-	 */
 	public function Modifications(): Knowledge {
 		if (!$this->modifications) {
 			$this->modifications = new Knowledge();
@@ -45,10 +37,5 @@ abstract class AbstractRace implements Race
 		return $this->modifications;
 	}
 
-	/**
-	 * Get the modifications.
-	 *
-	 * @return array(string=>int)
-	 */
-	abstract protected function mods(): array;
+	#[Pure] abstract protected function mods(): array;
 }

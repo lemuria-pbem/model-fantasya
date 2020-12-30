@@ -10,8 +10,6 @@ interface Weapon extends Artifact
 {
 	/**
 	 * Get the needed skill for fighting with this weapon.
-	 *
-	 * @return Requirement
 	 */
 	public function getSkill(): Requirement;
 }

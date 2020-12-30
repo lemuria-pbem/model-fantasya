@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Commodity;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Lemuria\Commodity;
 use Lemuria\SingletonTrait;
 
@@ -16,21 +18,11 @@ final class Food implements Commodity
 
 	use SingletonTrait;
 
-	/**
-	 * Get the weight of a food ration.
-	 *
-	 * @return int
-	 */
-	public function Weight(): int {
+	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	/**
-	 * Get the standard price of a food ration.
-	 *
-	 * @return int
-	 */
-	public function Price(): int {
+	#[Pure] public function Price(): int {
 		return self::PRICE;
 	}
 }

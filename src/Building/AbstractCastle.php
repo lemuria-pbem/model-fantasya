@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Building;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Lemuria\Building;
 use Lemuria\Model\Lemuria\Commodity\Stone;
@@ -13,9 +15,6 @@ abstract class AbstractCastle extends AbstractBuilding implements Castle
 {
 	/**
 	 * Get the Castle for a given size.
-	 *
-	 * @param int $size
-	 * @return Castle
 	 */
 	public static function forSize(int $size): Castle {
 		if ($size <= 0) {
@@ -27,58 +26,27 @@ abstract class AbstractCastle extends AbstractBuilding implements Castle
 		return $castle;
 	}
 
-	/**
-	 * Get the building that must exist as a precondition.
-	 *
-	 * @return Building|null
-	 */
-	public function Dependency(): Building {
+	#[Pure] public function Dependency(): Building {
 		return Building::IS_INDEPENDENT;
 	}
 
-	/**
-	 * Get the additional feed for every person of a unit that has entered the building.
-	 *
-	 * @return int
-	 */
-	public function Feed(): int {
+	#[Pure] public function Feed(): int {
 		return Building::IS_FREE;
 	}
 
-	/**
-	 * Get the amount of silver to maintain the building's function.
-	 *
-	 * @return int
-	 */
-	public function Upkeep(): int {
+	#[Pure] public function Upkeep(): int {
 		return Building::IS_FREE;
 	}
 
-	/**
-	 * Get the minimum size the building must have.
-	 *
-	 * @return int
-	 */
-	public function UsefulSize(): int {
+	#[Pure] public function UsefulSize(): int {
 		return Building::IS_UNLIMITED;
 	}
 
-	/**
-	 * Get the material.
-	 *
-	 * @return array(Commodity=>int)
-	 */
-	protected function material(): array {
+	#[Pure] protected function material(): array {
 		return [Stone::class => 1];
 	}
 
-	/**
-	 * Get the Castle class for a specific size.
-	 *
-	 * @param int $size
-	 * @return string
-	 */
-	private static function getClassForSize(int $size): string {
+	#[Pure] private static function getClassForSize(int $size): string {
 		if ($size <= Site::MAX_SIZE) {
 			return Site::class;
 		}

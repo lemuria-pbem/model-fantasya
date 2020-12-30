@@ -1,6 +1,9 @@
 <?php
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\ExpectedValues;
+use JetBrains\PhpStorm\Pure;
+
 /**
  * A helper class for combat properties.
  */
@@ -20,11 +23,8 @@ final class Combat
 
 	/**
 	 * Check if a battle row value is valid.
-	 *
-	 * @param int $battleRow
-	 * @return bool
 	 */
-	public static function isBattleRow(int $battleRow): bool {
+	#[Pure] public static function isBattleRow(#[ExpectedValues(valuesFromClass: self::class)] int $battleRow): bool {
 		return $battleRow >= self::REFUGEE && $battleRow <= self::AGGRESSIVE;
 	}
 }

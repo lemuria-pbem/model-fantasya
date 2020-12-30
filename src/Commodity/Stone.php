@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Commodity;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Lemuria\Commodity;
 use Lemuria\Model\Lemuria\Factory\BuilderTrait;
 use Lemuria\Model\Lemuria\Material;
@@ -27,20 +29,10 @@ final class Stone implements Material
 
 	private Commodity $resource;
 
-	/**
-	 * Get the weight of a product.
-	 *
-	 * @return int
-	 */
-	public function Weight(): int {
+	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	/**
-	 * Get the needed craft to create this artifact.
-	 *
-	 * @return Requirement
-	 */
 	public function getCraft(): Requirement {
 		if (!$this->craft) {
 			$this->craft = new Requirement(self::createTalent(Quarrying::class), self::CRAFT);
@@ -48,11 +40,6 @@ final class Stone implements Material
 		return $this->craft;
 	}
 
-	/**
-	 * Get the resource to create this material.
-	 *
-	 * @return Commodity
-	 */
 	public function getResource(): Commodity {
 		if (!$this->resource) {
 			$this->resource = self::createCommodity(Granite::class);
@@ -60,12 +47,7 @@ final class Stone implements Material
 		return $this->resource;
 	}
 
-	/**
-	 * Get the number of items from one resource.
-	 *
-	 * @return int
-	 */
-	public function getYield(): int {
+	#[Pure] public function getYield(): int {
 		return self::YIELD;
 	}
 }

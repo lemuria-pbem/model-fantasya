@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Lemuria;
 use Lemuria\SingletonTrait;
 
@@ -16,8 +18,6 @@ trait ArtifactTrait
 
 	/**
 	 * Get the list of material needed to create the artifact.
-	 *
-	 * @return Resources
 	 */
 	public function getMaterial(): Resources {
 		if (!$this->material) {
@@ -36,5 +36,5 @@ trait ArtifactTrait
 	 *
 	 * @return array(string=>int)
 	 */
-	abstract protected function material(): array;
+	#[Pure] abstract protected function material(): array;
 }

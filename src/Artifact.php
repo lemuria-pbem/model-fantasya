@@ -11,15 +11,11 @@ interface Artifact extends Singleton
 {
 	/**
 	 * Get the needed craft to create this artifact.
-	 *
-	 * @return Requirement
 	 */
 	public function getCraft(): Requirement;
 
 	/**
 	 * Get the list of material needed to create the artifact.
-	 *
-	 * @return Resources
 	 */
 	public function getMaterial(): Resources;
 }

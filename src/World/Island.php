@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\World;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Model\Coordinates;
@@ -32,48 +34,29 @@ class Island
 
 	private int $height = 1;
 
-	/**
-	 * @param Coordinates $coordinates
-	 * @param Region $region
-	 */
 	public function __construct(Coordinates $coordinates, Region $region) {
 		$this->id     = new Id(self::$nextId++);
 		$this->origin = $coordinates;
 		$this->map    = [[$region]];
 	}
 
-	/**
-	 * @return Id
-	 */
-	public function Id(): Id {
+	#[Pure] public function Id(): Id {
 		return $this->id;
 	}
 
-	/**
-	 * @return Coordinates
-	 */
-	public function Origin(): Coordinates {
+	#[Pure] public function Origin(): Coordinates {
 		return $this->origin;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function Width(): int {
+	#[Pure] public function Width(): int {
 		return $this->width;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function Height(): int {
+	#[Pure] public function Height(): int {
 		return $this->height;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function Size(): int {
+	#[Pure] public function Size(): int {
 		$size = 0;
 		for ($y = 0; $y < $this->height; $y++) {
 			for ($x = 0; $x < $this->width; $x++) {
@@ -85,11 +68,7 @@ class Island
 		return $size;
 	}
 
-	/**
-	 * @param Coordinates $coordinates
-	 * @return bool
-	 */
-	public function isMapped(Coordinates $coordinates): bool {
+	#[Pure] public function isMapped(Coordinates $coordinates): bool {
 		if ($coordinates->X() >= $this->origin->X() && $coordinates->X() < $this->outerX()) {
 			if ($coordinates->Y() >= $this->origin->Y() && $coordinates->Y() < $this->outerY()) {
 				return true;
@@ -98,11 +77,7 @@ class Island
 		return false;
 	}
 
-	/**
-	 * @param Region $region
-	 * @return bool
-	 */
-	public function contains(Region $region): bool {
+	#[Pure] public function contains(Region $region): bool {
 		for ($y = 0; $y < $this->height; $y++) {
 			for ($x = 0; $x < $this->width; $x++) {
 				if ($this->map[$y][$x] === $region) {
@@ -113,11 +88,7 @@ class Island
 		return false;
 	}
 
-	/**
-	 * @param Coordinates $coordinates
-	 * @return Region|null
-	 */
-	public function get(Coordinates $coordinates): ?Region {
+	#[Pure] public function get(Coordinates $coordinates): ?Region {
 		if ($this->isMapped($coordinates)) {
 			$x = $coordinates->X() - $this->origin->X();
 			$y = $coordinates->Y() - $this->origin->Y();
@@ -126,11 +97,6 @@ class Island
 		return null;
 	}
 
-	/**
-	 * @param Coordinates $coordinates
-	 * @param Region $region
-	 * @return Island
-	 */
 	public function add(Coordinates $coordinates, Region $region): Island {
 		if ($region->Landscape() instanceof Ocean) {
 			throw new LemuriaException('Oceans are not part of islands.');
@@ -201,8 +167,6 @@ class Island
 
 	/**
 	 * Extend northward and return new height.
-	 *
-	 * @return int
 	 */
 	public function extendNorth(): int {
 		$this->map[] = array_fill(0, $this->width, null);
@@ -211,8 +175,6 @@ class Island
 
 	/**
 	 * Extend eastward and return new width.
-	 *
-	 * @return int
 	 */
 	public function extendEast(): int {
 		for ($y = 0; $y < $this->height; $y++) {
@@ -223,8 +185,6 @@ class Island
 
 	/**
 	 * Extend southward and return new height.
-	 *
-	 * @return int
 	 */
 	public function extendSouth(): int {
 		array_unshift($this->map, array_fill(0, $this->width, null));
@@ -234,8 +194,6 @@ class Island
 
 	/**
 	 * Extend westward and return new width.
-	 *
-	 * @return int
 	 */
 	public function extendWest(): int {
 		for ($y = 0; $y < $this->height; $y++) {
@@ -247,11 +205,8 @@ class Island
 
 	/**
 	 * Check if another island has common coordinates.
-	 *
-	 * @param Island $island
-	 * @return bool
 	 */
-	public function hasIntersection(Island $island): bool {
+	#[Pure] public function hasIntersection(Island $island): bool {
 		$x1 = $this->origin->X();
 		$y1 = $this->origin->Y();
 		$w1 = $x1 + $this->width - 1;
@@ -281,11 +236,8 @@ class Island
 
 	/**
 	 * Check if another island is a direct neighbour.
-	 *
-	 * @param Island $island
-	 * @return bool
 	 */
-	public function hasNeighbour(Island $island): bool {
+	#[Pure] public function hasNeighbour(Island $island): bool {
 		$x1 = $this->origin->X();
 		$y1 = $this->origin->Y();
 		$w1 = $x1 + $this->width;
@@ -316,8 +268,6 @@ class Island
 	/**
 	 * Merge another island.
 	 *
-	 * @param Island $island
-	 * @return Island
 	 * @throws LemuriaException
 	 */
 	public function merge(Island $island): Island {
@@ -360,10 +310,7 @@ class Island
 		return $this;
 	}
 
-	/**
-	 * @return Region[]
-	 */
-	public function getRegions(): array {
+	#[Pure] public function getRegions(): array {
 		$regions = [];
 		for ($y = 0; $y < $this->height; $y++) {
 			for ($x = 0; $x < $this->width; $x++) {
@@ -376,17 +323,11 @@ class Island
 		return $regions;
 	}
 
-	/**
-	 * @return int
-	 */
-	protected function outerX(): int {
+	#[Pure] protected function outerX(): int {
 		return $this->origin->X() + $this->width;
 	}
 
-	/**
-	 * @return int
-	 */
-	protected function outerY(): int {
+	#[Pure] protected function outerY(): int {
 		return $this->origin->Y() + $this->height;
 	}
 }

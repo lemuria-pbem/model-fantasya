@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Singleton;
 
 /**
@@ -11,15 +13,11 @@ interface Transport extends Singleton
 {
 	/**
 	 * Get the maximum weight of payload.
-	 *
-	 * @return int
 	 */
-	public function Payload(): int;
+	#[Pure] public function Payload(): int;
 
 	/**
 	 * Get the speed when transporting.
-	 *
-	 * @return int
 	 */
-	public function Speed(): int;
+	#[Pure] public function Speed(): int;
 }

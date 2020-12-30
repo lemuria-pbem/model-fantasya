@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\Pure;
+
 /**
  * A helper class that encapsulates the neighbour regions of a region.
  */
@@ -16,9 +18,8 @@ class Neighbours implements \ArrayAccess
 	 * Check if a region in the specified direction exists.
 	 *
 	 * @param string $offset
-	 * @return bool
 	 */
-	public function offsetExists($offset): bool {
+	#[Pure] public function offsetExists(mixed $offset): bool {
 		return isset($this->regions[$offset]);
 	}
 
@@ -26,9 +27,8 @@ class Neighbours implements \ArrayAccess
 	 * Get the region in the specified direction.
 	 *
 	 * @param string $offset
-	 * @return Region
 	 */
-	public function offsetGet($offset): ?Region {
+	#[Pure] public function offsetGet(mixed $offset): ?Region {
 		return $this->regions[$offset] ?? null;
 	}
 
@@ -38,7 +38,7 @@ class Neighbours implements \ArrayAccess
 	 * @param string $offset
 	 * @param Region $value
 	 */
-	public function offsetSet($offset, $value): void {
+	public function offsetSet(mixed $offset, mixed $value): void {
 		$this->regions[$offset] = $value;
 	}
 
@@ -47,7 +47,7 @@ class Neighbours implements \ArrayAccess
 	 *
 	 * @param string $offset
 	 */
-	public function offsetUnset($offset): void {
+	public function offsetUnset(mixed $offset): void {
 		unset($this->regions[$offset]);
 	}
 
@@ -56,7 +56,7 @@ class Neighbours implements \ArrayAccess
 	 *
 	 * @return array(string=>Region)
 	 */
-	public function getAll(): array {
+	#[Pure] public function getAll(): array {
 		return $this->regions;
 	}
 }

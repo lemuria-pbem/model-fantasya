@@ -2,6 +2,11 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\ExpectedValues;
+use JetBrains\PhpStorm\Pure;
+
+use Lemuria\Model\World;
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
@@ -38,8 +43,6 @@ class Vessel extends Entity implements Collector, Collectible
 	/**
 	 * Get a vessel.
 	 *
-	 * @param Id $id
-	 * @return Vessel
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): Vessel {
@@ -51,15 +54,18 @@ class Vessel extends Entity implements Collector, Collectible
 	/**
 	 * Create an empty vessel.
 	 */
-	public function __construct() {
+	#[Pure] public function __construct() {
 		$this->passengers = new Inhabitants($this);
 	}
 
 	/**
 	 * Get a plain data array of the model's data.
-	 *
-	 * @return array
 	 */
+	#[ArrayShape([
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'passengers' => 'int[]', 'completion' => 'float',
+		'ship' => 'string', 'anchor' => 'string'
+	])]
+	#[Pure]
 	public function serialize(): array {
 		$data               = parent::serialize();
 		$data['anchor']     = $this->Anchor();
@@ -71,9 +77,6 @@ class Vessel extends Entity implements Collector, Collectible
 
 	/**
 	 * Restore the model's data from serialized data.
-	 *
-	 * @param array $data
-	 * @return Serializable
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
@@ -84,11 +87,6 @@ class Vessel extends Entity implements Collector, Collectible
 		return $this;
 	}
 
-	/**
-	 * Get the catalog namespace.
-	 *
-	 * @return int
-	 */
 	public function Catalog(): int {
 		return Catalog::VESSELS;
 	}
@@ -96,47 +94,25 @@ class Vessel extends Entity implements Collector, Collectible
 	/**
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
-	 *
-	 * @return Collector
 	 */
 	public function collectAll(): Collector {
 		$this->Passengers()->addCollectorsToAll();
 		return $this;
 	}
 
-	/**
-	 * Get the anchor.
-	 *
-	 * @return string
-	 */
-	public function Anchor(): string {
+	#[Pure] public function Anchor(): string {
 		return $this->anchor;
 	}
 
-	/**
-	 * Get the completion.
-	 *
-	 * @return float
-	 */
-	public function Completion(): float {
+	#[Pure] public function Completion(): float {
 		return $this->completion;
 	}
 
-	/**
-	 * Get the ship.
-	 *
-	 * @return Ship
-	 */
-	public function Ship(): Ship {
+	#[Pure] public function Ship(): Ship {
 		return $this->ship;
 	}
 
-	/**
-	 * Get the free space on this Vessel.
-	 *
-	 * @return int
-	 */
-	public function Space(): int {
+	#[Pure] public function Space(): int {
 		$space = $this->Ship()->Payload();
 		foreach ($this->Passengers() as $unit/* @var Unit $unit */) {
 			$space -= $unit->Weight();
@@ -144,33 +120,18 @@ class Vessel extends Entity implements Collector, Collectible
 		return $space;
 	}
 
-	/**
-	 * Get the passengers.
-	 *
-	 * @return Inhabitants
-	 */
-	public function Passengers(): Inhabitants {
+	#[Pure] public function Passengers(): Inhabitants {
 		return $this->passengers;
 	}
 
-	/**
-	 * Get the Region where this vessel is in.
-	 *
-	 * @return Region
-	 */
 	public function Region(): Region {
 		/* @var Region $region */
 		$region = $this->getCollector(__FUNCTION__);
 		return $region;
 	}
 
-	/**
-	 * Set the anchor.
-	 *
-	 * @param string $anchor
-	 * @return Vessel
-	 */
-	public function setAnchor(string $anchor): Vessel {
+	public function setAnchor(#[ExpectedValues(values: [self::IN_DOCK], valuesFromClass: World::class)] string $anchor): Vessel {
+		/** @noinspection PhpExpectedValuesShouldBeUsedInspection */
 		if ($anchor === self::IN_DOCK || Lemuria::World()->isDirection($anchor)) {
 			$this->anchor = $anchor;
 			return $this;
@@ -178,23 +139,11 @@ class Vessel extends Entity implements Collector, Collectible
 		throw new ModelException('Invalid anchor: ' . $anchor . '.');
 	}
 
-	/**
-	 * Set the ship.
-	 *
-	 * @param Ship $ship
-	 * @return Vessel
-	 */
 	public function setShip(Ship $ship): Vessel {
 		$this->ship = $ship;
 		return $this;
 	}
 
-	/**
-	 * Set the completion.
-	 *
-	 * @param float $completion
-	 * @return Vessel
-	 */
 	public function setCompletion(float $completion): Vessel {
 		$this->completion = $completion;
 		return $this;
@@ -203,9 +152,9 @@ class Vessel extends Entity implements Collector, Collectible
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array (string=>mixed) &$data
+	 * @param array (string=>mixed) $data
 	 */
-	protected function validateSerializedData(&$data): void {
+	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);
 		$this->validate($data, 'anchor', 'string');
 		$this->validate($data, 'ship', 'string');

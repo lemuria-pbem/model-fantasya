@@ -2,6 +2,10 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\ExpectedValues;
+use JetBrains\PhpStorm\Pure;
+
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
@@ -31,10 +35,7 @@ class Unit extends Entity implements Collectible
 
 	private ?int $camouflage = 0;
 
-	/**
-	 * @var Id|bool|null
-	 */
-	private $disguiseAs = false;
+	private Id|bool|null $disguiseAs = false;
 
 	private Goods $inventory;
 
@@ -43,8 +44,6 @@ class Unit extends Entity implements Collectible
 	/**
 	 * Get a Unit.
 	 *
-	 * @param Id $id
-	 * @return Unit
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): Unit {
@@ -56,7 +55,7 @@ class Unit extends Entity implements Collectible
 	/**
 	 * Create a new unit.
 	 */
-	public function __construct() {
+	#[Pure] public function __construct() {
 		$this->inventory = new Goods();
 		$this->knowledge = new Knowledge();
 	}
@@ -66,6 +65,12 @@ class Unit extends Entity implements Collectible
 	 *
 	 * @return array
 	 */
+	#[ArrayShape([
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'race' => 'string', 'size' => 'int',
+		'isGuarding' => 'bool', 'battleRow' => 'int', 'camouflage' => 'int|null', 'disguiseAs' => 'int|null',
+		'inventory' => 'array', 'knowledge' => 'array'
+	])]
+	#[Pure]
 	public function serialize(): array {
 		$data               = parent::serialize();
 		$data['race']       = getClass($this->Race());
@@ -82,9 +87,6 @@ class Unit extends Entity implements Collectible
 
 	/**
 	 * Restore the model's data from serialized data.
-	 *
-	 * @param array $data
-	 * @return Serializable
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
@@ -100,83 +102,38 @@ class Unit extends Entity implements Collectible
 		return $this;
 	}
 
-	/**
-	 * Get the catalog namespace.
-	 *
-	 * @return int
-	 */
-	public function Catalog(): int {
+	#[Pure] public function Catalog(): int {
 		return Catalog::UNITS;
 	}
 
-	/**
-	 * Get the inventory.
-	 *
-	 * @return Goods
-	 */
-	public function Inventory(): Goods {
+	#[Pure] public function Inventory(): Goods {
 		return $this->inventory;
 	}
 
-	/**
-	 * Get the knowledge.
-	 *
-	 * @return Knowledge
-	 */
-	public function Knowledge(): Knowledge {
+	#[Pure] public function Knowledge(): Knowledge {
 		return $this->knowledge;
 	}
 
-	/**
-	 * Get the race.
-	 *
-	 * @return Race
-	 */
-	public function Race(): Race {
+	#[Pure] public function Race(): Race {
 		return $this->race;
 	}
 
-	/**
-	 * Get the size.
-	 *
-	 * @return int
-	 */
-	public function Size(): int {
+	#[Pure] public function Size(): int {
 		return $this->size;
 	}
 
-	/**
-	 * Check if this Unit is guarding the region.
-	 *
-	 * @return bool
-	 */
-	public function IsGuarding(): bool {
+	#[Pure] public function IsGuarding(): bool {
 		return $this->isGuarding;
 	}
 
-	/**
-	 * Get the battle row.
-	 *
-	 * @return int
-	 */
-	public function BattleRow(): int {
+	#[Pure] public function BattleRow(): int {
 		return $this->battleRow;
 	}
 
-	/**
-	 * Get the camouflage level.
-	 *
-	 * @return int|null
-	 */
-	public function Camouflage(): ?int {
+	#[Pure] public function Camouflage(): ?int {
 		return $this->camouflage;
 	}
 
-	/**
-	 * Get the disguise party.
-	 *
-	 * @return Party|null
-	 */
 	public function Disguise(): ?Party {
 		if ($this->disguiseAs instanceof Id) {
 			return Party::get($this->disguiseAs);
@@ -187,33 +144,18 @@ class Unit extends Entity implements Collectible
 		return null;
 	}
 
-	/**
-	 * Get the Party who owns this Unit.
-	 *
-	 * @return Party
-	 */
 	public function Party(): Party {
 		/* @var Party $party */
 		$party = $this->getCollector(__FUNCTION__);
 		return $party;
 	}
 
-	/**
-	 * Get the Region where this Unit resides.
-	 *
-	 * @return Region
-	 */
 	public function Region(): Region {
 		/* @var Region $region */
 		$region = $this->getCollector(__FUNCTION__);
 		return $region;
 	}
 
-	/**
-	 * Get the Construction where this Unit resides.
-	 *
-	 * @return Construction|null
-	 */
 	public function Construction(): ?Construction {
 		if ($this->hasCollector(__FUNCTION__)) {
 			/* @var Construction $construction */
@@ -223,11 +165,6 @@ class Unit extends Entity implements Collectible
 		return null;
 	}
 
-	/**
-	 * Get the Vessel where this Unit resides.
-	 *
-	 * @return Vessel|null
-	 */
 	public function Vessel(): ?Vessel {
 		if ($this->hasCollector(__FUNCTION__)) {
 			/* @var Vessel $vessel */
@@ -239,10 +176,8 @@ class Unit extends Entity implements Collectible
 
 	/**
 	 * Get the total weight of this Unit including its inventory.
-	 *
-	 * @return int
 	 */
-	public function Weight(): int {
+	#[Pure] public function Weight(): int {
 		$weight = $this->Size() * $this->Race()->Weight();
 		foreach ($this->Inventory() as $quantity/* @var Quantity $quantity */) {
 			$weight += $quantity->Weight();
@@ -250,47 +185,25 @@ class Unit extends Entity implements Collectible
 		return $weight;
 	}
 
-	/**
-	 * Set the race.
-	 *
-	 * @param Race $race
-	 * @return Unit
-	 */
 	public function setRace(Race $race): Unit {
 		$this->race = $race;
 		return $this;
 	}
 
-	/**
-	 * Set the size.
-	 *
-	 * @param int $size
-	 * @return Unit
-	 */
 	public function setSize(int $size): Unit {
 		$this->size = $size;
 		return $this;
 	}
 
-	/**
-	 * Set the guarding flag.
-	 *
-	 * @param bool $isGuarding
-	 * @return Unit
-	 */
 	public function setIsGuarding(bool $isGuarding): Unit {
 		$this->isGuarding = $isGuarding;
 		return $this;
 	}
 
 	/**
-	 * Set the battle row.
-	 *
-	 * @param int $battleRow
-	 * @return Unit
 	 * @throws \InvalidArgumentException
 	 */
-	public function setBattleRow(int $battleRow): Unit {
+	public function setBattleRow(#[ExpectedValues(valuesFromClass: Combat::class)] int $battleRow): Unit {
 		if (!Combat::isBattleRow($battleRow)) {
 			throw new \InvalidArgumentException('Invalid battle row value: ' . $battleRow);
 		}
@@ -298,12 +211,6 @@ class Unit extends Entity implements Collectible
 		return $this;
 	}
 
-	/**
-	 * Set camouflage level.
-	 *
-	 * @param int|null $level
-	 * @return Unit
-	 */
 	public function setCamouflage(?int $level): Unit {
 		if (is_int($level) && $level < 0) {
 			$level = 0;
@@ -312,12 +219,6 @@ class Unit extends Entity implements Collectible
 		return $this;
 	}
 
-	/**
-	 * Set the disguise party.
-	 *
-	 * @param Party|null $party
-	 * @return Unit
-	 */
 	public function setDisguise(?Party $party = null): Unit {
 		if ($party) {
 			if ($party === $this->Party()) {
@@ -334,9 +235,9 @@ class Unit extends Entity implements Collectible
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array (string=>mixed) &$data
+	 * @param array (string=>mixed) $data
 	 */
-	protected function validateSerializedData(&$data): void {
+	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);
 		$this->validate($data, 'race', 'string');
 		$this->validate($data, 'size', 'int');

@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Race;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Lemuria\Talent\Archery;
 use Lemuria\Model\Lemuria\Talent\Bladefighting;
 use Lemuria\Model\Lemuria\Talent\Camouflage;
@@ -34,48 +36,23 @@ final class Halfling extends AbstractRace
 
 	private const WEIGHT = 8 * 100;
 
-	/**
-	 * Get the hitpoints of a person.
-	 *
-	 * @return int
-	 */
-	public function Hitpoints(): int {
+	#[Pure] public function Hitpoints(): int {
 		return self::HITPOINTS;
 	}
 
-	/**
-	 * Get the maximum weight of payload.
-	 *
-	 * @return int
-	 */
-	public function Payload(): int {
+	#[Pure] public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	/**
-	 * Get the recruiting cost for one person.
-	 *
-	 * @return int
-	 */
-	public function Recruiting(): int {
+	#[Pure] public function Recruiting(): int {
 		return self::RECRUITING;
 	}
 
-	/**
-	 * Get the weight of a person.
-	 *
-	 * @return int
-	 */
-	public function Weight(): int {
+	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	/**
-	 * Get the modifications.
-	 *
-	 * @return array(Talent=>int)
-	 */
-	protected function mods(): array {
+	#[Pure] protected function mods(): array {
 		return [
 			Archery::class        => -1, Bladefighting::class => -1, Camouflage::class   =>  1,
 			Carriagemaking::class =>  2, Catapulting::class   => -1, Constructing::class =>  1,

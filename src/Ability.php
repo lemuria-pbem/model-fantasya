@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Item;
 use Lemuria\Model\Exception\ModelException;
 
@@ -13,8 +15,6 @@ class Ability extends Item
 	/**
 	 * Calculate experience from talent level.
 	 *
-	 * @param int $level
-	 * @return int
 	 * @throws ModelException Level is a negative value.
 	 */
 	public static function getExperience(int $level): int {
@@ -27,8 +27,6 @@ class Ability extends Item
 	/**
 	 * Calculate level from experience points.
 	 *
-	 * @param int $experience
-	 * @return int
 	 * @throws ModelException Experience points is a negative value.
 	 */
 	public static function getLevel(int $experience): int {
@@ -39,40 +37,23 @@ class Ability extends Item
 	}
 
 	/**
-	 * Create an ability.
-	 *
-	 * @param Talent $talent
-	 * @param int $experience
+	 * @noinspection PhpAttributeCanBeAddedToOverriddenMemberInspection
 	 */
-	public function __construct(Talent $talent, int $experience) {
+	#[Pure] public function __construct(Talent $talent, int $experience) {
 		parent::__construct($talent, $experience);
 	}
 
-	/**
-	 * Get the experience.
-	 *
-	 * @return int
-	 */
-	public function Experience(): int {
+	#[Pure] public function Experience(): int {
 		return $this->Count();
 	}
 
-	/**
-	 * Get the level of experience.
-	 *
-	 * @return int
-	 */
 	public function Level(): int {
 		return self::getLevel($this->Count());
 	}
 
-	/**
-	 * Get the talent.
-	 *
-	 * @return Talent
-	 */
-	public function Talent(): Talent {
-		$talent = $this->getObject(); /* @var Talent $talent */
+	#[Pure] public function Talent(): Talent {
+		/** @var Talent $talent */
+		$talent = $this->getObject();
 		return $talent;
 	}
 }

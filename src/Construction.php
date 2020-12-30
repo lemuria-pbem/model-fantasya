@@ -2,6 +2,9 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
+
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
@@ -35,8 +38,6 @@ class Construction extends Entity implements Collector, Collectible
 	/**
 	 * Get a construction.
 	 *
-	 * @param Id $id
-	 * @return Construction
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): self {
@@ -48,15 +49,18 @@ class Construction extends Entity implements Collector, Collectible
 	/**
 	 * Create an empty construction.
 	 */
-	public function __construct() {
+	#[Pure] public function __construct() {
 		$this->inhabitants = new Inhabitants($this);
 	}
 
 	/**
 	 * Get a plain data array of the model's data.
-	 *
-	 * @return array
 	 */
+	#[ArrayShape([
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'inhabitants' => 'int[]', 'size' => 'int',
+		'building' => 'string'
+	])]
+	#[Pure]
 	public function serialize(): array {
 		$data                = parent::serialize();
 		$data['building']    = getClass($this->Building());
@@ -67,9 +71,6 @@ class Construction extends Entity implements Collector, Collectible
 
 	/**
 	 * Restore the model's data from serialized data.
-	 *
-	 * @param array $data
-	 * @return Serializable
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
@@ -81,8 +82,6 @@ class Construction extends Entity implements Collector, Collectible
 
 	/**
 	 * Get the catalog namespace.
-	 *
-	 * @return int
 	 */
 	public function Catalog(): int {
 		return Catalog::CONSTRUCTIONS;
@@ -91,47 +90,27 @@ class Construction extends Entity implements Collector, Collectible
 	/**
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
-	 *
-	 * @return Collector
 	 */
 	public function collectAll(): Collector {
 		$this->Inhabitants()->addCollectorsToAll();
 		return $this;
 	}
 
-	/**
-	 * Get the building.
-	 *
-	 * @return Building
-	 */
+	#[Pure]
 	public function Building(): Building {
 		return $this->building;
 	}
 
-	/**
-	 * Get the size.
-	 *
-	 * @return int
-	 */
+	#[Pure]
 	public function Size(): int {
 		return $this->size;
 	}
 
-	/**
-	 * Get the inhabitants.
-	 *
-	 * @return Inhabitants
-	 */
+	#[Pure]
 	public function Inhabitants(): Inhabitants {
 		return $this->inhabitants;
 	}
 
-	/**
-	 * Set the building.
-	 *
-	 * @param Building $building
-	 * @return Construction
-	 */
 	public function setBuilding(Building $building): Construction {
 		$this->building = $building;
 		if ($building instanceof Castle) {
@@ -144,12 +123,6 @@ class Construction extends Entity implements Collector, Collectible
 		return $this;
 	}
 
-	/**
-	 * Set the size.
-	 *
-	 * @param int $size
-	 * @return Construction
-	 */
 	public function setSize(int $size): Construction {
 		$building = $this->Building();
 		if ($building instanceof Castle) {
@@ -161,32 +134,22 @@ class Construction extends Entity implements Collector, Collectible
 		return $this;
 	}
 
-	/**
-	 * Get the Region where this construction is built.
-	 *
-	 * @return Region
-	 */
 	public function Region(): Region {
 		/* @var Region $region */
 		$region = $this->getCollector(__FUNCTION__);
 		return $region;
 	}
 
-	/**
-	 * Get the free space for additional inhabitants.
-	 *
-	 * @return int
-	 */
-	public function getFreeSpace(): int {
+	#[Pure] public function getFreeSpace(): int {
 		return $this->size - count($this->inhabitants);
 	}
 
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array (string=>mixed) &$data
+	 * @param array (string=>mixed) $data
 	 */
-	protected function validateSerializedData(&$data): void {
+	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);
 		$this->validate($data, 'building', 'string');
 		$this->validate($data, 'size', 'int');

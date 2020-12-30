@@ -2,6 +2,8 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Commodity;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Lemuria\Commodity;
 use Lemuria\Model\Lemuria\Transport;
 use Lemuria\SingletonTrait;
@@ -19,30 +21,15 @@ final class Elephant implements Commodity, Transport
 
 	use SingletonTrait;
 
-	/**
-	 * Get the weight of a peasant.
-	 *
-	 * @return int
-	 */
-	public function Weight(): int {
+	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	/**
-	 * Get the maximum weight of payload.
-	 *
-	 * @return int
-	 */
-	public function Payload(): int {
+	#[Pure] public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	/**
-	 * Get the speed when transporting.
-	 *
-	 * @return int
-	 */
-	public function Speed(): int {
+	#[Pure] public function Speed(): int {
 		return self::SPEED;
 	}
 }

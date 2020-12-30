@@ -11,12 +11,6 @@ use Lemuria\Id;
  */
 class Fleet extends EntitySet
 {
-	/**
-	 * Add a vessel.
-	 *
-	 * @param Vessel $vessel
-	 * @return Fleet
-	 */
 	public function add(Vessel $vessel): self {
 		parent::addEntity($vessel->Id());
 		if ($this->hasCollector()) {
@@ -25,23 +19,11 @@ class Fleet extends EntitySet
 		return $this;
 	}
 
-	/**
-	 * Remove a vessel.
-	 *
-	 * @param Vessel $vessel
-	 * @return Fleet
-	 */
 	public function remove(Vessel $vessel): self {
 		parent::removeEntity($vessel->Id());
 		return $this;
 	}
 
-	/**
-	 * Get an Entity by ID.
-	 *
-	 * @param Id $id
-	 * @return Entity
-	 */
 	protected function get(Id $id): Entity {
 		return Vessel::get($id);
 	}

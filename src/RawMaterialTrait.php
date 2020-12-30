@@ -12,8 +12,6 @@ trait RawMaterialTrait
 
 	/**
 	 * Get the required Talent to produce this raw material.
-	 *
-	 * @return Talent
 	 */
 	public function getTalent(): Talent {
 		if (!$this->talent) {

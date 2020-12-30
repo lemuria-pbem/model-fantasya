@@ -2,6 +2,7 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\ExpectedValues;
 use Lemuria\EntitySet;
 use Lemuria\Exception\EntitySetException;
 use Lemuria\Id;
@@ -14,11 +15,6 @@ class Inhabitants extends People
 {
 	private ?Id $owner = null;
 
-	/**
-	 * Get the owner.
-	 *
-	 * @return Unit|null
-	 */
 	public function Owner(): ?Unit {
 		if (!$this->owner) {
 			$this->owner = $this->first();
@@ -28,12 +24,6 @@ class Inhabitants extends People
 		return $owner;
 	}
 
-	/**
-	 * Set the owner.
-	 *
-	 * @param Unit $unit
-	 * @return Inhabitants
-	 */
 	public function setOwner(Unit $unit): self {
 		if (!$this->has($unit->Id())) {
 			throw new EntitySetException($unit->Id());
@@ -49,8 +39,6 @@ class Inhabitants extends People
 
 	/**
 	 * Clear the inhabitants.
-	 *
-	 * @return EntitySet
 	 */
 	public function clear(): EntitySet {
 		parent::clear();
@@ -60,9 +48,6 @@ class Inhabitants extends People
 
 	/**
 	 * Remove a unit from the people.
-	 *
-	 * @param Unit $unit
-	 * @return People
 	 */
 	public function remove(Unit $unit): People {
 		$this->removeEntity($unit->Id());
@@ -71,13 +56,10 @@ class Inhabitants extends People
 
 	/**
 	 * Reorder a unit in the inhabitants.
-	 *
-	 * @param Unit $unit
-	 * @param Unit $position
-	 * @param int $order
-	 * @return People
 	 */
-	public function reorder(Unit $unit, Unit $position, int $order = Reorder::FLIP): People {
+	public function reorder(Unit $unit, Unit $position,
+							#[ExpectedValues(valuesFromClass: Reorder::class)] int $order = Reorder::FLIP): People
+	{
 		if ($unit !== $this->Owner()) {
 			if ($position !== $this->Owner() || $order >= Reorder::AFTER) {
 				parent::reorderEntity($unit->Id(), $position->Id(), $order);
@@ -89,7 +71,6 @@ class Inhabitants extends People
 	/**
 	 * Remove an entity's ID from the set.
 	 *
-	 * @param Id $id
 	 * @throws EntitySetException The entity is not part of the set.
 	 */
 	protected function removeEntity(Id $id): void {
