@@ -20,7 +20,7 @@ abstract class AbstractRace implements Race
 
 	private const SPEED = 1;
 
-	private ?Knowledge $modifications;
+	private ?Knowledge $modifications = null;
 
 	#[Pure] public function Speed(): int {
 		return self::SPEED;

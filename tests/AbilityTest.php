@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Tests\Model;
+namespace Lemuria\Tests\Model\Lemuria;
 
 use Lemuria\Model\Lemuria\Ability;
 use Lemuria\Tests\Test;
