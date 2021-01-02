@@ -179,10 +179,8 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 */
 	public function has(#[ExpectedValues(valuesFromClass: Relation::class)] int $agreement, Unit $unit): bool {
 		// Check contacts first.
-		if (isset($this->contacts[$unit->Id()->Id()])) {
-			if (Relation::isContactAgreement($agreement)) {
-				return true;
-			}
+		if ($agreement === Relation::TELL && isset($this->contacts[$unit->Id()->Id()])) {
+			return true;
 		}
 
 		$party  = $unit->Party();
@@ -235,8 +233,9 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 			$this->indices[]      = $id;
 			$this->count++;
 		}
-
-		$this->knows($relation->Party());
+		if ($relation->Agreement() === Relation::TELL) {
+			$this->setAquaintance($relation->Party());
+		}
 		return $this;
 	}
 
@@ -277,29 +276,8 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 * Add a known party.
 	 */
 	public function knows(Party $party): Diplomacy {
-		if ($party !== $this->party) {
-			$partyId = $party->Id();
-			$id      = $partyId->Id();
-			if (!isset($this->acquaintances[$id])) {
-				$this->acquaintances[$id] = $partyId;
-			}
-		}
-		return $this;
-	}
-
-	/**
-	 * Get a relation ID.
-	 *
-	 * @throws \InvalidArgumentException
-	 */
-	private function getId($relation): string {
-		if ($relation instanceof Relation) {
-			return (string)$relation;
-		}
-		if (is_string($relation)) {
-			return $relation;
-		}
-		throw new \InvalidArgumentException('Invalid relation ID: ' . $relation);
+		$relation = new Relation($party);
+		return $this->add($relation->set(Relation::TELL));
 	}
 
 	/**
@@ -321,5 +299,30 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 		$this->validate($data, 'party', 'int');
 		$this->validate($data, 'region', '?int');
 		$this->validate($data, 'agreement', 'int');
+	}
+
+	/**
+	 * Get a relation ID.
+	 *
+	 * @throws \InvalidArgumentException
+	 */
+	private function getId($relation): string {
+		if ($relation instanceof Relation) {
+			return (string)$relation;
+		}
+		if (is_string($relation)) {
+			return $relation;
+		}
+		throw new \InvalidArgumentException('Invalid relation ID: ' . $relation);
+	}
+
+	private function setAquaintance(Party $party): void {
+		if ($party !== $this->party) {
+			$partyId = $party->Id();
+			$id      = $partyId->Id();
+			if (!isset($this->acquaintances[$id])) {
+				$this->acquaintances[$id] = $partyId;
+			}
+		}
 	}
 }

@@ -12,38 +12,33 @@ class Relation
 {
 	public const NONE = 0;
 
-	public const TRADE = 1;
+	public const TELL = 1;
 
-	public const EARN = 2;
+	public const TRADE = 2;
 
-	public const RESOURCES = 4;
+	public const EARN = 4;
 
-	public const ENTER = 8;
+	public const RESOURCES = 8;
 
-	public const GIVE = 16;
+	public const ENTER = 16;
 
-	public const GUARD = 32;
+	public const GIVE = 32;
 
-	public const PERCEPTION = 64;
+	public const GUARD = 64;
 
-	public const DISGUISE = 128;
+	public const PERCEPTION = 128;
 
-	public const SILVER = 256;
+	public const DISGUISE = 256;
 
-	public const FOOD = 512;
+	public const SILVER = 512;
 
-	public const COMBAT = 1024;
+	public const FOOD = 1024;
 
-	public const ALL = 2047;
+	public const COMBAT = 2048;
+
+	public const ALL = 4095;
 
 	private int $agreement = self::NONE;
-
-	/**
-	 * Check if an agreement is suitable for a contact relation.
-	 */
-	#[Pure] public static function isContactAgreement(#[ExpectedValues(valuesFromClass: self::class)] int $agreement): bool {
-		return $agreement > self::NONE && $agreement < self::DISGUISE;
-	}
 
 	/**
 	 * Create a new relation, general or specific.

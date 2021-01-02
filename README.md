@@ -44,7 +44,33 @@ als Meeresstraße und nicht als Landenge angesehen: Schiffe können zwischen den
 Landregionen hindurchfahren, aber Einheiten können nicht ohne weiteres zwischen
 den Landregionen reisen.
 
-#### Geschlosse Spielwelt
+#### Geschlossene Spielwelt
 
 Anstatt durch unzugängliche Chaos-Regionen den Rand der Welt zu modellieren,
 gibt es eine geschlossene Welt, in der Reisen "rund um die Welt" möglich sind.
+
+### Erweiterte Diplomatie
+
+Die Beziehungen zu anderen Parteien können detaillierter eingestellt werden. Zum
+einen gibt es feinere Möglichkeiten für die Gewährung von Rechten wie Übergaben,
+Besteuerung, Kampfbündnisse etc., zum anderen können die Rechte auch auf
+einzelne Regionen beschränkt werden, und es ist möglich, allgemeingültige
+Einstellungen für alle Fremdparteien zu treffen (sozusagen eine
+"parteifreundliche Grundhaltung").
+
+#### Beziehungen
+
+- COMBAT: Unterstützt angegriffene Fremdeinheiten.
+- DISGUISE: Hebt die Parteitarnung gegenüber der Fremdpartei auf.
+- EARN: Erlaubt Einkünfte durch Besteuerung oder Unterhaltung.
+- ENTER: Erlaubt das Betreten von Gebäuden und Schiffen.
+- FOOD: Gibt Almosen (Nahrung oder Silber) an hungernde Fremdeinheiten.
+- GIVE: Nimmt Geschenke von der Fremdpartei an.
+- GUARD: Erlaubt der Fremdpartei, durch bewachte Regionen zu reisen.
+- PERCEPTION: Unsichtbare Einheiten verstecken sich nicht vor der Fremdpartei.
+- RESOURCES: Erlaubt den Abbau von Ressourcen.
+- SILVER: Erlaubt Fremdeinheiten den Zugriff auf den Silberpool.
+- TELL: Dies bewirkt, dass die eigene Partei der Fremdpartei beim Erstkontakt
+  "allgemeine Auskünfte" über sich gibt. Die Fremdpartei nimmt diplomatische
+  Beziehungen auf und erhält eine Kontaktadresse.
+- TRADE: Der Fremdpartei wird das Handeln erlaubt.
