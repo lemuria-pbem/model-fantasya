@@ -63,6 +63,15 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 		return $this->party;
 	}
 
+	#[Pure]
+	public function Acquaintances(): Acquaintances {
+		$acquaintances = new Acquaintances();
+		foreach ($this->acquaintances as $party) {
+			$acquaintances->add($party);
+		}
+		return $acquaintances;
+	}
+
 	/**
 	 * Check if a relation is set.
 	 *
