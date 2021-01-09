@@ -12,6 +12,10 @@ use Lemuria\Model\Game;
  */
 abstract class JsonGame implements Game
 {
+	private const DECODE_OPTIONS = JSON_THROW_ON_ERROR | JSON_OBJECT_AS_ARRAY;
+
+	private const ENCODE_OPTIONS = JSON_THROW_ON_ERROR | JSON_HEX_QUOT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION;
+
 	private string $storage;
 
 	/**
@@ -124,7 +128,7 @@ abstract class JsonGame implements Game
 		if (!is_file($path)) {
 			throw new FileException('Data file ' . $path . ' not found.');
 		}
-		$data = json_decode(file_get_contents($path), true, 8, JSON_THROW_ON_ERROR);
+		$data = json_decode(file_get_contents($path), true, 8, self::DECODE_OPTIONS);
 		if (is_array($data)) {
 			return $data;
 		}
@@ -144,7 +148,7 @@ abstract class JsonGame implements Game
 			throw new LemuriaException('Save directory ' . $storage . ' not found.');
 		}
 		$path = $storage . DIRECTORY_SEPARATOR . $fileName;
-		if (file_put_contents($path, json_encode($data))) {
+		if (file_put_contents($path, json_encode($data, self::ENCODE_OPTIONS))) {
 			return $this;
 		}
 		throw new FileException('Data file ' . $path . ' could not be saved.');
