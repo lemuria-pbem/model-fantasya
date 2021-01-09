@@ -7,20 +7,40 @@ use JetBrains\PhpStorm\ExpectedValues;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Id;
+use Lemuria\Model\Lemuria\Exception\UnknownPartyException;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 
 /**
  * A party's diplomacy consists of relations to other parties.
+ *
+ * There are three kinds of relations:
+ *
+ * 1. Acquaintances
+ * When a unit meets another unit in the game, the other unit's party becomes an acquaintance.
+ * 2. Relations
+ * A party can have specific relations to its acquaintances.
+ * 3. Contacts
+ * Contacts are special relations to a single unit that last until the end of a game round.
  */
 final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializable
 {
 	use SerializableTrait;
 
 	/**
+	 * @var array(int=>Party)
+	 */
+	private array $acquaintances = [];
+
+	/**
 	 * @var array(string=>Relation)
 	 */
 	private array $relations = [];
+
+	/**
+	 * @var array(int=>Unit)
+	 */
+	private array $contacts = [];
 
 	/**
 	 * @var array(int=>int)
@@ -32,20 +52,15 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	private int $count = 0;
 
 	/**
-	 * @var array(int=>Party)
-	 */
-	private array $acquaintances = [];
-
-	/**
-	 * @var array(int=>Unit)
-	 */
-	private array $contacts = [];
-
-	/**
 	 * Create the diplomacy of given party.
 	 */
 	#[Pure]
 	public function __construct(private Party $party) {
+	}
+
+	#[Pure]
+	public function Party(): Party {
+		return $this->party;
 	}
 
 	/**
@@ -175,11 +190,31 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	}
 
 	/**
+	 * Check if given party is an acquaintance.
+	 */
+	#[Pure] public function isKnown(Party $party): bool {
+		return isset($this->acquaintances[$party->Id()->Id()]);
+	}
+
+	/**
+	 * Add a known party.
+	 */
+	public function knows(Party $party): Diplomacy {
+		if ($party !== $this->party) {
+			$partyId = $party->Id();
+			$id      = $partyId->Id();
+			if (!isset($this->acquaintances[$id])) {
+				$this->acquaintances[$id] = $partyId;
+			}
+		}
+		return $this;
+	}
+
+	/**
 	 * Check if there is a specific agreement with a unit or the party of a unit.
 	 */
 	public function has(#[ExpectedValues(valuesFromClass: Relation::class)] int $agreement, Unit $unit): bool {
-		// Check contacts first.
-		if ($agreement === Relation::TELL && isset($this->contacts[$unit->Id()->Id()])) {
+		if ($this->hasContact($unit, $agreement)) {
 			return true;
 		}
 
@@ -211,18 +246,15 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	}
 
 	/**
-	 * Check if given party is an acquaintance.
-	 */
-	#[Pure] public function isKnown(Party $party): bool {
-		return isset($this->acquaintances[$party->Id()->Id()]);
-	}
-
-	/**
 	 * Add a relation.
 	 *
 	 * If a relation for the same party and region exists, it will be replaced.
 	 */
 	public function add(Relation $relation): Diplomacy {
+		if (!$this->isKnown($relation->Party())) {
+			throw new UnknownPartyException($this, $relation->Party());
+		}
+
 		$id = (string)$relation;
 		if (isset($this->relations[$id])) {
 			$oldRelation = $this->relations[$id];
@@ -232,9 +264,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 			$this->relations[$id] = $relation;
 			$this->indices[]      = $id;
 			$this->count++;
-		}
-		if ($relation->Agreement() === Relation::TELL) {
-			$this->setAquaintance($relation->Party());
 		}
 		return $this;
 	}
@@ -268,16 +297,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 */
 	public function contact(Unit $unit): Diplomacy {
 		$this->contacts[$unit->Id()->Id()] = $unit;
-		$this->knows($unit->Party());
 		return $this;
-	}
-
-	/**
-	 * Add a known party.
-	 */
-	public function knows(Party $party): Diplomacy {
-		$relation = new Relation($party);
-		return $this->add($relation->set(Relation::TELL));
 	}
 
 	/**
@@ -302,6 +322,17 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	}
 
 	/**
+	 * Check if there is contact to a unit, optionally for a specific agreement.
+	 */
+	#[Pure]
+	protected function hasContact(Unit $unit, int $agreement): bool {
+		if (isset($this->contacts[$unit->Id()->Id()])) {
+			return $agreement >= Relation::NONE && $agreement <= Relation::DISGUISE;
+		}
+		return false;
+	}
+
+	/**
 	 * Get a relation ID.
 	 *
 	 * @throws \InvalidArgumentException
@@ -314,15 +345,5 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 			return $relation;
 		}
 		throw new \InvalidArgumentException('Invalid relation ID: ' . $relation);
-	}
-
-	private function setAquaintance(Party $party): void {
-		if ($party !== $this->party) {
-			$partyId = $party->Id();
-			$id      = $partyId->Id();
-			if (!isset($this->acquaintances[$id])) {
-				$this->acquaintances[$id] = $partyId;
-			}
-		}
 	}
 }

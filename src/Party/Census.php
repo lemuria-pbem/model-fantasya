@@ -14,7 +14,7 @@ use Lemuria\Model\World\Atlas;
 /**
  * The census is an analysis of a parties' regions and the units in its regions.
  */
-class Census
+class Census implements \Countable
 {
 	private Atlas $atlas;
 
@@ -28,7 +28,7 @@ class Census
 	 */
 	public function __construct(private Party $party) {
 		$this->atlas = new Atlas();
-		foreach ($party->People() as $unit/* @var Unit $unit */) {
+		foreach ($party->People() as $unit /* @var Unit $unit */) {
 			$region = $unit->Region();
 			$this->atlas->add($region);
 			$id = $region->Id()->Id();
@@ -38,6 +38,17 @@ class Census
 			$this->getPeople($region)->add($unit);
 		}
 		$this->atlas->sort(Atlas::NORTH_TO_SOUTH);
+	}
+
+	/**
+	 * Get the number of all persons belonging to the party.
+	 */
+	public function count(): int {
+		$n = 0;
+		foreach ($this->party->People() as $unit /* @var Unit $unit */) {
+			$n += $unit->Size();
+		}
+		return $n;
 	}
 
 	/**
