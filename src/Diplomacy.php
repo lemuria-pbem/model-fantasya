@@ -28,7 +28,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	use SerializableTrait;
 
 	/**
-	 * @var array(int=>Party)
+	 * @var array(int=>Id)
 	 */
 	private array $acquaintances = [];
 
@@ -66,8 +66,8 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	#[Pure]
 	public function Acquaintances(): Acquaintances {
 		$acquaintances = new Acquaintances();
-		foreach ($this->acquaintances as $party) {
-			$acquaintances->add($party);
+		foreach ($this->acquaintances as $id) {
+			$acquaintances->add(Party::get($id));
 		}
 		return $acquaintances;
 	}
