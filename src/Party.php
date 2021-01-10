@@ -171,5 +171,6 @@ class Party extends Entity implements Collector
 		$this->validate($data, 'race', 'string');
 		$this->validate($data, 'people', 'array');
 		$this->validate($data, 'diplomacy', 'array');
+		$this->validate($data, 'chronicle', 'array');
 	}
 }
