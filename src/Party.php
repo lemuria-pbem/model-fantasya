@@ -30,6 +30,8 @@ class Party extends Entity implements Collector
 
 	private People $people;
 
+	private Chronicle $chronicle;
+
 	private Diplomacy $diplomacy;
 
 	private ?array $serializedDiplomacy = null;
@@ -50,6 +52,7 @@ class Party extends Entity implements Collector
 	 */
 	#[Pure] public function __construct() {
 		$this->people    = new People($this);
+		$this->chronicle = new Chronicle();
 		$this->diplomacy = new Diplomacy($this);
 	}
 
@@ -68,6 +71,7 @@ class Party extends Entity implements Collector
 		$data['race']      = getClass($this->Race());
 		$data['diplomacy'] = $this->Diplomacy()->serialize();
 		$data['people']    = $this->People()->serialize();
+		$data['chronicle'] = $this->Chronicle()->serialize();
 		return $data;
 	}
 
@@ -79,6 +83,7 @@ class Party extends Entity implements Collector
 		$this->origin = new Id($data['origin']);
 		$this->setRace(self::createRace($data['race']));
 		$this->People()->unserialize($data['people']);
+		$this->Chronicle()->unserialize($data['chronicle']);
 		$this->serializedDiplomacy = $data['diplomacy'];
 		return $this;
 	}
@@ -118,6 +123,14 @@ class Party extends Entity implements Collector
 	 */
 	#[Pure] public function People(): People {
 		return $this->people;
+	}
+
+	/**
+	 * Get the chronicle.
+	 */
+	#[Pure]
+	public function Chronicle(): Chronicle {
+		return $this->chronicle;
 	}
 
 	/**
