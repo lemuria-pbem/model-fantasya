@@ -113,9 +113,15 @@ abstract class JsonGame implements Game
 		return $this->setData('world.json', $world);
 	}
 
-	abstract protected function getLoadStorage(): string;
+	/**
+	 * @return array(string=>string)
+	 */
+	abstract protected function getLoadStorage(): array;
 
-	abstract protected function getSaveStorage(): string;
+	/**
+	 * @return array(string=>string)
+	 */
+	abstract protected function getSaveStorage(): array;
 
 	private function getData(string $fileName): array {
 		$provider = $this->getProvider('r', $fileName);
