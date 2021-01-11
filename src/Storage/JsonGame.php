@@ -2,8 +2,9 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Storage;
 
+use Lemuria\Exception\FileException;
 use Lemuria\Exception\LemuriaException;
-use Lemuria\Model\Exception\FileException;
+use Lemuria\Storage\FileProvider;
 use Lemuria\Model\Exception\ModelException;
 use Lemuria\Model\Game;
 
@@ -16,16 +17,17 @@ abstract class JsonGame implements Game
 
 	private const ENCODE_OPTIONS = JSON_THROW_ON_ERROR | JSON_HEX_QUOT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION;
 
-	private string $storage;
+	/**
+	 * @var array(string=>array)
+	 */
+	private array $providers = ['r' => null, 'w' => null];
 
 	/**
 	 * Initialize the storage directory.
 	 */
 	public function __construct() {
-		$this->storage = $this->getLoadStorage();
-		if (!$this->storage) {
-			throw new FileException('Game data storage does not exist.');
-		}
+		$this->providers['r'] = $this->getLoadStorage();
+		$this->providers['w'] = $this->getSaveStorage();
 	}
 
 	public function getCalendar(): array {
@@ -37,12 +39,7 @@ abstract class JsonGame implements Game
 	}
 
 	public function getMessages(): array {
-		$fileName = 'messages.json';
-		$path     = $this->storage . DIRECTORY_SEPARATOR . $fileName;
-		if (!is_file($path)) {
-			return [];
-		}
-		return $this->getData($fileName);
+		return $this->getData('messages.json');
 	}
 
 	public function getParties(): array {
@@ -120,37 +117,29 @@ abstract class JsonGame implements Game
 
 	abstract protected function getSaveStorage(): string;
 
-	/**
-	 * Get data from a file.
-	 */
 	private function getData(string $fileName): array {
-		$path = $this->storage . DIRECTORY_SEPARATOR . $fileName;
-		if (!is_file($path)) {
-			throw new FileException('Data file ' . $path . ' not found.');
-		}
-		$data = json_decode(file_get_contents($path), true, 8, self::DECODE_OPTIONS);
+		$provider = $this->getProvider('r', $fileName);
+		$data = json_decode($provider->read($fileName), true, 8, self::DECODE_OPTIONS);
 		if (is_array($data)) {
 			return $data;
 		}
-		throw new FileException('Data file ' . $path . ' format error.');
+		throw new FileException('Data file ' . $fileName . ' format error.');
 	}
 
-	/**
-	 * Save data to a file.
-	 */
 	private function setData(string $fileName, array $data): JsonGame {
-		$storage = $this->getSaveStorage();
-		if (!is_dir($storage) && !mkdir($storage, 0755, true)) {
-			throw new FileException('Could not create new game data directory ' . $storage . '.');
+		$provider = $this->getProvider('w', $fileName);
+		$provider->write($fileName, json_encode($data, self::ENCODE_OPTIONS));
+		return $this;
+	}
+
+	private function getProvider(string $rw, string $fileName): FileProvider {
+		if (isset($this->providers[$rw][$fileName])) {
+			return $this->providers[$rw][$fileName];
 		}
-		$storage = realpath($storage);
-		if (!$storage) {
-			throw new LemuriaException('Save directory ' . $storage . ' not found.');
+		if (isset($this->providers[$rw][FileProvider::DEFAULT])) {
+			return $this->providers[$rw][FileProvider::DEFAULT];
 		}
-		$path = $storage . DIRECTORY_SEPARATOR . $fileName;
-		if (file_put_contents($path, json_encode($data, self::ENCODE_OPTIONS))) {
-			return $this;
-		}
-		throw new FileException('Data file ' . $path . ' could not be saved.');
+		$type = $rw === 'w' ? 'write' : 'read';
+		throw new LemuriaException('Default ' . $type . ' provider not defined.');
 	}
 }
