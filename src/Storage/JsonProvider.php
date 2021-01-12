@@ -6,13 +6,13 @@ use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Exception\DirectoryNotFoundException;
 use Lemuria\Exception\FileException;
+use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Exception\JsonException;
 use Lemuria\Storage\FileProvider;
+use Lemuria\Storage\Provider;
 
-class JsonProvider
+class JsonProvider implements Provider
 {
-	public const DEFAULT = FileProvider::DEFAULT;
-
 	private FileProvider $provider;
 
 	#[Pure]
@@ -36,10 +36,14 @@ class JsonProvider
 	}
 
 	/**
+	 * @param array $data
 	 * @throws FileException
 	 * @throws JsonException
 	 */
-	public function write(string $fileName, array $data): void {
+	public function write(string $fileName, mixed $data): void {
+		if (!is_array($data)) {
+			throw new LemuriaException('JsonProvider needs an arrax.');
+		}
 		$this->provider->write($fileName, Json::encode($data));
 	}
 }
