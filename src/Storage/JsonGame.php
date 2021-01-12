@@ -2,7 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria\Storage;
 
-use Lemuria\Exception\FileException;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Storage\FileProvider;
 use Lemuria\Model\Exception\ModelException;
@@ -13,10 +12,6 @@ use Lemuria\Model\Game;
  */
 abstract class JsonGame implements Game
 {
-	private const DECODE_OPTIONS = JSON_THROW_ON_ERROR | JSON_OBJECT_AS_ARRAY;
-
-	private const ENCODE_OPTIONS = JSON_THROW_ON_ERROR | JSON_HEX_QUOT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION;
-
 	/**
 	 * @var array(string=>array)
 	 */
@@ -114,38 +109,39 @@ abstract class JsonGame implements Game
 	}
 
 	/**
-	 * @return array(string=>string)
+	 * @return array(string=>JsonProvider)
 	 */
 	abstract protected function getLoadStorage(): array;
 
 	/**
-	 * @return array(string=>string)
+	 * @return array(string=>JsonProvider)
 	 */
 	abstract protected function getSaveStorage(): array;
 
 	private function getData(string $fileName): array {
-		$provider = $this->getProvider('r', $fileName);
-		$data = json_decode($provider->read($fileName), true, 8, self::DECODE_OPTIONS);
-		if (is_array($data)) {
-			return $data;
-		}
-		throw new FileException('Data file ' . $fileName . ' format error.');
+		return $this->getProvider('r', $fileName)->read($fileName);
 	}
 
 	private function setData(string $fileName, array $data): JsonGame {
-		$provider = $this->getProvider('w', $fileName);
-		$provider->write($fileName, json_encode($data, self::ENCODE_OPTIONS));
+		$this->getProvider('w', $fileName)->write($fileName, $data);
 		return $this;
 	}
 
-	private function getProvider(string $rw, string $fileName): FileProvider {
+	private function getProvider(string $rw, string $fileName): JsonProvider {
 		if (isset($this->providers[$rw][$fileName])) {
-			return $this->providers[$rw][$fileName];
+			return $this->checkProvider($this->providers[$rw][$fileName]);
 		}
 		if (isset($this->providers[$rw][FileProvider::DEFAULT])) {
-			return $this->providers[$rw][FileProvider::DEFAULT];
+			return $this->checkProvider($this->providers[$rw][FileProvider::DEFAULT]);
 		}
 		$type = $rw === 'w' ? 'write' : 'read';
 		throw new LemuriaException('Default ' . $type . ' provider not defined.');
+	}
+
+	private function checkProvider(mixed $provider): JsonProvider {
+		if ($provider instanceof JsonProvider) {
+			return $provider;
+		}
+		throw new LemuriaException('JsonProvider required.');
 	}
 }
