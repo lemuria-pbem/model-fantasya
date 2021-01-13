@@ -2,15 +2,82 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Entity;
 use Lemuria\EntitySet;
+use Lemuria\Exception\UnserializeException;
 use Lemuria\Id;
+use Lemuria\Serializable;
+use Lemuria\SerializableTrait;
 
 /**
  * The people of a player or party is the community of all its units.
  */
 class Acquaintances extends EntitySet
 {
+	use SerializableTrait;
+
+	/**
+	 * @var array(int=>bool)
+	 */
+	private array $isTold = [];
+
+	#[Pure] public function __construct() {
+		parent::__construct();
+	}
+
+	/**
+	 * Get a plain data array of the model's data.
+	 *
+	 * @return int[]
+	 * @noinspection PhpPureFunctionMayProduceSideEffectsInspection
+	 */
+	#[ArrayShape(['entities' => "array", 'isTold' => "array"])]
+	#[Pure]
+	public function serialize(): array {
+		$entities = [];
+		$isTold   = [];
+		foreach ($this->isTold as $id => $told) {
+			$entities[] = $id;
+			$isTold[]   = $told;
+		}
+		return ['entities' => $entities, 'isTold' => $isTold];
+	}
+
+	/**
+	 * Restore the model's data from serialized data.
+	 *
+	 * @param array(array) $data
+	 */
+	public function unserialize(array $data): Serializable {
+		$this->validateSerializedData($data);
+		if ($this->count() > 0) {
+			$this->clear();
+		}
+
+		$entities = array_values($data['entities']);
+		$isTold   = array_values($data['isTold']);
+		$n        = count($entities);
+		if (count($isTold) !== $n) {
+			throw new UnserializeException('Mismatch of entities and rounds count.');
+		}
+
+		for ($i = 0; $i < $n; $i++) {
+			$this->addEntity(new Id($entities[$i]), $isTold[$i]);
+		}
+		return $this;
+	}
+
+	/**
+	 * Clear the set.
+	 */
+	public function clear(): EntitySet {
+		$this->isTold = [];
+		return parent::clear();
+	}
+
 	public function add(Party $party): Acquaintances {
 		parent::addEntity($party->Id());
 		return $this;
@@ -21,10 +88,38 @@ class Acquaintances extends EntitySet
 		return $this;
 	}
 
+	#[Pure] public function isTold(Party $party): bool {
+		$id = $party->Id();
+		if ($this->has($id)) {
+			return $this->isTold[$id->Id()];
+		}
+		return false;
+	}
+
 	/**
 	 * Get a party by ID.
 	 */
 	protected function get(Id $id): Entity {
 		return Party::get($id);
+	}
+
+	protected function addEntity(Id $id, bool $isTold = false): void {
+		parent::addEntity($id);
+		$this->isTold[$id->Id()] = $isTold;
+	}
+
+	protected function removeEntity(Id $id): void {
+		parent::removeEntity($id);
+		unset($this->isTold[$id->Id()]);
+	}
+
+	/**
+	 * Check that a serialized data array is valid.
+	 *
+	 * @param array(string=>mixed) $data
+	 */
+	protected function validateSerializedData(array &$data): void {
+		$this->validate($data, 'entities', 'array');
+		$this->validate($data, 'isTold', 'array');
 	}
 }

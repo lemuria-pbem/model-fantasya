@@ -28,9 +28,9 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	use SerializableTrait;
 
 	/**
-	 * @var array(int=>Id)
+	 * @var Acquaintances
 	 */
-	private array $acquaintances = [];
+	private Acquaintances $acquaintances;
 
 	/**
 	 * @var array(string=>Relation)
@@ -56,6 +56,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 */
 	#[Pure]
 	public function __construct(private Party $party) {
+		$this->acquaintances = new Acquaintances();
 	}
 
 	#[Pure]
@@ -65,11 +66,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	#[Pure]
 	public function Acquaintances(): Acquaintances {
-		$acquaintances = new Acquaintances();
-		foreach ($this->acquaintances as $id) {
-			$acquaintances->add(Party::get($id));
-		}
-		return $acquaintances;
+		return $this->acquaintances;
 	}
 
 	/**
@@ -157,7 +154,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	#[ArrayShape(['acquaintances' => 'array', 'relations' => 'array'])]
 	#[Pure]
 	public function serialize(): array {
-		$data      = ['acquaintances' => array_keys($this->acquaintances)];
 		$relations = [];
 		foreach ($this->relations as $relation/* @var Relation $relation */) {
 			$relations[] = [
@@ -166,20 +162,15 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 				'agreement' => $relation->Agreement()
 			];
 		}
-		$data['relations'] = $relations;
-		return $data;
+		return ['acquaintances' => $this->acquaintances->serialize(), 'relations' => $relations];
 	}
 
 	/**
 	 * Restore the model's data from serialized data.
 	 */
 	public function unserialize(array $data): Serializable {
-		if (!empty($this->acquaintances)) {
-			$this->acquaintances = [];
-		}
-		foreach ($data['acquaintances'] as $id) {
-			$this->acquaintances[$id] = new Id($id);
-		}
+		$this->validateSerializedData($data);
+		$this->acquaintances->unserialize($data['acquaintances']);
 
 		if ($this->count > 0) {
 			$this->clear();
@@ -202,7 +193,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 * Check if given party is an acquaintance.
 	 */
 	#[Pure] public function isKnown(Party $party): bool {
-		return isset($this->acquaintances[$party->Id()->Id()]);
+		return $this->acquaintances->has($party->Id());
 	}
 
 	/**
@@ -210,11 +201,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 */
 	public function knows(Party $party): Diplomacy {
 		if ($party !== $this->party) {
-			$partyId = $party->Id();
-			$id      = $partyId->Id();
-			if (!isset($this->acquaintances[$id])) {
-				$this->acquaintances[$id] = $partyId;
-			}
+			$this->acquaintances->add($party);
 		}
 		return $this;
 	}
