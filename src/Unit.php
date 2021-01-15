@@ -232,7 +232,7 @@ class Unit extends Entity implements Collectible
 		return $this;
 	}
 
-	public function replaceId(Id $id): void {
+	public function replaceId(Id $id): Unit {
 		$oldId = $this->Id();
 		$this->setId($id);
 		$this->Party()->People()->replace($oldId, $id);
@@ -245,6 +245,7 @@ class Unit extends Entity implements Collectible
 		if ($vessel) {
 			$vessel->Passengers()->replace($oldId, $id);
 		}
+		return $this;
 	}
 
 	/**
