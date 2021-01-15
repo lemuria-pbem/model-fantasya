@@ -232,6 +232,21 @@ class Unit extends Entity implements Collectible
 		return $this;
 	}
 
+	public function replaceId(Id $id): void {
+		$oldId = $this->Id();
+		$this->setId($id);
+		$this->Party()->People()->replace($oldId, $id);
+		$this->Region()->Residents()->replace($oldId, $id);
+		$construction = $this->Construction();
+		if ($construction) {
+			$construction->Inhabitants()->replace($oldId, $id);
+		}
+		$vessel = $this->Vessel();
+		if ($vessel) {
+			$vessel->Passengers()->replace($oldId, $id);
+		}
+	}
+
 	/**
 	 * Check that a serialized data array is valid.
 	 *
