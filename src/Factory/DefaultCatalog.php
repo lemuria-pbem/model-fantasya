@@ -16,6 +16,7 @@ use Lemuria\Model\Lemuria\Party;
 use Lemuria\Model\Lemuria\Region;
 use Lemuria\Model\Lemuria\Unit;
 use Lemuria\Model\Lemuria\Vessel;
+use Lemuria\Model\Reassignment;
 
 /**
  * The catalog registers all entities and is used to ensure that IDs are only used once per namespace.
@@ -28,6 +29,11 @@ class DefaultCatalog implements Catalog
 	private array $catalog = [];
 
 	/**
+	 * @var Reassignment[]
+	 */
+	private array $reassignments = [];
+
+	/**
 	 * @var array(int=>int)
 	 */
 	private array $nextId = [];
@@ -35,17 +41,13 @@ class DefaultCatalog implements Catalog
 	private bool $isLoaded = false;
 
 	public function __construct() {
-		try {
-			$reflection = new \ReflectionClass(Catalog::class);
-			foreach ($reflection->getConstants() as $namespace) {
-				if (!is_int($namespace)) {
-					throw new LemuriaException('Expected integer catalog namespace.');
-				}
-				$this->catalog[$namespace] = [];
-				$this->nextId[$namespace]  = 1;
+		$reflection = new \ReflectionClass(Catalog::class);
+		foreach ($reflection->getConstants() as $namespace) {
+			if (!is_int($namespace)) {
+				throw new LemuriaException('Expected integer catalog namespace.');
 			}
-		} catch (\ReflectionException $e) {
-			throw new LemuriaException('Interface Catalog not found.', $e);
+			$this->catalog[$namespace] = [];
+			$this->nextId[$namespace]  = 1;
 		}
 	}
 
@@ -188,12 +190,30 @@ class DefaultCatalog implements Catalog
 	}
 
 	/**
+	 * Propagate change of an entity's ID.
+	 */
+	public function reassign(Id $oldId, Identifiable $identifiable): Catalog {
+		foreach ($this->reassignments as $reassignment) {
+			$reassignment->reassign($oldId, $identifiable);
+		}
+		return $this;
+	}
+
+	/**
 	 * Reserve the next ID that is available for a namespace.
 	 */
 	public function nextId(int $namespace): Id {
 		$id = new Id($this->nextId[$namespace]);
 		$this->searchNextId($namespace);
 		return $id;
+	}
+
+	/**
+	 * Register a reassignment listener.
+	 */
+	public function addReassignment(Reassignment $listener): Catalog {
+		$this->reassignments[] = $listener;
+		return $this;
 	}
 
 	/**

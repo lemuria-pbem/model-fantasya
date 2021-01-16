@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Model\Annals;
@@ -19,7 +17,6 @@ class Chronicle extends Annals
 		return $this;
 	}
 
-	#[Pure]
 	public function getVisit(Region $region): ?Moment {
 		$id = $region->Id();
 		if ($this->has($id)) {
