@@ -41,6 +41,10 @@ abstract class JsonGame implements Game
 		return $this->getData('parties.json');
 	}
 
+	public function getOrders(): array {
+		return $this->getData('orders.json');
+	}
+
 	public function getRegions(): array {
 		return $this->getData('regions.json');
 	}
@@ -81,6 +85,10 @@ abstract class JsonGame implements Game
 			throw new ModelException('Sorting parties failed.');
 		}
 		return $this->setData('parties.json', array_values($parties));
+	}
+
+	public function setOrders(array $orders): Game {
+		return $this->setData('orders.json', $orders);
 	}
 
 	public function setRegions(array $regions): Game {
