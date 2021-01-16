@@ -186,6 +186,9 @@ class DefaultCatalog implements Catalog
 		}
 
 		unset($this->catalog[$namespace][$id]);
+		foreach ($this->reassignments as $reassignment) {
+			$reassignment->remove($identifiable);
+		}
 		return $this;
 	}
 
