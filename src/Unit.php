@@ -237,14 +237,8 @@ class Unit extends Entity implements Collectible
 		$this->setId($id);
 		$this->Party()->People()->replace($oldId, $id);
 		$this->Region()->Residents()->replace($oldId, $id);
-		$construction = $this->Construction();
-		if ($construction) {
-			$construction->Inhabitants()->replace($oldId, $id);
-		}
-		$vessel = $this->Vessel();
-		if ($vessel) {
-			$vessel->Passengers()->replace($oldId, $id);
-		}
+		$this->Construction()?->Inhabitants()->replace($oldId, $id);
+		$this->Vessel()?->Passengers()->replace($oldId, $id);
 		return $this;
 	}
 

@@ -21,7 +21,7 @@ use Lemuria\Model\Reassignment;
 /**
  * The catalog registers all entities and is used to ensure that IDs are only used once per namespace.
  */
-class DefaultCatalog implements Catalog
+class LemuriaCatalog implements Catalog
 {
 	/**
 	 * @var array(int=>array)
@@ -186,9 +186,6 @@ class DefaultCatalog implements Catalog
 		}
 
 		unset($this->catalog[$namespace][$id]);
-		foreach ($this->reassignments as $reassignment) {
-			$reassignment->remove($identifiable);
-		}
 		return $this;
 	}
 
