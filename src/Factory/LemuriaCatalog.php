@@ -191,10 +191,12 @@ class LemuriaCatalog implements Catalog
 
 	/**
 	 * Propagate change of an entity's ID.
+	 *
+	 * If old ID is null, propagate removal instead of reassignment.
 	 */
-	public function reassign(Id $oldId, Identifiable $identifiable): Catalog {
+	public function reassign(Identifiable $identifiable, ?Id $oldId = null): Catalog {
 		foreach ($this->reassignments as $reassignment) {
-			$reassignment->reassign($oldId, $identifiable);
+			$oldId ? $reassignment->reassign($oldId, $identifiable) : $reassignment->remove($identifiable);
 		}
 		return $this;
 	}
