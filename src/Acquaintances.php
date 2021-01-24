@@ -5,7 +5,6 @@ namespace Lemuria\Model\Lemuria;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Entity;
 use Lemuria\EntitySet;
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Id;
@@ -15,7 +14,7 @@ use Lemuria\SerializableTrait;
 /**
  * The people of a player or party is the community of all its units.
  */
-class Acquaintances extends EntitySet
+class Acquaintances extends Gathering
 {
 	use SerializableTrait;
 
@@ -23,10 +22,6 @@ class Acquaintances extends EntitySet
 	 * @var array(int=>bool)
 	 */
 	private array $isTold = [];
-
-	#[Pure] public function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Get a plain data array of the model's data.
@@ -79,13 +74,11 @@ class Acquaintances extends EntitySet
 	}
 
 	public function add(Party $party): Acquaintances {
-		parent::addEntity($party->Id());
-		return $this;
+		return parent::add($party);
 	}
 
 	public function remove(Party $party): Acquaintances {
-		parent::removeEntity($party->Id());
-		return $this;
+		return parent::remove($party);
 	}
 
 	#[Pure] public function isTold(Party $party): bool {
@@ -94,13 +87,6 @@ class Acquaintances extends EntitySet
 			return $this->isTold[$id->Id()];
 		}
 		return false;
-	}
-
-	/**
-	 * Get a party by ID.
-	 */
-	protected function get(Id $id): Entity {
-		return Party::get($id);
 	}
 
 	protected function addEntity(Id $id, bool $isTold = false): void {
