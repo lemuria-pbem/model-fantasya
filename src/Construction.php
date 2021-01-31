@@ -11,12 +11,10 @@ use Lemuria\CollectibleTrait;
 use Lemuria\Collector;
 use Lemuria\CollectorTrait;
 use Lemuria\Entity;
-use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Lemuria;
 use Lemuria\Model\Catalog;
 use Lemuria\Model\Exception\NotRegisteredException;
-use Lemuria\Model\Lemuria\Building\Castle;
 use Lemuria\Model\Lemuria\Factory\BuilderTrait;
 use Lemuria\Serializable;
 
@@ -121,13 +119,11 @@ class Construction extends Entity implements Collector, Collectible
 	}
 
 	public function setSize(int $size): Construction {
-		$building = $this->Building();
-		if ($building instanceof Castle) {
-			if ($size < $building->MinSize() || $size > $building->MaxSize()) {
-				throw new LemuriaException('Invalid size for this castle.');
-			}
-		}
 		$this->size = $size;
+		$correctedBuilding = $this->building->correctBuilding($size);
+		if ($correctedBuilding !== $this->building) {
+			$this->setBuilding($correctedBuilding);
+		}
 		return $this;
 	}
 
