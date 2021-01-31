@@ -7,6 +7,8 @@ namespace Lemuria\Model\Lemuria;
  */
 interface Material extends Commodity
 {
+	public const UNTRAINED_REGAIN = 0.2;
+
 	/**
 	 * Get the needed craft to create this artifact.
 	 */
@@ -21,4 +23,9 @@ interface Material extends Commodity
 	 * Get the number of items from one resource.
 	 */
 	public function getYield(): int;
+
+	/**
+	 * Get the recycling factor for regaining material when destroying.
+	 */
+	public function getRegain(): float;
 }

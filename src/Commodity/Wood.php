@@ -25,6 +25,8 @@ final class Wood implements Material
 
 	private const YIELD = 5;
 
+	private const REGAIN = 0.6;
+
 	private Requirement $craft;
 
 	private Commodity $resource;
@@ -49,5 +51,9 @@ final class Wood implements Material
 
 	#[Pure] public function getYield(): int {
 		return self::YIELD;
+	}
+
+	#[Pure] public function getRegain(): float {
+		return self::REGAIN;
 	}
 }

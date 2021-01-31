@@ -25,6 +25,8 @@ final class Stone implements Material
 
 	private const YIELD = 1;
 
+	private const REGAIN = 0.8;
+
 	private Requirement $craft;
 
 	private Commodity $resource;
@@ -49,5 +51,9 @@ final class Stone implements Material
 
 	#[Pure] public function getYield(): int {
 		return self::YIELD;
+	}
+
+	#[Pure] public function getRegain(): float {
+		return self::REGAIN;
 	}
 }
