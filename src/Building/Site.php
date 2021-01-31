@@ -13,7 +13,7 @@ final class Site extends AbstractCastle
 
 	private const DEFENSE = 0;
 
-	private const MIN_SIZE = 1;
+	private const MIN_SIZE = 0;
 
 	private const TALENT = 1;
 
@@ -35,6 +35,10 @@ final class Site extends AbstractCastle
 
 	#[Pure] public function Talent(): int {
 		return self::TALENT;
+	}
+
+	public function Downgrade(): Castle {
+		return $this;
 	}
 
 	public function Upgrade(): Castle {

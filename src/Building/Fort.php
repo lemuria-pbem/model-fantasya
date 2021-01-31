@@ -37,6 +37,10 @@ final class Fort extends AbstractCastle
 		return self::TALENT;
 	}
 
+	public function Downgrade(): Castle {
+		return self::createCastle(Site::class);
+	}
+
 	public function Upgrade(): Castle {
 		return self::createCastle(Tower::class);
 	}

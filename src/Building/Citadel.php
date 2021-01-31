@@ -37,6 +37,10 @@ final class Citadel extends AbstractCastle
 		return self::TALENT;
 	}
 
+	public function Downgrade(): Castle {
+		return self::createCastle(Stronghold::class);
+	}
+
 	public function Upgrade(): Castle {
 		return $this;
 	}

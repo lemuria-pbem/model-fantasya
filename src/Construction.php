@@ -113,12 +113,9 @@ class Construction extends Entity implements Collector, Collectible
 
 	public function setBuilding(Building $building): Construction {
 		$this->building = $building;
-		if ($building instanceof Castle) {
-			if ($this->Size() < $building->MinSize()) {
-				$this->setSize($building->MinSize());
-			} elseif ($this->Size() > $building->MaxSize()) {
-				$this->setSize($building->MaxSize());
-			}
+		$correctedSize  = $building->correctSize($this->size);
+		if ($correctedSize !== $this->size) {
+			$this->setSize($correctedSize);
 		}
 		return $this;
 	}

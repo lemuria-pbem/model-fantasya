@@ -42,6 +42,34 @@ abstract class AbstractCastle extends AbstractBuilding implements Castle
 		return Building::IS_UNLIMITED;
 	}
 
+	/**
+	 * Get the best fitting building for given size of this building.
+	 */
+	#[Pure] public function correctBuilding(int $size): Building {
+		$this->validateSize($size);
+		if ($size < $this->MinSize()) {
+			return $this->Downgrade()->correctBuilding($size);
+		}
+		if ($size > $this->MaxSize()) {
+			return $this->Upgrade()->correctBuilding($size);
+		}
+		return $this;
+	}
+
+	/**
+	 * Get the best fitting size for given size of this building.
+	 */
+	#[Pure] public function correctSize(int $size): int {
+		$this->validateSize($size);
+		if ($size < $this->MinSize()) {
+			return $this->MinSize();
+		}
+		if ($size > $this->MaxSize()) {
+			return $this->MaxSize();
+		}
+		return $size;
+	}
+
 	#[Pure] protected function material(): array {
 		return [Stone::class => 1];
 	}

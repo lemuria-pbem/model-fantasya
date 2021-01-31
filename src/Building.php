@@ -39,4 +39,14 @@ interface Building extends Artifact
 	 * Get the minimum size the building must have.
 	 */
 	#[Pure] public function UsefulSize(): int;
+
+	/**
+	 * Get the best fitting building for given size of this building.
+	 */
+	#[Pure] public function correctBuilding(int $size): Building;
+
+	/**
+	 * Get the best fitting size for given size of this building.
+	 */
+	#[Pure] public function correctSize(int $size): int;
 }

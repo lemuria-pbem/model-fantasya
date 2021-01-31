@@ -37,6 +37,10 @@ final class Palace extends AbstractCastle
 		return self::TALENT;
 	}
 
+	public function Downgrade(): Castle {
+		return self::createCastle(Tower::class);
+	}
+
 	public function Upgrade(): Castle {
 		return self::createCastle(Stronghold::CLASS);
 	}

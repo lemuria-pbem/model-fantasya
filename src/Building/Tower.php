@@ -37,6 +37,10 @@ final class Tower extends AbstractCastle
 		return self::TALENT;
 	}
 
+	public function Downgrade(): Castle {
+		return self::createCastle(Fort::class);
+	}
+
 	public function Upgrade(): Castle {
 		return self::createCastle(Palace::class);
 	}

@@ -19,6 +19,8 @@ interface Castle extends Building
 
 	#[Pure] public function MinSize(): int;
 
+	public function Downgrade(): Castle;
+
 	public function Upgrade(): Castle;
 
 	#[Pure] public function Wage(): int;
