@@ -18,4 +18,9 @@ interface Ship extends Artifact, Transport
 	 * Get the minimum total sailing ability to sail the ship.
 	 */
 	#[Pure] public function Crew(): int;
+
+	/**
+	 * Get the amount of wood needed to build the ship.
+	 */
+	#[Pure] public function Wood(): int;
 }

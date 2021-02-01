@@ -35,7 +35,7 @@ final class Boat extends AbstractShip
 		return self::SPEED;
 	}
 
-	#[Pure] protected function wood(): int {
+	#[Pure] public function Wood(): int {
 		return self::WOOD;
 	}
 }
