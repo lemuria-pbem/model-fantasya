@@ -17,8 +17,8 @@ abstract class AbstractCastle extends AbstractBuilding implements Castle
 	 * Get the Castle for a given size.
 	 */
 	public static function forSize(int $size): Castle {
-		if ($size <= 0) {
-			throw new LemuriaException('Size must be greater than zero.');
+		if ($size < 0) {
+			throw new LemuriaException('Size must be positive.');
 		}
 		$class = self::getClassForSize($size);
 		/* @var Castle $castle */
