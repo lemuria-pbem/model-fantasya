@@ -150,6 +150,14 @@ class Vessel extends Entity implements Collector, Collectible
 		return $this;
 	}
 
+	#[Pure] public function getUsedWood(): int {
+		return (int)round($this->completion * $this->ship->Wood());
+	}
+
+	#[Pure] public function getRemainingWood(): int {
+		return $this->ship->Wood() - $this->getUsedWood();
+	}
+
 	/**
 	 * Check that a serialized data array is valid.
 	 *
