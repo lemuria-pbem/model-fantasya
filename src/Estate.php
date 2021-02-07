@@ -12,7 +12,7 @@ use Lemuria\Id;
 class Estate extends EntitySet
 {
 	public function add(Construction $construction): self {
-		parent::addEntity($construction->Id());
+		$this->addEntity($construction->Id());
 		if ($this->hasCollector()) {
 			$construction->addCollector($this->collector());
 		}
@@ -20,7 +20,7 @@ class Estate extends EntitySet
 	}
 
 	public function remove(Construction $construction): self {
-		parent::removeEntity($construction->Id());
+		$this->removeEntity($construction->Id());
 		return $this;
 	}
 

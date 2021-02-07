@@ -119,7 +119,7 @@ class Construction extends Entity implements Collector, Collectible
 	}
 
 	public function setSize(int $size): Construction {
-		$this->size = $size;
+		$this->size        = $size;
 		$correctedBuilding = $this->building->correctBuilding($size);
 		if ($correctedBuilding !== $this->building) {
 			$this->setBuilding($correctedBuilding);

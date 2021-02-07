@@ -47,14 +47,6 @@ class Inhabitants extends People
 	}
 
 	/**
-	 * Remove a unit from the people.
-	 */
-	public function remove(Unit $unit): People {
-		$this->removeEntity($unit->Id());
-		return $this;
-	}
-
-	/**
 	 * Reorder a unit in the inhabitants.
 	 */
 	public function reorder(Unit $unit, Unit $position,
@@ -62,7 +54,7 @@ class Inhabitants extends People
 	{
 		if ($unit !== $this->Owner()) {
 			if ($position !== $this->Owner() || $order >= Reorder::AFTER) {
-				parent::reorderEntity($unit->Id(), $position->Id(), $order);
+				$this->reorderEntity($unit->Id(), $position->Id(), $order);
 			}
 		}
 		return $this;

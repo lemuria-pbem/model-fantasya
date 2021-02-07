@@ -15,7 +15,7 @@ use Lemuria\Reorder;
 class People extends EntitySet implements Reorder
 {
 	public function add(Unit $unit): People {
-		parent::addEntity($unit->Id());
+		$this->addEntity($unit->Id());
 		if ($this->hasCollector()) {
 			$unit->addCollector($this->collector());
 		}
@@ -23,7 +23,10 @@ class People extends EntitySet implements Reorder
 	}
 
 	public function remove(Unit $unit): People {
-		parent::removeEntity($unit->Id());
+		$this->removeEntity($unit->Id());
+		if ($this->hasCollector()) {
+			$unit->removeCollector($this->collector());
+		}
 		return $this;
 	}
 
@@ -33,7 +36,7 @@ class People extends EntitySet implements Reorder
 	public function reorder(Unit $unit, Unit $position,
 							#[ExpectedValues(valuesFromClass: Reorder::class)] int $order = Reorder::FLIP): People
 	{
-		parent::reorderEntity($unit->Id(), $position->Id(), $order);
+		$this->reorderEntity($unit->Id(), $position->Id(), $order);
 		return $this;
 	}
 

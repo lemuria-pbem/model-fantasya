@@ -19,7 +19,7 @@ abstract class AbstractBuilding implements Building
 	use ArtifactTrait;
 	use BuilderTrait;
 
-	private Requirement $craft;
+	private ?Requirement $craft = null;
 
 	/**
 	 * Get the needed craft to create this artifact.

@@ -12,12 +12,12 @@ use Lemuria\Id;
 class Gathering extends EntitySet
 {
 	public function add(Party $party): Gathering {
-		parent::addEntity($party->Id());
+		$this->addEntity($party->Id());
 		return $this;
 	}
 
 	public function remove(Party $party): Gathering {
-		parent::removeEntity($party->Id());
+		$this->removeEntity($party->Id());
 		return $this;
 	}
 

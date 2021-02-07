@@ -12,7 +12,7 @@ use Lemuria\Id;
 class Fleet extends EntitySet
 {
 	public function add(Vessel $vessel): self {
-		parent::addEntity($vessel->Id());
+		$this->addEntity($vessel->Id());
 		if ($this->hasCollector()) {
 			$vessel->addCollector($this->collector());
 		}
@@ -20,7 +20,7 @@ class Fleet extends EntitySet
 	}
 
 	public function remove(Vessel $vessel): self {
-		parent::removeEntity($vessel->Id());
+		$this->removeEntity($vessel->Id());
 		return $this;
 	}
 
