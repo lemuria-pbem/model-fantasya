@@ -7,7 +7,7 @@ use JetBrains\PhpStorm\Pure;
 use Lemuria\Exception\DirectoryNotFoundException;
 use Lemuria\Exception\FileException;
 use Lemuria\Exception\LemuriaException;
-use Lemuria\Model\Exception\JsonException;
+use Lemuria\Model\Lemuria\Exception\JsonException;
 use Lemuria\Storage\FileProvider;
 use Lemuria\Storage\Provider;
 

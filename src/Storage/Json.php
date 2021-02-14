@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Lemuria\Storage;
 
-use Lemuria\Model\Exception\JsonException;
+use Lemuria\Model\Lemuria\Exception\JsonException;
 
 /**
  * The Json class is a convenient helper for encoding clean JSON:
