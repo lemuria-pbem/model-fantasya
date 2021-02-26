@@ -29,6 +29,8 @@ class Unit extends Entity implements Collectible
 
 	private int $size = 0;
 
+	private float $health = 1.0;
+
 	private bool $isGuarding = false;
 
 	private int $battleRow = Combat::BYSTANDER;
@@ -67,14 +69,15 @@ class Unit extends Entity implements Collectible
 	 */
 	#[ArrayShape([
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'race' => 'string', 'size' => 'int',
-		'isGuarding' => 'bool', 'battleRow' => 'int', 'camouflage' => 'int|null', 'disguiseAs' => 'int|null',
-		'inventory' => 'array', 'knowledge' => 'array'
+		'health' => 'float', 'isGuarding' => 'bool', 'battleRow' => 'int', 'camouflage' => 'int|null',
+		'disguiseAs' => 'int|null', 'inventory' => 'array', 'knowledge' => 'array'
 	])]
 	#[Pure]
 	public function serialize(): array {
 		$data               = parent::serialize();
 		$data['race']       = getClass($this->Race());
 		$data['size']       = $this->Size();
+		$data['health']     = $this->Health();
 		$data['isGuarding'] = $this->IsGuarding();
 		$data['battleRow']  = $this->BattleRow();
 		$data['camouflage'] = $this->Camouflage();
@@ -92,6 +95,7 @@ class Unit extends Entity implements Collectible
 		parent::unserialize($data);
 		$this->setRace(self::createRace($data['race']));
 		$this->setSize($data['size']);
+		$this->setHealth($data['health']);
 		$this->setIsGuarding($data['isGuarding']);
 		$this->setBattleRow($data['battleRow']);
 		$this->setCamouflage($data['camouflage']);
@@ -120,6 +124,10 @@ class Unit extends Entity implements Collectible
 
 	#[Pure] public function Size(): int {
 		return $this->size;
+	}
+
+	#[Pure] public function Health(): float {
+		return $this->health;
 	}
 
 	#[Pure] public function IsGuarding(): bool {
@@ -195,6 +203,11 @@ class Unit extends Entity implements Collectible
 		return $this;
 	}
 
+	public function setHealth(float $health): Unit {
+		$this->health = $health;
+		return $this;
+	}
+
 	public function setIsGuarding(bool $isGuarding): Unit {
 		$this->isGuarding = $isGuarding;
 		return $this;
@@ -251,6 +264,7 @@ class Unit extends Entity implements Collectible
 		parent::validateSerializedData($data);
 		$this->validate($data, 'race', 'string');
 		$this->validate($data, 'size', 'int');
+		$this->validate($data, 'health', 'float');
 		$this->validate($data, 'isGuarding', 'bool');
 		$this->validate($data, 'battleRow', 'int');
 		$this->validate($data, 'camouflage', '?int');
