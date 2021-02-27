@@ -3,6 +3,7 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Lemuria;
 
 use JetBrains\PhpStorm\Pure;
+use Lemuria\Model\Lemuria\Building\Castle;
 
 /**
  * Helper class for region information.
@@ -63,11 +64,29 @@ final class Intelligence
 			}
 		} else {
 			foreach ($this->region->Residents() as $otherUnit /* @var Unit $otherUnit */) {
-				if ($unit->Party() !== $party && $unit->Size() > 0) {
-					$heirs->add($unit);
+				if ($otherUnit->Party() !== $party && $otherUnit->Size() > 0) {
+					$heirs->add($otherUnit);
 				}
 			}
 		}
 		return $heirs;
+	}
+
+	/**
+	 * Get the government of a region, which is the biggest castle in that region.
+	 */
+	#[Pure] public function getGovernment(): ?Construction {
+		$castle  = null;
+		$biggest = 0;
+		foreach ($this->region->Estate() as $construction /* @var Construction $construction */) {
+			if ($construction->Building() instanceof Castle) {
+				$size = $construction->Size();
+				if ($size > $biggest) {
+					$castle  = $construction;
+					$biggest = $size;
+				}
+			}
+		}
+		return $castle;
 	}
 }
