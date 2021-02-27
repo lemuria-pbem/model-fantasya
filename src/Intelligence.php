@@ -50,14 +50,22 @@ final class Intelligence
 	}
 
 	/**
-	 * Get the units of a region that can be possible heirs of a unit's inventory.
+	 * Get the units of a region that can be possible heirs of a unit.
 	 */
-	public function getHeirs(Unit $unit): People {
-		$heirs = new People();
+	public function getHeirs(Unit $unit, bool $sameParty = true): Heirs {
+		$heirs = new Heirs($unit);
 		$party = $unit->Party();
-		foreach ($this->region->Residents() as $unit /* @var Unit $unit */) {
-			if ($unit->Party() !== $party && $unit->Size() > 0) {
-				$heirs->add($unit);
+		if ($sameParty) {
+			foreach ($this->getUnits($party) as $otherUnit /* @var Unit $otherUnit */) {
+				if ($otherUnit->Size() > 0) {
+					$heirs->add($otherUnit);
+				}
+			}
+		} else {
+			foreach ($this->region->Residents() as $otherUnit /* @var Unit $otherUnit */) {
+				if ($unit->Party() !== $party && $unit->Size() > 0) {
+					$heirs->add($unit);
+				}
 			}
 		}
 		return $heirs;
