@@ -4,8 +4,11 @@ namespace Lemuria\Model\Lemuria;
 
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 use function Lemuria\getClass;
+use Lemuria\Assignable;
 use Lemuria\Collector;
 use Lemuria\CollectorTrait;
 use Lemuria\Entity;
@@ -19,7 +22,7 @@ use Lemuria\Serializable;
 /**
  * A party is the representation of a Lemuria player.
  */
-class Party extends Entity implements Collector
+class Party extends Entity implements Assignable, Collector
 {
 	use BuilderTrait;
 	use CollectorTrait;
@@ -36,6 +39,12 @@ class Party extends Entity implements Collector
 
 	private ?array $serializedDiplomacy = null;
 
+	private UuidInterface $uuid;
+
+	private int $creation;
+
+	private int $round;
+
 	/**
 	 * Get a Party.
 	 *
@@ -51,6 +60,9 @@ class Party extends Entity implements Collector
 	 * Create an empty party.
 	 */
 	#[Pure] public function __construct() {
+		$this->uuid      = Uuid::uuid4();
+		$this->creation  = time();
+		$this->round     = Lemuria::Calendar()->Round();
 		$this->people    = new People($this);
 		$this->chronicle = new Chronicle();
 		$this->diplomacy = new Diplomacy($this);
@@ -62,11 +74,14 @@ class Party extends Entity implements Collector
 	 * @return array
 	 */
 	#[ArrayShape([
-		'id' => "int", 'name' => "string", 'description' => "string", 'people' => "int[]", 'diplomacy' => "array",
-		'race' => "string", 'origin' => "int"
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'people' => 'int[]', 'diplomacy' => 'array',
+		'race' => 'string', 'origin' => 'int', 'uuid' => 'string', 'round' => 'int', 'creation' => 'int'
 	])]
 	public function serialize(): array {
 		$data              = parent::serialize();
+		$data['uuid']      = $this->Uuid();
+		$data['creation']  = $this->creation;
+		$data['round']     = $this->round;
 		$data['origin']    = $this->origin->Id();
 		$data['race']      = getClass($this->Race());
 		$data['diplomacy'] = $this->Diplomacy()->serialize();
@@ -80,7 +95,10 @@ class Party extends Entity implements Collector
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$this->origin = new Id($data['origin']);
+		$this->uuid     = Uuid::fromString($data['uuid']);
+		$this->creation = $data['creation'];
+		$this->round    = $data['round'];
+		$this->origin   = new Id($data['origin']);
 		$this->setRace(self::createRace($data['race']));
 		$this->People()->unserialize($data['people']);
 		$this->Chronicle()->unserialize($data['chronicle']);
@@ -102,6 +120,18 @@ class Party extends Entity implements Collector
 	public function collectAll(): Collector {
 		$this->People()->addCollectorsToAll();
 		return $this;
+	}
+
+	public function Uuid(): string {
+		return $this->uuid->toString();
+	}
+
+	public function Creation(): int {
+		return $this->creation;
+	}
+
+	public function Round(): int {
+		return $this->round;
 	}
 
 	/**
@@ -167,6 +197,9 @@ class Party extends Entity implements Collector
 	 */
 	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);
+		$this->validate($data, 'uuid', 'string');
+		$this->validate($data, 'creation', 'int');
+		$this->validate($data, 'round', 'int');
 		$this->validate($data, 'origin', 'int');
 		$this->validate($data, 'race', 'string');
 		$this->validate($data, 'people', 'array');
