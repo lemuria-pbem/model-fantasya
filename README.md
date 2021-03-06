@@ -3,8 +3,8 @@
 Lemuria ist ein „Play-by-eMail", wird also über E-Mail gespielt, und ist
 inspiriert durch Eressea und Fantasya.
 
-Der Programmcode ist in Bibliotheken aufgeteilt. Diese Bibliothek beinhaltet das
-Datenmodell des Lemuria-Spiels.
+Der Programmcode ist in Bibliotheken aufgeteilt. Diese Bibliothek beinhaltet ein
+Datenmodell des Lemuria-Spiels, das ähnlich zu dem von Fantasya ist.
 
 ## Ähnlichkeiten zu Eressea et al.
 
@@ -32,22 +32,6 @@ zu Fuß oder durch das Reiten von Tieren und das Reisen mit Wagen oder Schiffen.
 ## Unterschiede
 
 Lemuria fügt den von Eressea et al. geerbten Konzepten weitere Aspekte hinzu.
-
-### Oktagonale Karte
-
-Lemuria ist nicht auf einen bestimmten Kartentyp festgelegt: Während Spiele wie
-Eressea eine hexagonale Regionenanordnung verwenden, können Karten in Lemuria
-auch anders gestaltet sein, zum Beispiel oktagonal mit den acht
-Himmelsrichtungen. Auf oktagonalen Karten können Regionen diagonal benachbart
-mit zwei Ozeanfeldern in einem 4x4-Rechteck liegen. Dies wird in den Spielregeln
-als Meeresstraße und nicht als Landenge angesehen: Schiffe können zwischen den
-Landregionen hindurchfahren, aber Einheiten können nicht ohne weiteres zwischen
-den Landregionen reisen.
-
-#### Geschlossene Spielwelt
-
-Anstatt durch unzugängliche Chaos-Regionen den Rand der Welt zu modellieren,
-gibt es eine geschlossene Welt, in der Reisen "rund um die Welt" möglich sind.
 
 ### Erweiterte Diplomatie
 
