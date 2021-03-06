@@ -1,13 +1,13 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Building;
+namespace Lemuria\Model\Fantasya\Building;
 
 use JetBrains\PhpStorm\Pure;
-use Lemuria\Model\Lemuria\Building;
-use Lemuria\Model\Lemuria\Commodity\Iron;
-use Lemuria\Model\Lemuria\Commodity\Silver;
-use Lemuria\Model\Lemuria\Commodity\Stone;
-use Lemuria\Model\Lemuria\Commodity\Wood;
+use Lemuria\Model\Fantasya\Building;
+use Lemuria\Model\Fantasya\Commodity\Iron;
+use Lemuria\Model\Fantasya\Commodity\Silver;
+use Lemuria\Model\Fantasya\Commodity\Stone;
+use Lemuria\Model\Fantasya\Commodity\Wood;
 
 /**
  * A cabin that improves woodchopping.

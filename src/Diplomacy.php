@@ -1,13 +1,13 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria;
+namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\ExpectedValues;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Id;
-use Lemuria\Model\Lemuria\Exception\UnknownPartyException;
+use Lemuria\Model\Fantasya\Exception\UnknownPartyException;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 

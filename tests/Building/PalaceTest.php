@@ -1,9 +1,9 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Tests\Model\Lemuria;
+namespace Lemuria\Tests\Model\Fantasya;
 
-use Lemuria\Model\Lemuria\Building\Palace;
-use Lemuria\Model\Lemuria\Building\Tower;
+use Lemuria\Model\Fantasya\Building\Palace;
+use Lemuria\Model\Fantasya\Building\Tower;
 use Lemuria\Tests\Test;
 
 class PalaceTest extends Test

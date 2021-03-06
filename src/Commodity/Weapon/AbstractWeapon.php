@@ -1,14 +1,14 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Commodity\Weapon;
+namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\ArtifactTrait;
-use Lemuria\Model\Lemuria\Commodity;
-use Lemuria\Model\Lemuria\Factory\BuilderTrait;
-use Lemuria\Model\Lemuria\Requirement;
-use Lemuria\Model\Lemuria\Weapon;
+use Lemuria\Model\Fantasya\ArtifactTrait;
+use Lemuria\Model\Fantasya\Commodity;
+use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Requirement;
+use Lemuria\Model\Fantasya\Weapon;
 
 /**
  * Base class for any weapon.

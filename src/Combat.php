@@ -1,5 +1,5 @@
 <?php
-namespace Lemuria\Model\Lemuria;
+namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\ExpectedValues;
 use JetBrains\PhpStorm\Pure;

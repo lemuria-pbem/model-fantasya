@@ -1,13 +1,13 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Race;
+namespace Lemuria\Model\Fantasya\Race;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Factory\BuilderTrait;
-use Lemuria\Model\Lemuria\Knowledge;
-use Lemuria\Model\Lemuria\Modification;
-use Lemuria\Model\Lemuria\Race;
+use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Knowledge;
+use Lemuria\Model\Fantasya\Modification;
+use Lemuria\Model\Fantasya\Race;
 use Lemuria\SingletonTrait;
 
 /**

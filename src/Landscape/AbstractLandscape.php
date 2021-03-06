@@ -1,8 +1,8 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Landscape;
+namespace Lemuria\Model\Fantasya\Landscape;
 
-use Lemuria\Model\Lemuria\Landscape;
+use Lemuria\Model\Fantasya\Landscape;
 use Lemuria\SingletonTrait;
 
 /**

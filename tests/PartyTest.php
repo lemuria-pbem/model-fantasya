@@ -1,8 +1,8 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Tests\Model\Lemuria;
+namespace Lemuria\Tests\Model\Fantasya;
 
-use Lemuria\Model\Lemuria\Party;
+use Lemuria\Model\Fantasya\Party;
 use Lemuria\Tests\Test;
 
 class PartyTest extends Test

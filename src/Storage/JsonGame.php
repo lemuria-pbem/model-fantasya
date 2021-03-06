@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Storage;
+namespace Lemuria\Model\Fantasya\Storage;
 
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Storage\FileProvider;

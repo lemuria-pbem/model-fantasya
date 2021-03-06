@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Ship;
+namespace Lemuria\Model\Fantasya\Ship;
 
 use JetBrains\PhpStorm\Pure;
 

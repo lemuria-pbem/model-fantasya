@@ -1,11 +1,11 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Commodity\Weapon;
+namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Requirement;
-use Lemuria\Model\Lemuria\Talent\Fistfight;
+use Lemuria\Model\Fantasya\Requirement;
+use Lemuria\Model\Fantasya\Talent\Fistfight;
 
 /**
  * Fists are the default weapon of a unit that has no real weapon.

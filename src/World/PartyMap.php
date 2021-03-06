@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Lemuria\Model\Lemuria\World;
+namespace Lemuria\Model\Fantasya\World;
 
 use JetBrains\PhpStorm\ExpectedValues;
 
@@ -8,7 +8,7 @@ use JetBrains\PhpStorm\Immutable;
 
 use Lemuria\Model\Coordinates;
 use Lemuria\Model\Exception\MapException;
-use Lemuria\Model\Lemuria\Party;
+use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Location;
 use Lemuria\Model\Neighbours;
 use Lemuria\Model\World;

@@ -1,8 +1,8 @@
 <?php
 declare(strict_types = 1);
-namespace Lemuria\Model\Lemuria\Storage;
+namespace Lemuria\Model\Fantasya\Storage;
 
-use Lemuria\Model\Lemuria\Exception\JsonException;
+use Lemuria\Model\Fantasya\Exception\JsonException;
 
 /**
  * The Json class is a convenient helper for encoding clean JSON:

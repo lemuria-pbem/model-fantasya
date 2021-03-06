@@ -1,11 +1,11 @@
 <?php
 declare(strict_types = 1);
-namespace Lemuria\Model\Lemuria\Factory;
+namespace Lemuria\Model\Fantasya\Factory;
 
 use Lemuria\Assignable;
 use Lemuria\Lemuria;
 use Lemuria\Model\Catalog;
-use Lemuria\Model\Lemuria\Party;
+use Lemuria\Model\Fantasya\Party;
 use Lemuria\Registry;
 
 class LemuriaRegistry implements Registry

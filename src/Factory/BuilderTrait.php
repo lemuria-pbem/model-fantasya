@@ -1,16 +1,16 @@
 <?php
 declare(strict_types = 1);
-namespace Lemuria\Model\Lemuria\Factory;
+namespace Lemuria\Model\Fantasya\Factory;
 
 use Lemuria\Exception\SingletonException;
 use Lemuria\Lemuria;
-use Lemuria\Model\Lemuria\Building;
-use Lemuria\Model\Lemuria\Building\Castle;
-use Lemuria\Model\Lemuria\Commodity;
-use Lemuria\Model\Lemuria\Landscape;
-use Lemuria\Model\Lemuria\Race;
-use Lemuria\Model\Lemuria\Ship;
-use Lemuria\Model\Lemuria\Talent;
+use Lemuria\Model\Fantasya\Building;
+use Lemuria\Model\Fantasya\Building\Castle;
+use Lemuria\Model\Fantasya\Commodity;
+use Lemuria\Model\Fantasya\Landscape;
+use Lemuria\Model\Fantasya\Race;
+use Lemuria\Model\Fantasya\Ship;
+use Lemuria\Model\Fantasya\Talent;
 
 trait BuilderTrait
 {

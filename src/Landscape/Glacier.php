@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Landscape;
+namespace Lemuria\Model\Fantasya\Landscape;
 
 use JetBrains\PhpStorm\Pure;
 

@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Landscape;
+namespace Lemuria\Model\Fantasya\Landscape;
 
 /**
  * A forest is a plain with many trees.

@@ -1,13 +1,13 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Commodity;
+namespace Lemuria\Model\Fantasya\Commodity;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Commodity;
-use Lemuria\Model\Lemuria\RawMaterial;
-use Lemuria\Model\Lemuria\RawMaterialTrait;
-use Lemuria\Model\Lemuria\Talent\Quarrying;
+use Lemuria\Model\Fantasya\Commodity;
+use Lemuria\Model\Fantasya\RawMaterial;
+use Lemuria\Model\Fantasya\RawMaterialTrait;
+use Lemuria\Model\Fantasya\Talent\Quarrying;
 use Lemuria\SingletonTrait;
 
 /**

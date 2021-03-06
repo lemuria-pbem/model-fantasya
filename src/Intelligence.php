@@ -1,9 +1,9 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria;
+namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\Pure;
-use Lemuria\Model\Lemuria\Building\Castle;
+use Lemuria\Model\Fantasya\Building\Castle;
 
 /**
  * Helper class for region information.

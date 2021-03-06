@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria;
+namespace Lemuria\Model\Fantasya;
 
 /**
  * Materials are derived from natural resources or made from them in a production step.

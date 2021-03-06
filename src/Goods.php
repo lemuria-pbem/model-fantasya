@@ -1,12 +1,12 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria;
+namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Item;
 use Lemuria\ItemSet;
-use Lemuria\Model\Lemuria\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 
 /**
  * Goods are sets of quantities.

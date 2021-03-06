@@ -1,14 +1,14 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\World;
+namespace Lemuria\Model\Fantasya\World;
 
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Model\Coordinates;
-use Lemuria\Model\Lemuria\Landscape\Ocean;
-use Lemuria\Model\Lemuria\Region;
+use Lemuria\Model\Fantasya\Landscape\Ocean;
+use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\World\MapCoordinates;
 
 /**

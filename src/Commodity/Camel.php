@@ -1,11 +1,11 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Commodity;
+namespace Lemuria\Model\Fantasya\Commodity;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Commodity;
-use Lemuria\Model\Lemuria\Transport;
+use Lemuria\Model\Fantasya\Commodity;
+use Lemuria\Model\Fantasya\Transport;
 use Lemuria\SingletonTrait;
 
 /**

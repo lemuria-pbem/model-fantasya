@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Factory;
+namespace Lemuria\Model\Fantasya\Factory;
 
 use JetBrains\PhpStorm\Pure;
 
@@ -11,11 +11,11 @@ use Lemuria\Lemuria;
 use Lemuria\Model\Catalog;
 use Lemuria\Model\Exception\DuplicateIdException;
 use Lemuria\Model\Exception\NotRegisteredException;
-use Lemuria\Model\Lemuria\Construction;
-use Lemuria\Model\Lemuria\Party;
-use Lemuria\Model\Lemuria\Region;
-use Lemuria\Model\Lemuria\Unit;
-use Lemuria\Model\Lemuria\Vessel;
+use Lemuria\Model\Fantasya\Construction;
+use Lemuria\Model\Fantasya\Party;
+use Lemuria\Model\Fantasya\Region;
+use Lemuria\Model\Fantasya\Unit;
+use Lemuria\Model\Fantasya\Vessel;
 use Lemuria\Model\Reassignment;
 
 /**

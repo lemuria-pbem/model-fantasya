@@ -1,14 +1,14 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Party;
+namespace Lemuria\Model\Fantasya\Party;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Exception\CensusException;
-use Lemuria\Model\Lemuria\Party;
-use Lemuria\Model\Lemuria\People;
-use Lemuria\Model\Lemuria\Region;
-use Lemuria\Model\Lemuria\Unit;
+use Lemuria\Model\Fantasya\Exception\CensusException;
+use Lemuria\Model\Fantasya\Party;
+use Lemuria\Model\Fantasya\People;
+use Lemuria\Model\Fantasya\Region;
+use Lemuria\Model\Fantasya\Unit;
 use Lemuria\Model\World\Atlas;
 
 /**

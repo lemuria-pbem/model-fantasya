@@ -1,24 +1,24 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Race;
+namespace Lemuria\Model\Fantasya\Race;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Talent\Armory;
-use Lemuria\Model\Lemuria\Talent\Carriagemaking;
-use Lemuria\Model\Lemuria\Talent\Constructing;
-use Lemuria\Model\Lemuria\Talent\Entertaining;
-use Lemuria\Model\Lemuria\Talent\Horsetaming;
-use Lemuria\Model\Lemuria\Talent\Magic;
-use Lemuria\Model\Lemuria\Talent\Mining;
-use Lemuria\Model\Lemuria\Talent\Navigation;
-use Lemuria\Model\Lemuria\Talent\Quarrying;
-use Lemuria\Model\Lemuria\Talent\Shipbuilding;
-use Lemuria\Model\Lemuria\Talent\Tactics;
-use Lemuria\Model\Lemuria\Talent\Taxcollecting;
-use Lemuria\Model\Lemuria\Talent\Trading;
-use Lemuria\Model\Lemuria\Talent\Weaponry;
-use Lemuria\Model\Lemuria\Talent\Woodchopping;
+use Lemuria\Model\Fantasya\Talent\Armory;
+use Lemuria\Model\Fantasya\Talent\Carriagemaking;
+use Lemuria\Model\Fantasya\Talent\Constructing;
+use Lemuria\Model\Fantasya\Talent\Entertaining;
+use Lemuria\Model\Fantasya\Talent\Horsetaming;
+use Lemuria\Model\Fantasya\Talent\Magic;
+use Lemuria\Model\Fantasya\Talent\Mining;
+use Lemuria\Model\Fantasya\Talent\Navigation;
+use Lemuria\Model\Fantasya\Talent\Quarrying;
+use Lemuria\Model\Fantasya\Talent\Shipbuilding;
+use Lemuria\Model\Fantasya\Talent\Tactics;
+use Lemuria\Model\Fantasya\Talent\Taxcollecting;
+use Lemuria\Model\Fantasya\Talent\Trading;
+use Lemuria\Model\Fantasya\Talent\Weaponry;
+use Lemuria\Model\Fantasya\Talent\Woodchopping;
 
 /**
  * Orcs are always in war.

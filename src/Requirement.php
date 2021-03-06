@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria;
+namespace Lemuria\Model\Fantasya;
 
 /**
  * A requirement is a minimum talent level definition.

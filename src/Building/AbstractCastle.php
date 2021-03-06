@@ -1,12 +1,12 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Building;
+namespace Lemuria\Model\Fantasya\Building;
 
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Exception\LemuriaException;
-use Lemuria\Model\Lemuria\Building;
-use Lemuria\Model\Lemuria\Commodity\Stone;
+use Lemuria\Model\Fantasya\Building;
+use Lemuria\Model\Fantasya\Commodity\Stone;
 
 /**
  * Base class for any castle.

@@ -1,8 +1,8 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Talent;
+namespace Lemuria\Model\Fantasya\Talent;
 
-use Lemuria\Model\Lemuria\Talent;
+use Lemuria\Model\Fantasya\Talent;
 use Lemuria\SingletonTrait;
 
 /**

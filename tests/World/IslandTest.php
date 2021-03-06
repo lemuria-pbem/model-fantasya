@@ -1,12 +1,12 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Tests\Model\Lemuria\World;
+namespace Lemuria\Tests\Model\Fantasya\World;
 
 use Lemuria\Exception\LemuriaException;
-use Lemuria\Model\Lemuria\Landscape\Ocean;
-use Lemuria\Model\Lemuria\Landscape\Plain;
-use Lemuria\Model\Lemuria\Region;
-use Lemuria\Model\Lemuria\World\Island;
+use Lemuria\Model\Fantasya\Landscape\Ocean;
+use Lemuria\Model\Fantasya\Landscape\Plain;
+use Lemuria\Model\Fantasya\Region;
+use Lemuria\Model\Fantasya\World\Island;
 use Lemuria\Model\World\MapCoordinates;
 use Lemuria\Tests\Test;
 

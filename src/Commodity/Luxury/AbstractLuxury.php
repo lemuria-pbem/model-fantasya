@@ -1,10 +1,10 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Commodity\Luxury;
+namespace Lemuria\Model\Fantasya\Commodity\Luxury;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Luxury;
+use Lemuria\Model\Fantasya\Luxury;
 use Lemuria\SingletonTrait;
 
 /**

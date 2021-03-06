@@ -1,11 +1,11 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Exception;
+namespace Lemuria\Model\Fantasya\Exception;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Diplomacy;
-use Lemuria\Model\Lemuria\Party;
+use Lemuria\Model\Fantasya\Diplomacy;
+use Lemuria\Model\Fantasya\Party;
 
 /**
  * This exception is thrown by the Diplomacy class.

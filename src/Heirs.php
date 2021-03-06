@@ -1,8 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Lemuria\Model\Lemuria;
-
-use JetBrains\PhpStorm\Pure;
+namespace Lemuria\Model\Fantasya;
 
 class Heirs
 {
@@ -20,7 +18,7 @@ class Heirs
 
 	protected ?Vessel $vessel = null;
 
-	#[Pure] public function __construct(protected Unit $unit) {
+	public function __construct(protected Unit $unit) {
 		$this->inConstruction    = new People();
 		$this->onVessel          = new People();
 		$this->outside           = new People();

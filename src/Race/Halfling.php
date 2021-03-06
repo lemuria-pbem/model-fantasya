@@ -1,27 +1,27 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Race;
+namespace Lemuria\Model\Fantasya\Race;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Talent\Archery;
-use Lemuria\Model\Lemuria\Talent\Bladefighting;
-use Lemuria\Model\Lemuria\Talent\Camouflage;
-use Lemuria\Model\Lemuria\Talent\Carriagemaking;
-use Lemuria\Model\Lemuria\Talent\Catapulting;
-use Lemuria\Model\Lemuria\Talent\Constructing;
-use Lemuria\Model\Lemuria\Talent\Crossbowing;
-use Lemuria\Model\Lemuria\Talent\Entertaining;
-use Lemuria\Model\Lemuria\Talent\Horsetaming;
-use Lemuria\Model\Lemuria\Talent\Mining;
-use Lemuria\Model\Lemuria\Talent\Navigation;
-use Lemuria\Model\Lemuria\Talent\Perception;
-use Lemuria\Model\Lemuria\Talent\Riding;
-use Lemuria\Model\Lemuria\Talent\Roadmaking;
-use Lemuria\Model\Lemuria\Talent\Shipbuilding;
-use Lemuria\Model\Lemuria\Talent\Spearfighting;
-use Lemuria\Model\Lemuria\Talent\Taxcollecting;
-use Lemuria\Model\Lemuria\Talent\Trading;
+use Lemuria\Model\Fantasya\Talent\Archery;
+use Lemuria\Model\Fantasya\Talent\Bladefighting;
+use Lemuria\Model\Fantasya\Talent\Camouflage;
+use Lemuria\Model\Fantasya\Talent\Carriagemaking;
+use Lemuria\Model\Fantasya\Talent\Catapulting;
+use Lemuria\Model\Fantasya\Talent\Constructing;
+use Lemuria\Model\Fantasya\Talent\Crossbowing;
+use Lemuria\Model\Fantasya\Talent\Entertaining;
+use Lemuria\Model\Fantasya\Talent\Horsetaming;
+use Lemuria\Model\Fantasya\Talent\Mining;
+use Lemuria\Model\Fantasya\Talent\Navigation;
+use Lemuria\Model\Fantasya\Talent\Perception;
+use Lemuria\Model\Fantasya\Talent\Riding;
+use Lemuria\Model\Fantasya\Talent\Roadmaking;
+use Lemuria\Model\Fantasya\Talent\Shipbuilding;
+use Lemuria\Model\Fantasya\Talent\Spearfighting;
+use Lemuria\Model\Fantasya\Talent\Taxcollecting;
+use Lemuria\Model\Fantasya\Talent\Trading;
 
 /**
  * Halflings are always eating.

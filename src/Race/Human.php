@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Race;
+namespace Lemuria\Model\Fantasya\Race;
 
 use JetBrains\PhpStorm\Pure;
 

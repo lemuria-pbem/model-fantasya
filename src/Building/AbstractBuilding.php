@@ -1,15 +1,15 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Building;
+namespace Lemuria\Model\Fantasya\Building;
 
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Exception\LemuriaException;
-use Lemuria\Model\Lemuria\Building;
-use Lemuria\Model\Lemuria\ArtifactTrait;
-use Lemuria\Model\Lemuria\Factory\BuilderTrait;
-use Lemuria\Model\Lemuria\Requirement;
-use Lemuria\Model\Lemuria\Talent\Constructing;
+use Lemuria\Model\Fantasya\Building;
+use Lemuria\Model\Fantasya\ArtifactTrait;
+use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Requirement;
+use Lemuria\Model\Fantasya\Talent\Constructing;
 
 /**
  * Base class for any building.

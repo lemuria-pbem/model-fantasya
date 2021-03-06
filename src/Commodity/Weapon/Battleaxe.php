@@ -1,14 +1,14 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Commodity\Weapon;
+namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Commodity\Iron;
-use Lemuria\Model\Lemuria\Commodity\Wood;
-use Lemuria\Model\Lemuria\Requirement;
-use Lemuria\Model\Lemuria\Talent\Bladefighting;
-use Lemuria\Model\Lemuria\Talent\Weaponry;
+use Lemuria\Model\Fantasya\Commodity\Iron;
+use Lemuria\Model\Fantasya\Commodity\Wood;
+use Lemuria\Model\Fantasya\Requirement;
+use Lemuria\Model\Fantasya\Talent\Bladefighting;
+use Lemuria\Model\Fantasya\Talent\Weaponry;
 
 /**
  * A battleaxe.

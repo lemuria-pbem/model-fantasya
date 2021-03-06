@@ -1,10 +1,10 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Building;
+namespace Lemuria\Model\Fantasya\Building;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Building;
+use Lemuria\Model\Fantasya\Building;
 
 /**
  * A castle is a fortified building where units can hide and trade on the market.

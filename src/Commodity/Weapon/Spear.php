@@ -1,13 +1,13 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Commodity\Weapon;
+namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Lemuria\Commodity\Wood;
-use Lemuria\Model\Lemuria\Requirement;
-use Lemuria\Model\Lemuria\Talent\Spearfighting;
-use Lemuria\Model\Lemuria\Talent\Weaponry;
+use Lemuria\Model\Fantasya\Commodity\Wood;
+use Lemuria\Model\Fantasya\Requirement;
+use Lemuria\Model\Fantasya\Talent\Spearfighting;
+use Lemuria\Model\Fantasya\Talent\Weaponry;
 
 /**
  * A spear.

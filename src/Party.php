@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria;
+namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
@@ -16,7 +16,7 @@ use Lemuria\Id;
 use Lemuria\Lemuria;
 use Lemuria\Model\Catalog;
 use Lemuria\Model\Exception\NotRegisteredException;
-use Lemuria\Model\Lemuria\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Serializable;
 
 /**
@@ -59,7 +59,7 @@ class Party extends Entity implements Assignable, Collector
 	/**
 	 * Create an empty party.
 	 */
-	#[Pure] public function __construct() {
+	public function __construct() {
 		$this->uuid      = Uuid::uuid4();
 		$this->creation  = time();
 		$this->round     = Lemuria::Calendar()->Round();

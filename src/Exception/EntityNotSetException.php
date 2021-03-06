@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Lemuria\Model\Lemuria\Exception;
+namespace Lemuria\Model\Fantasya\Exception;
 
 use Lemuria\Engine\Message;
 

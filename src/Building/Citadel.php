@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Building;
+namespace Lemuria\Model\Fantasya\Building;
 
 use JetBrains\PhpStorm\Pure;
 

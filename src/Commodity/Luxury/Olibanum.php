@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria\Commodity\Luxury;
+namespace Lemuria\Model\Fantasya\Commodity\Luxury;
 
 use JetBrains\PhpStorm\Pure;
 

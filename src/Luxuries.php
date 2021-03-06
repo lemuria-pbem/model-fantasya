@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Model\Lemuria;
+namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
@@ -8,15 +8,15 @@ use JetBrains\PhpStorm\Pure;
 use function Lemuria\getClass;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
-use Lemuria\Model\Lemuria\Commodity\Luxury\Balsam;
-use Lemuria\Model\Lemuria\Commodity\Luxury\Fur;
-use Lemuria\Model\Lemuria\Commodity\Luxury\Gem;
-use Lemuria\Model\Lemuria\Commodity\Luxury\Myrrh;
-use Lemuria\Model\Lemuria\Commodity\Luxury\Oil;
-use Lemuria\Model\Lemuria\Commodity\Luxury\Olibanum;
-use Lemuria\Model\Lemuria\Commodity\Luxury\Silk;
-use Lemuria\Model\Lemuria\Commodity\Luxury\Spice;
-use Lemuria\Model\Lemuria\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Commodity\Luxury\Balsam;
+use Lemuria\Model\Fantasya\Commodity\Luxury\Fur;
+use Lemuria\Model\Fantasya\Commodity\Luxury\Gem;
+use Lemuria\Model\Fantasya\Commodity\Luxury\Myrrh;
+use Lemuria\Model\Fantasya\Commodity\Luxury\Oil;
+use Lemuria\Model\Fantasya\Commodity\Luxury\Olibanum;
+use Lemuria\Model\Fantasya\Commodity\Luxury\Silk;
+use Lemuria\Model\Fantasya\Commodity\Luxury\Spice;
+use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 

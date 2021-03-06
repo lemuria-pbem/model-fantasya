@@ -1,8 +1,8 @@
 <?php
 declare(strict_types = 1);
-namespace Lemuria\Model\Lemuria;
+namespace Lemuria\Model\Fantasya;
 
-use Lemuria\Model\Lemuria\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 
 trait RawMaterialTrait
 {
