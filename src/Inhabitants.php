@@ -5,6 +5,7 @@ namespace Lemuria\Model\Fantasya;
 use JetBrains\PhpStorm\ExpectedValues;
 use Lemuria\EntitySet;
 use Lemuria\Exception\EntitySetException;
+use Lemuria\Exception\EntitySetReplaceException;
 use Lemuria\Id;
 use Lemuria\Reorder;
 
@@ -44,6 +45,17 @@ class Inhabitants extends People
 		parent::clear();
 		$this->owner = null;
 		return $this;
+	}
+
+	/**
+	 * Replace an entity in the set with another one that is not part of the set.
+	 *
+	 * @throws EntitySetException The entity is not part of the set.
+	 * @throws EntitySetReplaceException The replacement is part of the set.
+	 */
+	public function replace(Id $search, Id $replace): void {
+		parent::replace($search, $replace);
+		$this->owner = null;
 	}
 
 	/**
