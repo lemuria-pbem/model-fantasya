@@ -12,9 +12,9 @@ use Lemuria\SingletonTrait;
  */
 final class Griffinegg implements Commodity
 {
-	private const WEIGHT = 20 * 100;
-
 	use SingletonTrait;
+
+	private const WEIGHT = 20 * 100;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;

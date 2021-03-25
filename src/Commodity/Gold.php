@@ -5,16 +5,22 @@ namespace Lemuria\Model\Fantasya\Commodity;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Commodity;
+use Lemuria\Model\Fantasya\RawMaterial;
+use Lemuria\Model\Fantasya\RawMaterialTrait;
+use Lemuria\Model\Fantasya\Talent\Mining;
 use Lemuria\SingletonTrait;
 
 /**
  * A gold nugget.
  */
-final class Gold implements Commodity
+final class Gold implements Commodity, RawMaterial
 {
+	use RawMaterialTrait;
+	use SingletonTrait;
+
 	private const WEIGHT = 5 * 100;
 
-	use SingletonTrait;
+	private string $requirement = Mining::class;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;

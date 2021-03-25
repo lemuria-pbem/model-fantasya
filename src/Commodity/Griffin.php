@@ -13,13 +13,13 @@ use Lemuria\SingletonTrait;
  */
 final class Griffin implements Commodity, Transport
 {
+	use SingletonTrait;
+
 	private const PAYLOAD = 50 * 100;
 
 	private const SPEED = 5;
 
 	private const WEIGHT = 120 * 100;
-
-	use SingletonTrait;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;

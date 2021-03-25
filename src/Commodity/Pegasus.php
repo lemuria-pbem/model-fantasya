@@ -13,13 +13,13 @@ use Lemuria\SingletonTrait;
  */
 final class Pegasus implements Commodity, Transport
 {
+	use SingletonTrait;
+
 	private const PAYLOAD = 20 * 100;
 
 	private const SPEED = 3;
 
 	private const WEIGHT = 50 * 100;
-
-	use SingletonTrait;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
