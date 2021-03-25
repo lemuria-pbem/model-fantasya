@@ -7,7 +7,7 @@ use Lemuria\EntitySet;
 use Lemuria\Id;
 
 /**
- * The people of a player or party is the community of all its units.
+ * A Gathering is a set of parties.
  */
 class Gathering extends EntitySet
 {
