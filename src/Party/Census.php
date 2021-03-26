@@ -40,6 +40,10 @@ class Census implements \Countable
 		$this->atlas->sort(Atlas::NORTH_TO_SOUTH);
 	}
 
+	public function Party(): Party {
+		return $this->party;
+	}
+
 	/**
 	 * Get the number of all persons belonging to the party.
 	 */
