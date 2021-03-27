@@ -40,7 +40,7 @@ class Modification extends Ability
 		if ($ability->Talent() !== $this->Talent()) {
 			throw new LemuriaException('Talent mismatch.');
 		}
-		$level = $ability->Level() + $this->Level();
+		$level = max(0, $ability->Level() + $this->Level());
 		return new Ability($this->Talent(), Ability::getExperience($level));
 	}
 }
