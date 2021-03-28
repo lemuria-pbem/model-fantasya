@@ -89,4 +89,13 @@ final class Intelligence
 		}
 		return $castle;
 	}
+
+	/**
+	 * Get the wage of the region that every peasant can earn.
+	 */
+	#[Pure] public function getWage(int $defaultWage): int {
+		/** @var Castle $castle */
+		$castle = $this->getGovernment()?->Building();
+		return $castle?->Wage() ?? $defaultWage;
+	}
 }
