@@ -39,7 +39,7 @@ class Unit extends Entity implements Collectible
 
 	private Id|bool|null $disguiseAs = false;
 
-	private Goods $inventory;
+	private Resources $inventory;
 
 	private Knowledge $knowledge;
 
@@ -58,7 +58,7 @@ class Unit extends Entity implements Collectible
 	 * Create a new unit.
 	 */
 	#[Pure] public function __construct() {
-		$this->inventory = new Goods();
+		$this->inventory = new Resources();
 		$this->knowledge = new Knowledge();
 	}
 
@@ -110,7 +110,7 @@ class Unit extends Entity implements Collectible
 		return Catalog::UNITS;
 	}
 
-	#[Pure] public function Inventory(): Goods {
+	#[Pure] public function Inventory(): Resources {
 		return $this->inventory;
 	}
 

@@ -98,4 +98,17 @@ final class Intelligence
 		$castle = $this->getGovernment()?->Building();
 		return $castle?->Wage() ?? $defaultWage;
 	}
+
+	/**
+	 * Get the material pool of a party in the region.
+	 */
+	public function getMaterialPool(Party $party): Resources {
+		$pool = new Resources();
+		foreach ($this->getUnits($party) as $unit /* @var Unit $unit*/) {
+			foreach ($unit->Inventory() as $item /* @var Quantity $item */) {
+				$pool->add($item);
+			}
+		}
+		return $pool;
+	}
 }
