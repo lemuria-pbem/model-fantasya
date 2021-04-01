@@ -11,6 +11,7 @@ use function Lemuria\getClass;
 use Lemuria\Assignable;
 use Lemuria\Collector;
 use Lemuria\CollectorTrait;
+use Lemuria\Engine\Newcomer;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
@@ -59,8 +60,8 @@ class Party extends Entity implements Assignable, Collector
 	/**
 	 * Create an empty party.
 	 */
-	public function __construct(?string $uuid = null) {
-		$this->uuid      = $uuid ?? Uuid::uuid4();
+	public function __construct(?Newcomer $newcomer = null) {
+		$this->uuid      = $newcomer?->Uuid() ?? Uuid::uuid4();
 		$this->creation  = time();
 		$this->round     = Lemuria::Calendar()->Round();
 		$this->people    = new People($this);
