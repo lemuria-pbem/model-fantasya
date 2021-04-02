@@ -1,6 +1,6 @@
 <?php
 declare (strict_types = 1);
-namespace Lemuria\Sorting\Location;
+namespace Lemuria\Model\Fantasya\Sorting\Region;
 
 use Lemuria\EntityOrder;
 use Lemuria\EntitySet;
@@ -10,7 +10,7 @@ use Lemuria\Model\Fantasya\Unit;
 /**
  * An ordering for regions by number of residents.
  */
-class North2South implements EntityOrder
+class ByResidents implements EntityOrder
 {
 	/**
 	 * Sort entities and return the entity IDs in sorted order.
