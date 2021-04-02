@@ -52,6 +52,9 @@ class LocationPicker implements \ArrayAccess, \Countable
 		return count($this->locations);
 	}
 
+	/**
+	 * Filter for regions of a specific landscape.
+	 */
 	public function landscape(Landscape|string $landscape): LocationPicker {
 		$locations = [];
 		$filter    = getClass($landscape);
@@ -69,6 +72,9 @@ class LocationPicker implements \ArrayAccess, \Countable
 		return $this;
 	}
 
+	/**
+	 * Filter for regions that are land next to an ocean.
+	 */
 	public function coastal(): LocationPicker {
 		$locations                                = [];
 		$this->landscapes[getClass(Ocean::class)] = [];
@@ -84,6 +90,27 @@ class LocationPicker implements \ArrayAccess, \Countable
 						$landscape[] = $i++;
 						break;
 					}
+				}
+			}
+			$this->landscapes[$type] = $landscape;
+		}
+		$this->locations = $locations;
+		return $this;
+	}
+
+	/**
+	 * Filter for regions that have no residents.
+	 */
+	public function void(): LocationPicker {
+		$locations = [];
+		$i         = 0;
+		foreach ($this->landscapes as $type => $indices) {
+			$landscape = [];
+			foreach ($indices as $index) {
+				$region = $this->locations[$index];
+				if ($region->Residents()->count() <= 0) {
+					$locations[] = $region;
+					$landscape[] = $i++;
 				}
 			}
 			$this->landscapes[$type] = $landscape;
