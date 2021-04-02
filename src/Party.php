@@ -62,7 +62,7 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	public function __construct(?Newcomer $newcomer = null) {
 		$this->uuid      = $newcomer?->Uuid() ?? Uuid::uuid4();
-		$this->creation  = time();
+		$this->creation  = $newcomer?->Creation() ?? time();
 		$this->round     = Lemuria::Calendar()->Round();
 		$this->people    = new People($this);
 		$this->chronicle = new Chronicle();
