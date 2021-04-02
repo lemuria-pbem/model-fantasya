@@ -60,7 +60,7 @@ class LocationPicker implements \ArrayAccess, \Countable
 				foreach ($indices as $i) {
 					$locations[] = $this->locations[$i];
 				}
-				$this->locations[]       = $locations;
+				$this->locations         = $locations;
 				$this->landscapes[$type] = array_keys($locations);
 			} else {
 				$this->landscapes[$type] = [];
