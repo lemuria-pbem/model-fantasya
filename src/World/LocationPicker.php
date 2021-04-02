@@ -9,6 +9,7 @@ use Lemuria\Model\Catalog;
 use Lemuria\Model\Fantasya\Landscape;
 use Lemuria\Model\Fantasya\Landscape\Ocean;
 use Lemuria\Model\Fantasya\Region;
+use Lemuria\Model\World\Atlas;
 
 /**
  * The LocationPicker is a helper class to find the best fitting locations.
@@ -30,6 +31,14 @@ class LocationPicker implements \ArrayAccess, \Countable
 	 */
 	public function __construct() {
 		$this->reset();
+	}
+
+	public function Atlas(): Atlas {
+		$atlas = new Atlas();
+		foreach ($this->locations as $region) {
+			$atlas->add($region);
+		}
+		return $atlas;
 	}
 
 	public function offsetExists($offset): bool {
@@ -84,7 +93,7 @@ class LocationPicker implements \ArrayAccess, \Countable
 			$landscape = [];
 			foreach ($indices as $index) {
 				$region = $this->locations[$index];
-				foreach ($world->getNeighbours($region) as $neighbour /* @var Region $neighbour */) {
+				foreach ($world->getNeighbours($region)->getAll() as $neighbour /* @var Region $neighbour */) {
 					if ($neighbour->Landscape() instanceof Ocean) {
 						$locations[] = $region;
 						$landscape[] = $i++;
