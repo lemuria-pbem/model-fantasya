@@ -25,7 +25,7 @@ final class Mail implements Artifact, Commodity
 
 	private const IRON = 3;
 
-	private Requirement $craft;
+	private ?Requirement $craft = null;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
