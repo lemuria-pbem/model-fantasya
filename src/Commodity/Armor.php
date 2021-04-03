@@ -25,7 +25,7 @@ final class Armor implements Artifact, Commodity
 
 	private const IRON = 5;
 
-	private Requirement $craft;
+	private ?Requirement $craft = null;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
