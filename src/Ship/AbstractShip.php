@@ -19,7 +19,7 @@ abstract class AbstractShip implements Ship
 	use ArtifactTrait;
 	use BuilderTrait;
 
-	private Requirement $craft;
+	private ?Requirement $craft = null;
 
 	public function getCraft(): Requirement {
 		if (!$this->craft) {
