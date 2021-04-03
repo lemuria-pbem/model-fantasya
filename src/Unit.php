@@ -146,7 +146,7 @@ class Unit extends Entity implements Collectible
 		if ($this->disguiseAs instanceof Id) {
 			return Party::get($this->disguiseAs);
 		}
-		if ($this->disguiseAs === false) {
+		if ($this->disguiseAs === null) {
 			return $this->Party();
 		}
 		return null;
@@ -235,12 +235,12 @@ class Unit extends Entity implements Collectible
 	public function setDisguise(?Party $party = null): Unit {
 		if ($party) {
 			if ($party === $this->Party()) {
-				$this->disguiseAs = false;
+				$this->disguiseAs = null;
 			} else {
 				$this->disguiseAs = $party->Id();
 			}
 		} else {
-			$this->disguiseAs = null;
+			$this->disguiseAs = false;
 		}
 		return $this;
 	}
