@@ -72,4 +72,22 @@ class Census implements \Countable
 		}
 		return $this->units[$id];
 	}
+
+	/**
+	 * Get the affiliated party of a unit.
+	 */
+	public function getParty(Unit $unit): ?Party {
+		$party = $unit->Party();
+		if ($party === $this->party) {
+			return $this->party;
+		}
+		$disguise = $unit->Disguise();
+		if ($disguise) {
+			if ($disguise === $party) {
+				return null;
+			}
+			return $disguise;
+		}
+		return $party;
+	}
 }
