@@ -25,7 +25,7 @@ final class Woodshield implements Artifact, Commodity
 
 	private const WOOD = 1;
 
-	private Requirement $craft;
+	private ?Requirement $craft = null;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
