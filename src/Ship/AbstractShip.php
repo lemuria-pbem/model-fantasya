@@ -30,7 +30,7 @@ abstract class AbstractShip implements Ship
 	}
 
 	#[Pure] protected function material(): array {
-		return [Wood::class => $this->Wood()];
+		return [Wood::class => 1];
 	}
 
 	#[Pure] protected function shipbuildingLevel(): int {
