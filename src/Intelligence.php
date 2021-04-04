@@ -106,7 +106,7 @@ final class Intelligence
 		$pool = new Resources();
 		foreach ($this->getUnits($party) as $unit /* @var Unit $unit*/) {
 			foreach ($unit->Inventory() as $item /* @var Quantity $item */) {
-				$pool->add($item);
+				$pool->add(new Quantity($item->Commodity(), $item->Count()));
 			}
 		}
 		return $pool;
