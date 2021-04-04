@@ -82,12 +82,12 @@ class Census implements \Countable
 			return $this->party;
 		}
 		$disguise = $unit->Disguise();
-		if ($disguise) {
-			if ($disguise === $party) {
-				return null;
-			}
+		if ($disguise instanceof Party) {
 			return $disguise;
 		}
-		return $party;
+		if ($disguise === false) {
+			return $party;
+		}
+		return null;
 	}
 }
