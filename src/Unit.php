@@ -37,7 +37,7 @@ class Unit extends Entity implements Collectible
 
 	private ?int $camouflage = 0;
 
-	private Id|bool|null $disguiseAs = false;
+	private Id|false|null $disguiseAs = false;
 
 	private Resources $inventory;
 
@@ -142,14 +142,11 @@ class Unit extends Entity implements Collectible
 		return $this->camouflage;
 	}
 
-	public function Disguise(): ?Party {
+	public function Disguise(): Party|false|null {
 		if ($this->disguiseAs instanceof Id) {
 			return Party::get($this->disguiseAs);
 		}
-		if ($this->disguiseAs === null) {
-			return $this->Party();
-		}
-		return null;
+		return $this->disguiseAs;
 	}
 
 	public function Party(): Party {
@@ -232,7 +229,7 @@ class Unit extends Entity implements Collectible
 		return $this;
 	}
 
-	public function setDisguise(?Party $party = null): Unit {
+	public function setDisguise(Party|false|null $party = null): Unit {
 		if ($party) {
 			if ($party === $this->Party()) {
 				$this->disguiseAs = null;
@@ -240,7 +237,7 @@ class Unit extends Entity implements Collectible
 				$this->disguiseAs = $party->Id();
 			}
 		} else {
-			$this->disguiseAs = false;
+			$this->disguiseAs = $party;
 		}
 		return $this;
 	}
