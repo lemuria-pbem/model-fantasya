@@ -89,6 +89,11 @@ class Acquaintances extends Gathering
 		return false;
 	}
 
+	public function tell(Party $party): Acquaintances {
+		$this->addEntity($party->Id(), true);
+		return $this;
+	}
+
 	protected function addEntity(Id $id, bool $isTold = false): void {
 		parent::addEntity($id);
 		$this->isTold[$id->Id()] = $isTold;
