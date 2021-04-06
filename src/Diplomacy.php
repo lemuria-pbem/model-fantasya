@@ -247,7 +247,8 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 * If a relation for the same party and region exists, it will be replaced.
 	 */
 	public function add(Relation $relation): Diplomacy {
-		if (!$this->isKnown($relation->Party())) {
+		$party = $relation->Party();
+		if ($party !== $this->party && !$this->isKnown($party)) {
 			throw new UnknownPartyException($this, $relation->Party());
 		}
 
