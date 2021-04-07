@@ -209,22 +209,28 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Check if there is a specific agreement with a unit or the party of a unit.
 	 */
-	public function has(#[ExpectedValues(valuesFromClass: Relation::class)] int $agreement, Unit $unit): bool {
-		if ($this->hasContact($unit, $agreement)) {
-			return true;
+	public function has(#[ExpectedValues(valuesFromClass: Relation::class)] int $agreement, Party|Unit $partner): bool {
+		if ($partner instanceof Unit) {
+			if ($this->hasContact($partner, $agreement)) {
+				return true;
+			}
+			$party  = $partner->Party();
+			$region = $partner->Region();
+		} else {
+			$party  = $partner;
+			$region = null;
 		}
-
-		$party  = $unit->Party();
-		$region = $unit->Region();
 
 		// Check relations for party.
 		$relation = $this->offsetGet(new Relation($party, $region));
 		if ($relation) {
 			return $relation->has($agreement);
 		}
-		$relation = $this->offsetGet(new Relation($party));
-		if ($relation) {
-			return $relation->has($agreement);
+		if ($region) {
+			$relation = $this->offsetGet(new Relation($party));
+			if ($relation) {
+				return $relation->has($agreement);
+			}
 		}
 
 		// Check general relations.
@@ -232,9 +238,11 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 		if ($relation) {
 			return $relation->has($agreement);
 		}
-		$relation = $this->offsetGet(new Relation($this->party));
-		if ($relation) {
-			return $relation->has($agreement);
+		if ($region) {
+			$relation = $this->offsetGet(new Relation($this->party));
+			if ($relation) {
+				return $relation->has($agreement);
+			}
 		}
 
 		// No relations found.
