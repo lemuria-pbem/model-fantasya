@@ -35,7 +35,7 @@ class Unit extends Entity implements Collectible
 
 	private int $battleRow = Combat::BYSTANDER;
 
-	private ?int $camouflage = 0;
+	private bool $isHiding = false;
 
 	private Id|false|null $disguiseAs = false;
 
@@ -69,7 +69,7 @@ class Unit extends Entity implements Collectible
 	 */
 	#[ArrayShape([
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'race' => 'string', 'size' => 'int',
-		'health' => 'float', 'isGuarding' => 'bool', 'battleRow' => 'int', 'camouflage' => 'int|null',
+		'health' => 'float', 'isGuarding' => 'bool', 'battleRow' => 'int', 'camouflage' => 'bool',
 		'disguiseAs' => 'int|null', 'inventory' => 'array', 'knowledge' => 'array'
 	])]
 	#[Pure]
@@ -80,7 +80,7 @@ class Unit extends Entity implements Collectible
 		$data['health']     = $this->Health();
 		$data['isGuarding'] = $this->IsGuarding();
 		$data['battleRow']  = $this->BattleRow();
-		$data['camouflage'] = $this->Camouflage();
+		$data['isHiding']   = $this->IsHiding();
 		$id                 = $this->disguiseAs;
 		$data['disguiseAs'] = $id instanceof Id ? $id->Id() : $id;
 		$data['inventory']  = $this->Inventory()->serialize();
@@ -98,7 +98,7 @@ class Unit extends Entity implements Collectible
 		$this->setHealth($data['health']);
 		$this->setIsGuarding($data['isGuarding']);
 		$this->setBattleRow($data['battleRow']);
-		$this->setCamouflage($data['camouflage']);
+		$this->setIsHiding($data['isHiding']);
 		$id               = $data['disguiseAs'];
 		$this->disguiseAs = is_int($id) ? new Id($id) : $id;
 		$this->Inventory()->unserialize($data['inventory']);
@@ -138,8 +138,8 @@ class Unit extends Entity implements Collectible
 		return $this->battleRow;
 	}
 
-	#[Pure] public function Camouflage(): ?int {
-		return $this->camouflage;
+	#[Pure] public function IsHiding(): bool {
+		return $this->isHiding;
 	}
 
 	public function Disguise(): Party|false|null {
@@ -221,11 +221,8 @@ class Unit extends Entity implements Collectible
 		return $this;
 	}
 
-	public function setCamouflage(?int $level): Unit {
-		if (is_int($level) && $level < 0) {
-			$level = 0;
-		}
-		$this->camouflage = $level;
+	public function setIsHiding(bool $isHiding): Unit {
+		$this->isHiding = $isHiding;
 		return $this;
 	}
 
@@ -264,7 +261,7 @@ class Unit extends Entity implements Collectible
 		$this->validate($data, 'health', 'float');
 		$this->validate($data, 'isGuarding', 'bool');
 		$this->validate($data, 'battleRow', 'int');
-		$this->validate($data, 'camouflage', '?int');
+		$this->validate($data, 'isHiding', 'bool');
 		$disguiseAs = $data['disguiseAs'];
 		if (!is_bool($disguiseAs) || $disguiseAs) {
 			$this->validate($data, 'camouflage', '?int');
