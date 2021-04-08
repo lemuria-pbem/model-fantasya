@@ -9,7 +9,7 @@
 		"lemuria",
 		"pbem"
 	],
-	"version": "0.2.0",
+	"version": "0.1.5",
 	"time": "2021-04-07",
 	"license": "GPL-3.0",
 	"authors": [
@@ -23,7 +23,7 @@
 		"php": "~8.0",
 		"ext-json": "*",
 		"ramsey/uuid": "~4.1",
-		"lemuria-pbem/lemuria": "dev-dev"
+		"lemuria-pbem/lemuria": "dev-master"
 	},
 	"require-dev": {
 		"jetbrains/phpstorm-attributes": "~1.0",
