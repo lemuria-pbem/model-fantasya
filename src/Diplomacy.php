@@ -259,10 +259,11 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 		$relations = [];
 		foreach ($this->relations as $key => $relation) {
 			if (str_starts_with($key, $id)) {
-				$relations[] = $relation;
+				$relations[$key] = $relation;
 			}
 		}
-		return $relations;
+		ksort($relations);
+		return array_values($relations);
 	}
 
 	/**
