@@ -250,6 +250,23 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	}
 
 	/**
+	 * Get all relations to a specific Party.
+	 *
+	 * @return Relation[]
+	 */
+	public function search(Party $party): array {
+		$id        = $party->Id() . '-';
+		$relations = [];
+		foreach ($this->relations as $key => $relation) {
+			if (str_starts_with($key, $id)) {
+				$relations[$key] = $relation;
+			}
+		}
+		ksort($relations);
+		return array_values($relations);
+	}
+
+	/**
 	 * Add a relation.
 	 *
 	 * If a relation for the same party and region exists, it will be replaced.
