@@ -216,12 +216,15 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 		if (!$offer instanceof Luxury) {
 			throw new UnserializeException('Expected luxury: ' . $offer);
 		}
+		$i = 0;
 		foreach (self::LUXURIES as $class) {
 			$luxury = self::createCommodity($class);
 			if ($luxury === $offer) {
 				continue;
 			}
-			$this->demand[getClass($class)] = new Offer($luxury);
+			$class                = getClass($class);
+			$this->demand[$class] = new Offer($luxury);
+			$this->indices[$i++]  = $class;
 		}
 		$this->index = 0;
 		$this->count = count($this->demand);
