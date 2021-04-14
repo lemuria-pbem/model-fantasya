@@ -28,6 +28,8 @@ class Party extends Entity implements Assignable, Collector
 	use BuilderTrait;
 	use CollectorTrait;
 
+	private string $banner;
+
 	private Id $origin;
 
 	private Race $race;
@@ -61,6 +63,7 @@ class Party extends Entity implements Assignable, Collector
 	 * Create an empty party.
 	 */
 	public function __construct(?Newcomer $newcomer = null) {
+		$this->banner    = '';
 		$this->uuid      = $newcomer ? Uuid::fromString($newcomer->Uuid()) : Uuid::uuid4();
 		$this->creation  = $newcomer?->Creation() ?? time();
 		$this->round     = Lemuria::Calendar()->Round();
@@ -75,11 +78,13 @@ class Party extends Entity implements Assignable, Collector
 	 * @return array
 	 */
 	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'people' => 'int[]', 'diplomacy' => 'array',
-		'race' => 'string', 'origin' => 'int', 'uuid' => 'string', 'round' => 'int', 'creation' => 'int'
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'banner' => 'string', 'people' => 'int[]',
+		'diplomacy' => 'array', 'race' => 'string', 'origin' => 'int', 'uuid' => 'string', 'round' => 'int',
+		'creation' => 'int'
 	])]
 	public function serialize(): array {
 		$data              = parent::serialize();
+		$data['banner']    = $this->banner;
 		$data['uuid']      = $this->Uuid();
 		$data['creation']  = $this->creation;
 		$data['round']     = $this->round;
@@ -96,6 +101,7 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
+		$this->banner   = $data['banner'];
 		$this->uuid     = Uuid::fromString($data['uuid']);
 		$this->creation = $data['creation'];
 		$this->round    = $data['round'];
@@ -121,6 +127,10 @@ class Party extends Entity implements Assignable, Collector
 	public function collectAll(): Collector {
 		$this->People()->addCollectorsToAll();
 		return $this;
+	}
+
+	public function Banner(): string {
+		return $this->banner;
 	}
 
 	public function Uuid(): string {
@@ -175,17 +185,16 @@ class Party extends Entity implements Assignable, Collector
 		return $this->diplomacy;
 	}
 
-	/**
-	 * Set the region in Lemuria where the party came into play.
-	 */
+	public function setBanner(string $banner): Party {
+		$this->banner = $banner;
+		return $this;
+	}
+
 	public function setOrigin(Region $origin): Party {
 		$this->origin = $origin->Id();
 		return $this;
 	}
 
-	/**
-	 * Set the party's race.
-	 */
 	public function setRace(Race $race): Party {
 		$this->race = $race;
 		return $this;
@@ -198,6 +207,7 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);
+		$this->validate($data, 'banner', 'string');
 		$this->validate($data, 'uuid', 'string');
 		$this->validate($data, 'creation', 'int');
 		$this->validate($data, 'round', 'int');
