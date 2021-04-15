@@ -6,6 +6,7 @@ use Lemuria\Exception\LemuriaException;
 use Lemuria\Storage\FileProvider;
 use Lemuria\Model\Exception\ModelException;
 use Lemuria\Model\Game;
+use Lemuria\Storage\Provider;
 
 /**
  * A Game implementation that stores data in JSON files.
@@ -142,7 +143,7 @@ abstract class JsonGame implements Game
 	 */
 	abstract protected function getSaveStorage(): array;
 
-	protected function checkProvider(mixed $provider): JsonProvider {
+	protected function checkProvider(Provider $provider): Provider {
 		if ($provider instanceof JsonProvider) {
 			return $provider;
 		}
