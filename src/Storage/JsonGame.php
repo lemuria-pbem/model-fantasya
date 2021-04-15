@@ -159,7 +159,7 @@ abstract class JsonGame implements Game
 		return $this;
 	}
 
-	private function getProvider(string $rw, string $fileName): JsonProvider {
+	private function getProvider(string $rw, string $fileName): Provider {
 		if (isset($this->providers[$rw][$fileName])) {
 			return $this->checkProvider($this->providers[$rw][$fileName]);
 		}
