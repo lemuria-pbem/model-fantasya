@@ -142,6 +142,13 @@ abstract class JsonGame implements Game
 	 */
 	abstract protected function getSaveStorage(): array;
 
+	protected function checkProvider(mixed $provider): JsonProvider {
+		if ($provider instanceof JsonProvider) {
+			return $provider;
+		}
+		throw new LemuriaException('JsonProvider required.');
+	}
+
 	private function getData(string $fileName): array {
 		return $this->getProvider('r', $fileName)->read($fileName);
 	}
@@ -160,12 +167,5 @@ abstract class JsonGame implements Game
 		}
 		$type = $rw === 'w' ? 'write' : 'read';
 		throw new LemuriaException('Default ' . $type . ' provider not defined.');
-	}
-
-	private function checkProvider(mixed $provider): JsonProvider {
-		if ($provider instanceof JsonProvider) {
-			return $provider;
-		}
-		throw new LemuriaException('JsonProvider required.');
 	}
 }
