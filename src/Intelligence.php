@@ -13,6 +13,10 @@ final class Intelligence
 	#[Pure]	public function __construct(private Region $region) {
 	}
 
+	public function Region(): Region {
+		return $this->region;
+	}
+
 	/**
 	 * Get the parties that are currently represented in the region.
 	 */
