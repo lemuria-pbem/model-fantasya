@@ -153,6 +153,10 @@ class Region extends Entity implements Collector, Location
 		return $this->luxuries;
 	}
 
+	public function hasRoad(string $direction): bool {
+		return isset($this->roads[$direction]) && $this->roads[$direction] >= 1.0;
+	}
+
 	public function setLandscape(Landscape $landscape): Region {
 		$this->landscape = $landscape;
 		return $this;
