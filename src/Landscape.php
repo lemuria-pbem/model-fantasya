@@ -12,6 +12,11 @@ use Lemuria\Singleton;
 interface Landscape extends Singleton
 {
 	/**
+	 * Get the number of stones that are needed to build a road in one direction.
+	 */
+	#[Pure] public function RoadStones(): int;
+
+	/**
 	 * Get the number of workplaces available for peasants.
 	 */
 	#[Pure] public function Workplaces(): int;

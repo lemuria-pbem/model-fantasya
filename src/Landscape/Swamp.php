@@ -9,7 +9,13 @@ use JetBrains\PhpStorm\Pure;
  */
 final class Swamp extends AbstractLandscape
 {
+	private const ROAD_STONES = 250;
+
 	private const WORKPLACES = 2000;
+
+	#[Pure] public function RoadStones(): int {
+		return self::ROAD_STONES;
+	}
 
 	#[Pure] public function Workplaces(): int {
 		return self::WORKPLACES;

@@ -9,7 +9,13 @@ use JetBrains\PhpStorm\Pure;
  */
 final class Highland extends AbstractLandscape
 {
+	private const ROAD_STONES = 100;
+
 	private const WORKPLACES = 4000;
+
+	#[Pure] public function RoadStones(): int {
+		return self::ROAD_STONES;
+	}
 
 	#[Pure] public function Workplaces(): int {
 		return self::WORKPLACES;
