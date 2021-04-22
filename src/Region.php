@@ -27,6 +27,8 @@ class Region extends Entity implements Collector, Location
 
 	private Landscape $landscape;
 
+	private ?Roads $roads = null;
+
 	private Resources $resources;
 
 	private Estate $estate;
@@ -64,16 +66,17 @@ class Region extends Entity implements Collector, Location
 	#[ArrayShape([
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'luxuries' => 'array|null',
 		'residents' => 'int[]', 'fleet' => 'int[]', 'estate' => 'int[]', 'resources' => 'array',
-		'landscape' => 'string'
+		'landscape' => 'string', 'roads' => 'array|null'
 	])]
 	public function serialize(): array {
 		$data              = parent::serialize();
 		$data['landscape'] = getClass($this->Landscape());
+		$data['roads']     = $this->roads?->serialize();
 		$data['resources'] = $this->Resources()->serialize();
 		$data['estate']    = $this->Estate()->serialize();
 		$data['fleet']     = $this->Fleet()->serialize();
 		$data['residents'] = $this->Residents()->serialize();
-		$data['luxuries']  = $this->luxuries ? $this->Luxuries()->serialize() : null;
+		$data['luxuries']  = $this->luxuries?->serialize();
 		return $data;
 	}
 
@@ -87,7 +90,16 @@ class Region extends Entity implements Collector, Location
 		$this->Estate()->unserialize($data['estate']);
 		$this->Fleet()->unserialize($data['fleet']);
 		$this->Residents()->unserialize($data['residents']);
-		if ($data['luxuries'] !== null) {
+		if ($data['roads'] === null) {
+			$this->roads = null;
+		} else {
+			$roads = new Roads();
+			$roads->unserialize($data['roads']);
+			$this->setRoads($roads);
+		}
+		if ($data['luxuries'] === null) {
+			$this->luxuries = null;
+		} else {
 			$luxuries = new Luxuries();
 			$luxuries->unserialize($data['luxuries']);
 			$this->setLuxuries($luxuries);
@@ -117,6 +129,10 @@ class Region extends Entity implements Collector, Location
 		return $this->landscape;
 	}
 
+	#[Pure] public function Roads(): ?Roads {
+		return $this->roads;
+	}
+
 	#[Pure] public function Estate(): Estate {
 		return $this->estate;
 	}
@@ -137,8 +153,17 @@ class Region extends Entity implements Collector, Location
 		return $this->luxuries;
 	}
 
+	public function hasRoad(string $direction): bool {
+		return isset($this->roads[$direction]) && $this->roads[$direction] >= 1.0;
+	}
+
 	public function setLandscape(Landscape $landscape): Region {
 		$this->landscape = $landscape;
+		return $this;
+	}
+
+	public function setRoads(?Roads $roads): Region {
+		$this->roads = $roads;
 		return $this;
 	}
 
@@ -155,6 +180,7 @@ class Region extends Entity implements Collector, Location
 	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);
 		$this->validate($data, 'landscape', 'string');
+		$this->validate($data, 'roads', '?array');
 		$this->validate($data, 'resources', 'array');
 		$this->validate($data, 'estate', 'array');
 		$this->validate($data, 'fleet', 'array');

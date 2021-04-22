@@ -9,7 +9,13 @@ use JetBrains\PhpStorm\Pure;
  */
 final class Ocean extends AbstractLandscape
 {
+	private const ROAD_STONES = 0;
+
 	private const WORKPLACES = 0;
+
+	#[Pure] public function RoadStones(): int {
+		return self::ROAD_STONES;
+	}
 
 	#[Pure] public function Workplaces(): int {
 		return self::WORKPLACES;
