@@ -27,7 +27,6 @@ class Acquaintances extends Gathering
 	 * Get a plain data array of the model's data.
 	 *
 	 * @return int[]
-	 * @noinspection PhpPureFunctionMayProduceSideEffectsInspection
 	 */
 	#[ArrayShape(['entities' => "array", 'isTold' => "array"])]
 	#[Pure]

@@ -24,7 +24,7 @@ use Lemuria\Serializable;
 /**
  * A vessel is a ship that carries passengers.
  */
-class Vessel extends Entity implements Collector, Collectible
+class Vessel extends Entity implements Collectible, Collector
 {
 	use BuilderTrait;
 	use CollectibleTrait;

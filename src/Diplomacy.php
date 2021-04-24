@@ -148,8 +148,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	/**
 	 * Get a plain data array of the model's data.
-	 *
-	 * @noinspection PhpPureFunctionMayProduceSideEffectsInspection
 	 */
 	#[ArrayShape(['acquaintances' => 'array', 'relations' => 'array'])]
 	#[Pure]
