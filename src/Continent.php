@@ -51,7 +51,7 @@ class Continent extends Entity implements Collector, Reassignment
 	 * Create an empty continent.
 	 */
 	#[Pure] public function __construct() {
-		$this->landmass = new Landmass();
+		$this->landmass = new Landmass($this);
 		Lemuria::Catalog()->addReassignment($this);
 	}
 
