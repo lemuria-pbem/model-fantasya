@@ -156,10 +156,13 @@ class Region extends Entity implements Collectible, Collector, Location
 		return $this->luxuries;
 	}
 
-	public function Continent(): Continent {
-		/* @var Continent $continent */
-		$continent = $this->getCollector(__FUNCTION__);
-		return $continent;
+	public function Continent(): ?Continent {
+		if ($this->hasCollector(__FUNCTION__)) {
+			/* @var Continent $continent */
+			$continent = $this->getCollector(__FUNCTION__);
+			return $continent;
+		}
+		return null;
 	}
 
 	public function hasRoad(string $direction): bool {
