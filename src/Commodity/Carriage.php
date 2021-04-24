@@ -30,7 +30,7 @@ final class Carriage implements Artifact, Commodity, Transport
 
 	private const WOOD = 5;
 
-	private ?Requirement $craft;
+	private ?Requirement $craft = null;
 
 	#[Pure] public function Payload(): int {
 		return self::PAYLOAD;
