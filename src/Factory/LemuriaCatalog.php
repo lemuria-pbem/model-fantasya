@@ -12,6 +12,7 @@ use Lemuria\Model\Catalog;
 use Lemuria\Model\Exception\DuplicateIdException;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Construction;
+use Lemuria\Model\Fantasya\Continent;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\Fantasya\Unit;
@@ -113,6 +114,10 @@ class LemuriaCatalog implements Catalog
 				$vessel = new Vessel();
 				$vessel->unserialize($data);
 			}
+			foreach (Lemuria::Game()->getContinents() as $data) {
+				$continent = new Continent();
+				$continent->unserialize($data);
+			}
 			$this->isLoaded = true;
 
 			$this->callCollectAll();
@@ -125,30 +130,35 @@ class LemuriaCatalog implements Catalog
 	 */
 	public function save(): Catalog {
 		$entities = [];
-		foreach ($this->catalog[Catalog::PARTIES] as $id => $party/* @var Party $party */) {
+		foreach ($this->catalog[Catalog::PARTIES] as $id => $party /* @var Party $party */) {
 			$entities[$id] = $party->serialize();
 		}
 		Lemuria::Game()->setParties($entities);
 		$entities = [];
-		foreach ($this->catalog[Catalog::UNITS] as $id => $unit/* @var Unit $unit */) {
+		foreach ($this->catalog[Catalog::UNITS] as $id => $unit /* @var Unit $unit */) {
 			$entities[$id] = $unit->serialize();
 		}
 		Lemuria::Game()->setUnits($entities);
 		$entities = [];
-		foreach ($this->catalog[Catalog::LOCATIONS] as $id => $region/* @var Region $region */) {
+		foreach ($this->catalog[Catalog::LOCATIONS] as $id => $region /* @var Region $region */) {
 			$entities[$id] = $region->serialize();
 		}
 		Lemuria::Game()->setRegions($entities);
 		$entities = [];
-		foreach ($this->catalog[Catalog::CONSTRUCTIONS] as $id => $construction/* @var Construction $construction */) {
+		foreach ($this->catalog[Catalog::CONSTRUCTIONS] as $id => $construction /* @var Construction $construction */) {
 			$entities[$id] = $construction->serialize();
 		}
 		Lemuria::Game()->setConstructions($entities);
 		$entities = [];
-		foreach ($this->catalog[Catalog::VESSELS] as $id => $vessel/* @var Vessel $vessel */) {
+		foreach ($this->catalog[Catalog::VESSELS] as $id => $vessel /* @var Vessel $vessel */) {
 			$entities[$id] = $vessel->serialize();
 		}
 		Lemuria::Game()->setVessels($entities);
+		$entities = [];
+		foreach ($this->catalog[Catalog::CONTINENTS] as $id => $continent /* @var Continent $continent */) {
+			$entities[$id] = $continent->serialize();
+		}
+		Lemuria::Game()->setContinents($entities);
 		return $this;
 	}
 
@@ -245,17 +255,20 @@ class LemuriaCatalog implements Catalog
 	 * Calls collectAll() on all collectors in the Catalog.
 	 */
 	private function callCollectAll(): void {
-		foreach ($this->catalog[Catalog::PARTIES] as $party/* @var Party $party */) {
+		foreach ($this->catalog[Catalog::PARTIES] as $party /* @var Party $party */) {
 			$party->collectAll();
 		}
-		foreach ($this->catalog[Catalog::LOCATIONS] as $region/* @var Region $region */) {
+		foreach ($this->catalog[Catalog::LOCATIONS] as $region /* @var Region $region */) {
 			$region->collectAll();
 		}
-		foreach ($this->catalog[Catalog::CONSTRUCTIONS] as $construction/* @var Construction $construction */) {
+		foreach ($this->catalog[Catalog::CONSTRUCTIONS] as $construction /* @var Construction $construction */) {
 			$construction->collectAll();
 		}
-		foreach ($this->catalog[Catalog::VESSELS] as $vessel/* @var Vessel $vessel */) {
+		foreach ($this->catalog[Catalog::VESSELS] as $vessel /* @var Vessel $vessel */) {
 			$vessel->collectAll();
+		}
+		foreach ($this->catalog[Catalog::CONTINENTS] as $continent /* @var Continent $continent */) {
+			$continent->collectAll();
 		}
 	}
 }

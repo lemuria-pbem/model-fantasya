@@ -6,6 +6,8 @@ use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 
 use function Lemuria\getClass;
+use Lemuria\Collectible;
+use Lemuria\CollectibleTrait;
 use Lemuria\Collector;
 use Lemuria\CollectorTrait;
 use Lemuria\Entity;
@@ -20,9 +22,10 @@ use Lemuria\Serializable;
 /**
  * A region in the world of Lemuria has a dominant kind of landscape that is the main development factor.
  */
-class Region extends Entity implements Collector, Location
+class Region extends Entity implements Collectible, Collector, Location
 {
 	use BuilderTrait;
+	use CollectibleTrait;
 	use CollectorTrait;
 
 	private Landscape $landscape;
@@ -151,6 +154,15 @@ class Region extends Entity implements Collector, Location
 
 	#[Pure] public function Luxuries(): ?Luxuries {
 		return $this->luxuries;
+	}
+
+	public function Continent(): ?Continent {
+		if ($this->hasCollector(__FUNCTION__)) {
+			/* @var Continent $continent */
+			$continent = $this->getCollector(__FUNCTION__);
+			return $continent;
+		}
+		return null;
 	}
 
 	public function hasRoad(string $direction): bool {

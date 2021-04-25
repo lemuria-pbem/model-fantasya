@@ -82,7 +82,7 @@ class Roads implements \ArrayAccess, \Countable, Serializable
 	 *
 	 * @param array (string=>mixed) $data
 	 */
-	protected function validateSerializedData(array &$data): void {
+	protected function validateSerializedData(array $data): void {
 		foreach ($data as $direction => $completion) {
 			if (!is_string($direction)) {
 				throw new UnserializeException('Direction must be string.');

@@ -21,7 +21,7 @@ use Lemuria\Serializable;
 /**
  * A construction is a building in a region that is inhabited by units.
  */
-class Construction extends Entity implements Collector, Collectible
+class Construction extends Entity implements Collectible, Collector
 {
 	use BuilderTrait;
 	use CollectibleTrait;
