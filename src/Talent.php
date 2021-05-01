@@ -9,4 +9,8 @@ use Lemuria\Singleton;
  */
 interface Talent extends Singleton
 {
+	/**
+	 * Silver costs for learning.
+	 */
+	public function getExpense(int $level): int;
 }

@@ -7,4 +7,7 @@ namespace Lemuria\Model\Fantasya\Talent;
  */
 final class Tactics extends AbstractTalent
 {
+	public function getExpense(int $level): int {
+		return 100;
+	}
 }
