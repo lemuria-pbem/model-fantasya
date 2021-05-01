@@ -11,4 +11,8 @@ use Lemuria\SingletonTrait;
 abstract class AbstractTalent implements Talent
 {
 	use SingletonTrait;
+
+	public function getExpense(int $level): int {
+		return 0;
+	}
 }
