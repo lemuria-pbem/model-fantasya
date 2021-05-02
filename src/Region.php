@@ -40,6 +40,10 @@ class Region extends Entity implements Collectible, Collector, Location
 
 	private People $residents;
 
+	private ?Herbage $herbage = null;
+
+	private float $occurrence = 0.0;
+
 	private ?Luxuries $luxuries = null;
 
 	/**
@@ -69,12 +73,13 @@ class Region extends Entity implements Collectible, Collector, Location
 	#[ArrayShape([
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'luxuries' => 'array|null',
 		'residents' => 'int[]', 'fleet' => 'int[]', 'estate' => 'int[]', 'resources' => 'array',
-		'landscape' => 'string', 'roads' => 'array|null'
+		'landscape' => 'string', 'roads' => 'array|null', 'herbage' => 'array|null'
 	])]
 	public function serialize(): array {
 		$data              = parent::serialize();
 		$data['landscape'] = getClass($this->Landscape());
 		$data['roads']     = $this->roads?->serialize();
+		$data['herbage']   = $this->herbage?->serialize();
 		$data['resources'] = $this->Resources()->serialize();
 		$data['estate']    = $this->Estate()->serialize();
 		$data['fleet']     = $this->Fleet()->serialize();
@@ -99,6 +104,13 @@ class Region extends Entity implements Collectible, Collector, Location
 			$roads = new Roads();
 			$roads->unserialize($data['roads']);
 			$this->setRoads($roads);
+		}
+		if ($data['herbage'] === null) {
+			$this->herbage = null;
+		} else {
+			$herbage = new Herbage();
+			$herbage->unserialize($data['herbage']);
+			$this->setHerbage($herbage);
 		}
 		if ($data['luxuries'] === null) {
 			$this->luxuries = null;
@@ -134,6 +146,10 @@ class Region extends Entity implements Collectible, Collector, Location
 
 	#[Pure] public function Roads(): ?Roads {
 		return $this->roads;
+	}
+
+	#[Pure] public function Herbage(): ?Herbage {
+		return $this->herbage;
 	}
 
 	#[Pure] public function Estate(): Estate {
@@ -179,6 +195,11 @@ class Region extends Entity implements Collectible, Collector, Location
 		return $this;
 	}
 
+	public function setHerbage(?Herbage $herbage): Region {
+		$this->herbage = $herbage;
+		return $this;
+	}
+
 	public function setLuxuries(?Luxuries $luxuries): Region {
 		$this->luxuries = $luxuries;
 		return $this;
@@ -193,6 +214,7 @@ class Region extends Entity implements Collectible, Collector, Location
 		parent::validateSerializedData($data);
 		$this->validate($data, 'landscape', 'string');
 		$this->validate($data, 'roads', '?array');
+		$this->validate($data, 'herbage', '?array');
 		$this->validate($data, 'resources', 'array');
 		$this->validate($data, 'estate', 'array');
 		$this->validate($data, 'fleet', 'array');

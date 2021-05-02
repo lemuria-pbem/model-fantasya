@@ -11,7 +11,8 @@ use Lemuria\Factory\SingletonGroup;
 class SingletonCatalog implements SingletonCatalogInterface
 {
 	private const GROUPS = [
-		'Building', 'Landscape', 'Race', 'Ship', 'Talent', 'Commodity', 'Commodity\\Luxury', 'Commodity\\Weapon'
+		'Building', 'Landscape', 'Race', 'Ship', 'Talent', 'Commodity',
+		'Commodity\\Herb', 'Commodity\\Luxury', 'Commodity\\Potion', 'Commodity\\Weapon'
 	];
 
 	/**
