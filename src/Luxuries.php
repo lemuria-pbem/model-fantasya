@@ -145,13 +145,14 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	/**
 	 * Get a plain data array of the model's data.
 	 */
-	#[ArrayShape(['offer' => "string", 'demand' => "array"])] public function serialize(): array {
+	#[ArrayShape(['offer' => "string", 'price' => 'int', 'demand' => "array"])] public function serialize(): array {
 		$offer  = getClass($this->Offer()->Commodity());
+		$price  = $this->Offer()->Price();
 		$demand = [];
 		foreach ($this->demand as $class => $item/* @var Offer $item */) {
 			$demand[$class] = $item->Price();
 		}
-		return ['offer' => $offer, 'demand' => $demand];
+		return ['offer' => $offer, 'price' => $price, 'demand' => $demand];
 	}
 
 	/**
@@ -159,9 +160,10 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	 */
 	public function unserialize(array $data): Serializable {
 		$class  = $data['offer'];
+		$price  = $data['price'];
 		$luxury = self::createCommodity($class);
 		/* @var Luxury $luxury */
-		$this->offer = new Offer($luxury, $luxury->Value());
+		$this->offer = new Offer($luxury, $price);
 		$this->initialize();
 
 		$n = 0;
@@ -197,6 +199,7 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	 */
 	protected function validateSerializedData(array &$data): void {
 		$this->validate($data, 'offer', 'string');
+		$this->validate($data, 'price', 'int');
 		$this->validate($data, 'demand', 'array');
 		foreach ($data as $class => $price) {
 			if (!is_string($class)) {
