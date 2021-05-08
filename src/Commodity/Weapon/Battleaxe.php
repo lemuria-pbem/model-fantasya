@@ -17,9 +17,9 @@ final class Battleaxe extends AbstractWeapon
 {
 	private const WEIGHT = 2 * 100;
 
-	private const WOOD = 1;
+	private const WOOD = 2;
 
-	private const IRON = 2;
+	private const IRON = 3;
 
 	private const CRAFT = 5;
 
