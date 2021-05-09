@@ -5,7 +5,6 @@ namespace Lemuria\Model\Fantasya;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 
-use function Lemuria\getClass;
 use Lemuria\EntitySet;
 use Lemuria\Serializable;
 use Lemuria\Entity;
@@ -22,24 +21,26 @@ class HerbalBook extends Annals
 	use BuilderTrait;
 
 	/**
-	 * @var array(int=>string)
+	 * @var array(int=>array)
 	 */
-	private array $herb = [];
+	private array $herbage = [];
 
 	/**
 	 * Get a plain data array of the model's data.
 	 *
 	 * @return int[]
 	 */
-	#[ArrayShape(['entities' => "array", 'rounds' => "array", 'herbs' => "array"])]
+	#[ArrayShape(['entities' => "array", 'rounds' => "array", 'herbages' => "array"])]
 	#[Pure]
 	public function serialize(): array {
 		$entities = parent::serialize();
-		$herbs    = [];
+		$herbages = [];
 		foreach ($entities['entities'] as $id) {
-			$herbs[] = $this->herb[$id];
+			/** @var Herbage $herbage */
+			$herbage    = $this->herbage[$id];
+			$herbages[] = $herbage->serialize();
 		}
-		$entities['herbs'] = $herbs;
+		$entities['herbages'] = $herbages;
 		return $entities;
 	}
 
@@ -51,10 +52,11 @@ class HerbalBook extends Annals
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
 		$entities = $data['entities'];
-		$herbs    = $data['herbs'];
+		$herbages = $data['herbages'];
 		foreach ($entities as $id) {
-			$this->herb[$id] = current($herbs);
-			next($herbs);
+			$herbage            = new Herbage();
+			$this->herbage[$id] = $herbage->unserialize(current($herbages));
+			next($herbages);
 		}
 		return $this;
 	}
@@ -63,25 +65,19 @@ class HerbalBook extends Annals
 	 * Clear the set.
 	 */
 	public function clear(): EntitySet {
-		$this->herb = [];
+		$this->herbage = [];
 		return parent::clear();
 	}
 
-	public function record(Region $region, Herb $herb): self {
+	public function record(Region $region, Herbage $herbage): self {
 		$id = $region->Id();
 		$this->addEntity($id);
-		$this->herb[$id->Id()] = getClass($herb);
+		$this->herbage[$id->Id()] = $herbage;
 		return $this;
 	}
 
-	public function getHerb(Region $region): ?Herb {
-		$class = $this->herb[$region->Id()->Id()] ?? null;
-		if ($class) {
-			/** @var Herb $herb */
-			$herb = self::createCommodity($class);
-			return $herb;
-		}
-		return null;
+	#[Pure] public function getHerbage(Region $region): ?Herbage {
+		return $this->herbage[$region->Id()->Id()] ?? null;
 	}
 
 	public function getVisit(Region $region): ?Moment {
@@ -99,7 +95,7 @@ class HerbalBook extends Annals
 	 */
 	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);
-		$this->validate($data, 'herbs', 'array');
+		$this->validate($data, 'herbages', 'array');
 	}
 
 	protected function get(Id $id): Entity {
