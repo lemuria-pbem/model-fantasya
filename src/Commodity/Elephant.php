@@ -25,7 +25,7 @@ final class Elephant implements Commodity, RawMaterial, Transport
 
 	private const WEIGHT = 240 * 100;
 
-	private string $requirement = Horsetaming::class;
+	private string $craft = Horsetaming::class;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;

@@ -2,6 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-interface Herb extends Commodity
+interface Herb extends Commodity, RawMaterial
 {
 }

@@ -10,7 +10,7 @@ use Lemuria\Singleton;
 interface RawMaterial extends Singleton
 {
 	/**
-	 * Get the required Talent to produce this raw material.
+	 * Get the needed craft to produce this raw material.
 	 */
-	public function getTalent(): Talent;
+	public function getCraft(): Requirement;
 }

@@ -20,7 +20,7 @@ final class Iron implements Commodity, RawMaterial
 
 	private const WEIGHT = 5 * 100;
 
-	private string $requirement = Mining::class;
+	private string $craft = Mining::class;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
