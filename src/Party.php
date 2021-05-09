@@ -40,7 +40,11 @@ class Party extends Entity implements Assignable, Collector
 
 	private Diplomacy $diplomacy;
 
+	private HerbalBook $herbalBook;
+
 	private ?array $serializedDiplomacy = null;
+
+	private ?array $serializedHerbalBook = null;
 
 	private UuidInterface $uuid;
 
@@ -63,13 +67,14 @@ class Party extends Entity implements Assignable, Collector
 	 * Create an empty party.
 	 */
 	public function __construct(?Newcomer $newcomer = null) {
-		$this->banner    = '';
-		$this->uuid      = $newcomer ? Uuid::fromString($newcomer->Uuid()) : Uuid::uuid4();
-		$this->creation  = $newcomer?->Creation() ?? time();
-		$this->round     = Lemuria::Calendar()->Round();
-		$this->people    = new People($this);
-		$this->chronicle = new Chronicle();
-		$this->diplomacy = new Diplomacy($this);
+		$this->banner     = '';
+		$this->uuid       = $newcomer ? Uuid::fromString($newcomer->Uuid()) : Uuid::uuid4();
+		$this->creation   = $newcomer?->Creation() ?? time();
+		$this->round      = Lemuria::Calendar()->Round();
+		$this->people     = new People($this);
+		$this->chronicle  = new Chronicle();
+		$this->diplomacy  = new Diplomacy($this);
+		$this->herbalBook = new HerbalBook();
 	}
 
 	/**
@@ -79,20 +84,21 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	#[ArrayShape([
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'banner' => 'string', 'people' => 'int[]',
-		'diplomacy' => 'array', 'race' => 'string', 'origin' => 'int', 'uuid' => 'string', 'round' => 'int',
-		'creation' => 'int'
+		'diplomacy' => 'array', 'herbalBook' => 'array', 'race' => 'string', 'origin' => 'int', 'uuid' => 'string',
+		'round' => 'int', 'creation' => 'int'
 	])]
 	public function serialize(): array {
-		$data              = parent::serialize();
-		$data['banner']    = $this->banner;
-		$data['uuid']      = $this->Uuid();
-		$data['creation']  = $this->creation;
-		$data['round']     = $this->round;
-		$data['origin']    = $this->origin->Id();
-		$data['race']      = getClass($this->Race());
-		$data['diplomacy'] = $this->Diplomacy()->serialize();
-		$data['people']    = $this->People()->serialize();
-		$data['chronicle'] = $this->Chronicle()->serialize();
+		$data               = parent::serialize();
+		$data['banner']     = $this->banner;
+		$data['uuid']       = $this->Uuid();
+		$data['creation']   = $this->creation;
+		$data['round']      = $this->round;
+		$data['origin']     = $this->origin->Id();
+		$data['race']       = getClass($this->Race());
+		$data['diplomacy']  = $this->Diplomacy()->serialize();
+		$data['people']     = $this->People()->serialize();
+		$data['chronicle']  = $this->Chronicle()->serialize();
+		$data['herbalBook'] = $this->HerbalBook()->serialize();
 		return $data;
 	}
 
@@ -109,7 +115,8 @@ class Party extends Entity implements Assignable, Collector
 		$this->setRace(self::createRace($data['race']));
 		$this->People()->unserialize($data['people']);
 		$this->Chronicle()->unserialize($data['chronicle']);
-		$this->serializedDiplomacy = $data['diplomacy'];
+		$this->serializedDiplomacy  = $data['diplomacy'];
+		$this->serializedHerbalBook = $data['herbalBook'];
 		return $this;
 	}
 
@@ -185,6 +192,14 @@ class Party extends Entity implements Assignable, Collector
 		return $this->diplomacy;
 	}
 
+	public function HerbalBook(): HerbalBook {
+		if (is_array($this->serializedHerbalBook)) {
+			$this->herbalBook->clear()->unserialize($this->serializedHerbalBook);
+			$this->serializedHerbalBook = null;
+		}
+		return $this->herbalBook;
+	}
+
 	public function setBanner(string $banner): Party {
 		$this->banner = $banner;
 		return $this;
@@ -216,5 +231,6 @@ class Party extends Entity implements Assignable, Collector
 		$this->validate($data, 'people', 'array');
 		$this->validate($data, 'diplomacy', 'array');
 		$this->validate($data, 'chronicle', 'array');
+		$this->validate($data, 'herbalBook', 'array');
 	}
 }
