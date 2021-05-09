@@ -4,17 +4,10 @@ namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\Pure;
 
-interface Potion extends Commodity
+interface Potion extends Artifact, Commodity
 {
 	/**
 	 * The potion level.
 	 */
 	#[Pure] public function Level(): int;
-
-	/**
-	 * The needed ingredients.
-	 *
-	 * @return Commodity[]
-	 */
-	public function Ingredients(): array;
 }

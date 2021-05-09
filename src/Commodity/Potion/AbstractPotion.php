@@ -4,15 +4,16 @@ namespace Lemuria\Model\Fantasya\Commodity\Potion;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Fantasya\Commodity;
+use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Potion;
-use Lemuria\SingletonTrait;
+use Lemuria\Model\Fantasya\Requirement;
+use Lemuria\Model\Fantasya\Talent\Alchemy;
 
 abstract class AbstractPotion implements Potion
 {
+	use ArtifactTrait;
 	use BuilderTrait;
-	use SingletonTrait;
 
 	private const WEIGHT = 10;
 
@@ -23,14 +24,8 @@ abstract class AbstractPotion implements Potion
 		return self::WEIGHT;
 	}
 
-	/**
-	 * @return Commodity[]
-	 */
-	protected function createIngredients(array $classes): array {
-		$ingredients = [];
-		foreach ($classes as $class) {
-			$ingredients[] = self::createCommodity($class);
-		}
-		return $ingredients;
+	public function getCraft(): Requirement {
+		$weaponry = self::createTalent(Alchemy::class);
+		return new Requirement($weaponry, $this->Level() * 2);
 	}
 }
