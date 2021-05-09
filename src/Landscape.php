@@ -12,6 +12,13 @@ use Lemuria\Singleton;
 interface Landscape extends Singleton
 {
 	/**
+	 * Get the herbs that can be found in this landscape.
+	 *
+	 * @return Herb[]
+	 */
+	public function Herbs(): array;
+
+	/**
 	 * Get the number of stones that are needed to build a road in one direction.
 	 */
 	#[Pure] public function RoadStones(): int;

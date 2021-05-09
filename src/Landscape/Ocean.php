@@ -13,6 +13,12 @@ final class Ocean extends AbstractLandscape
 
 	private const WORKPLACES = 0;
 
+	private static array $herbs = [];
+
+	#[Pure] public function Herbs(): array {
+		return self::$herbs;
+	}
+
 	#[Pure] public function RoadStones(): int {
 		return self::ROAD_STONES;
 	}
