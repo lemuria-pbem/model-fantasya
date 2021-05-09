@@ -38,7 +38,7 @@ class HerbalBook extends Annals
 		foreach ($entities['entities'] as $id) {
 			/** @var Herbage $herbage */
 			$herbage    = $this->herbage[$id];
-			$herbages[] = $herbage->serialize();
+			$herbages[] = $herbage?->serialize();
 		}
 		$entities['herbages'] = $herbages;
 		return $entities;
@@ -54,8 +54,13 @@ class HerbalBook extends Annals
 		$entities = $data['entities'];
 		$herbages = $data['herbages'];
 		foreach ($entities as $id) {
-			$herbage            = new Herbage();
-			$this->herbage[$id] = $herbage->unserialize(current($herbages));
+			$herb = current($herbages);
+			if ($herb) {
+				$herbage            = new Herbage();
+				$this->herbage[$id] = $herbage->unserialize($herb);
+			} else {
+				$this->herbage[$id] = null;
+			}
 			next($herbages);
 		}
 		return $this;
@@ -69,7 +74,7 @@ class HerbalBook extends Annals
 		return parent::clear();
 	}
 
-	public function record(Region $region, Herbage $herbage): self {
+	public function record(Region $region, ?Herbage $herbage): self {
 		$id = $region->Id();
 		$this->addEntity($id);
 		$this->herbage[$id->Id()] = $herbage;
