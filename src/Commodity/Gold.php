@@ -20,9 +20,11 @@ final class Gold implements Commodity, RawMaterial
 
 	private const WEIGHT = 5 * 100;
 
-	private string $craft = Mining::class;
-
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	protected function getCraftTalent(): string {
+		return Mining::class;
 	}
 }

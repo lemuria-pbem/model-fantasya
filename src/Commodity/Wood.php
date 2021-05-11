@@ -20,9 +20,11 @@ final class Wood implements Commodity, RawMaterial
 
 	private const WEIGHT = 5 * 100;
 
-	private string $craft = Woodchopping::class;
-
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	protected function getCraftTalent(): string {
+		return Woodchopping::class;
 	}
 }

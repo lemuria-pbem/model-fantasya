@@ -25,8 +25,6 @@ final class Elephant implements Commodity, RawMaterial, Transport
 
 	private const WEIGHT = 240 * 100;
 
-	private string $craft = Horsetaming::class;
-
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
@@ -37,5 +35,9 @@ final class Elephant implements Commodity, RawMaterial, Transport
 
 	#[Pure] public function Speed(): int {
 		return self::SPEED;
+	}
+
+	protected function getCraftTalent(): string {
+		return Horsetaming::class;
 	}
 }

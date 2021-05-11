@@ -18,13 +18,15 @@ abstract class AbstractHerb implements Herb
 
 	private const WEIGHT = 1;
 
-	protected string $craft = Herballore::class;
-
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
 
 	protected function getCraftLevel(): int {
 		return self::LEVEL;
+	}
+
+	protected function getCraftTalent(): string {
+		return Herballore::class;
 	}
 }

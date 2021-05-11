@@ -20,9 +20,11 @@ final class Stone implements Commodity, RawMaterial
 
 	private const WEIGHT = 60 * 100;
 
-	private string $craft = Quarrying::class;
-
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	protected function getCraftTalent(): string {
+		return Quarrying::class;
 	}
 }

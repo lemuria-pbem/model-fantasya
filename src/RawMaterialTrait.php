@@ -10,17 +10,17 @@ trait RawMaterialTrait
 
 	private ?Requirement $requirement = null;
 
-	protected string $craft;
-
 	/**
 	 * Get the required Talent to produce this raw material.
 	 */
 	public function getCraft(): Requirement {
 		if (!$this->requirement) {
-			$this->requirement = new Requirement(self::createTalent($this->craft), $this->getCraftLevel());
+			$this->requirement = new Requirement(self::createTalent($this->getCraftTalent()), $this->getCraftLevel());
 		}
 		return $this->requirement;
 	}
+
+	abstract protected function getCraftTalent(): string;
 
 	protected function getCraftLevel(): int {
 		return 1;
