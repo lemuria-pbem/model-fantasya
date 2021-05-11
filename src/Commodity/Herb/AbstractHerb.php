@@ -14,11 +14,17 @@ abstract class AbstractHerb implements Herb
 	use RawMaterialTrait;
 	use SingletonTrait;
 
+	protected const LEVEL = 3;
+
 	private const WEIGHT = 1;
 
-	private string $craft = Herballore::class;
+	protected string $craft = Herballore::class;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	protected function getCraftLevel(): int {
+		return self::LEVEL;
 	}
 }

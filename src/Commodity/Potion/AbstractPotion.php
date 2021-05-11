@@ -7,15 +7,18 @@ use JetBrains\PhpStorm\Pure;
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Potion;
-use Lemuria\Model\Fantasya\Requirement;
+use Lemuria\Model\Fantasya\RawMaterialTrait;
 use Lemuria\Model\Fantasya\Talent\Alchemy;
 
 abstract class AbstractPotion implements Potion
 {
 	use ArtifactTrait;
 	use BuilderTrait;
+	use RawMaterialTrait;
 
 	private const WEIGHT = 10;
+
+	protected string $craft = Alchemy::class;
 
 	/**
 	 * Get the weight of a product.
@@ -24,8 +27,7 @@ abstract class AbstractPotion implements Potion
 		return self::WEIGHT;
 	}
 
-	public function getCraft(): Requirement {
-		$weaponry = self::createTalent(Alchemy::class);
-		return new Requirement($weaponry, $this->Level() * 2);
+	protected function getCraftLevel(): int {
+		return $this->Level() * 2;
 	}
 }
