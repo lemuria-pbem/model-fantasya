@@ -48,6 +48,11 @@ class Herbage implements Serializable
 		throw new UnserializeException('Commodity is not a Herb.');
 	}
 
+	public function setOccurrence(float $occurrence): Herbage {
+		$this->occurrence = max(0.0, min(1.0, $occurrence));
+		return $this;
+	}
+
 	/**
 	 * Check that a serialized data array is valid.
 	 *
