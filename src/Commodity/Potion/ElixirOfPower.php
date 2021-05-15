@@ -12,6 +12,8 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Waterfinder;
 
 final class ElixirOfPower extends AbstractPotion
 {
+	public const PERSONS = 10;
+
 	private const LEVEL = 4;
 
 	private const INGREDIENTS = [CaveLichen::class, Owlsgaze::class, Snowcrystal::class, SpiderIvy::class, Waterfinder::class];

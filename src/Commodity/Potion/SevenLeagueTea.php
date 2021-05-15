@@ -9,6 +9,8 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Windbag;
 
 final class SevenLeagueTea extends AbstractPotion
 {
+	public const PERSONS = 10;
+
 	private const LEVEL = 1;
 
 	private const INGREDIENTS = [CobaltFungus::class, Windbag::class];

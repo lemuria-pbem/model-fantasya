@@ -10,6 +10,10 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Windbag;
 
 final class Brainpower extends AbstractPotion
 {
+	public const PERSONS = 10;
+
+	public const WEEKS = 3;
+
 	private const LEVEL = 2;
 
 	private const INGREDIENTS = [Rockweed::class, Waterfinder::class, Windbag::class];

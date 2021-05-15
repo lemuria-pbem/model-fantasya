@@ -27,6 +27,10 @@ abstract class AbstractPotion implements Potion
 		return self::WEIGHT;
 	}
 
+	protected function getCraftTalent(): string {
+		return Alchemy::class;
+	}
+
 	protected function getCraftLevel(): int {
 		return $this->Level() * 2;
 	}

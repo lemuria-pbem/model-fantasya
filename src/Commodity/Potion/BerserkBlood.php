@@ -12,6 +12,8 @@ use Lemuria\Model\Fantasya\Commodity\Herb\WhiteHemlock;
 
 final class BerserkBlood extends AbstractPotion
 {
+	public const PERSONS = 10;
+
 	private const LEVEL = 4;
 
 	private const INGREDIENTS = [Flatroot::class, Mandrake::class, Owlsgaze::class, Sandreeker::class, WhiteHemlock::class];
