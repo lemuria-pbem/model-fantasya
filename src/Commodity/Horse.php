@@ -25,8 +25,6 @@ final class Horse implements Commodity, RawMaterial, Transport
 
 	private const WEIGHT = 50 * 100;
 
-	private string $requirement = Horsetaming::class;
-
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
@@ -37,5 +35,9 @@ final class Horse implements Commodity, RawMaterial, Transport
 
 	#[Pure] public function Speed(): int {
 		return self::SPEED;
+	}
+
+	protected function getCraftTalent(): string {
+		return Horsetaming::class;
 	}
 }

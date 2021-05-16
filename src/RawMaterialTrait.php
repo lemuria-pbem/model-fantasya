@@ -8,15 +8,21 @@ trait RawMaterialTrait
 {
 	use BuilderTrait;
 
-	private ?Talent $talent = null;
+	private ?Requirement $requirement = null;
 
 	/**
 	 * Get the required Talent to produce this raw material.
 	 */
-	public function getTalent(): Talent {
-		if (!$this->talent) {
-			$this->talent = self::createTalent($this->requirement);
+	public function getCraft(): Requirement {
+		if (!$this->requirement) {
+			$this->requirement = new Requirement(self::createTalent($this->getCraftTalent()), $this->getCraftLevel());
 		}
-		return $this->talent;
+		return $this->requirement;
+	}
+
+	abstract protected function getCraftTalent(): string;
+
+	protected function getCraftLevel(): int {
+		return 1;
 	}
 }
