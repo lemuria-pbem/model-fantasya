@@ -13,6 +13,8 @@ final class HorseBliss extends AbstractPotion
 {
 	public const HORSES = 50;
 
+	public const WEEKS = 3;
+
 	private const LEVEL = 3;
 
 	private const INGREDIENTS = [CobaltFungus::class, Knotroot::class, Peyote::class, Sandreeker::class];
