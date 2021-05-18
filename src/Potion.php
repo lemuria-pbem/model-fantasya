@@ -10,4 +10,9 @@ interface Potion extends Artifact, Commodity
 	 * The potion level.
 	 */
 	#[Pure] public function Level(): int;
+
+	/**
+	 * The effect duration of the potion.
+	 */
+	#[Pure] public function Weeks(): int;
 }
