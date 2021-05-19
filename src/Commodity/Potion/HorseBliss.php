@@ -7,7 +7,7 @@ use JetBrains\PhpStorm\Pure;
 use Lemuria\Model\Fantasya\Commodity\Herb\CobaltFungus;
 use Lemuria\Model\Fantasya\Commodity\Herb\Knotroot;
 use Lemuria\Model\Fantasya\Commodity\Herb\Peyote;
-use Lemuria\Model\Fantasya\Commodity\Herb\Sandreeker;
+use Lemuria\Model\Fantasya\Commodity\Herb\TangyTemerity;
 
 final class HorseBliss extends AbstractPotion
 {
@@ -17,7 +17,7 @@ final class HorseBliss extends AbstractPotion
 
 	private const WEEKS = 3;
 
-	private const INGREDIENTS = [CobaltFungus::class, Knotroot::class, Peyote::class, Sandreeker::class];
+	private const INGREDIENTS = [CobaltFungus::class, Knotroot::class, Peyote::class, TangyTemerity::class];
 
 	#[Pure] public function Level(): int {
 		return self::LEVEL;
