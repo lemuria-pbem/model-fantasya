@@ -15,9 +15,10 @@ class Herbage implements Serializable
 	use BuilderTrait;
 	use SerializableTrait;
 
-	private Herb $herb;
-
 	private float $occurrence;
+
+	public function __construct(private ?Herb $herb = null) {
+	}
 
 	public function Herb(): Herb {
 		return $this->herb;

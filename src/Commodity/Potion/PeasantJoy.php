@@ -15,10 +15,16 @@ final class PeasantJoy extends AbstractPotion
 
 	private const LEVEL = 3;
 
+	private const WEEKS = 3;
+
 	private const INGREDIENTS = [Bubblemorel::class, Elvendear::class, Mandrake::class, Snowcrystal::class];
 
 	#[Pure] public function Level(): int {
 		return self::LEVEL;
+	}
+
+	#[Pure] public function Weeks(): int {
+		return self::WEEKS;
 	}
 
 	/**

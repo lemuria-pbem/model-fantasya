@@ -27,6 +27,13 @@ abstract class AbstractPotion implements Potion
 		return self::WEIGHT;
 	}
 
+	/**
+	 * The effect duration of the potion.
+	 */
+	#[Pure] public function Weeks(): int {
+		return 1;
+	}
+
 	protected function getCraftTalent(): string {
 		return Alchemy::class;
 	}

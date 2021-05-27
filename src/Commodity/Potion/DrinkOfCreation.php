@@ -6,20 +6,24 @@ use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Commodity\Herb\Gapgrowth;
 use Lemuria\Model\Fantasya\Commodity\Herb\IceBegonia;
-use Lemuria\Model\Fantasya\Commodity\Herb\TangyTemerity;
+use Lemuria\Model\Fantasya\Commodity\Herb\Sandreeker;
 
 final class DrinkOfCreation extends AbstractPotion
 {
 	public const PERSONS = 10;
 
-	public const WEEKS = 3;
-
 	private const LEVEL = 2;
 
-	private const INGREDIENTS = [Gapgrowth::class, IceBegonia::class, TangyTemerity::class];
+	private const WEEKS = 3;
+
+	private const INGREDIENTS = [Gapgrowth::class, IceBegonia::class, Sandreeker::class];
 
 	#[Pure] public function Level(): int {
 		return self::LEVEL;
+	}
+
+	#[Pure] public function Weeks(): int {
+		return self::WEEKS;
 	}
 
 	/**

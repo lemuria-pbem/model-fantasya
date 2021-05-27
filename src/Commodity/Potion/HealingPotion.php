@@ -5,16 +5,16 @@ namespace Lemuria\Model\Fantasya\Commodity\Potion;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Commodity\Herb\Bugleweed;
-use Lemuria\Model\Fantasya\Commodity\Herb\Bubblemorel;
-use Lemuria\Model\Fantasya\Commodity\Herb\Gapgrowth;
+use Lemuria\Model\Fantasya\Commodity\Herb\CaveLichen;
+use Lemuria\Model\Fantasya\Commodity\Herb\Elvendear;
+use Lemuria\Model\Fantasya\Commodity\Herb\Flatroot;
 use Lemuria\Model\Fantasya\Commodity\Herb\IceBegonia;
-use Lemuria\Model\Fantasya\Commodity\Herb\Rockweed;
 
 final class HealingPotion extends AbstractPotion
 {
 	private const LEVEL = 4;
 
-	private const INGREDIENTS = [Bugleweed::class, Bubblemorel::class, Gapgrowth::class, IceBegonia::class, Rockweed::class];
+	private const INGREDIENTS = [Bugleweed::class, CaveLichen::class, Elvendear::class, Flatroot::class, IceBegonia::class];
 
 	#[Pure] public function Level(): int {
 		return self::LEVEL;

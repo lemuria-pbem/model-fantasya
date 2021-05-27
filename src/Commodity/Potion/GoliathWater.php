@@ -4,7 +4,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Potion;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Fantasya\Commodity\Herb\Bugleweed;
+use Lemuria\Model\Fantasya\Commodity\Herb\Bubblemorel;
 use Lemuria\Model\Fantasya\Commodity\Herb\FjordFungus;
 
 final class GoliathWater extends AbstractPotion
@@ -13,7 +13,7 @@ final class GoliathWater extends AbstractPotion
 
 	private const LEVEL = 1;
 
-	private const INGREDIENTS = [Bugleweed::class, FjordFungus::class];
+	private const INGREDIENTS = [Bubblemorel::class, FjordFungus::class];
 
 	#[Pure] public function Level(): int {
 		return self::LEVEL;
