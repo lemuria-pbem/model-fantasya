@@ -22,7 +22,7 @@ final class Carriage implements Artifact, Commodity, Transport
 
 	private const CRAFT = 1;
 
-	private const PAYLOAD = 120 * 100;
+	private const PAYLOAD = 140 * 100;
 
 	private const SPEED = 2;
 
