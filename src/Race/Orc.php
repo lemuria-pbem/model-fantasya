@@ -4,10 +4,12 @@ namespace Lemuria\Model\Fantasya\Race;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Talent\Alchemy;
 use Lemuria\Model\Fantasya\Talent\Armory;
 use Lemuria\Model\Fantasya\Talent\Carriagemaking;
 use Lemuria\Model\Fantasya\Talent\Constructing;
 use Lemuria\Model\Fantasya\Talent\Entertaining;
+use Lemuria\Model\Fantasya\Talent\Herballore;
 use Lemuria\Model\Fantasya\Talent\Horsetaming;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Model\Fantasya\Talent\Mining;
@@ -51,11 +53,12 @@ final class Orc extends AbstractRace
 
 	#[Pure] protected function mods(): array {
 		return [
-			Armory::class       =>  1, Carriagemaking::class => -1, Constructing::class  =>  1,
-			Entertaining::class => -2, Horsetaming::class    => -1, Magic::class         => -1,
-			Mining::class       =>  1, Navigation::class     => -1, Quarrying::class     =>  1,
-			Shipbuilding::class => -1, Tactics::class        => 1 , Taxcollecting::class =>  1,
-			Trading::class      => -3, Weaponry::class       =>  2, Woodchopping::class  =>  1
+			Alchemy::class      =>  1, Armory::class        =>  1, Carriagemaking::class => -1,
+			Constructing::class =>  1, Entertaining::class  => -2, Herballore::class     => -2,
+			Horsetaming::class  => -1, Magic::class         => -1, Mining::class         =>  1,
+			Navigation::class   => -1, Quarrying::class     =>  1, Shipbuilding::class   => -1,
+			Tactics::class      =>  1, Taxcollecting::class =>  1, Trading::class        => -3,
+			Weaponry::class     =>  2, Woodchopping::class  =>  1
 		];
 	}
 }

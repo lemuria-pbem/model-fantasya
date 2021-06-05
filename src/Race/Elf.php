@@ -4,12 +4,14 @@ namespace Lemuria\Model\Fantasya\Race;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Talent\Alchemy;
 use Lemuria\Model\Fantasya\Talent\Archery;
 use Lemuria\Model\Fantasya\Talent\Armory;
 use Lemuria\Model\Fantasya\Talent\Bowmaking;
 use Lemuria\Model\Fantasya\Talent\Camouflage;
 use Lemuria\Model\Fantasya\Talent\Catapulting;
 use Lemuria\Model\Fantasya\Talent\Constructing;
+use Lemuria\Model\Fantasya\Talent\Herballore;
 use Lemuria\Model\Fantasya\Talent\Horsetaming;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Model\Fantasya\Talent\Mining;
@@ -50,11 +52,12 @@ final class Elf extends AbstractRace
 
 	#[Pure] protected function mods(): array {
 		return [
-			Archery::class     =>  2, Armory::class       => -1, Bowmaking::class    =>  2,
-			Camouflage::class  =>  1, Catapulting::class  => -2, Constructing::class => -1,
-			Horsetaming::class =>  1, Magic::class        =>  1, Mining::class       => -2,
-			Navigation::class  => -1, Perception::class   =>  1, Quarrying::class    => -1,
-			Roadmaking::class  => -1, Shipbuilding::class => -1
+			Alchemy::class      => -1, Archery::class    =>  2, Armory::class      => -1,
+			Bowmaking::class    =>  2, Camouflage::class =>  1, Catapulting::class => -2,
+			Constructing::class => -1, Herballore::class =>  2, Horsetaming::class =>  1,
+			Magic::class        =>  1, Mining::class     => -2, Navigation::class  => -1,
+			Perception::class   =>  1, Quarrying::class  => -1, Roadmaking::class  => -1,
+			Shipbuilding::class => -1
 		];
 	}
 }
