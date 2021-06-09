@@ -11,6 +11,7 @@ use Lemuria\Model\Fantasya\Talent\Camouflage;
 use Lemuria\Model\Fantasya\Talent\Catapulting;
 use Lemuria\Model\Fantasya\Talent\Constructing;
 use Lemuria\Model\Fantasya\Talent\Entertaining;
+use Lemuria\Model\Fantasya\Talent\Herballore;
 use Lemuria\Model\Fantasya\Talent\Horsetaming;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Model\Fantasya\Talent\Mining;
@@ -55,13 +56,13 @@ final class Dwarf extends AbstractRace
 
 	#[Pure] protected function mods(): array {
 		return [
-			Archery::class       => -1, Armory::class      =>  2, Bladefighting::class =>  1,
-			Camouflage::class    => -1, Catapulting::class =>  2, Constructing::class  =>  2,
-			Entertaining::class  => -1, Horsetaming::class => -2, Magic::class         => -2,
-			Mining::class        =>  2, Navigation::class  => -2, Quarrying::class     =>  2,
-			Riding::class        => -2, Roadmaking::class  =>  2, Shipbuilding::class  => -1,
-			Taxcollecting::class =>  1, Trading::class     =>  1, Weaponry::class      =>  2,
-			Woodchopping::class  => -1
+			Archery::class       => -1, Armory::class        =>  2, Bladefighting::class =>  1,
+			Camouflage::class    => -1, Catapulting::class   =>  2, Constructing::class  =>  2,
+			Entertaining::class  => -1, Herballore::class    => -2, Horsetaming::class   => -2,
+			Magic::class         => -2, Mining::class        =>  2, Navigation::class    => -2,
+			Quarrying::class     =>  2, Riding::class        => -2, Roadmaking::class    =>  2,
+			Shipbuilding::class  => -1, Taxcollecting::class =>  1, Trading::class       =>  1,
+			Weaponry::class      =>  2, Woodchopping::class  => -1
 		];
 	}
 }

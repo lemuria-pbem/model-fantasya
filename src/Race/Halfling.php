@@ -12,6 +12,7 @@ use Lemuria\Model\Fantasya\Talent\Catapulting;
 use Lemuria\Model\Fantasya\Talent\Constructing;
 use Lemuria\Model\Fantasya\Talent\Crossbowing;
 use Lemuria\Model\Fantasya\Talent\Entertaining;
+use Lemuria\Model\Fantasya\Talent\Herballore;
 use Lemuria\Model\Fantasya\Talent\Horsetaming;
 use Lemuria\Model\Fantasya\Talent\Mining;
 use Lemuria\Model\Fantasya\Talent\Navigation;
@@ -54,12 +55,13 @@ final class Halfling extends AbstractRace
 
 	#[Pure] protected function mods(): array {
 		return [
-			Archery::class        => -1, Bladefighting::class => -1, Camouflage::class   =>  1,
-			Carriagemaking::class =>  2, Catapulting::class   => -1, Constructing::class =>  1,
-			Crossbowing::class    =>  1, Entertaining::class  =>  1, Horsetaming::class  => -1,
-			Mining::class         =>  1, Navigation::class    => -2, Perception::class   =>  1,
-			Riding::class         => -1, Roadmaking::class    =>  1, Shipbuilding::class => -1,
-			Spearfighting::class  =>  1, Taxcollecting::class => -1, Trading::class      =>  2
+			Archery::class        => -1, Bladefighting::class => -1, Camouflage::class    =>  1,
+			Carriagemaking::class =>  2, Catapulting::class   => -1, Constructing::class  =>  1,
+			Crossbowing::class    =>  1, Entertaining::class  =>  1, Herballore::class    =>  2,
+			Horsetaming::class    => -1, Mining::class        =>  1, Navigation::class    => -2,
+			Perception::class     =>  1, Riding::class        => -1, Roadmaking::class    =>  1,
+			Shipbuilding::class   => -1, Spearfighting::class =>  1, Taxcollecting::class => -1,
+			Trading::class        =>  2
 		];
 	}
 }
