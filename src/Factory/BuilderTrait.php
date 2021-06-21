@@ -10,6 +10,7 @@ use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\Landscape;
 use Lemuria\Model\Fantasya\Race;
 use Lemuria\Model\Fantasya\Ship;
+use Lemuria\Model\Fantasya\Spell;
 use Lemuria\Model\Fantasya\Talent;
 
 trait BuilderTrait
@@ -51,6 +52,19 @@ trait BuilderTrait
 			return $commodity;
 		}
 		throw new SingletonException($class, 'commodity');
+	}
+
+	/**
+	 * Create a spell singleton.
+	 *
+	 * @throws SingletonException
+	 */
+	protected static function createSpell(string $class): Spell {
+		$spell = Lemuria::Builder()->create($class);
+		if ($spell instanceof Spell) {
+			return $spell;
+		}
+		throw new SingletonException($class, 'spell');
 	}
 
 	/**

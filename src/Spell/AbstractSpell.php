@@ -6,5 +6,4 @@ use Lemuria\Model\Fantasya\Spell;
 
 abstract class AbstractSpell implements Spell
 {
-
 }
