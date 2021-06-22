@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\ArrayShape;
 
+use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeEntityException;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
@@ -43,6 +44,15 @@ class Aura implements Serializable
 
 	public function setMaximum(int $maximum): Aura {
 		$this->maximum = $maximum;
+		return $this;
+	}
+
+	public function consume(int $aura): Aura {
+		if ($aura > $this->aura) {
+			throw new LemuriaException('The magician has not enough Aura left.');
+		}
+
+		$this->aura -= $aura;
 		return $this;
 	}
 
