@@ -39,6 +39,7 @@ final class Woodshield implements Artifact, Commodity
 		return $this->craft;
 	}
 
+	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Wood::class => self::WOOD];
 	}

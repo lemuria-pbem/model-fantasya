@@ -52,6 +52,7 @@ final class Carriage implements Artifact, Commodity, Transport
 		return $this->craft;
 	}
 
+	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Wood::class => self::WOOD];
 	}

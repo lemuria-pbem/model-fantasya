@@ -70,6 +70,7 @@ abstract class AbstractCastle extends AbstractBuilding implements Castle
 		return $size;
 	}
 
+	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Stone::class => 1];
 	}

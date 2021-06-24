@@ -48,6 +48,7 @@ final class Cabin extends AbstractBuilding
 		return Building::IS_UNLIMITED;
 	}
 
+	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Silver::class => self::SILVER, Wood::class => self::WOOD, Stone::class => self::STONE, Iron::class => self::IRON];
 	}

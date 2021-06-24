@@ -32,6 +32,7 @@ final class Battleaxe extends AbstractWeapon
 		return new Requirement($weaponry, self::CRAFT);
 	}
 
+	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Wood::class => self::WOOD, Iron::class => self::IRON];
 	}
