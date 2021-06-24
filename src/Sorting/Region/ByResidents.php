@@ -17,9 +17,9 @@ class ByResidents implements EntityOrder
 	 *
 	 * @return int[]
 	 */
-	public function sort(EntitySet $atlas): array {
+	public function sort(EntitySet $set): array {
 		$residents = [];
-		foreach ($atlas as $region /* @var Region $region */) {
+		foreach ($set as $region /* @var Region $region */) {
 			$n = 0;
 			foreach ($region->Residents() as $unit /* @var Unit $unit */) {
 				$n += $unit->Size();

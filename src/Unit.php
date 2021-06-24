@@ -170,7 +170,7 @@ class Unit extends Entity implements Collectible
 		'disguiseAs' => 'int|null', 'inventory' => 'array', 'knowledge' => 'array', 'aura' => 'array|null',
 		'battleSpells' => 'array|null'
 	])]
-	public function serialize(): array {
+	#[Pure] public function serialize(): array {
 		$data                 = parent::serialize();
 		$data['race']         = getClass($this->Race());
 		$data['size']         = $this->Size();

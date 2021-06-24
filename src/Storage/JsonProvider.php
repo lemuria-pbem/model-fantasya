@@ -36,14 +36,14 @@ class JsonProvider implements Provider
 	}
 
 	/**
-	 * @param array $data
+	 * @param array $content
 	 * @throws FileException
 	 * @throws JsonException
 	 */
-	public function write(string $fileName, mixed $data): void {
-		if (!is_array($data)) {
-			throw new LemuriaException('JsonProvider needs an arrax.');
+	public function write(string $fileName, mixed $content): void {
+		if (!is_array($content)) {
+			throw new LemuriaException('JsonProvider needs an array.');
 		}
-		$this->provider->write($fileName, Json::encode($data));
+		$this->provider->write($fileName, Json::encode($content));
 	}
 }

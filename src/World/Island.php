@@ -295,7 +295,7 @@ class Island
 				try {
 					$merged->add($coordinates, $region);
 					unset ($regions[$i]);
-				} catch (LemuriaException $e) {
+				} catch (LemuriaException) {
 				}
 			}
 		} while ($count > 0 && count($regions) < $count);

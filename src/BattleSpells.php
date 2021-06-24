@@ -23,7 +23,7 @@ class BattleSpells implements \Countable, Serializable
 		return $this->spells[BattleSpell::COMBAT];
 	}
 
-	public function count() {
+	public function count(): int {
 		$n = 0;
 		foreach ($this->spells as $spell) {
 			if ($spell) {
