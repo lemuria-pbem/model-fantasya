@@ -9,7 +9,7 @@ use Lemuria\Exception\UnserializeException;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 
-class BattleSpells implements Serializable
+class BattleSpells implements \Countable, Serializable
 {
 	use SerializableTrait;
 
@@ -21,6 +21,16 @@ class BattleSpells implements Serializable
 
 	public function Combat(): ?SpellGrade {
 		return $this->spells[BattleSpell::COMBAT];
+	}
+
+	public function count() {
+		$n = 0;
+		foreach ($this->spells as $spell) {
+			if ($spell) {
+				$n++;
+			}
+		}
+		return $n;
 	}
 
 	#[Pure] public function serialize(): array {
