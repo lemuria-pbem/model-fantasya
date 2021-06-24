@@ -2,6 +2,8 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Serializable;
@@ -11,51 +13,52 @@ class BattleSpells implements Serializable
 {
 	use SerializableTrait;
 
-	protected ?SpellGrade $preparation = null;
-
-	protected ?SpellGrade $combat = null;
+	protected array $spells = [BattleSpell::PREPARATION => null, BattleSpell::COMBAT => null];
 
 	public function Preparation(): ?SpellGrade {
-		return $this->preparation;
+		return $this->spells[BattleSpell::PREPARATION];
 	}
 
 	public function Combat(): ?SpellGrade {
-		return $this->combat;
+		return $this->spells[BattleSpell::COMBAT];
 	}
 
-	public function serialize(): array {
-		$data = [BattleSpell::PREPARATION => null, BattleSpell::COMBAT => null];
-		if ($this->preparation) {
-			$data[$this->preparation->Spell()->Phase()] = $this->preparation->serialize();
+	#[Pure] public function serialize(): array {
+		$data = [];
+		foreach ($this->spells as $phase => $spell /* @var SpellGrade|null $spell */) {
+			$data[$phase] = $spell?->serialize();
 		}
-		if ($this->combat) {
-			$data[$this->combat->Spell()->Phase()] = $this->combat->serialize();
-		}
-		ksort($data);
 		return $data;
 	}
 
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);
-		$this->preparation = $this->unserializeBattleSpell($data[BattleSpell::PREPARATION]);
-		$this->combat      = $this->unserializeBattleSpell($data[BattleSpell::COMBAT]);
+		foreach ($data as $phase => $spell) {
+			$this->spells[$phase] = $this->unserializeBattleSpell($spell);
+		}
 		return $this;
 	}
 
-	public function setPreparation(?SpellGrade $spell): BattleSpells {
-		if ($spell->Spell()->Phase() !== BattleSpell::PREPARATION) {
-			throw new LemuriaException('Invalid battle spell for preparation phase.');
+	public function add(SpellGrade $spell): BattleSpells {
+		$phase = $spell->Spell()->Phase();
+		if (array_key_exists($phase, $this->spells)) {
+			$this->spells[$phase] = $spell;
+			return $this;
 		}
-		$this->preparation = $spell;
-		return $this;
+		throw new LemuriaException('Invalid battle spell phase in ' . $spell->Spell() . '.');
 	}
 
-	public function setCombat(?SpellGrade $spell): BattleSpells {
-		if ($spell->Spell()->Phase() !== BattleSpell::COMBAT) {
-			throw new LemuriaException('Invalid battle spell for combat phase.');
+	public function remove(BattleSpell $spell): BattleSpells {
+		$phase = $spell->Phase();
+		if (isset($this->spells[$phase])) {
+			/** @var SpellGrade $spellGrade */
+			$spellGrade = $this->spells[$phase];
+			if ($spellGrade->Spell() === $spell) {
+				unset($this->spells[$phase]);
+			}
+			return $this;
 		}
-		$this->combat = $spell;
-		return $this;
+		throw new LemuriaException('Battle spell not set: ' . $spell);
 	}
 
 	/**
