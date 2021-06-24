@@ -39,6 +39,18 @@ class BattleSpells implements Serializable
 		return $this;
 	}
 
+	public function has(BattleSpell $spell): bool {
+		$phase = $spell->Phase();
+		if (isset($this->spells[$phase])) {
+			/** @var SpellGrade $spellGrade */
+			$spellGrade = $this->spells[$phase];
+			if ($spellGrade->Spell() === $spell) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public function add(SpellGrade $spell): BattleSpells {
 		$phase = $spell->Spell()->Phase();
 		if (array_key_exists($phase, $this->spells)) {
@@ -49,16 +61,11 @@ class BattleSpells implements Serializable
 	}
 
 	public function remove(BattleSpell $spell): BattleSpells {
-		$phase = $spell->Phase();
-		if (isset($this->spells[$phase])) {
-			/** @var SpellGrade $spellGrade */
-			$spellGrade = $this->spells[$phase];
-			if ($spellGrade->Spell() === $spell) {
-				unset($this->spells[$phase]);
-			}
-			return $this;
+		if (!$this->has($spell)) {
+			throw new LemuriaException('Battle spell not set: ' . $spell);
 		}
-		throw new LemuriaException('Battle spell not set: ' . $spell);
+		unset($this->spells[$spell->Phase()]);
+		return $this;
 	}
 
 	/**
