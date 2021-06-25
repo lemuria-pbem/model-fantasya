@@ -2,9 +2,7 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Spell;
 
-use Lemuria\Model\Fantasya\BattleSpell;
-
-final class ShockWave extends AbstractSpell implements BattleSpell
+final class ShockWave extends AbstractBattleSpell
 {
 	private const AURA = 1;
 
@@ -16,9 +14,5 @@ final class ShockWave extends AbstractSpell implements BattleSpell
 
 	public function Difficulty(): int {
 		return self::DIFFICULTY;
-	}
-
-	public function Phase(): int {
-		return BattleSpell::COMBAT;
 	}
 }

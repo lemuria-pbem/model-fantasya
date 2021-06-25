@@ -15,4 +15,8 @@ final class AuraTransfer extends AbstractSpell
 	public function Difficulty(): int {
 		return self::DIFFICULTY;
 	}
+
+	public function Order(): int {
+		return 0;
+	}
 }

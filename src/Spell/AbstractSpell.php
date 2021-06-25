@@ -14,4 +14,8 @@ abstract class AbstractSpell implements Spell
 	public function IsIncremental(): bool {
 		return $this->isIncremental;
 	}
+
+	public function Order(): int {
+		return 1;
+	}
 }

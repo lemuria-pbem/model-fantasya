@@ -20,4 +20,9 @@ interface Spell extends Singleton
 	 * Are Aura points fixed or incremental?
 	 */
 	public function IsIncremental(): bool;
+
+	/**
+	 * Can be used to set the order of casting.
+	 */
+	public function Order(): int;
 }

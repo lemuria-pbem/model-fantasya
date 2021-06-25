@@ -4,7 +4,7 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 use Lemuria\Model\Fantasya\BattleSpell;
 
-final class SongOfPeace extends AbstractSpell implements BattleSpell
+final class SongOfPeace extends AbstractBattleSpell
 {
 	private const AURA = 2;
 
