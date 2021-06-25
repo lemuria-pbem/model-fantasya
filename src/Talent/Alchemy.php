@@ -8,6 +8,6 @@ namespace Lemuria\Model\Fantasya\Talent;
 final class Alchemy extends AbstractTalent
 {
 	public function getExpense(int $level): int {
-		return 100;
+		return 250;
 	}
 }
