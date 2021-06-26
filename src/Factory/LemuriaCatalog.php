@@ -18,6 +18,8 @@ use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\Fantasya\Unit;
 use Lemuria\Model\Fantasya\Vessel;
 use Lemuria\Model\Reassignment;
+use Lemuria\Version\VersionFinder;
+use Lemuria\Version\VersionTag;
 
 /**
  * The catalog registers all entities and is used to ensure that IDs are only used once per namespace.
@@ -226,6 +228,11 @@ class LemuriaCatalog implements Catalog
 	public function addReassignment(Reassignment $listener): Catalog {
 		$this->reassignments[] = $listener;
 		return $this;
+	}
+
+	public function getVersion(): VersionTag {
+		$versionFinder = new VersionFinder(__DIR__ . '/../..');
+		return $versionFinder->get();
 	}
 
 	/**
