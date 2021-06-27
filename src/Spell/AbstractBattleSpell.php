@@ -7,7 +7,7 @@ use Lemuria\Model\Fantasya\BattleSpell;
 abstract class AbstractBattleSpell extends AbstractSpell implements BattleSpell
 {
 	public function Order(): int {
-		return 2;
+		return 3;
 	}
 
 	public function Phase(): int {
