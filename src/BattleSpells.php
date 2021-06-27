@@ -89,11 +89,11 @@ class BattleSpells implements \Countable, Serializable
 			throw new UnserializeException('Invalid BattleSpell indices.');
 		}
 		$spellGrade = $data[BattleSpell::PREPARATION];
-		if ($spellGrade !== null && is_array($spellGrade)) {
+		if ($spellGrade !== null && !is_array($spellGrade)) {
 			throw new UnserializeException('Invalid BattleSpell defined.');
 		}
 		$spellGrade = $data[BattleSpell::COMBAT];
-		if ($spellGrade !== null && is_array($spellGrade)) {
+		if ($spellGrade !== null && !is_array($spellGrade)) {
 			throw new UnserializeException('Invalid BattleSpell defined.');
 		}
 	}
