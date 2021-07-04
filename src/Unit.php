@@ -43,6 +43,10 @@ class Unit extends Entity implements Collectible
 
 	private Knowledge $knowledge;
 
+	private ?Aura $aura = null;
+
+	private ?BattleSpells $battleSpells = null;
+
 	/**
 	 * Get a Unit.
 	 *
@@ -62,83 +66,48 @@ class Unit extends Entity implements Collectible
 		$this->knowledge = new Knowledge();
 	}
 
-	/**
-	 * Get a plain data array of the model's data.
-	 *
-	 * @return array
-	 */
-	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'race' => 'string', 'size' => 'int',
-		'health' => 'float', 'isGuarding' => 'bool', 'battleRow' => 'int', 'camouflage' => 'bool',
-		'disguiseAs' => 'int|null', 'inventory' => 'array', 'knowledge' => 'array'
-	])]
-	#[Pure]
-	public function serialize(): array {
-		$data               = parent::serialize();
-		$data['race']       = getClass($this->Race());
-		$data['size']       = $this->Size();
-		$data['health']     = $this->Health();
-		$data['isGuarding'] = $this->IsGuarding();
-		$data['battleRow']  = $this->BattleRow();
-		$data['isHiding']   = $this->IsHiding();
-		$id                 = $this->disguiseAs;
-		$data['disguiseAs'] = $id instanceof Id ? $id->Id() : $id;
-		$data['inventory']  = $this->Inventory()->serialize();
-		$data['knowledge']  = $this->Knowledge()->serialize();
-		return $data;
-	}
 
-	/**
-	 * Restore the model's data from serialized data.
-	 */
-	public function unserialize(array $data): Serializable {
-		parent::unserialize($data);
-		$this->setRace(self::createRace($data['race']));
-		$this->setSize($data['size']);
-		$this->setHealth($data['health']);
-		$this->setIsGuarding($data['isGuarding']);
-		$this->setBattleRow($data['battleRow']);
-		$this->setIsHiding($data['isHiding']);
-		$id               = $data['disguiseAs'];
-		$this->disguiseAs = is_int($id) ? new Id($id) : $id;
-		$this->Inventory()->unserialize($data['inventory']);
-		$this->Knowledge()->unserialize($data['knowledge']);
-		return $this;
-	}
-
-	#[Pure] public function Catalog(): int {
+	public function Catalog(): int {
 		return Catalog::UNITS;
 	}
 
-	#[Pure] public function Inventory(): Resources {
+	public function Aura(): ?Aura {
+		return $this->aura;
+	}
+
+	public function BattleSpells(): ?BattleSpells {
+		return $this->battleSpells;
+	}
+
+	public function Inventory(): Resources {
 		return $this->inventory;
 	}
 
-	#[Pure] public function Knowledge(): Knowledge {
+	public function Knowledge(): Knowledge {
 		return $this->knowledge;
 	}
 
-	#[Pure] public function Race(): Race {
+	public function Race(): Race {
 		return $this->race;
 	}
 
-	#[Pure] public function Size(): int {
+	public function Size(): int {
 		return $this->size;
 	}
 
-	#[Pure] public function Health(): float {
+	public function Health(): float {
 		return $this->health;
 	}
 
-	#[Pure] public function IsGuarding(): bool {
+	public function IsGuarding(): bool {
 		return $this->isGuarding;
 	}
 
-	#[Pure] public function BattleRow(): int {
+	public function BattleRow(): int {
 		return $this->battleRow;
 	}
 
-	#[Pure] public function IsHiding(): bool {
+	public function IsHiding(): bool {
 		return $this->isHiding;
 	}
 
@@ -188,6 +157,70 @@ class Unit extends Entity implements Collectible
 			$weight += $quantity->Weight();
 		}
 		return $weight;
+	}
+
+	/**
+	 * Get a plain data array of the model's data.
+	 *
+	 * @return array
+	 */
+	#[ArrayShape([
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'race' => 'string', 'size' => 'int',
+		'health' => 'float', 'isGuarding' => 'bool', 'battleRow' => 'int', 'camouflage' => 'bool',
+		'disguiseAs' => 'int|null', 'inventory' => 'array', 'knowledge' => 'array', 'aura' => 'array|null',
+		'battleSpells' => 'array|null'
+	])]
+	#[Pure] public function serialize(): array {
+		$data                 = parent::serialize();
+		$data['race']         = getClass($this->Race());
+		$data['size']         = $this->Size();
+		$data['aura']         = $this->aura?->serialize();
+		$data['health']       = $this->Health();
+		$data['isGuarding']   = $this->IsGuarding();
+		$data['battleRow']    = $this->BattleRow();
+		$data['isHiding']     = $this->IsHiding();
+		$id                   = $this->disguiseAs;
+		$data['disguiseAs']   = $id instanceof Id ? $id->Id() : $id;
+		$data['inventory']    = $this->Inventory()->serialize();
+		$data['knowledge']    = $this->Knowledge()->serialize();
+		$data['battleSpells'] = $this->battleSpells?->serialize();
+		return $data;
+	}
+
+	/**
+	 * Restore the model's data from serialized data.
+	 */
+	public function unserialize(array $data): Serializable {
+		parent::unserialize($data);
+		$this->setRace(self::createRace($data['race']));
+		$this->setSize($data['size']);
+		$this->setHealth($data['health']);
+		$this->setIsGuarding($data['isGuarding']);
+		$this->setBattleRow($data['battleRow']);
+		$this->setIsHiding($data['isHiding']);
+		$id               = $data['disguiseAs'];
+		$this->disguiseAs = is_int($id) ? new Id($id) : $id;
+		$this->Inventory()->unserialize($data['inventory']);
+		$this->Knowledge()->unserialize($data['knowledge']);
+		if (isset($data['aura'])) {
+			$this->aura = new Aura();
+			$this->aura->unserialize($data['aura']);
+		}
+		if (isset($data['battleSpells'])) {
+			$this->battleSpells = new BattleSpells();
+			$this->battleSpells->unserialize($data['battleSpells']);
+		}
+		return $this;
+	}
+
+	public function setAura(?Aura $aura): Unit {
+		$this->aura = $aura;
+		return $this;
+	}
+
+	public function setBattleSpells(?BattleSpells $battleSpells): Unit {
+		$this->battleSpells = $battleSpells;
+		return $this;
 	}
 
 	public function setRace(Race $race): Unit {
@@ -258,6 +291,7 @@ class Unit extends Entity implements Collectible
 		parent::validateSerializedData($data);
 		$this->validate($data, 'race', 'string');
 		$this->validate($data, 'size', 'int');
+		$this->validate($data, 'aura', '?array');
 		$this->validate($data, 'health', 'float');
 		$this->validate($data, 'isGuarding', 'bool');
 		$this->validate($data, 'battleRow', 'int');
@@ -268,5 +302,6 @@ class Unit extends Entity implements Collectible
 		}
 		$this->validate($data, 'inventory', 'array');
 		$this->validate($data, 'knowledge', 'array');
+		$this->validate($data, 'battleSpells', '?array');
 	}
 }

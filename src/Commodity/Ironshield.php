@@ -39,6 +39,7 @@ final class Ironshield implements Artifact, Commodity
 		return $this->craft;
 	}
 
+	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Iron::class => self::IRON];
 	}

@@ -47,7 +47,7 @@ class Census implements \Countable
 	/**
 	 * Get the number of all persons belonging to the party.
 	 */
-	public function count(): int {
+	#[Pure] public function count(): int {
 		$n = 0;
 		foreach ($this->party->People() as $unit /* @var Unit $unit */) {
 			$n += $unit->Size();

@@ -35,6 +35,7 @@ final class Warhammer extends AbstractWeapon
 		return new Requirement($weaponry, self::CRAFT);
 	}
 
+	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Wood::class => self::WOOD, Stone::class => self::STONE, Iron::class => self::IRON];
 	}

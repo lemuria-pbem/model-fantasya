@@ -1,6 +1,9 @@
 <?php
+/** @noinspection DuplicatedCode */
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\World;
+
+use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Landscape\Ocean;
@@ -451,7 +454,7 @@ class IslandTest extends Test
 		$island->add(self::createLocation(-1, 1), self::$secondRegion);
 	}
 
-	protected static function createLocation(int $xOffset, int $yOffset): MapCoordinates {
+	#[Pure] protected static function createLocation(int $xOffset, int $yOffset): MapCoordinates {
 		return new MapCoordinates(self::$origin->X() + $xOffset, self::$origin->Y() + $yOffset);
 	}
 }

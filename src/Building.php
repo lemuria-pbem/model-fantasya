@@ -43,10 +43,10 @@ interface Building extends Artifact
 	/**
 	 * Get the best fitting building for given size of this building.
 	 */
-	#[Pure] public function correctBuilding(int $size): Building;
+	public function correctBuilding(int $size): Building;
 
 	/**
 	 * Get the best fitting size for given size of this building.
 	 */
-	#[Pure] public function correctSize(int $size): int;
+	public function correctSize(int $size): int;
 }

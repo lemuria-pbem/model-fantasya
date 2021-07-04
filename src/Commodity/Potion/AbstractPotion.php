@@ -38,7 +38,7 @@ abstract class AbstractPotion implements Potion
 		return Alchemy::class;
 	}
 
-	protected function getCraftLevel(): int {
+	#[Pure] protected function getCraftLevel(): int {
 		return $this->Level() * 2;
 	}
 }

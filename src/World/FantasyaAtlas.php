@@ -14,12 +14,13 @@ class FantasyaAtlas extends Atlas
 	 */
 	public const BY_RESIDENTS = 2;
 
-	public function sort(#[ExpectedValues(valuesFromClass: self::class)] int $mode = self::BY_ID): Atlas {
+	public function sort(#[ExpectedValues(values: [self::BY_ID, self::NORTH_TO_SOUTH, self::BY_RESIDENTS])] int $mode = self::BY_ID): Atlas {
 		switch ($mode) {
 			case self::BY_RESIDENTS :
 				$this->sortUsing(new ByResidents());
 				break;
 			default :
+				/** @noinspection PhpExpectedValuesShouldBeUsedInspection */
 				return parent::sort($mode);
 		}
 		return $this;

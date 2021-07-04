@@ -29,6 +29,7 @@ final class Sword extends AbstractWeapon
 		return new Requirement($weaponry, self::CRAFT);
 	}
 
+	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Iron::class => self::IRON];
 	}

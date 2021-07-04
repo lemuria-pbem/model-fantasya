@@ -12,7 +12,7 @@ class LemuriaRegistry implements Registry
 {
 	protected ?array $parties = null;
 
-	public function count() {
+	public function count(): int {
 		$this->init();
 		return count($this->parties);
 	}

@@ -79,7 +79,7 @@ class Map implements \Countable, \Iterator
 			try {
 				$island->add($coordinates, $region);
 				return $this->merge()->search($region);
-			} catch (LemuriaException $e) {
+			} catch (LemuriaException) {
 			}
 		}
 
@@ -132,7 +132,7 @@ class Map implements \Countable, \Iterator
 							$this->islands = array_values($this->islands);
 							$this->updatePointers($f, $s);
 							break;
-						} catch (LemuriaException $e) {
+						} catch (LemuriaException) {
 						}
 					}
 					$s++;

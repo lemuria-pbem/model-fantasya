@@ -42,9 +42,13 @@ class Party extends Entity implements Assignable, Collector
 
 	private HerbalBook $herbalBook;
 
+	private SpellBook $spellBook;
+
 	private ?array $serializedDiplomacy = null;
 
 	private ?array $serializedHerbalBook = null;
+
+	private ?array $serializedSpellBook = null;
 
 	private UuidInterface $uuid;
 
@@ -75,49 +79,7 @@ class Party extends Entity implements Assignable, Collector
 		$this->chronicle  = new Chronicle();
 		$this->diplomacy  = new Diplomacy($this);
 		$this->herbalBook = new HerbalBook();
-	}
-
-	/**
-	 * Get a plain data array of the model's data.
-	 *
-	 * @return array
-	 */
-	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'banner' => 'string', 'people' => 'int[]',
-		'diplomacy' => 'array', 'herbalBook' => 'array', 'race' => 'string', 'origin' => 'int', 'uuid' => 'string',
-		'round' => 'int', 'creation' => 'int'
-	])]
-	public function serialize(): array {
-		$data               = parent::serialize();
-		$data['banner']     = $this->banner;
-		$data['uuid']       = $this->Uuid();
-		$data['creation']   = $this->creation;
-		$data['round']      = $this->round;
-		$data['origin']     = $this->origin->Id();
-		$data['race']       = getClass($this->Race());
-		$data['diplomacy']  = $this->Diplomacy()->serialize();
-		$data['people']     = $this->People()->serialize();
-		$data['chronicle']  = $this->Chronicle()->serialize();
-		$data['herbalBook'] = $this->HerbalBook()->serialize();
-		return $data;
-	}
-
-	/**
-	 * Restore the model's data from serialized data.
-	 */
-	public function unserialize(array $data): Serializable {
-		parent::unserialize($data);
-		$this->banner   = $data['banner'];
-		$this->uuid     = Uuid::fromString($data['uuid']);
-		$this->creation = $data['creation'];
-		$this->round    = $data['round'];
-		$this->origin   = new Id($data['origin']);
-		$this->setRace(self::createRace($data['race']));
-		$this->People()->unserialize($data['people']);
-		$this->Chronicle()->unserialize($data['chronicle']);
-		$this->serializedDiplomacy  = $data['diplomacy'];
-		$this->serializedHerbalBook = $data['herbalBook'];
-		return $this;
+		$this->spellBook  = new SpellBook();
 	}
 
 	/**
@@ -125,15 +87,6 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	#[Pure] public function Catalog(): int {
 		return Catalog::PARTIES;
-	}
-
-	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): Collector {
-		$this->People()->addCollectorsToAll();
-		return $this;
 	}
 
 	public function Banner(): string {
@@ -200,6 +153,68 @@ class Party extends Entity implements Assignable, Collector
 		return $this->herbalBook;
 	}
 
+	public function SpellBook(): SpellBook {
+		if (is_array($this->serializedSpellBook)) {
+			$this->spellBook->clear()->unserialize($this->serializedSpellBook);
+			$this->serializedSpellBook = null;
+		}
+		return $this->spellBook;
+	}
+
+	/**
+	 * Get a plain data array of the model's data.
+	 *
+	 * @return array
+	 */
+	#[ArrayShape([
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'banner' => 'string', 'uuid' => 'string',
+		'creation' => 'int', 'round' => 'int', 'origin' => 'int', 'race' => 'string', 'diplomacy' => 'array',
+		'people' => 'int[]', 'chronicle' => 'array', 'herbalBook' => 'array', 'spellBook' => 'array'
+	])]
+	public function serialize(): array {
+		$data               = parent::serialize();
+		$data['banner']     = $this->banner;
+		$data['uuid']       = $this->Uuid();
+		$data['creation']   = $this->creation;
+		$data['round']      = $this->round;
+		$data['origin']     = $this->origin->Id();
+		$data['race']       = getClass($this->Race());
+		$data['diplomacy']  = $this->Diplomacy()->serialize();
+		$data['people']     = $this->People()->serialize();
+		$data['chronicle']  = $this->Chronicle()->serialize();
+		$data['herbalBook'] = $this->HerbalBook()->serialize();
+		$data['spellBook']  = $this->SpellBook()->serialize();
+		return $data;
+	}
+
+	/**
+	 * Restore the model's data from serialized data.
+	 */
+	public function unserialize(array $data): Serializable {
+		parent::unserialize($data);
+		$this->banner   = $data['banner'];
+		$this->uuid     = Uuid::fromString($data['uuid']);
+		$this->creation = $data['creation'];
+		$this->round    = $data['round'];
+		$this->origin   = new Id($data['origin']);
+		$this->setRace(self::createRace($data['race']));
+		$this->People()->unserialize($data['people']);
+		$this->Chronicle()->unserialize($data['chronicle']);
+		$this->serializedDiplomacy  = $data['diplomacy'];
+		$this->serializedHerbalBook = $data['herbalBook'];
+		$this->serializedSpellBook  = $data['spellBook'];
+		return $this;
+	}
+
+	/**
+	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
+	 * then.
+	 */
+	public function collectAll(): Collector {
+		$this->People()->addCollectorsToAll();
+		return $this;
+	}
+
 	public function setBanner(string $banner): Party {
 		$this->banner = $banner;
 		return $this;
@@ -232,5 +247,6 @@ class Party extends Entity implements Assignable, Collector
 		$this->validate($data, 'diplomacy', 'array');
 		$this->validate($data, 'chronicle', 'array');
 		$this->validate($data, 'herbalBook', 'array');
+		$this->validate($data, 'spellBook', 'array');
 	}
 }
