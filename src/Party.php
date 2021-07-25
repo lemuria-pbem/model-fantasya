@@ -28,6 +28,10 @@ class Party extends Entity implements Assignable, Collector
 	use BuilderTrait;
 	use CollectorTrait;
 
+	public const PLAYER = 0;
+
+	private int $type = self::PLAYER;
+
 	private string $banner;
 
 	private Id $origin;
@@ -87,6 +91,10 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	#[Pure] public function Catalog(): int {
 		return Catalog::PARTIES;
+	}
+
+	public function Type(): int {
+		return $this->type;
 	}
 
 	public function Banner(): string {
@@ -167,12 +175,14 @@ class Party extends Entity implements Assignable, Collector
 	 * @return array
 	 */
 	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'banner' => 'string', 'uuid' => 'string',
-		'creation' => 'int', 'round' => 'int', 'origin' => 'int', 'race' => 'string', 'diplomacy' => 'array',
-		'people' => 'int[]', 'chronicle' => 'array', 'herbalBook' => 'array', 'spellBook' => 'array'
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'type' => 'int', 'banner' => 'string',
+		'uuid' => 'string', 'creation' => 'int', 'round' => 'int', 'origin' => 'int', 'race' => 'string',
+		'diplomacy' => 'array', 'people' => 'int[]', 'chronicle' => 'array', 'herbalBook' => 'array',
+		'spellBook' => 'array'
 	])]
 	public function serialize(): array {
 		$data               = parent::serialize();
+		$data['type']       = $this->type;
 		$data['banner']     = $this->banner;
 		$data['uuid']       = $this->Uuid();
 		$data['creation']   = $this->creation;
@@ -192,6 +202,7 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
+		$this->type     = $data['type'];
 		$this->banner   = $data['banner'];
 		$this->uuid     = Uuid::fromString($data['uuid']);
 		$this->creation = $data['creation'];
@@ -237,6 +248,7 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);
+		$this->validate($data, 'type', 'int');
 		$this->validate($data, 'banner', 'string');
 		$this->validate($data, 'uuid', 'string');
 		$this->validate($data, 'creation', 'int');
