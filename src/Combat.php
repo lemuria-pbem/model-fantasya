@@ -7,7 +7,7 @@ use JetBrains\PhpStorm\Pure;
 /**
  * A helper class for combat properties.
  */
-final class Combat
+abstract class Combat
 {
 	public const AGGRESSIVE = 5;
 
