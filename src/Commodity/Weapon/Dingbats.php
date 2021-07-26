@@ -5,19 +5,19 @@ namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Requirement;
-use Lemuria\Model\Fantasya\Talent\Fistfight;
+use Lemuria\Model\Fantasya\Talent\Stoning;
 
 /**
- * Fists are the default weapon of a unit that has no real weapon.
+ * Dingbats are small stones used with the Stoning talent in last-resort distance combat.
  */
-final class Fists extends AbstractWeapon
+final class Dingbats extends AbstractWeapon
 {
 	#[Pure] public function Weight(): int {
 		return 0;
 	}
 
 	public function getCraft(): Requirement {
-		$fistfight = self::createTalent(Fistfight::class);
+		$fistfight = self::createTalent(Stoning::class);
 		return new Requirement($fistfight, 0);
 	}
 
@@ -26,6 +26,6 @@ final class Fists extends AbstractWeapon
 	}
 
 	#[Pure] protected function talent(): string {
-		return Fistfight::class;
+		return Stoning::class;
 	}
 }
