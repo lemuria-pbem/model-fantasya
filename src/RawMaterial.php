@@ -10,6 +10,11 @@ use Lemuria\Singleton;
 interface RawMaterial extends Singleton
 {
 	/**
+	 * Check if this raw material is available in infinite amounts.
+	 */
+	public function IsInfinite(): bool;
+
+	/**
 	 * Get the needed craft to produce this raw material.
 	 */
 	public function getCraft(): Requirement;
