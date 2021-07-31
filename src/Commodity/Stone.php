@@ -20,6 +20,13 @@ final class Stone implements Commodity, RawMaterial
 
 	private const WEIGHT = 60 * 100;
 
+	/**
+	 * Check if this raw material is available in infinite amounts.
+	 */
+	public function IsInfinite(): bool {
+		return true;
+	}
+
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}

@@ -11,6 +11,13 @@ trait RawMaterialTrait
 	private ?Requirement $requirement = null;
 
 	/**
+	 * Check if this raw material is available in infinite amounts.
+	 */
+	public function IsInfinite(): bool {
+		return false;
+	}
+
+	/**
 	 * Get the required Talent to produce this raw material.
 	 */
 	public function getCraft(): Requirement {

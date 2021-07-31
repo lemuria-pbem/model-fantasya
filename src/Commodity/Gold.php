@@ -20,6 +20,10 @@ final class Gold implements Commodity, RawMaterial
 
 	private const WEIGHT = 5 * 100;
 
+	public function IsInfinite(): bool {
+		return true;
+	}
+
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
