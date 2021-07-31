@@ -166,8 +166,8 @@ class Unit extends Entity implements Collectible
 	 */
 	#[ArrayShape([
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'race' => 'string', 'size' => 'int',
-		'health' => 'float', 'isGuarding' => 'bool', 'battleRow' => 'int', 'camouflage' => 'bool',
-		'disguiseAs' => 'int|null', 'inventory' => 'array', 'knowledge' => 'array', 'aura' => 'array|null',
+		'health' => 'float', 'isGuarding' => 'bool', 'battleRow' => 'int', 'isHiding' => 'bool',
+		'disguiseAs' => 'int|false|null', 'inventory' => 'array', 'knowledge' => 'array', 'aura' => 'array|null',
 		'battleSpells' => 'array|null'
 	])]
 	#[Pure] public function serialize(): array {
@@ -298,7 +298,7 @@ class Unit extends Entity implements Collectible
 		$this->validate($data, 'isHiding', 'bool');
 		$disguiseAs = $data['disguiseAs'];
 		if (!is_bool($disguiseAs) || $disguiseAs) {
-			$this->validate($data, 'camouflage', '?int');
+			$this->validate($data, 'disguiseAs', '?int');
 		}
 		$this->validate($data, 'inventory', 'array');
 		$this->validate($data, 'knowledge', 'array');
