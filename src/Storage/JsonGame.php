@@ -3,7 +3,6 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Storage;
 
 use Lemuria\Exception\LemuriaException;
-use Lemuria\Storage\FileProvider;
 use Lemuria\Model\Exception\ModelException;
 use Lemuria\Model\Game;
 use Lemuria\Storage\Provider;
@@ -171,8 +170,8 @@ abstract class JsonGame implements Game
 		if (isset($this->providers[$rw][$fileName])) {
 			return $this->checkProvider($this->providers[$rw][$fileName]);
 		}
-		if (isset($this->providers[$rw][FileProvider::DEFAULT])) {
-			return $this->checkProvider($this->providers[$rw][FileProvider::DEFAULT]);
+		if (isset($this->providers[$rw][Provider::DEFAULT])) {
+			return $this->checkProvider($this->providers[$rw][Provider::DEFAULT]);
 		}
 		$type = $rw === 'w' ? 'write' : 'read';
 		throw new LemuriaException('Default ' . $type . ' provider not defined.');

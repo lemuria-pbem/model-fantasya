@@ -18,6 +18,7 @@ interface Spell extends Singleton
 
 	/**
 	 * Are Aura points fixed or incremental?
+	 * @noinspection GrazieInspection
 	 */
 	public function IsIncremental(): bool;
 

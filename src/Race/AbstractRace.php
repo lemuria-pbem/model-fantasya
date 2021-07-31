@@ -8,6 +8,7 @@ use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Knowledge;
 use Lemuria\Model\Fantasya\Modification;
 use Lemuria\Model\Fantasya\Race;
+use Lemuria\Model\Fantasya\TerrainEffect;
 use Lemuria\SingletonTrait;
 
 /**
@@ -21,6 +22,8 @@ abstract class AbstractRace implements Race
 	private const SPEED = 1;
 
 	private ?Knowledge $modifications = null;
+
+	private ?TerrainEffect $terrainEffect = null;
 
 	#[Pure] public function Speed(): int {
 		return self::SPEED;
@@ -37,5 +40,16 @@ abstract class AbstractRace implements Race
 		return $this->modifications;
 	}
 
+	public function TerrainEffect(): TerrainEffect {
+		if ($this->terrainEffect) {
+			$this->terrainEffect = new TerrainEffect();
+			$this->fill($this->terrainEffect);
+		}
+		return $this->terrainEffect;
+	}
+
 	#[Pure] abstract protected function mods(): array;
+
+	protected function fill(TerrainEffect $terrainEffect): void {
+	}
 }

@@ -4,6 +4,8 @@ namespace Lemuria\Model\Fantasya\Race;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Landscape\Forest;
+use Lemuria\Model\Fantasya\Modification;
 use Lemuria\Model\Fantasya\Talent\Alchemy;
 use Lemuria\Model\Fantasya\Talent\Archery;
 use Lemuria\Model\Fantasya\Talent\Armory;
@@ -20,6 +22,8 @@ use Lemuria\Model\Fantasya\Talent\Perception;
 use Lemuria\Model\Fantasya\Talent\Quarrying;
 use Lemuria\Model\Fantasya\Talent\Roadmaking;
 use Lemuria\Model\Fantasya\Talent\Shipbuilding;
+use Lemuria\Model\Fantasya\Talent\Tactics;
+use Lemuria\Model\Fantasya\TerrainEffect;
 
 /**
  * Elves live in the woods.
@@ -59,5 +63,18 @@ final class Elf extends AbstractRace
 			Perception::class   =>  1, Quarrying::class  => -1, Roadmaking::class  => -1,
 			Shipbuilding::class => -1
 		];
+	}
+
+	protected function fill(TerrainEffect $terrainEffect): void {
+		$forest = self::createLandscape(Forest::class);
+
+		$perception = self::createTalent(Perception::class);
+		$terrainEffect->add($forest, new Modification($perception, 1));
+
+		$camouflage = self::createTalent(Camouflage::class);
+		$terrainEffect->add($forest, new Modification($camouflage, 1));
+
+		$tactics = self::createTalent(Tactics::class);
+		$terrainEffect->add($forest, new Modification($tactics, 2));
 	}
 }

@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\World;
 
+use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\ExpectedValues;
 
 use JetBrains\PhpStorm\Immutable;
@@ -24,7 +25,10 @@ final class PartyMap implements World
 	public function __construct(private World $world, private Party $party) {
 	}
 
-	public function serialize(): array {
+	#[ArrayShape(['id' => "int", 'name' => "string", 'description' => "string", 'inhabitants' => "int[]",
+				  'size' => "int", 'building' => "string"])]
+	public function
+	serialize(): array {
 		return $this->world->serialize();
 	}
 

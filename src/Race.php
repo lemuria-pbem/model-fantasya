@@ -21,6 +21,11 @@ interface Race extends Transport
 	public function Modifications(): Knowledge;
 
 	/**
+	 * Get the terrain effects.
+	 */
+	public function TerrainEffect(): TerrainEffect;
+
+	/**
 	 * Get the recruiting cost for one person.
 	 */
 	#[Pure] public function Recruiting(): int;

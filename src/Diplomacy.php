@@ -21,7 +21,7 @@ use Lemuria\SerializableTrait;
  * 2. Relations
  * A party can have specific relations to its acquaintances.
  * 3. Contacts
- * Contacts are special relations to a single unit that last until the end of a game round.
+ * These are special relations to a single unit that last until the end of a game round.
  */
 final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializable
 {
@@ -156,7 +156,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 		foreach ($this->relations as $relation/* @var Relation $relation */) {
 			$relations[] = [
 				'party'     => $relation->Party()->Id()->Id(),
-				'region'    => $relation->Region() ? $relation->Region()->Id()->Id() : null,
+				'region'    => $relation->Region()?->Id()->Id(),
 				'agreement' => $relation->Agreement()
 			];
 		}

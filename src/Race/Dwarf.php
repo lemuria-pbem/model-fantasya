@@ -4,6 +4,9 @@ namespace Lemuria\Model\Fantasya\Race;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Landscape\Glacier;
+use Lemuria\Model\Fantasya\Landscape\Mountain;
+use Lemuria\Model\Fantasya\Modification;
 use Lemuria\Model\Fantasya\Talent\Archery;
 use Lemuria\Model\Fantasya\Talent\Armory;
 use Lemuria\Model\Fantasya\Talent\Bladefighting;
@@ -20,10 +23,12 @@ use Lemuria\Model\Fantasya\Talent\Quarrying;
 use Lemuria\Model\Fantasya\Talent\Riding;
 use Lemuria\Model\Fantasya\Talent\Roadmaking;
 use Lemuria\Model\Fantasya\Talent\Shipbuilding;
+use Lemuria\Model\Fantasya\Talent\Tactics;
 use Lemuria\Model\Fantasya\Talent\Taxcollecting;
 use Lemuria\Model\Fantasya\Talent\Trading;
 use Lemuria\Model\Fantasya\Talent\Weaponry;
 use Lemuria\Model\Fantasya\Talent\Woodchopping;
+use Lemuria\Model\Fantasya\TerrainEffect;
 
 /**
  * Dwarfs live in the mountains.
@@ -65,4 +70,15 @@ final class Dwarf extends AbstractRace
 			Weaponry::class      =>  2, Woodchopping::class  => -1
 		];
 	}
+
+	protected function fill(TerrainEffect $terrainEffect): void {
+		$tactics = self::createTalent(Tactics::class);
+
+		$mountain = self::createLandscape(Mountain::class);
+		$terrainEffect->add($mountain, new Modification($tactics, 1));
+
+		$glacier = self::createLandscape(Glacier::class);
+		$terrainEffect->add($glacier, new Modification($tactics, 1));
+	}
+
 }
