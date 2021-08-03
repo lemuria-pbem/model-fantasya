@@ -41,7 +41,7 @@ abstract class AbstractRace implements Race
 	}
 
 	public function TerrainEffect(): TerrainEffect {
-		if ($this->terrainEffect) {
+		if (!$this->terrainEffect) {
 			$this->terrainEffect = new TerrainEffect();
 			$this->fill($this->terrainEffect);
 		}
