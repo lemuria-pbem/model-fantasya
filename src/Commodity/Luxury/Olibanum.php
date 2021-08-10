@@ -9,7 +9,7 @@ use JetBrains\PhpStorm\Pure;
  */
 final class Olibanum extends AbstractLuxury
 {
-	private const VALUE = 4;
+	private const VALUE = 5;
 
 	#[Pure] public function Value(): int {
 		return self::VALUE;
