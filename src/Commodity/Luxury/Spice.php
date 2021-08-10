@@ -9,7 +9,7 @@ use JetBrains\PhpStorm\Pure;
  */
 final class Spice extends AbstractLuxury
 {
-	private const VALUE = 5;
+	private const VALUE = 6;
 
 	#[Pure] public function Value(): int {
 		return self::VALUE;
