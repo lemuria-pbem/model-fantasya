@@ -12,6 +12,7 @@ use Lemuria\Model\Fantasya\Race;
 use Lemuria\Model\Fantasya\Ship;
 use Lemuria\Model\Fantasya\Spell;
 use Lemuria\Model\Fantasya\Talent;
+use Lemuria\Model\Fantasya\Weapon;
 
 trait BuilderTrait
 {
@@ -52,6 +53,19 @@ trait BuilderTrait
 			return $commodity;
 		}
 		throw new SingletonException($class, 'commodity');
+	}
+
+	/**
+	 * Create a weapon singleton.
+	 *
+	 * @throws SingletonException
+	 */
+	protected static function createWeapon(string $class): Weapon {
+		$weapon = Lemuria::Builder()->create($class);
+		if ($weapon instanceof Weapon) {
+			return $weapon;
+		}
+		throw new SingletonException($class, 'weapon');
 	}
 
 	/**
