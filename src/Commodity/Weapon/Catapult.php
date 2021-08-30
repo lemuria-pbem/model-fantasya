@@ -18,7 +18,7 @@ final class Catapult extends AbstractWeapon
 
 	private const WOOD = 10;
 
-	private const CRAFT = 5;
+	private const CRAFT = 3;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
