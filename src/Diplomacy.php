@@ -212,7 +212,10 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 			if ($this->hasContact($partner, $agreement)) {
 				return true;
 			}
-			$party  = $partner->Party();
+			$party = $partner->Disguise();
+			if (!($party instanceof Party) || $party === $this->party) {
+				$party = $partner->Party();
+			}
 			$region = $partner->Region();
 		} else {
 			$party  = $partner;
