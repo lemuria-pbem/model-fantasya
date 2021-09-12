@@ -73,6 +73,10 @@ abstract class JsonGame implements Game
 		return $this->getData('continents.json');
 	}
 
+	public function getHostilities(): array {
+		return $this->getData('hostilities.json');
+	}
+
 	public function getStrings(): array {
 		return $this->getData('strings.json');
 	}
@@ -138,6 +142,10 @@ abstract class JsonGame implements Game
 
 	public function setContinents(array $continents): Game {
 		return $this->setData('continents.json', $continents);
+	}
+
+	public function setHostilities(array $hostilities): Game {
+		return $this->setData('hostilities.json', $hostilities);
 	}
 
 	/**
