@@ -6,6 +6,8 @@ use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 
 use function Lemuria\getClass;
+use Lemuria\CountableTrait;
+use Lemuria\IteratorTrait;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Model\Fantasya\Commodity\Luxury\Balsam;
@@ -26,6 +28,8 @@ use Lemuria\SerializableTrait;
 class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 {
 	use BuilderTrait;
+	use CountableTrait;
+	use IteratorTrait;
 	use SerializableTrait;
 
 	protected const LUXURIES = [
@@ -39,14 +43,10 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	 */
 	private array $demand = [];
 
-	private int $index = 0;
-
 	/**
 	 * @var array(int=>string)
 	 */
 	private array $indices = [];
-
-	private int $count = 0;
 
 	public function __construct(?Offer $offer = null) {
 		$this->offer = $offer;
@@ -128,18 +128,6 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 
 	#[Pure] public function key(): ?string {
 		return $this->indices[$this->index] ?? null;
-	}
-
-	public function next(): void {
-		$this->index++;
-	}
-
-	public function rewind(): void {
-		$this->index = 0;
-	}
-
-	#[Pure] public function valid(): bool {
-		return $this->index < $this->count;
 	}
 
 	/**

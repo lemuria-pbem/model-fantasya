@@ -6,7 +6,9 @@ use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\ExpectedValues;
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\CountableTrait;
 use Lemuria\Id;
+use Lemuria\IteratorTrait;
 use Lemuria\Model\Fantasya\Exception\UnknownPartyException;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
@@ -25,6 +27,8 @@ use Lemuria\SerializableTrait;
  */
 final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializable
 {
+	use CountableTrait;
+	use IteratorTrait;
 	use SerializableTrait;
 
 	/**
@@ -46,10 +50,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 * @var array(int=>int)
 	 */
 	private array $indices = [];
-
-	private int $index = 0;
-
-	private int $count = 0;
 
 	/**
 	 * Create the diplomacy of given party.
@@ -115,13 +115,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 		}
 	}
 
-	/**
-	 * Get number of relations.
-	 */
-	#[Pure] public function count(): int {
-		return $this->count;
-	}
-
 	#[Pure] public function current(): ?Relation {
 		$id = $this->key();
 		return $id ? $this->relations[$id] : null;
@@ -132,18 +125,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 			return $this->indices[$this->index];
 		}
 		return null;
-	}
-
-	public function next(): void {
-		$this->index++;
-	}
-
-	public function rewind(): void {
-		$this->index = 0;
-	}
-
-	#[Pure]	public function valid(): bool {
-		return $this->index < $this->count;
 	}
 
 	/**

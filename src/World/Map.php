@@ -4,7 +4,9 @@ namespace Lemuria\Model\Fantasya\World;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\CountableTrait;
 use Lemuria\Exception\LemuriaException;
+use Lemuria\IteratorTrait;
 use Lemuria\Model\Coordinates;
 use Lemuria\Model\Fantasya\Region;
 
@@ -13,6 +15,9 @@ use Lemuria\Model\Fantasya\Region;
  */
 class Map implements \Countable, \Iterator
 {
+	use CountableTrait;
+	use IteratorTrait;
+
 	/**
 	 * @var Island[]
 	 */
@@ -28,35 +33,8 @@ class Map implements \Countable, \Iterator
 	 */
 	protected array $latitude = [];
 
-	private int $current = 0;
-
-	private int $count = 0;
-
-	/**
-	 * Get number of islands on the map.
-	 */
-	public function count(): int {
-		return $this->count;
-	}
-
 	#[Pure] public function current(): ?Island {
-		return $this->islands[$this->current] ?? null;
-	}
-
-	#[Pure] public function key(): int {
-		return $this->current;
-	}
-
-	public function next(): void {
-		$this->current++;
-	}
-
-	public function rewind(): void {
-		$this->current = 0;
-	}
-
-	#[Pure] public function valid(): bool {
-		return $this->current < $this->count;
+		return $this->islands[$this->index] ?? null;
 	}
 
 	/**
