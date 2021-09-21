@@ -21,6 +21,11 @@ interface Race extends Transport
 	#[Pure] public function Hunger(): int;
 
 	/**
+	 * Get the Aura refill rate.
+	 */
+	#[Pure] public function Refill(): float;
+
+	/**
 	 * Get the bonuses and maluses of talents.
 	 */
 	public function Modifications(): Knowledge;

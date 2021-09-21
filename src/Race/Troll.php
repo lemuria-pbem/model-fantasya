@@ -32,6 +32,8 @@ final class Troll extends AbstractRace
 
 	private const HUNGER = 12;
 
+	private const REFILL = 0.15;
+
 	private const PAYLOAD = 10 * 100;
 
 	private const RECRUITING = 90;
@@ -44,6 +46,10 @@ final class Troll extends AbstractRace
 
 	#[Pure] public function Hunger(): int {
 		return self::HUNGER;
+	}
+
+	#[Pure] public function Refill(): float {
+		return self::REFILL;
 	}
 
 	#[Pure] public function Payload(): int {

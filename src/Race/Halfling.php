@@ -33,6 +33,8 @@ final class Halfling extends AbstractRace
 
 	private const HUNGER = 5;
 
+	private const REFILL = 0.2;
+
 	private const PAYLOAD = 5 * 100;
 
 	private const RECRUITING = 60;
@@ -45,6 +47,10 @@ final class Halfling extends AbstractRace
 
 	#[Pure] public function Hunger(): int {
 		return self::HUNGER;
+	}
+
+	#[Pure] public function Refill(): float {
+		return self::REFILL;
 	}
 
 	#[Pure] public function Payload(): int {

@@ -31,6 +31,8 @@ final class Orc extends AbstractRace
 
 	private const HUNGER = 10;
 
+	private const REFILL = 0.18;
+
 	private const PAYLOAD = 5 * 100;
 
 	private const RECRUITING = 70;
@@ -43,6 +45,10 @@ final class Orc extends AbstractRace
 
 	#[Pure] public function Hunger(): int {
 		return self::HUNGER;
+	}
+
+	#[Pure] public function Refill(): float {
+		return self::REFILL;
 	}
 
 	#[Pure] public function Payload(): int {

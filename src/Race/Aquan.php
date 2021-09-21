@@ -28,6 +28,8 @@ final class Aquan extends AbstractRace
 
 	private const HUNGER = 7;
 
+	private const REFILL = 0.25;
+
 	private const PAYLOAD = 5 * 100;
 
 	private const RECRUITING = 80;
@@ -40,6 +42,10 @@ final class Aquan extends AbstractRace
 
 	#[Pure] public function Hunger(): int {
 		return self::HUNGER;
+	}
+
+	#[Pure] public function Refill(): float {
+		return self::REFILL;
 	}
 
 	#[Pure] public function Payload(): int {

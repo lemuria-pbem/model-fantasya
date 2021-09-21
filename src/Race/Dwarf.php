@@ -39,6 +39,8 @@ final class Dwarf extends AbstractRace
 
 	private const HUNGER = 8;
 
+	private const REFILL = 0.2;
+
 	private const PAYLOAD = 5 * 100;
 
 	private const RECRUITING = 110;
@@ -51,6 +53,10 @@ final class Dwarf extends AbstractRace
 
 	#[Pure] public function Hunger(): int {
 		return self::HUNGER;
+	}
+
+	#[Pure] public function Refill(): float {
+		return self::REFILL;
 	}
 
 	#[Pure] public function Payload(): int {

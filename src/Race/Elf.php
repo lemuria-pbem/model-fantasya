@@ -34,6 +34,8 @@ final class Elf extends AbstractRace
 
 	private const HUNGER = 6;
 
+	private const REFILL = 0.33;
+
 	private const PAYLOAD = 5 * 100;
 
 	private const RECRUITING = 130;
@@ -46,6 +48,10 @@ final class Elf extends AbstractRace
 
 	#[Pure] public function Hunger(): int {
 		return self::HUNGER;
+	}
+
+	#[Pure] public function Refill(): float {
+		return self::REFILL;
 	}
 
 	#[Pure] public function Payload(): int {
