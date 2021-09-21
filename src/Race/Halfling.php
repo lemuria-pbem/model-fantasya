@@ -31,6 +31,8 @@ final class Halfling extends AbstractRace
 {
 	private const HITPOINTS = 17;
 
+	private const HUNGER = 5;
+
 	private const PAYLOAD = 5 * 100;
 
 	private const RECRUITING = 60;
@@ -39,6 +41,10 @@ final class Halfling extends AbstractRace
 
 	#[Pure] public function Hitpoints(): int {
 		return self::HITPOINTS;
+	}
+
+	#[Pure] public function Hunger(): int {
+		return self::HUNGER;
 	}
 
 	#[Pure] public function Payload(): int {

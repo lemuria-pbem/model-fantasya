@@ -16,6 +16,11 @@ interface Race extends Transport
 	#[Pure] public function Hitpoints(): int;
 
 	/**
+	 * Get the hunger points of a healthy person.
+	 */
+	#[Pure] public function Hunger(): int;
+
+	/**
 	 * Get the bonuses and maluses of talents.
 	 */
 	public function Modifications(): Knowledge;

@@ -37,6 +37,8 @@ final class Dwarf extends AbstractRace
 {
 	private const HITPOINTS = 25;
 
+	private const HUNGER = 8;
+
 	private const PAYLOAD = 5 * 100;
 
 	private const RECRUITING = 110;
@@ -45,6 +47,10 @@ final class Dwarf extends AbstractRace
 
 	#[Pure] public function Hitpoints(): int {
 		return self::HITPOINTS;
+	}
+
+	#[Pure] public function Hunger(): int {
+		return self::HUNGER;
 	}
 
 	#[Pure] public function Payload(): int {

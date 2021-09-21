@@ -11,6 +11,8 @@ final class Human extends AbstractRace
 {
 	private const HITPOINTS = 20;
 
+	private const HUNGER = 5;
+
 	private const PAYLOAD = 5 * 100;
 
 	private const RECRUITING = 75;
@@ -19,6 +21,10 @@ final class Human extends AbstractRace
 
 	#[Pure] public function Hitpoints(): int {
 		return self::HITPOINTS;
+	}
+
+	#[Pure] public function Hunger(): int {
+		return self::HUNGER;
 	}
 
 	#[Pure] public function Payload(): int {

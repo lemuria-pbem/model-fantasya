@@ -32,6 +32,8 @@ final class Elf extends AbstractRace
 {
 	private const HITPOINTS = 22;
 
+	private const HUNGER = 6;
+
 	private const PAYLOAD = 5 * 100;
 
 	private const RECRUITING = 130;
@@ -40,6 +42,10 @@ final class Elf extends AbstractRace
 
 	#[Pure] public function Hitpoints(): int {
 		return self::HITPOINTS;
+	}
+
+	#[Pure] public function Hunger(): int {
+		return self::HUNGER;
 	}
 
 	#[Pure] public function Payload(): int {

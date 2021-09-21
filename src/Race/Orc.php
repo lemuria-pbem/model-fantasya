@@ -29,6 +29,8 @@ final class Orc extends AbstractRace
 {
 	private const HITPOINTS = 23;
 
+	private const HUNGER = 10;
+
 	private const PAYLOAD = 5 * 100;
 
 	private const RECRUITING = 70;
@@ -37,6 +39,10 @@ final class Orc extends AbstractRace
 
 	#[Pure] public function Hitpoints(): int {
 		return self::HITPOINTS;
+	}
+
+	#[Pure] public function Hunger(): int {
+		return self::HUNGER;
 	}
 
 	#[Pure] public function Payload(): int {

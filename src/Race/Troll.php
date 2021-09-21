@@ -30,6 +30,8 @@ final class Troll extends AbstractRace
 {
 	private const HITPOINTS = 30;
 
+	private const HUNGER = 12;
+
 	private const PAYLOAD = 10 * 100;
 
 	private const RECRUITING = 90;
@@ -38,6 +40,10 @@ final class Troll extends AbstractRace
 
 	#[Pure] public function Hitpoints(): int {
 		return self::HITPOINTS;
+	}
+
+	#[Pure] public function Hunger(): int {
+		return self::HUNGER;
 	}
 
 	#[Pure] public function Payload(): int {

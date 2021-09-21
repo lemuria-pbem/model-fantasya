@@ -26,6 +26,8 @@ final class Aquan extends AbstractRace
 {
 	private const HITPOINTS = 25;
 
+	private const HUNGER = 7;
+
 	private const PAYLOAD = 5 * 100;
 
 	private const RECRUITING = 80;
@@ -34,6 +36,10 @@ final class Aquan extends AbstractRace
 
 	#[Pure] public function Hitpoints(): int {
 		return self::HITPOINTS;
+	}
+
+	#[Pure] public function Hunger(): int {
+		return self::HUNGER;
 	}
 
 	#[Pure] public function Payload(): int {
