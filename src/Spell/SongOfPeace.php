@@ -6,7 +6,7 @@ use Lemuria\Model\Fantasya\BattleSpell;
 
 final class SongOfPeace extends AbstractBattleSpell
 {
-	private const AURA = 2;
+	private const AURA = 1;
 
 	private const DIFFICULTY = 2;
 
