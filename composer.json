@@ -23,7 +23,7 @@
 		"php": "~8.0",
 		"ext-json": "*",
 		"ramsey/uuid": "~4.2",
-		"lemuria-pbem/lemuria": "dev-dev"
+		"lemuria-pbem/lemuria": "~0.7.0"
 	},
 	"require-dev": {
 		"jetbrains/phpstorm-attributes": "~1.0",
