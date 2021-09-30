@@ -32,7 +32,7 @@ final class Sawmill extends AbstractBuilding
 	private const IRON = 5;
 
 	public function Dependency(): Building {
-		return self::createBuilding(Tower::class);
+		return self::createBuilding(Cabin::class);
 	}
 
 	#[Pure] public function Feed(): int {

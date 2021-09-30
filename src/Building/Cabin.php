@@ -14,9 +14,9 @@ use Lemuria\Model\Fantasya\Commodity\Wood;
  */
 final class Cabin extends AbstractBuilding
 {
-	private const TALENT = 3;
+	private const FEED = 5;
 
-	private const UPKEEP = 50;
+	private const TALENT = 3;
 
 	private const CRAFT = 1;
 
@@ -33,7 +33,7 @@ final class Cabin extends AbstractBuilding
 	}
 
 	#[Pure] public function Feed(): int {
-		return Building::IS_FREE;
+		return self::FEED;
 	}
 
 	#[Pure] public function Talent(): int {
@@ -41,7 +41,7 @@ final class Cabin extends AbstractBuilding
 	}
 
 	#[Pure] public function Upkeep(): int {
-		return self::UPKEEP;
+		return Building::IS_FREE;
 	}
 
 	#[Pure] public function UsefulSize(): int {
