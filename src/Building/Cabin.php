@@ -28,7 +28,7 @@ final class Cabin extends AbstractBuilding
 
 	private const IRON = 1;
 
-	#[Pure] public function Dependency(): Building {
+	#[Pure] public function Dependency(): ?Building {
 		return Building::IS_INDEPENDENT;
 	}
 

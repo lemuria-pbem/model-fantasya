@@ -21,7 +21,7 @@ final class Camel implements Commodity, RawMaterial, Transport
 
 	private const PAYLOAD = 40 * 100;
 
-	private const SPEED = 1;
+	private const SPEED = 2;
 
 	private const WEIGHT = 50 * 100;
 
