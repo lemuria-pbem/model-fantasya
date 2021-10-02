@@ -10,7 +10,7 @@ use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
-use Lemuria\Model\Fantasya\Modification;
+use Lemuria\Model\Fantasya\DoubleAbility;
 use Lemuria\Model\Fantasya\Talent\Woodchopping;
 
 /**
@@ -65,6 +65,6 @@ final class Sawmill extends AbstractBuilding
 
 	protected function fill(BuildingEffect $buildingEffect): void {
 		$woodchopping = self::createTalent(Woodchopping::class);
-		$buildingEffect->add(new Modification($woodchopping, 1));
+		$buildingEffect->add(new DoubleAbility($woodchopping));
 	}
 }
