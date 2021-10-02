@@ -7,6 +7,7 @@ use JetBrains\PhpStorm\Pure;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Building;
 use Lemuria\Model\Fantasya\ArtifactTrait;
+use Lemuria\Model\Fantasya\BuildingEffect;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\Model\Fantasya\Talent\Constructing;
@@ -20,6 +21,8 @@ abstract class AbstractBuilding implements Building
 	use BuilderTrait;
 
 	private ?Requirement $craft = null;
+
+	private ?BuildingEffect $buildingEffect = null;
 
 	/**
 	 * Get the needed craft to create this artifact.
@@ -48,6 +51,14 @@ abstract class AbstractBuilding implements Building
 		return $size;
 	}
 
+	public function BuildingEffect(): BuildingEffect {
+		if (!$this->buildingEffect) {
+			$this->buildingEffect = new BuildingEffect();
+			$this->fill($this->buildingEffect);
+		}
+		return $this->buildingEffect;
+	}
+
 	/**
 	 * Get the minimum skill in Construction to build this building.
 	 */
@@ -57,5 +68,8 @@ abstract class AbstractBuilding implements Building
 		if ($size < 0) {
 			throw new LemuriaException('Given size must be positive.');
 		}
+	}
+
+	protected function fill(BuildingEffect $buildingEffect): void {
 	}
 }

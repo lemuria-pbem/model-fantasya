@@ -40,6 +40,8 @@ interface Building extends Artifact
 	 */
 	#[Pure] public function UsefulSize(): int;
 
+	public function BuildingEffect(): BuildingEffect;
+
 	/**
 	 * Get the best fitting building for given size of this building.
 	 */

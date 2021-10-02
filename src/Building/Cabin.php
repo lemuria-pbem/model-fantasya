@@ -4,10 +4,13 @@ namespace Lemuria\Model\Fantasya\Building;
 
 use JetBrains\PhpStorm\Pure;
 use Lemuria\Model\Fantasya\Building;
+use Lemuria\Model\Fantasya\BuildingEffect;
 use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
+use Lemuria\Model\Fantasya\Modification;
+use Lemuria\Model\Fantasya\Talent\Woodchopping;
 
 /**
  * A cabin that improves woodchopping.
@@ -55,5 +58,10 @@ final class Cabin extends AbstractBuilding
 
 	#[Pure] protected function constructionLevel(): int {
 		return self::CRAFT;
+	}
+
+	protected function fill(BuildingEffect $buildingEffect): void {
+		$woodchopping = self::createTalent(Woodchopping::class);
+		$buildingEffect->add(new Modification($woodchopping, 1));
 	}
 }
