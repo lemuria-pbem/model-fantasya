@@ -10,30 +10,32 @@ use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
-use Lemuria\Model\Fantasya\Modification;
-use Lemuria\Model\Fantasya\Talent\Woodchopping;
+use Lemuria\Model\Fantasya\DoubleAbility;
+use Lemuria\Model\Fantasya\Talent\Quarrying;
 
 /**
- * A cabin that improves woodchopping.
+ * A quarry to make stones from the rocks.
  */
-final class Cabin extends AbstractBuilding
+final class Quarry extends AbstractBuilding
 {
 	private const FEED = 5;
 
-	private const TALENT = 3;
+	private const TALENT = 5;
 
-	private const CRAFT = 1;
+	private const UPKEEP = 100;
 
-	private const SILVER = 100;
+	private const CRAFT = 3;
+
+	private const SILVER = 250;
 
 	private const WOOD = 5;
 
-	private const STONE = 2;
+	private const STONE = 4;
 
-	private const IRON = 1;
+	private const IRON = 4;
 
-	#[Pure] public function Dependency(): ?Building {
-		return Building::IS_INDEPENDENT;
+	public function Dependency(): ?Building {
+		return self::createBuilding(Shack::class);
 	}
 
 	#[Pure] public function Feed(): int {
@@ -45,7 +47,7 @@ final class Cabin extends AbstractBuilding
 	}
 
 	#[Pure] public function Upkeep(): int {
-		return Building::IS_FREE;
+		return self::UPKEEP;
 	}
 
 	#[Pure] public function UsefulSize(): int {
@@ -62,7 +64,7 @@ final class Cabin extends AbstractBuilding
 	}
 
 	protected function fill(BuildingEffect $buildingEffect): void {
-		$woodchopping = self::createTalent(Woodchopping::class);
-		$buildingEffect->add(new Modification($woodchopping, 1));
+		$quarrying = self::createTalent(Quarrying::class);
+		$buildingEffect->add(new DoubleAbility($quarrying));
 	}
 }

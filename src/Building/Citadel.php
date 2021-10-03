@@ -15,11 +15,11 @@ final class Citadel extends AbstractCastle
 
 	private const MIN_SIZE = 1250;
 
-	private const TALENT = 6;
+	private const TALENT = 7;
 
 	private const WAGE = 16;
 
-	private const CRAFT = 6;
+	private const CRAFT = 7;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;
