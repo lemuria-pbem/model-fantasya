@@ -11,27 +11,29 @@ use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
 use Lemuria\Model\Fantasya\Modification;
-use Lemuria\Model\Fantasya\Talent\Mining;
+use Lemuria\Model\Fantasya\Talent\Shipbuilding;
 
 /**
- * A pit for miners that improves mining.
+ * A dockyard that help units build ships.
  */
-final class Pit extends AbstractBuilding
+final class Dockyard extends AbstractBuilding
 {
-	private const TALENT = 3;
+	private const TALENT = 5;
 
-	private const FEED = 5;
+	private const UPKEEP = 100;
 
-	private const SILVER = 100;
+	private const FEED = 15;
 
-	private const WOOD = 3;
+	private const SILVER = 500;
 
-	private const STONE = 3;
+	private const WOOD = 10;
 
-	private const IRON = 1;
+	private const STONE = 15;
 
-	#[Pure] public function Dependency(): ?Building {
-		return Building::IS_INDEPENDENT;
+	private const IRON = 10;
+
+	public function Dependency(): ?Building {
+		return self::createBuilding(Palace::class);
 	}
 
 	#[Pure] public function Feed(): int {
@@ -43,7 +45,7 @@ final class Pit extends AbstractBuilding
 	}
 
 	#[Pure] public function Upkeep(): int {
-		return Building::IS_FREE;
+		return self::UPKEEP;
 	}
 
 	#[Pure] public function UsefulSize(): int {
@@ -56,7 +58,7 @@ final class Pit extends AbstractBuilding
 	}
 
 	protected function fill(BuildingEffect $buildingEffect): void {
-		$mining = self::createTalent(Mining::class);
-		$buildingEffect->add(new Modification($mining, 1));
+		$shipbuilding = self::createTalent(Shipbuilding::class);
+		$buildingEffect->add(new Modification($shipbuilding, 1));
 	}
 }

@@ -11,27 +11,30 @@ use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
 use Lemuria\Model\Fantasya\Modification;
-use Lemuria\Model\Fantasya\Talent\Mining;
+use Lemuria\Model\Fantasya\Talent\Bowmaking;
+use Lemuria\Model\Fantasya\Talent\Weaponry;
 
 /**
- * A pit for miners that improves mining.
+ * A saddlery that help units create armor and shields.
  */
-final class Pit extends AbstractBuilding
+final class Blacksmith extends AbstractBuilding
 {
-	private const TALENT = 3;
+	private const TALENT = 4;
 
-	private const FEED = 5;
+	private const UPKEEP = 100;
 
-	private const SILVER = 100;
+	private const FEED = 15;
 
-	private const WOOD = 3;
+	private const SILVER = 250;
 
-	private const STONE = 3;
+	private const WOOD = 2;
 
-	private const IRON = 1;
+	private const STONE = 6;
 
-	#[Pure] public function Dependency(): ?Building {
-		return Building::IS_INDEPENDENT;
+	private const IRON = 4;
+
+	public function Dependency(): ?Building {
+		return self::createBuilding(Palace::class);
 	}
 
 	#[Pure] public function Feed(): int {
@@ -43,7 +46,7 @@ final class Pit extends AbstractBuilding
 	}
 
 	#[Pure] public function Upkeep(): int {
-		return Building::IS_FREE;
+		return self::UPKEEP;
 	}
 
 	#[Pure] public function UsefulSize(): int {
@@ -56,7 +59,9 @@ final class Pit extends AbstractBuilding
 	}
 
 	protected function fill(BuildingEffect $buildingEffect): void {
-		$mining = self::createTalent(Mining::class);
-		$buildingEffect->add(new Modification($mining, 1));
+		$bowmaking = self::createTalent(Bowmaking::class);
+		$buildingEffect->add(new Modification($bowmaking, 1));
+		$weaponry  = self::createTalent(Weaponry::class);
+		$buildingEffect->add(new Modification($weaponry, 1));
 	}
 }
