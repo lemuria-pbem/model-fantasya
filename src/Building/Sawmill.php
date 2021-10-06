@@ -24,8 +24,6 @@ final class Sawmill extends AbstractBuilding
 
 	private const UPKEEP = 100;
 
-	private const CRAFT = 3;
-
 	private const SILVER = 250;
 
 	private const WOOD = 6;
@@ -57,10 +55,6 @@ final class Sawmill extends AbstractBuilding
 	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Silver::class => self::SILVER, Wood::class => self::WOOD, Stone::class => self::STONE, Iron::class => self::IRON];
-	}
-
-	#[Pure] protected function constructionLevel(): int {
-		return self::CRAFT;
 	}
 
 	protected function fill(BuildingEffect $buildingEffect): void {

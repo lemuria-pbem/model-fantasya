@@ -22,8 +22,6 @@ final class Cabin extends AbstractBuilding
 
 	private const TALENT = 3;
 
-	private const CRAFT = 1;
-
 	private const SILVER = 100;
 
 	private const WOOD = 5;
@@ -55,10 +53,6 @@ final class Cabin extends AbstractBuilding
 	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Silver::class => self::SILVER, Wood::class => self::WOOD, Stone::class => self::STONE, Iron::class => self::IRON];
-	}
-
-	#[Pure] protected function constructionLevel(): int {
-		return self::CRAFT;
 	}
 
 	protected function fill(BuildingEffect $buildingEffect): void {

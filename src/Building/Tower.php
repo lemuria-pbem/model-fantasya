@@ -19,8 +19,6 @@ final class Tower extends AbstractCastle
 
 	private const WAGE = 13;
 
-	private const CRAFT = 3;
-
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;
 	}
@@ -47,9 +45,5 @@ final class Tower extends AbstractCastle
 
 	#[Pure] public function Wage(): int {
 		return self::WAGE;
-	}
-
-	#[Pure] protected function constructionLevel(): int {
-		return self::CRAFT;
 	}
 }

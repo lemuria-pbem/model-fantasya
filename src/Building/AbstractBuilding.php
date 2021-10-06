@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Building;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Building;
 use Lemuria\Model\Fantasya\ArtifactTrait;
@@ -30,7 +28,7 @@ abstract class AbstractBuilding implements Building
 	public function getCraft(): Requirement {
 		if (!$this->craft) {
 			$talent      = self::createTalent(Constructing::class);
-			$this->craft = new Requirement($talent, $this->constructionLevel());
+			$this->craft = new Requirement($talent, $this->Talent());
 		}
 		return $this->craft;
 	}
@@ -58,11 +56,6 @@ abstract class AbstractBuilding implements Building
 		}
 		return $this->buildingEffect;
 	}
-
-	/**
-	 * Get the minimum skill in Construction to build this building.
-	 */
-	#[Pure] abstract protected function constructionLevel(): int;
 
 	protected function validateSize(int $size): void {
 		if ($size < 0) {
