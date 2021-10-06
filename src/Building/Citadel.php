@@ -9,15 +9,15 @@ use JetBrains\PhpStorm\Pure;
  */
 final class Citadel extends AbstractCastle
 {
-	private const DEFENSE = 4;
-
-	private const MAX_SIZE = PHP_INT_MAX;
-
-	private const MIN_SIZE = 1250;
-
 	private const TALENT = 7;
 
 	private const WAGE = 16;
+
+	private const DEFENSE = 4;
+
+	private const MIN_SIZE = 1250;
+
+	private const MAX_SIZE = PHP_INT_MAX;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;

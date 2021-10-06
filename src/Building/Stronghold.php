@@ -9,15 +9,15 @@ use JetBrains\PhpStorm\Pure;
  */
 final class Stronghold extends AbstractCastle
 {
-	public const MAX_SIZE = 1249;
+	private const TALENT = 5;
+
+	private const WAGE = 15;
 
 	private const DEFENSE = 3;
 
 	private const MIN_SIZE = 250;
 
-	private const TALENT = 5;
-
-	private const WAGE = 15;
+	public const MAX_SIZE = 1249;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;

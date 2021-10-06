@@ -9,15 +9,15 @@ use JetBrains\PhpStorm\Pure;
  */
 final class Site extends AbstractCastle
 {
-	public const MAX_SIZE = 1;
+	private const TALENT = 1;
+
+	private const WAGE = 11;
 
 	private const DEFENSE = 0;
 
 	private const MIN_SIZE = 0;
 
-	private const TALENT = 1;
-
-	private const WAGE = 11;
+	public const MAX_SIZE = 1;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;

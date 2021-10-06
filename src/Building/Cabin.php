@@ -18,9 +18,9 @@ use Lemuria\Model\Fantasya\Talent\Woodchopping;
  */
 final class Cabin extends AbstractBuilding
 {
-	private const FEED = 5;
-
 	private const TALENT = 3;
+
+	private const FEED = 5;
 
 	private const SILVER = 100;
 

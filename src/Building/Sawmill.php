@@ -18,11 +18,11 @@ use Lemuria\Model\Fantasya\Talent\Woodchopping;
  */
 final class Sawmill extends AbstractBuilding
 {
-	private const FEED = 5;
-
 	private const TALENT = 5;
 
 	private const UPKEEP = 100;
+
+	private const FEED = 5;
 
 	private const SILVER = 250;
 

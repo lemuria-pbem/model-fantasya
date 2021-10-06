@@ -9,15 +9,15 @@ use JetBrains\PhpStorm\Pure;
  */
 final class Tower extends AbstractCastle
 {
-	public const MAX_SIZE = 49;
+	private const TALENT = 3;
+
+	private const WAGE = 13;
 
 	private const DEFENSE = 1;
 
 	private const MIN_SIZE = 10;
 
-	private const TALENT = 3;
-
-	private const WAGE = 13;
+	public const MAX_SIZE = 49;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;

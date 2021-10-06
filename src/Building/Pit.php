@@ -17,9 +17,9 @@ use Lemuria\Model\Fantasya\Talent\Mining;
  */
 final class Pit extends AbstractBuilding
 {
-	private const FEED = 5;
-
 	private const TALENT = 3;
+
+	private const FEED = 5;
 
 	private const SILVER = 100;
 
