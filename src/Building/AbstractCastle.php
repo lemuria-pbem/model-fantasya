@@ -26,7 +26,7 @@ abstract class AbstractCastle extends AbstractBuilding implements Castle
 		return $castle;
 	}
 
-	#[Pure] public function Dependency(): Building {
+	#[Pure] public function Dependency(): ?Building {
 		return Building::IS_INDEPENDENT;
 	}
 

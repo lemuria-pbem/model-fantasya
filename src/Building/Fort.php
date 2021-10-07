@@ -9,17 +9,15 @@ use JetBrains\PhpStorm\Pure;
  */
 final class Fort extends AbstractCastle
 {
-	public const MAX_SIZE = 9;
+	private const TALENT = 2;
+
+	private const WAGE = 12;
 
 	private const DEFENSE = 0;
 
 	private const MIN_SIZE = 2;
 
-	private const TALENT = 2;
-
-	private const WAGE = 12;
-
-	private const CRAFT = 2;
+	public const MAX_SIZE = 9;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;
@@ -47,9 +45,5 @@ final class Fort extends AbstractCastle
 
 	#[Pure] public function Wage(): int {
 		return self::WAGE;
-	}
-
-	#[Pure] protected function constructionLevel(): int {
-		return self::CRAFT;
 	}
 }

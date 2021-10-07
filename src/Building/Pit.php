@@ -11,12 +11,12 @@ use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
 use Lemuria\Model\Fantasya\Modification;
-use Lemuria\Model\Fantasya\Talent\Woodchopping;
+use Lemuria\Model\Fantasya\Talent\Mining;
 
 /**
- * A cabin that improves woodchopping.
+ * A pit for miners that improves mining.
  */
-final class Cabin extends AbstractBuilding
+final class Pit extends AbstractBuilding
 {
 	private const TALENT = 3;
 
@@ -24,9 +24,9 @@ final class Cabin extends AbstractBuilding
 
 	private const SILVER = 100;
 
-	private const WOOD = 5;
+	private const WOOD = 3;
 
-	private const STONE = 2;
+	private const STONE = 3;
 
 	private const IRON = 1;
 
@@ -56,7 +56,7 @@ final class Cabin extends AbstractBuilding
 	}
 
 	protected function fill(BuildingEffect $buildingEffect): void {
-		$woodchopping = self::createTalent(Woodchopping::class);
-		$buildingEffect->add(new Modification($woodchopping, 1));
+		$mining = self::createTalent(Mining::class);
+		$buildingEffect->add(new Modification($mining, 1));
 	}
 }

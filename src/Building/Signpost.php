@@ -5,28 +5,23 @@ namespace Lemuria\Model\Fantasya\Building;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Building;
-use Lemuria\Model\Fantasya\BuildingEffect;
 use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
-use Lemuria\Model\Fantasya\Modification;
-use Lemuria\Model\Fantasya\Talent\Woodchopping;
 
 /**
- * A cabin that improves woodchopping.
+ * A simple signpost that shows a message to visitors in a region.
  */
-final class Cabin extends AbstractBuilding
+final class Signpost extends AbstractBuilding
 {
-	private const TALENT = 3;
+	private const TALENT = 1;
 
-	private const FEED = 5;
+	private const SILVER = 50;
 
-	private const SILVER = 100;
+	private const WOOD = 1;
 
-	private const WOOD = 5;
-
-	private const STONE = 2;
+	private const STONE = 1;
 
 	private const IRON = 1;
 
@@ -35,7 +30,7 @@ final class Cabin extends AbstractBuilding
 	}
 
 	#[Pure] public function Feed(): int {
-		return self::FEED;
+		return Building::IS_FREE;
 	}
 
 	#[Pure] public function Talent(): int {
@@ -53,10 +48,5 @@ final class Cabin extends AbstractBuilding
 	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Silver::class => self::SILVER, Wood::class => self::WOOD, Stone::class => self::STONE, Iron::class => self::IRON];
-	}
-
-	protected function fill(BuildingEffect $buildingEffect): void {
-		$woodchopping = self::createTalent(Woodchopping::class);
-		$buildingEffect->add(new Modification($woodchopping, 1));
 	}
 }

@@ -11,27 +11,29 @@ use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
 use Lemuria\Model\Fantasya\Modification;
-use Lemuria\Model\Fantasya\Talent\Woodchopping;
+use Lemuria\Model\Fantasya\Talent\Carriagemaking;
 
 /**
- * A cabin that improves woodchopping.
+ * A workshop that help units build carriages and catapults.
  */
-final class Cabin extends AbstractBuilding
+final class Workshop extends AbstractBuilding
 {
-	private const TALENT = 3;
+	private const TALENT = 4;
 
-	private const FEED = 5;
+	private const UPKEEP = 100;
 
-	private const SILVER = 100;
+	private const FEED = 15;
 
-	private const WOOD = 5;
+	private const SILVER = 250;
 
-	private const STONE = 2;
+	private const WOOD = 6;
 
-	private const IRON = 1;
+	private const STONE = 4;
 
-	#[Pure] public function Dependency(): ?Building {
-		return Building::IS_INDEPENDENT;
+	private const IRON = 2;
+
+	public function Dependency(): ?Building {
+		return self::createBuilding(Palace::class);
 	}
 
 	#[Pure] public function Feed(): int {
@@ -43,7 +45,7 @@ final class Cabin extends AbstractBuilding
 	}
 
 	#[Pure] public function Upkeep(): int {
-		return Building::IS_FREE;
+		return self::UPKEEP;
 	}
 
 	#[Pure] public function UsefulSize(): int {
@@ -56,7 +58,7 @@ final class Cabin extends AbstractBuilding
 	}
 
 	protected function fill(BuildingEffect $buildingEffect): void {
-		$woodchopping = self::createTalent(Woodchopping::class);
-		$buildingEffect->add(new Modification($woodchopping, 1));
+		$carriagemaking = self::createTalent(Carriagemaking::class);
+		$buildingEffect->add(new Modification($carriagemaking, 1));
 	}
 }
