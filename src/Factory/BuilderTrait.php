@@ -8,10 +8,12 @@ use Lemuria\Model\Fantasya\Building;
 use Lemuria\Model\Fantasya\Building\Castle;
 use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\Landscape;
+use Lemuria\Model\Fantasya\Monster;
 use Lemuria\Model\Fantasya\Race;
 use Lemuria\Model\Fantasya\Ship;
 use Lemuria\Model\Fantasya\Spell;
 use Lemuria\Model\Fantasya\Talent;
+use Lemuria\Model\Fantasya\Trophy;
 use Lemuria\Model\Fantasya\Weapon;
 
 trait BuilderTrait
@@ -95,6 +97,19 @@ trait BuilderTrait
 	}
 
 	/**
+	 * Create a monster singleton.
+	 *
+	 * @throws SingletonException
+	 */
+	protected static function createMonster(string $class): Monster {
+		$monster = Lemuria::Builder()->create($class);
+		if ($monster instanceof Monster) {
+			return $monster;
+		}
+		throw new SingletonException($class, 'monster');
+	}
+
+	/**
 	 * Create a race singleton.
 	 *
 	 * @throws SingletonException
@@ -131,5 +146,18 @@ trait BuilderTrait
 			return $talent;
 		}
 		throw new SingletonException($class, 'talent');
+	}
+
+	/**
+	 * Create a trophy singleton.
+	 *
+	 * @throws SingletonException
+	 */
+	protected static function createTrophy(string $class): Trophy {
+		$trophy = Lemuria::Builder()->create($class);
+		if ($trophy instanceof Trophy) {
+			return $trophy;
+		}
+		throw new SingletonException($class, 'trophy');
 	}
 }
