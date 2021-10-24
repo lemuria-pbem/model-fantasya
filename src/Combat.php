@@ -9,9 +9,11 @@ use JetBrains\PhpStorm\Pure;
  */
 abstract class Combat
 {
-	public const AGGRESSIVE = 5;
+	public const AGGRESSIVE = 6;
 
-	public const FRONT = 4;
+	public const FRONT = 5;
+
+	public const CAREFUL = 4;
 
 	public const BACK = 3;
 
