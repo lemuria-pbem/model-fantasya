@@ -6,6 +6,7 @@ use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Wood;
+use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\Model\Fantasya\Talent\Bladefighting;
 use Lemuria\Model\Fantasya\Talent\Weaponry;
@@ -23,8 +24,14 @@ final class Battleaxe extends AbstractWeapon
 
 	private const CRAFT = 5;
 
+	private const DAMAGE = [1, 8, 8];
+
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	#[Pure] public function Damage(): Damage {
+		return new Damage(...self::DAMAGE);
 	}
 
 	public function getCraft(): Requirement {

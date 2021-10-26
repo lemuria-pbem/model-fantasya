@@ -5,6 +5,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Commodity\Wood;
+use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\Model\Fantasya\Talent\Carriagemaking;
 use Lemuria\Model\Fantasya\Talent\Catapulting;
@@ -20,8 +21,14 @@ final class Catapult extends AbstractWeapon
 
 	private const CRAFT = 3;
 
+	private const DAMAGE = [3, 10, 5];
+
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	#[Pure] public function Damage(): Damage {
+		return new Damage(...self::DAMAGE);
 	}
 
 	public function getCraft(): Requirement {

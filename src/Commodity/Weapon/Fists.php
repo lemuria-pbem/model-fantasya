@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\Model\Fantasya\Talent\Fistfight;
 
@@ -12,8 +13,14 @@ use Lemuria\Model\Fantasya\Talent\Fistfight;
  */
 final class Fists extends AbstractWeapon
 {
+	private const DAMAGE = [1, 5, 0];
+
 	#[Pure] public function Weight(): int {
 		return 0;
+	}
+
+	#[Pure] public function Damage(): Damage {
+		return new Damage(...self::DAMAGE);
 	}
 
 	public function getCraft(): Requirement {

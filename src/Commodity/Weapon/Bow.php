@@ -5,6 +5,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Commodity\Wood;
+use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\Model\Fantasya\Talent\Archery;
 use Lemuria\Model\Fantasya\Talent\Bowmaking;
@@ -20,8 +21,14 @@ final class Bow extends AbstractWeapon
 
 	private const WOOD = 1;
 
+	private const DAMAGE = [1, 4, 4];
+
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	#[Pure] public function Damage(): Damage {
+		return new Damage(...self::DAMAGE);
 	}
 
 	public function getCraft(): Requirement {
