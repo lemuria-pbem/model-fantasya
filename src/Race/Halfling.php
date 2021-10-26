@@ -31,6 +31,8 @@ final class Halfling extends AbstractRace
 {
 	private const HITPOINTS = 17;
 
+	private const FLIGHT_CHANCE = 0.5;
+
 	private const HUNGER = 5;
 
 	private const REFILL = 0.2;
@@ -43,6 +45,10 @@ final class Halfling extends AbstractRace
 
 	#[Pure] public function Hitpoints(): int {
 		return self::HITPOINTS;
+	}
+
+	#[Pure] public function FlightChance(): float {
+		return self::FLIGHT_CHANCE;
 	}
 
 	#[Pure] public function Hunger(): int {
