@@ -8,10 +8,13 @@ use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Monster;
 use Lemuria\Model\Fantasya\Race\AbstractRace;
 use Lemuria\Model\Fantasya\Trophy;
+use Lemuria\Model\Fantasya\Weapon;
 
 abstract class AbstractMonster extends AbstractRace implements Monster
 {
 	use BuilderTrait;
+
+	protected ?Weapon $weapon = null;
 
 	protected ?Trophy $trophy = null;
 
@@ -33,6 +36,10 @@ abstract class AbstractMonster extends AbstractRace implements Monster
 
 	#[Pure] public function Trophy(): ?Trophy {
 		return $this->trophy;
+	}
+
+	#[Pure] public function Weapon(): ?Weapon {
+		return $this->weapon;
 	}
 
 	#[Pure] protected function mods(): array {

@@ -3,6 +3,8 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
 use JetBrains\PhpStorm\Pure;
+use Lemuria\Model\Fantasya\Commodity\Weapon\NativeMelee;
+use Lemuria\Model\Fantasya\Damage;
 
 final class Ent extends AbstractMonster
 {
@@ -13,6 +15,14 @@ final class Ent extends AbstractMonster
 	private const PAYLOAD = 100 * 100;
 
 	private const WEIGHT = 240 * 100;
+
+	private const HITS = 2;
+
+	private const DAMAGE = [3, 5, 3];
+
+	#[Pure] public function __construct() {
+		$this->weapon = new NativeMelee(new Damage(...self::DAMAGE), self::HITS);
+	}
 
 	#[Pure] public function Block(): int {
 		return self::BLOCK;
