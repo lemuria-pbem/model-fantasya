@@ -23,12 +23,24 @@ final class Catapult extends AbstractWeapon
 
 	private const DAMAGE = [3, 10, 5];
 
+	private const HITS = 3;
+
+	private const INTERVAL = 5;
+
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
 
 	#[Pure] public function Damage(): Damage {
 		return new Damage(...self::DAMAGE);
+	}
+
+	#[Pure] public function Hits(): int {
+		return self::HITS;
+	}
+
+	#[Pure] public function Interval(): int {
+		return self::INTERVAL;
 	}
 
 	public function getCraft(): Requirement {

@@ -24,8 +24,8 @@ final class Dingbats extends AbstractWeapon
 	}
 
 	public function getCraft(): Requirement {
-		$fistfight = self::createTalent(Stoning::class);
-		return new Requirement($fistfight, 0);
+		$stoning = self::createTalent(Stoning::class);
+		return new Requirement($stoning, 0);
 	}
 
 	#[Pure] protected function material(): array {

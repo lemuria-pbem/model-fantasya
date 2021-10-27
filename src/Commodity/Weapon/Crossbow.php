@@ -23,12 +23,18 @@ final class Crossbow extends AbstractWeapon
 
 	private const DAMAGE = [2, 4, 6];
 
+	private const INTERVAL = 2;
+
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
 
 	#[Pure] public function Damage(): Damage {
 		return new Damage(...self::DAMAGE);
+	}
+
+	#[Pure] public function Interval(): int {
+		return self::INTERVAL;
 	}
 
 	public function getCraft(): Requirement {

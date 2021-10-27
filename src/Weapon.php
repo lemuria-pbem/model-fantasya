@@ -16,6 +16,16 @@ interface Weapon extends Artifact
 	#[Pure] public function Damage(): Damage;
 
 	/**
+	 * Get the number of hits.
+	 */
+	#[Pure] public function Hits(): int;
+
+	/**
+	 * Get the interval between two attacks with this weapon.
+	 */
+	#[Pure] public function Interval(): int;
+
+	/**
 	 * Get the needed skill for fighting with this weapon.
 	 */
 	public function getSkill(): Requirement;
