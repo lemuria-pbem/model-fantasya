@@ -19,6 +19,9 @@ abstract class AbstractMonster extends AbstractRace implements Monster
 
 	protected ?Trophy $trophy = null;
 
+	/**
+	 * @var Landscape[]
+	 */
 	protected array $environment = [];
 
 	#[Pure] public function Block(): int {
