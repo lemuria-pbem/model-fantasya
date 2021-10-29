@@ -5,11 +5,11 @@ namespace Lemuria\Model\Fantasya\Commodity\Trophy;
 use JetBrains\PhpStorm\Pure;
 
 /**
- * The skull of a skeleton.
+ * A carnassial tooth of a bear.
  */
-final class Skull extends AbstractTrophy
+final class Carnassial extends AbstractTrophy
 {
-	private const WEIGHT = 50;
+	private const WEIGHT = 1;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;

@@ -4,35 +4,33 @@ namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Commodity\Trophy\Carnassial;
 use Lemuria\Model\Fantasya\Commodity\Weapon\NativeMelee;
 use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Landscape\Forest;
+use Lemuria\Model\Fantasya\Landscape\Highland;
+use Lemuria\Model\Fantasya\Landscape\Mountain;
 use Lemuria\Model\Fantasya\Landscape\Plain;
-use Lemuria\Model\Fantasya\Landscape\Swamp;
 
-final class Ent extends AbstractMonster
+final class Bear extends AbstractMonster
 {
-	private const BLOCK = 3;
+	private const HITPOINTS = 40;
 
-	private const HITPOINTS = 450;
+	private const PAYLOAD = 10 * 100;
 
-	private const PAYLOAD = 100 * 100;
+	private const WEIGHT = 40 * 100;
 
-	private const WEIGHT = 240 * 100;
+	private const DAMAGE = [1, 7, 1];
 
-	private const HITS = 2;
-
-	private const DAMAGE = [3, 5, 3];
+	private const TROPHY = Carnassial::class;
 
 	public function __construct() {
-		$this->weapon        = new NativeMelee(new Damage(...self::DAMAGE), self::HITS);
+		$this->weapon        = new NativeMelee(new Damage(...self::DAMAGE));
+		$this->trophy        = self::createTrophy(self::TROPHY);
 		$this->environment[] = self::createLandscape(Forest::class);
+		$this->environment[] = self::createLandscape(Mountain::class);
+		$this->environment[] = self::createLandscape(Highland::class);
 		$this->environment[] = self::createLandscape(Plain::class);
-		$this->environment[] = self::createLandscape(Swamp::class);
-	}
-
-	#[Pure] public function Block(): int {
-		return self::BLOCK;
 	}
 
 	#[Pure] public function Hitpoints(): int {

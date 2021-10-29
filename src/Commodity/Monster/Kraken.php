@@ -6,29 +6,25 @@ use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Commodity\Weapon\NativeMelee;
 use Lemuria\Model\Fantasya\Damage;
-use Lemuria\Model\Fantasya\Landscape\Forest;
-use Lemuria\Model\Fantasya\Landscape\Plain;
-use Lemuria\Model\Fantasya\Landscape\Swamp;
+use Lemuria\Model\Fantasya\Landscape\Ocean;
 
-final class Ent extends AbstractMonster
+final class Kraken extends AbstractMonster
 {
-	private const BLOCK = 3;
+	private const BLOCK = 0;
 
-	private const HITPOINTS = 450;
+	private const HITPOINTS = 130;
 
 	private const PAYLOAD = 100 * 100;
 
-	private const WEIGHT = 240 * 100;
+	private const WEIGHT = 320 * 100;
 
 	private const HITS = 2;
 
-	private const DAMAGE = [3, 5, 3];
+	private const DAMAGE = [2, 10, 3];
 
 	public function __construct() {
 		$this->weapon        = new NativeMelee(new Damage(...self::DAMAGE), self::HITS);
-		$this->environment[] = self::createLandscape(Forest::class);
-		$this->environment[] = self::createLandscape(Plain::class);
-		$this->environment[] = self::createLandscape(Swamp::class);
+		$this->environment[] = self::createLandscape(Ocean::class);
 	}
 
 	#[Pure] public function Block(): int {
