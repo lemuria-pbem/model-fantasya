@@ -96,7 +96,9 @@ class Acquaintances extends Gathering
 
 	protected function addEntity(Id $id, bool $isTold = false): void {
 		parent::addEntity($id);
-		$this->isTold[$id->Id()] = $isTold;
+		$id                = $id->Id();
+		$isTold            = $isTold || ($this->isTold[$id] ?? false);
+		$this->isTold[$id] = $isTold;
 	}
 
 	protected function removeEntity(Id $id): void {
