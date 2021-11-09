@@ -22,7 +22,7 @@ final class Saddlery extends AbstractBuilding
 
 	private const UPKEEP = 100;
 
-	private const FEED = 15;
+	private const FEED = 5;
 
 	private const SILVER = 250;
 
