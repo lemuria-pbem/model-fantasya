@@ -8,6 +8,8 @@ final class AuraTransfer extends AbstractSpell
 
 	private const DIFFICULTY = 4;
 
+	private const ORDER = 0;
+
 	public function Aura(): int {
 		return self::AURA;
 	}
@@ -17,6 +19,6 @@ final class AuraTransfer extends AbstractSpell
 	}
 
 	public function Order(): int {
-		return 0;
+		return self::ORDER;
 	}
 }
