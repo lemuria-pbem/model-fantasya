@@ -4,28 +4,16 @@ namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Fantasya\Requirement;
-use Lemuria\Model\Fantasya\Talent\Fistfight;
+use Lemuria\Model\Fantasya\Damage;
 
 /**
  * Fists are the default weapon of a unit that has no real weapon.
  */
-final class Fists extends AbstractWeapon
+final class Fists extends NativeMelee
 {
-	#[Pure] public function Weight(): int {
-		return 0;
-	}
+	private const DAMAGE = [1, 5, 0];
 
-	public function getCraft(): Requirement {
-		$fistfight = self::createTalent(Fistfight::class);
-		return new Requirement($fistfight, 0);
-	}
-
-	#[Pure] protected function material(): array {
-		return [];
-	}
-
-	#[Pure] protected function talent(): string {
-		return Fistfight::class;
+	#[Pure] public function __construct() {
+		parent::__construct(new Damage(...self::DAMAGE));
 	}
 }

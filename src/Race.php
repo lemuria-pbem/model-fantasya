@@ -16,6 +16,11 @@ interface Race extends Transport
 	#[Pure] public function Hitpoints(): int;
 
 	/**
+	 * Get the flight chance of a person.
+	 */
+	#[Pure] public function FlightChance(): float;
+
+	/**
 	 * Get the hunger points of a healthy person.
 	 */
 	#[Pure] public function Hunger(): int;

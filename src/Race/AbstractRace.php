@@ -21,9 +21,15 @@ abstract class AbstractRace implements Race
 
 	private const SPEED = 1;
 
+	private const FLIGHT_CHANCE = 0.25;
+
 	private ?Knowledge $modifications = null;
 
 	private ?TerrainEffect $terrainEffect = null;
+
+	#[Pure] public function FlightChance(): float {
+		return self::FLIGHT_CHANCE;
+	}
 
 	#[Pure] public function Speed(): int {
 		return self::SPEED;

@@ -1,6 +1,6 @@
 /vendor
 
-/composer.lock
-/.phpunit.result.cache
 /.idea/deployment.xml
 /.idea/workspace.xml
+/.phpunit.result.cache
+/composer.lock

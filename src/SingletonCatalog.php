@@ -12,7 +12,8 @@ class SingletonCatalog implements SingletonCatalogInterface
 {
 	private const GROUPS = [
 		'Building', 'Landscape', 'Race', 'Ship', 'Talent', 'Commodity', 'Spell',
-		'Commodity\\Herb', 'Commodity\\Luxury', 'Commodity\\Potion', 'Commodity\\Weapon'
+		'Commodity\\Herb', 'Commodity\\Luxury', 'Commodity\\Monster', 'Commodity\\Potion', 'Commodity\\Protection',
+		'Commodity\\Trophy', 'Commodity\\Weapon'
 	];
 
 	/**

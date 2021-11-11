@@ -5,6 +5,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Commodity\Wood;
+use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\Model\Fantasya\Talent\Bowmaking;
 use Lemuria\Model\Fantasya\Talent\Crossbowing;
@@ -20,8 +21,20 @@ final class Crossbow extends AbstractWeapon
 
 	private const CRAFT = 3;
 
+	private const DAMAGE = [2, 4, 6];
+
+	private const INTERVAL = 2;
+
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	#[Pure] public function Damage(): Damage {
+		return new Damage(...self::DAMAGE);
+	}
+
+	#[Pure] public function Interval(): int {
+		return self::INTERVAL;
 	}
 
 	public function getCraft(): Requirement {

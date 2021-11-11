@@ -3,6 +3,7 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Model\Fantasya\Building\Castle;
 
 /**
@@ -68,7 +69,8 @@ final class Intelligence
 			}
 		} else {
 			foreach ($this->region->Residents() as $otherUnit /* @var Unit $otherUnit */) {
-				if ($otherUnit->Party() !== $party && $otherUnit->Size() > 0) {
+				$otherParty = $otherUnit->Party();
+				if ($otherParty !== $party && $otherParty->Type() === Party::PLAYER && $otherUnit->Size() > 0) {
 					$heirs->add($otherUnit);
 				}
 			}

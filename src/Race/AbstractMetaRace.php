@@ -21,6 +21,10 @@ abstract class AbstractMetaRace implements Race
 		return 0;
 	}
 
+	#[Pure] public function FlightChance(): float {
+		return 0.0;
+	}
+
 	#[Pure] public function Hunger(): int {
 		return 0;
 	}

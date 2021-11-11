@@ -30,6 +30,10 @@ class Party extends Entity implements Assignable, Collector
 
 	public const PLAYER = 0;
 
+	public const NPC = 1;
+
+	public const MONSTER = 2;
+
 	private int $type = self::PLAYER;
 
 	private string $banner;
