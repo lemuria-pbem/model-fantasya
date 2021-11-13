@@ -134,7 +134,7 @@ class Construction extends Entity implements Collectible, Collector
 	}
 
 	#[Pure] public function getFreeSpace(): int {
-		return $this->size - count($this->inhabitants);
+		return $this->size - $this->inhabitants->Size();
 	}
 
 	/**
