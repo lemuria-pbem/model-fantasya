@@ -12,6 +12,7 @@ use Lemuria\Model\Fantasya\Landscape\Glacier;
 use Lemuria\Model\Fantasya\Monster;
 use Lemuria\Model\Fantasya\MonsterTrait;
 use Lemuria\Model\Fantasya\Commodity\Trophy\GriffinFeather;
+use Lemuria\SingletonSet;
 use Lemuria\SingletonTrait;
 
 /**
@@ -38,6 +39,8 @@ final class Griffin implements Commodity, Monster
 	private const DAMAGE = [2, 5, 0];
 
 	private const TROPHY = GriffinFeather::class;
+
+	protected ?SingletonSet $loot = null;
 
 	public function __construct() {
 		$this->weapon        = new NativeMelee(new Damage(...self::DAMAGE));
@@ -67,5 +70,12 @@ final class Griffin implements Commodity, Monster
 
 	#[Pure] public function FlightChance(): float {
 		return self::FLIGHT_CHANCE;
+	}
+
+	public function Loot(): SingletonSet {
+		if (!$this->loot) {
+			$this->loot = new SingletonSet();
+		}
+		return $this->loot;
 	}
 }

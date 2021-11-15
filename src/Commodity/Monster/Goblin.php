@@ -4,7 +4,15 @@ namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Commodity\Gold;
+use Lemuria\Model\Fantasya\Commodity\Herb\AbstractHerb;
+use Lemuria\Model\Fantasya\Commodity\Iron;
+use Lemuria\Model\Fantasya\Commodity\Luxury\AbstractLuxury;
+use Lemuria\Model\Fantasya\Commodity\Potion\AbstractPotion;
+use Lemuria\Model\Fantasya\Commodity\Protection\AbstractProtection;
+use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Trophy\GoblinEar;
+use Lemuria\Model\Fantasya\Commodity\Weapon\AbstractWeapon;
 use Lemuria\Model\Fantasya\Landscape\Desert;
 use Lemuria\Model\Fantasya\Landscape\Forest;
 use Lemuria\Model\Fantasya\Landscape\Highland;
@@ -42,5 +50,12 @@ final class Goblin extends AbstractMonster
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	protected function getLoot(): array {
+		return [
+			Gold::class, Iron::class, Silver::class,
+			AbstractHerb::all(), AbstractLuxury::all(), AbstractPotion::all(), AbstractProtection::all(), AbstractWeapon::all()
+		];
 	}
 }
