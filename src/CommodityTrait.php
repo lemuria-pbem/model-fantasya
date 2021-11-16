@@ -14,7 +14,9 @@ trait CommodityTrait
 				continue;
 			}
 			$class = substr($file, 0, strlen($file) - 4);
-			$set->add($class);
+			if (self::isRealCommodity($class)) {
+				$set->add($class);
+			}
 		}
 		return $set;
 	}
