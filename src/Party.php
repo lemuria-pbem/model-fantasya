@@ -52,11 +52,15 @@ class Party extends Entity implements Assignable, Collector
 
 	private SpellBook $spellBook;
 
+	private Loot $loot;
+
 	private ?array $serializedDiplomacy = null;
 
 	private ?array $serializedHerbalBook = null;
 
 	private ?array $serializedSpellBook = null;
+
+	private ?array $serializedLoot = null;
 
 	private UuidInterface $uuid;
 
@@ -88,6 +92,7 @@ class Party extends Entity implements Assignable, Collector
 		$this->diplomacy  = new Diplomacy($this);
 		$this->herbalBook = new HerbalBook();
 		$this->spellBook  = new SpellBook();
+		$this->loot       = new Loot();
 	}
 
 	/**
@@ -173,6 +178,14 @@ class Party extends Entity implements Assignable, Collector
 		return $this->spellBook;
 	}
 
+	public function Loot(): Loot {
+		if (is_array($this->serializedLoot)) {
+			$this->loot->unserialize($this->serializedLoot);
+			$this->serializedLoot = null;
+		}
+		return $this->loot;
+	}
+
 	/**
 	 * Get a plain data array of the model's data.
 	 *
@@ -182,7 +195,7 @@ class Party extends Entity implements Assignable, Collector
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'type' => 'int', 'banner' => 'string',
 		'uuid' => 'string', 'creation' => 'int', 'round' => 'int', 'origin' => 'int', 'race' => 'string',
 		'diplomacy' => 'array', 'people' => 'int[]', 'chronicle' => 'array', 'herbalBook' => 'array',
-		'spellBook' => 'array'
+		'spellBook' => 'array', 'loot' => 'array'
 	])]
 	public function serialize(): array {
 		$data               = parent::serialize();
@@ -198,6 +211,7 @@ class Party extends Entity implements Assignable, Collector
 		$data['chronicle']  = $this->Chronicle()->serialize();
 		$data['herbalBook'] = $this->HerbalBook()->serialize();
 		$data['spellBook']  = $this->SpellBook()->serialize();
+		$data['loot']       = $this->Loot()->serialize();
 		return $data;
 	}
 
@@ -218,6 +232,7 @@ class Party extends Entity implements Assignable, Collector
 		$this->serializedDiplomacy  = $data['diplomacy'];
 		$this->serializedHerbalBook = $data['herbalBook'];
 		$this->serializedSpellBook  = $data['spellBook'];
+		$this->serializedLoot       = $data['loot'];
 		return $this;
 	}
 
@@ -264,5 +279,6 @@ class Party extends Entity implements Assignable, Collector
 		$this->validate($data, 'chronicle', 'array');
 		$this->validate($data, 'herbalBook', 'array');
 		$this->validate($data, 'spellBook', 'array');
+		$this->validate($data, 'loot', 'array');
 	}
 }
