@@ -63,15 +63,17 @@ final class Intelligence
 		$party = $unit->Party();
 		if ($sameParty) {
 			foreach ($this->getUnits($party) as $otherUnit /* @var Unit $otherUnit */) {
-				if ($otherUnit->Size() > 0) {
+				if ($otherUnit->IsLooting() && $otherUnit->Size() > 0) {
 					$heirs->add($otherUnit);
 				}
 			}
 		} else {
 			foreach ($this->region->Residents() as $otherUnit /* @var Unit $otherUnit */) {
 				$otherParty = $otherUnit->Party();
-				if ($otherParty !== $party && $otherParty->Type() === Party::PLAYER && $otherUnit->Size() > 0) {
-					$heirs->add($otherUnit);
+				if ($otherParty !== $party && $otherParty->Type() === Party::PLAYER) {
+					if ($otherUnit->IsLooting() && $otherUnit->Size() > 0) {
+						$heirs->add($otherUnit);
+					}
 				}
 			}
 		}
