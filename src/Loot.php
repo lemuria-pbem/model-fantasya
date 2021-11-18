@@ -81,13 +81,15 @@ class Loot implements Serializable
 		}
 		if ($group === self::NOTHING) {
 			$this->group = self::NOTHING;
+			$this->Classes()->clear();
 		} elseif ($group === self::ALL) {
 			$this->group = self::ALL;
+			$this->Classes()->clear();
 		} else {
 			if ($this->isWhitelist()) {
-				$this->group |= $group;
-			} else {
 				$this->group &= 2 * self::TROPHY - 1 - $group;
+			} else {
+				$this->group |= $group;
 			}
 		}
 		return $this;
@@ -99,13 +101,15 @@ class Loot implements Serializable
 		}
 		if ($group === self::NOTHING) {
 			$this->group = self::ALL;
+			$this->Classes()->clear();
 		} elseif ($group === self::ALL) {
 			$this->group = self::NOTHING;
+			$this->Classes()->clear();
 		} else {
 			if ($this->isWhitelist()) {
-				$this->group &= 2 * self::TROPHY - 1 - $group;
-			} else {
 				$this->group |= $group;
+			} else {
+				$this->group &= 2 * self::TROPHY - 1 - $group;
 			}
 		}
 		return $this;
