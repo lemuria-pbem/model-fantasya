@@ -61,12 +61,8 @@ class Loot implements Serializable
 		return $this;
 	}
 
-	/**
-	 * @param array (string=>mixed) &$data
-	 */
-	protected function validateSerializedData(array &$data): void {
-		$this->validate($data, 'group', 'int');
-		$this->validate($data, 'class', 'array');
+	public function isWhitelist(): bool {
+		return $this->has(self::ALL);
 	}
 
 	public function has(int $group): bool {
@@ -88,7 +84,11 @@ class Loot implements Serializable
 		} elseif ($group === self::ALL) {
 			$this->group = self::ALL;
 		} else {
-			$this->group |= $group;
+			if ($this->isWhitelist()) {
+				$this->group |= $group;
+			} else {
+				$this->group &= 2 * self::TROPHY - 1 - $group;
+			}
 		}
 		return $this;
 	}
@@ -102,8 +102,20 @@ class Loot implements Serializable
 		} elseif ($group === self::ALL) {
 			$this->group = self::NOTHING;
 		} else {
-			$this->group &= 2 * self::TROPHY - 1 - $group;
+			if ($this->isWhitelist()) {
+				$this->group &= 2 * self::TROPHY - 1 - $group;
+			} else {
+				$this->group |= $group;
+			}
 		}
 		return $this;
+	}
+
+	/**
+	 * @param array (string=>mixed) &$data
+	 */
+	protected function validateSerializedData(array &$data): void {
+		$this->validate($data, 'group', 'int');
+		$this->validate($data, 'class', 'array');
 	}
 }
