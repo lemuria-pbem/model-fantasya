@@ -37,6 +37,8 @@ class Unit extends Entity implements Collectible
 
 	private bool $isHiding = false;
 
+	private bool $isLooting = true;
+
 	private Id|false|null $disguiseAs = false;
 
 	private Resources $inventory;
@@ -111,6 +113,10 @@ class Unit extends Entity implements Collectible
 		return $this->isHiding;
 	}
 
+	public function IsLooting(): bool {
+		return $this->isLooting;
+	}
+
 	public function Disguise(): Party|false|null {
 		if ($this->disguiseAs instanceof Id) {
 			return Party::get($this->disguiseAs);
@@ -166,7 +172,7 @@ class Unit extends Entity implements Collectible
 	 */
 	#[ArrayShape([
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'race' => 'string', 'size' => 'int',
-		'health' => 'float', 'isGuarding' => 'bool', 'battleRow' => 'int', 'isHiding' => 'bool',
+		'health' => 'float', 'isGuarding' => 'bool', 'battleRow' => 'int', 'isHiding' => 'bool', 'isLooting' => 'bool',
 		'disguiseAs' => 'int|false|null', 'inventory' => 'array', 'knowledge' => 'array', 'aura' => 'array|null',
 		'battleSpells' => 'array|null'
 	])]
@@ -179,6 +185,7 @@ class Unit extends Entity implements Collectible
 		$data['isGuarding']   = $this->IsGuarding();
 		$data['battleRow']    = $this->BattleRow();
 		$data['isHiding']     = $this->IsHiding();
+		$data['isLooting']    = $this->IsLooting();
 		$id                   = $this->disguiseAs;
 		$data['disguiseAs']   = $id instanceof Id ? $id->Id() : $id;
 		$data['inventory']    = $this->Inventory()->serialize();
@@ -198,6 +205,7 @@ class Unit extends Entity implements Collectible
 		$this->setIsGuarding($data['isGuarding']);
 		$this->setBattleRow($data['battleRow']);
 		$this->setIsHiding($data['isHiding']);
+		$this->setIsLooting($data['isLooting']);
 		$id               = $data['disguiseAs'];
 		$this->disguiseAs = is_int($id) ? new Id($id) : $id;
 		$this->Inventory()->unserialize($data['inventory']);
@@ -259,6 +267,11 @@ class Unit extends Entity implements Collectible
 		return $this;
 	}
 
+	public function setIsLooting(bool $isLooting): Unit {
+		$this->isLooting = $isLooting;
+		return $this;
+	}
+
 	public function setDisguise(Party|false|null $party = null): Unit {
 		if ($party) {
 			if ($party === $this->Party()) {
@@ -296,6 +309,7 @@ class Unit extends Entity implements Collectible
 		$this->validate($data, 'isGuarding', 'bool');
 		$this->validate($data, 'battleRow', 'int');
 		$this->validate($data, 'isHiding', 'bool');
+		$this->validate($data, 'isLooting', 'bool');
 		$disguiseAs = $data['disguiseAs'];
 		if (!is_bool($disguiseAs) || $disguiseAs) {
 			$this->validate($data, 'disguiseAs', '?int');

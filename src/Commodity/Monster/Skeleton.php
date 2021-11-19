@@ -4,7 +4,13 @@ namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Commodity\Gold;
+use Lemuria\Model\Fantasya\Commodity\Luxury\AbstractLuxury;
+use Lemuria\Model\Fantasya\Commodity\Potion\AbstractPotion;
+use Lemuria\Model\Fantasya\Commodity\Protection\AbstractProtection;
+use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Trophy\Skull;
+use Lemuria\Model\Fantasya\Commodity\Weapon\AbstractWeapon;
 use Lemuria\Model\Fantasya\Landscape\Desert;
 use Lemuria\Model\Fantasya\Landscape\Glacier;
 use Lemuria\Model\Fantasya\Landscape\Highland;
@@ -40,5 +46,12 @@ final class Skeleton extends AbstractMonster
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	protected function getLoot(): array {
+		return [
+			Gold::class, Silver::class,
+			AbstractLuxury::all(), AbstractPotion::all(), AbstractProtection::all(), AbstractWeapon::all()
+		];
 	}
 }

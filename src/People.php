@@ -3,6 +3,7 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\ExpectedValues;
+use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Entity;
 use Lemuria\EntitySet;
@@ -14,6 +15,17 @@ use Lemuria\Reorder;
  */
 class People extends EntitySet implements Reorder
 {
+	/**
+	 * Count the total size of all entities.
+	 */
+	#[Pure] public function Size(): int {
+		$size = 0;
+		foreach ($this as $unit /* @var Unit $unit */) {
+			$size += $unit->Size();
+		}
+		return $size;
+	}
+
 	public function add(Unit $unit): People {
 		$this->addEntity($unit->Id());
 		if ($this->hasCollector()) {

@@ -6,9 +6,11 @@ use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\Commodity;
+use Lemuria\Model\Fantasya\CommodityTrait;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\Model\Fantasya\Weapon;
+use Lemuria\SingletonSet;
 
 /**
  * Base class for any weapon.
@@ -17,6 +19,11 @@ abstract class AbstractWeapon implements Commodity, Weapon
 {
 	use ArtifactTrait;
 	use BuilderTrait;
+	use CommodityTrait;
+
+	public static function all(): SingletonSet {
+		return self::getAll(__DIR__);
+	}
 
 	#[Pure] public function Hits(): int {
 		return 1;
@@ -29,6 +36,10 @@ abstract class AbstractWeapon implements Commodity, Weapon
 	public function getSkill(): Requirement {
 		$talent = self::createTalent($this->talent());
 		return new Requirement($talent, 1);
+	}
+
+	protected static function isRealCommodity(string $class): bool {
+		return !str_starts_with($class, 'Native');
 	}
 
 	#[Pure] abstract protected function talent(): string;
