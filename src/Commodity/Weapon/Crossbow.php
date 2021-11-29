@@ -15,13 +15,13 @@ use Lemuria\Model\Fantasya\Talent\Crossbowing;
  */
 final class Crossbow extends AbstractWeapon
 {
-	private const WEIGHT = 2 * 100;
+	public const WEIGHT = 2 * 100;
+
+	private const DAMAGE = [2, 4, 6];
 
 	private const WOOD = 1;
 
 	private const CRAFT = 3;
-
-	private const DAMAGE = [2, 4, 6];
 
 	private const INTERVAL = 2;
 

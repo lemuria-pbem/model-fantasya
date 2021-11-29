@@ -12,13 +12,13 @@ use Lemuria\Model\Fantasya\Shield;
  */
 final class Woodshield extends AbstractProtection implements Shield
 {
+	public const WEIGHT = 2 * 100;
+
+	public const BLOCK = 4;
+
 	private const CRAFT = 2;
 
-	private const WEIGHT = 2 * 100;
-
 	private const WOOD = 1;
-
-	private const BLOCK = 4;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;

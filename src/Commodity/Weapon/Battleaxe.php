@@ -16,15 +16,15 @@ use Lemuria\Model\Fantasya\Talent\Weaponry;
  */
 final class Battleaxe extends AbstractWeapon
 {
-	private const WEIGHT = 2 * 100;
+	public const WEIGHT = 2 * 100;
+
+	public const DAMAGE = [1, 8, 8];
 
 	private const WOOD = 2;
 
 	private const IRON = 3;
 
 	private const CRAFT = 5;
-
-	private const DAMAGE = [1, 8, 8];
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;

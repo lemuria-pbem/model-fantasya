@@ -15,13 +15,13 @@ use Lemuria\Model\Fantasya\Talent\Weaponry;
  */
 final class Sword extends AbstractWeapon
 {
-	private const WEIGHT = 1 * 100;
+	public const WEIGHT = 1 * 100;
+
+	public const DAMAGE = [1, 8, 4];
 
 	private const IRON = 1;
 
 	private const CRAFT = 2;
-
-	private const DAMAGE = [1, 8, 4];
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;

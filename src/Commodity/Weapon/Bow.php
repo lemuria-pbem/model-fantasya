@@ -15,13 +15,13 @@ use Lemuria\Model\Fantasya\Talent\Bowmaking;
  */
 final class Bow extends AbstractWeapon
 {
+	public const WEIGHT = 1 * 100;
+
+	public const DAMAGE = [1, 4, 4];
+
 	private const CRAFT = 2;
 
-	private const WEIGHT = 1 * 100;
-
 	private const WOOD = 1;
-
-	private const DAMAGE = [1, 4, 4];
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;

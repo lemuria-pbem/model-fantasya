@@ -17,7 +17,9 @@ use Lemuria\Model\Fantasya\Talent\Weaponry;
  */
 final class Warhammer extends AbstractWeapon
 {
-	private const WEIGHT = 2 * 100;
+	public const WEIGHT = 2 * 100;
+
+	public const DAMAGE = [1, 8, 8];
 
 	private const WOOD = 1;
 
@@ -26,8 +28,6 @@ final class Warhammer extends AbstractWeapon
 	private const IRON = 2;
 
 	private const CRAFT = 4;
-
-	private const DAMAGE = [1, 8, 8];
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;

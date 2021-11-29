@@ -25,4 +25,10 @@ class Damage implements \Stringable
 	public function __toString(): string {
 		return $this->count . 'd' . $this->dice . '+' . $this->addition;
 	}
+
+	public function reducedBy(float $reduction): Damage {
+		$this->dice     = (int)ceil((1.0 - $reduction) * $this->dice);
+		$this->addition = (int)ceil((1.0 - $reduction) * $this->addition);
+		return $this;
+	}
 }

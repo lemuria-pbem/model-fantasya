@@ -15,13 +15,13 @@ use Lemuria\Model\Fantasya\Talent\Weaponry;
  */
 final class Spear extends AbstractWeapon
 {
-	private const WEIGHT = 1 * 100;
+	public const WEIGHT = 1 * 100;
+
+	public const DAMAGE = [1, 7, 3];
 
 	private const WOOD = 1;
 
 	private const CRAFT = 1;
-
-	private const DAMAGE = [1, 7, 3];
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;

@@ -15,13 +15,13 @@ use Lemuria\Model\Fantasya\Talent\Catapulting;
  */
 final class Catapult extends AbstractWeapon
 {
-	private const WEIGHT = 100 * 100;
+	public const WEIGHT = 100 * 100;
+
+	private const DAMAGE = [3, 10, 5];
 
 	private const WOOD = 10;
 
 	private const CRAFT = 3;
-
-	private const DAMAGE = [3, 10, 5];
 
 	private const HITS = 3;
 

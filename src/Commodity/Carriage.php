@@ -15,7 +15,7 @@ use Lemuria\Model\Fantasya\Transport;
 /**
  * A carriage.
  */
-final class Carriage implements Artifact, Commodity, Transport
+class Carriage implements Artifact, Commodity, Transport
 {
 	use ArtifactTrait;
 	use BuilderTrait;

@@ -12,13 +12,13 @@ use Lemuria\Model\Fantasya\Shield;
  */
 final class Ironshield extends AbstractProtection implements Shield
 {
+	public const WEIGHT = 2 * 100;
+
+	public const BLOCK = 6;
+
 	private const CRAFT = 3;
 
-	private const WEIGHT = 2 * 100;
-
 	private const IRON = 1;
-
-	private const BLOCK = 6;
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
