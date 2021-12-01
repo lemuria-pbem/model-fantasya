@@ -52,7 +52,7 @@ class LocationPicker implements \ArrayAccess, \Countable
 		throw new LemuriaException();
 	}
 
-	public function offsetUnset($offset) {
+	public function offsetUnset($offset): void {
 		throw new LemuriaException();
 	}
 

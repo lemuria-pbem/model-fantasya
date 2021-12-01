@@ -108,7 +108,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 * @param Relation|string $relation
 	 * @noinspection PhpParameterNameChangedDuringInheritanceInspection
 	 */
-	public function offsetUnset(mixed $relation) {
+	public function offsetUnset(mixed $relation): void {
 		$id = $this->getId($relation);
 		if (isset($this->relations[$id])) {
 			unset($this->relations[$id]);
