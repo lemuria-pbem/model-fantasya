@@ -146,7 +146,7 @@ class Vessel extends Entity implements Collectible, Collector
 
 	public function setCompletion(float $completion): Vessel {
 		$completion       = round(abs($completion), 4);
-		$this->completion = $completion > 1.0 ? 1.0 : $completion;
+		$this->completion = min($completion, 1.0);
 		return $this;
 	}
 

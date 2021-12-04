@@ -2,9 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-/**
- * @noinspection PhpMultipleClassDeclarationsInspection
- */
 class Damage implements \Stringable
 {
 	public function __construct(protected int $count, protected int $dice, protected int $addition) {
