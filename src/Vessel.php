@@ -6,8 +6,8 @@ use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\ExpectedValues;
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\World;
 use function Lemuria\getClass;
+use Lemuria\Model\World;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
 use Lemuria\Collector;
@@ -40,6 +40,10 @@ class Vessel extends Entity implements Collectible, Collector
 
 	private Inhabitants $passengers;
 
+	private ?Construction $port = null;
+
+	private ?int $portId = null;
+
 	/**
 	 * Get a vessel.
 	 *
@@ -63,12 +67,13 @@ class Vessel extends Entity implements Collectible, Collector
 	 */
 	#[ArrayShape([
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'passengers' => 'int[]', 'completion' => 'float',
-		'ship' => 'string', 'anchor' => 'string'
+		'ship' => 'string', 'anchor' => 'string', 'port' => 'int|null'
 	])]
 	#[Pure]
 	public function serialize(): array {
 		$data               = parent::serialize();
 		$data['anchor']     = $this->Anchor();
+		$data['port']       = $this->portId;
 		$data['ship']       = getClass($this->Ship());
 		$data['completion'] = $this->Completion();
 		$data['passengers'] = $this->passengers->serialize();
@@ -81,6 +86,7 @@ class Vessel extends Entity implements Collectible, Collector
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
 		$this->setAnchor($data['anchor']);
+		$this->initPort($data['port']);
 		$this->setShip(self::createShip($data['ship']));
 		$this->setCompletion($data['completion']);
 		$this->passengers->unserialize($data['passengers']);
@@ -102,6 +108,10 @@ class Vessel extends Entity implements Collectible, Collector
 
 	#[Pure] public function Anchor(): string {
 		return $this->anchor;
+	}
+
+	public function Port(): ?Construction {
+		return $this->initPort();
 	}
 
 	#[Pure] public function Completion(): float {
@@ -139,6 +149,11 @@ class Vessel extends Entity implements Collectible, Collector
 		throw new ModelException('Invalid anchor: ' . $anchor . '.');
 	}
 
+	public function setPort(?Construction $port): Vessel {
+		$this->port = $port;
+		return $this;
+	}
+
 	public function setShip(Ship $ship): Vessel {
 		$this->ship = $ship;
 		return $this;
@@ -166,8 +181,19 @@ class Vessel extends Entity implements Collectible, Collector
 	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);
 		$this->validate($data, 'anchor', 'string');
+		$this->validate($data, 'port', '?int');
 		$this->validate($data, 'ship', 'string');
 		$this->validate($data, 'completion', 'float');
 		$this->validate($data, 'passengers', 'array');
+	}
+
+	private function initPort(?int $portId = null): ?Construction {
+		if ($portId) {
+			$this->portId = $portId;
+		}
+		if (!$this->port && $this->portId) {
+			$this->port = Construction::get(new Id($this->portId));
+		}
+		return $this->port;
 	}
 }
