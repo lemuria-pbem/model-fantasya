@@ -40,6 +40,8 @@ final class Griffin implements Commodity, Monster
 
 	private const TROPHY = GriffinFeather::class;
 
+	private const RECREATION = 0.6;
+
 	protected ?SingletonSet $loot = null;
 
 	public function __construct() {
@@ -77,5 +79,9 @@ final class Griffin implements Commodity, Monster
 			$this->loot = new SingletonSet();
 		}
 		return $this->loot;
+	}
+
+	#[Pure] public function Recreation(): float {
+		return self::RECREATION;
 	}
 }
