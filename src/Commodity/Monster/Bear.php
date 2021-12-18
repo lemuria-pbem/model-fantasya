@@ -24,6 +24,8 @@ final class Bear extends AbstractMonster
 
 	private const TROPHY = Carnassial::class;
 
+	private const RECREATION = 0.6;
+
 	public function __construct() {
 		$this->weapon        = new NativeMelee(new Damage(...self::DAMAGE));
 		$this->trophy        = self::createTrophy(self::TROPHY);
@@ -43,5 +45,9 @@ final class Bear extends AbstractMonster
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	#[Pure] public function Recreation(): float {
+		return self::RECREATION;
 	}
 }

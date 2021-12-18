@@ -58,4 +58,8 @@ final class Goblin extends AbstractMonster
 			AbstractHerb::all(), AbstractLuxury::all(), AbstractPotion::all(), AbstractProtection::all(), AbstractWeapon::all()
 		];
 	}
+
+	#[Pure] public function Recreation(): float {
+		return 1.0;
+	}
 }

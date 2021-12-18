@@ -24,6 +24,11 @@ interface Monster extends Protection, Race
 	#[Pure] public function Trophy(): ?Trophy;
 
 	/**
+	 * Get the health recreation factor.
+	 */
+	#[Pure] public function Recreation(): float;
+
+	/**
 	 * Get the living environment.
 	 *
 	 * @return Landscape[]

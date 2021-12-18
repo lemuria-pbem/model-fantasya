@@ -54,4 +54,8 @@ final class Skeleton extends AbstractMonster
 			AbstractLuxury::all(), AbstractPotion::all(), AbstractProtection::all(), AbstractWeapon::all()
 		];
 	}
+
+	#[Pure] public function Recreation(): float {
+		return 0.0;
+	}
 }

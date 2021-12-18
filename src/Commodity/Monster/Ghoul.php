@@ -14,6 +14,8 @@ final class Ghoul extends AbstractMonster
 
 	private const WEIGHT = 5 * 100;
 
+	private const RECREATION = 0.5;
+
 	public function __construct() {
 		$this->environment[] = self::createLandscape(Swamp::class);
 	}
@@ -28,5 +30,9 @@ final class Ghoul extends AbstractMonster
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	#[Pure] public function Recreation(): float {
+		return self::RECREATION;
 	}
 }

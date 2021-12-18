@@ -24,6 +24,8 @@ final class Ent extends AbstractMonster
 
 	private const DAMAGE = [3, 5, 3];
 
+	private const RECREATION = 0.1;
+
 	public function __construct() {
 		$this->weapon        = new NativeMelee(new Damage(...self::DAMAGE), self::HITS);
 		$this->environment[] = self::createLandscape(Forest::class);
@@ -45,5 +47,9 @@ final class Ent extends AbstractMonster
 
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	#[Pure] public function Recreation(): float {
+		return self::RECREATION;
 	}
 }

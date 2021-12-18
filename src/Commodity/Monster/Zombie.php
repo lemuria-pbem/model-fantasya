@@ -35,4 +35,8 @@ final class Zombie extends AbstractMonster
 	#[Pure] public function Weight(): int {
 		return self::WEIGHT;
 	}
+
+	#[Pure] public function Recreation(): float {
+		return 0.0;
+	}
 }
