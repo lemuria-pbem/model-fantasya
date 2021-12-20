@@ -4,7 +4,6 @@ namespace Lemuria\Model\Fantasya\World;
 
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\ExpectedValues;
-
 use JetBrains\PhpStorm\Immutable;
 
 use Lemuria\Model\Coordinates;
@@ -14,6 +13,7 @@ use Lemuria\Model\Location;
 use Lemuria\Model\Neighbours;
 use Lemuria\Model\World;
 use Lemuria\Model\World\MapCoordinates;
+use Lemuria\Model\World\Path;
 use Lemuria\Serializable;
 
 /**
@@ -27,8 +27,7 @@ final class PartyMap implements World
 
 	#[ArrayShape(['id' => "int", 'name' => "string", 'description' => "string", 'inhabitants' => "int[]",
 				  'size' => "int", 'building' => "string"])]
-	public function
-	serialize(): array {
+	public function serialize(): array {
 		return $this->world->serialize();
 	}
 
@@ -60,6 +59,13 @@ final class PartyMap implements World
 	 */
 	public function getNeighbours(Location $location): Neighbours {
 		return $this->world->getNeighbours($location);
+	}
+
+	/**
+	 * Get the path from a location to a distant point.
+	 */
+	public function getPath(Location $start, string $direction, int $distance): Path {
+		return $this->world->getPath($start, $direction, $distance);
 	}
 
 	/**
