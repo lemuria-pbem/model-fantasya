@@ -53,6 +53,15 @@ final class PartyMap implements World
 	}
 
 	/**
+	 * Get the shortest distance between two regions.
+	 *
+	 * @throws MapException
+	 */
+	public function getDistance(Location $from, Location $to): int {
+		return $this->world->getDistance($from, $to);
+	}
+
+	/**
 	 * Get the neighbour regions of a region.
 	 *
 	 * @throws MapException
