@@ -24,19 +24,21 @@ class Relation
 
 	public const GIVE = 32;
 
-	public const GUARD = 64;
+	public const PASS = 64;
 
-	public const PERCEPTION = 128;
+	public const GUARD = 128;
 
-	public const DISGUISE = 256;
+	public const PERCEPTION = 256;
 
-	public const SILVER = 512;
+	public const DISGUISE = 512;
 
-	public const FOOD = 1024;
+	public const SILVER = 1024;
 
-	public const COMBAT = 2048;
+	public const FOOD = 2048;
 
-	public const ALL = 4095;
+	public const COMBAT = 4096;
+
+	public const ALL = 8191;
 
 	private int $agreement = self::NONE;
 
