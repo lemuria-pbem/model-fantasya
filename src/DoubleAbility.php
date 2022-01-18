@@ -20,7 +20,7 @@ class DoubleAbility extends Modification
 		if ($ability->Talent() !== $this->Talent()) {
 			throw new LemuriaException('Talent mismatch.');
 		}
-		$level = max(0, $ability->Level());
+		$level = max(0, 2 * $ability->Level());
 		return new Ability($this->Talent(), Ability::getExperience($level));
 	}
 }

@@ -188,7 +188,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Check if there is a specific agreement with a unit or the party of a unit.
 	 */
-	public function has(#[ExpectedValues(valuesFromClass: Relation::class)] int $agreement, Party|Unit $partner): bool {
+	public function has(#[ExpectedValues(valuesFromClass: Relation::class)] int $agreement, Party|Unit $partner, Region $region = null): bool {
 		if ($partner instanceof Unit) {
 			if ($this->hasContact($partner, $agreement)) {
 				return true;
@@ -197,10 +197,11 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 			if (!($party instanceof Party) || $party === $this->party) {
 				$party = $partner->Party();
 			}
-			$region = $partner->Region();
+			if (!$region) {
+				$region = $partner->Region();
+			}
 		} else {
-			$party  = $partner;
-			$region = null;
+			$party = $partner;
 		}
 
 		// Check relations for party.
