@@ -15,9 +15,10 @@ use Lemuria\Engine\Newcomer;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
-use Lemuria\Model\Catalog;
+use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Party\Type;
 use Lemuria\Serializable;
 
 /**
@@ -28,13 +29,7 @@ class Party extends Entity implements Assignable, Collector
 	use BuilderTrait;
 	use CollectorTrait;
 
-	public const PLAYER = 0;
-
-	public const NPC = 1;
-
-	public const MONSTER = 2;
-
-	private int $type = self::PLAYER;
+	private Type $type = Type::PLAYER;
 
 	private string $banner;
 
@@ -75,7 +70,7 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	public static function get(Id $id): self {
 		/* @var Party $party */
-		$party = Lemuria::Catalog()->get($id, Catalog::PARTIES);
+		$party = Lemuria::Catalog()->get($id, Domain::PARTY);
 		return $party;
 	}
 
@@ -96,13 +91,13 @@ class Party extends Entity implements Assignable, Collector
 	}
 
 	/**
-	 * Get the catalog namespace.
+	 * Get the catalog domain.
 	 */
-	#[Pure] public function Catalog(): int {
-		return Catalog::PARTIES;
+	#[Pure] public function Catalog(): Domain {
+		return Domain::PARTY;
 	}
 
-	public function Type(): int {
+	public function Type(): Type {
 		return $this->type;
 	}
 

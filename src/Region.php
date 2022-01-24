@@ -13,10 +13,11 @@ use Lemuria\CollectorTrait;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
-use Lemuria\Model\Catalog;
+use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Location;
+use Lemuria\Model\World\Direction;
 use Lemuria\Serializable;
 
 /**
@@ -53,7 +54,7 @@ class Region extends Entity implements Collectible, Collector, Location
 	 */
 	public static function get(Id $id): Region {
 		/* @var Region $region */
-		$region = Lemuria::Catalog()->get($id, Catalog::LOCATIONS);
+		$region = Lemuria::Catalog()->get($id, Domain::LOCATION);
 		return $region;
 	}
 
@@ -125,8 +126,8 @@ class Region extends Entity implements Collectible, Collector, Location
 	/**
 	 * Get the catalog namespace.
 	 */
-	#[Pure] public function Catalog(): int {
-		return Catalog::LOCATIONS;
+	#[Pure] public function Catalog(): Domain {
+		return Domain::LOCATION;
 	}
 
 	/**
@@ -181,8 +182,8 @@ class Region extends Entity implements Collectible, Collector, Location
 		return null;
 	}
 
-	public function hasRoad(string $direction): bool {
-		return isset($this->roads[$direction]) && $this->roads[$direction] >= 1.0;
+	public function hasRoad(Direction $direction): bool {
+		return isset($this->roads[$direction->value]) && $this->roads[$direction->value] >= 1.0;
 	}
 
 	public function setLandscape(Landscape $landscape): Region {

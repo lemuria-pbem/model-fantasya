@@ -2,7 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ExpectedValues;
 use Lemuria\EntitySet;
 use Lemuria\Exception\EntitySetException;
 use Lemuria\Exception\EntitySetReplaceException;
@@ -32,7 +31,7 @@ class Inhabitants extends People
 
 		$owner = $this->Owner();
 		if ($unit !== $owner) {
-			$this->reorderEntity($unit->Id(), $owner->Id(), -1);
+			$this->reorderEntity($unit->Id(), $owner->Id(), Reorder::BEFORE);
 			$this->owner = null;
 		}
 		return $this;
@@ -61,8 +60,7 @@ class Inhabitants extends People
 	/**
 	 * Reorder a unit in the inhabitants.
 	 */
-	public function reorder(Unit $unit, Unit $position,
-							#[ExpectedValues(valuesFromClass: Reorder::class)] int $order = Reorder::FLIP): People
+	public function reorder(Unit $unit, Unit $position, Reorder $order = Reorder::FLIP): People
 	{
 		if ($unit !== $this->Owner()) {
 			if ($position !== $this->Owner() || $order >= Reorder::AFTER) {

@@ -17,7 +17,7 @@ final class Tower extends AbstractCastle
 
 	private const MIN_SIZE = 10;
 
-	public const MAX_SIZE = 49;
+	public final const MAX_SIZE = 49;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;

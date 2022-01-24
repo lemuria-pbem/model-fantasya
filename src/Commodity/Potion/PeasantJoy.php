@@ -11,7 +11,7 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Snowcrystal;
 
 final class PeasantJoy extends AbstractPotion
 {
-	public const PEASANTS = 1000;
+	public final const PEASANTS = 1000;
 
 	private const LEVEL = 3;
 

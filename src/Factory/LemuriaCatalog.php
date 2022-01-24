@@ -4,11 +4,11 @@ namespace Lemuria\Model\Fantasya\Factory;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Identifiable;
 use Lemuria\Lemuria;
 use Lemuria\Model\Catalog;
+use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\DuplicateIdException;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Construction;
@@ -21,9 +21,6 @@ use Lemuria\Model\Reassignment;
 use Lemuria\Version\VersionFinder;
 use Lemuria\Version\VersionTag;
 
-/**
- * The catalog registers all entities and is used to ensure that IDs are only used once per namespace.
- */
 class LemuriaCatalog implements Catalog
 {
 	/**
@@ -44,56 +41,32 @@ class LemuriaCatalog implements Catalog
 	private bool $isLoaded = false;
 
 	public function __construct() {
-		$reflection = new \ReflectionClass(Catalog::class);
-		foreach ($reflection->getConstants() as $namespace) {
-			if (!is_int($namespace)) {
-				throw new LemuriaException('Expected integer catalog namespace.');
-			}
-			$this->catalog[$namespace] = [];
-			$this->nextId[$namespace]  = 1;
+		foreach (Domain::cases() as $domain) {
+			$this->catalog[$domain->value] = [];
+			$this->nextId[$domain->value]  = 1;
 		}
 	}
 
-	/**
-	 * Checks if an entity exists in the specified catalog namespace.
-	 */
-	public function has(Id $id, int $namespace): bool {
-		$this->checkNamespace($namespace);
-		return isset($this->catalog[$namespace][$id->Id()]);
+	#[Pure] public function has(Id $id, Domain $domain): bool {
+		return isset($this->catalog[$domain->value][$id->Id()]);
 	}
 
-	/**
-	 * Check if game data has been loaded.
-	 */
 	#[Pure] public function isLoaded(): bool {
 		return $this->isLoaded;
 	}
 
-	/**
-	 * Get the specified entity.
-	 *
-	 * @throws NotRegisteredException
-	 */
-	public function get(Id $id, int $namespace): Identifiable {
-		$this->checkNamespace($namespace);
-		if (!isset($this->catalog[$namespace][$id->Id()])) {
+	public function get(Id $id, Domain $domain): Identifiable {
+		if (!isset($this->catalog[$domain->value][$id->Id()])) {
 			throw new NotRegisteredException($id);
 		}
 
-		return $this->catalog[$namespace][$id->Id()];
+		return $this->catalog[$domain->value][$id->Id()];
 	}
 
-	/**
-	 * Get all entities of a namespace.
-	 */
-	public function getAll(int $namespace): array {
-		$this->checkNamespace($namespace);
-		return $this->catalog[$namespace];
+	public function getAll(Domain $domain): array {
+		return $this->catalog[$domain->value];
 	}
 
-	/**
-	 * Load game data into catalog.
-	 */
 	public function load(): Catalog {
 		if (!$this->isLoaded) {
 			foreach (Lemuria::Game()->getParties() as $data) {
@@ -127,37 +100,34 @@ class LemuriaCatalog implements Catalog
 		return $this;
 	}
 
-	/**
-	 * Save game data from catalog.
-	 */
 	public function save(): Catalog {
 		$entities = [];
-		foreach ($this->catalog[Catalog::PARTIES] as $id => $party /* @var Party $party */) {
+		foreach ($this->catalog[Domain::PARTY->value] as $id => $party /* @var Party $party */) {
 			$entities[$id] = $party->serialize();
 		}
 		Lemuria::Game()->setParties($entities);
 		$entities = [];
-		foreach ($this->catalog[Catalog::UNITS] as $id => $unit /* @var Unit $unit */) {
+		foreach ($this->catalog[Domain::UNIT->value] as $id => $unit /* @var Unit $unit */) {
 			$entities[$id] = $unit->serialize();
 		}
 		Lemuria::Game()->setUnits($entities);
 		$entities = [];
-		foreach ($this->catalog[Catalog::LOCATIONS] as $id => $region /* @var Region $region */) {
+		foreach ($this->catalog[Domain::LOCATION->value] as $id => $region /* @var Region $region */) {
 			$entities[$id] = $region->serialize();
 		}
 		Lemuria::Game()->setRegions($entities);
 		$entities = [];
-		foreach ($this->catalog[Catalog::CONSTRUCTIONS] as $id => $construction /* @var Construction $construction */) {
+		foreach ($this->catalog[Domain::CONSTRUCTION->value] as $id => $construction /* @var Construction $construction */) {
 			$entities[$id] = $construction->serialize();
 		}
 		Lemuria::Game()->setConstructions($entities);
 		$entities = [];
-		foreach ($this->catalog[Catalog::VESSELS] as $id => $vessel /* @var Vessel $vessel */) {
+		foreach ($this->catalog[Domain::VESSEL->value] as $id => $vessel /* @var Vessel $vessel */) {
 			$entities[$id] = $vessel->serialize();
 		}
 		Lemuria::Game()->setVessels($entities);
 		$entities = [];
-		foreach ($this->catalog[Catalog::CONTINENTS] as $id => $continent /* @var Continent $continent */) {
+		foreach ($this->catalog[Domain::CONTINENT->value] as $id => $continent /* @var Continent $continent */) {
 			$entities[$id] = $continent->serialize();
 		}
 		Lemuria::Game()->setContinents($entities);
@@ -165,47 +135,36 @@ class LemuriaCatalog implements Catalog
 	}
 
 	/**
-	 * Register an entity.
-	 *
 	 * @throws DuplicateIdException
 	 */
 	public function register(Identifiable $identifiable): Catalog {
-		$namespace = $identifiable->Catalog();
-		$this->checkNamespace($namespace);
+		$domain = $identifiable->Catalog()->value;
 		$id = $identifiable->Id()->Id();
-		if (isset($this->catalog[$namespace][$id])) {
+		if (isset($this->catalog[$domain][$id])) {
 			throw new DuplicateIdException($identifiable);
 		}
 
-		$this->catalog[$namespace][$id] = $identifiable;
-		if ($this->nextId[$namespace] === $id) {
-			$this->searchNextId($namespace);
+		$this->catalog[$domain][$id] = $identifiable;
+		if ($this->nextId[$domain] === $id) {
+			$this->searchNextId($domain);
 		}
 		return $this;
 	}
 
 	/**
-	 * Remove an entity.
-	 *
 	 * @throws NotRegisteredException
 	 */
 	public function remove(Identifiable $identifiable): Catalog {
-		$namespace = $identifiable->Catalog();
-		$this->checkNamespace($namespace);
+		$domain = $identifiable->Catalog()->value;
 		$id = $identifiable->Id()->Id();
-		if (!isset($this->catalog[$namespace][$id])) {
+		if (!isset($this->catalog[$domain][$id])) {
 			throw new NotRegisteredException($identifiable->Id());
 		}
 
-		unset($this->catalog[$namespace][$id]);
+		unset($this->catalog[$domain][$id]);
 		return $this;
 	}
 
-	/**
-	 * Propagate change of an entity's ID.
-	 *
-	 * If old ID is null, propagate removal instead of reassignment.
-	 */
 	public function reassign(Identifiable $identifiable, ?Id $oldId = null): Catalog {
 		foreach ($this->reassignments as $reassignment) {
 			$oldId ? $reassignment->reassign($oldId, $identifiable) : $reassignment->remove($identifiable);
@@ -213,18 +172,12 @@ class LemuriaCatalog implements Catalog
 		return $this;
 	}
 
-	/**
-	 * Reserve the next ID that is available for a namespace.
-	 */
-	public function nextId(int $namespace): Id {
-		$id = new Id($this->nextId[$namespace]);
-		$this->searchNextId($namespace);
+	public function nextId(Domain $domain): Id {
+		$id = new Id($this->nextId[$domain->value]);
+		$this->searchNextId($domain->value);
 		return $id;
 	}
 
-	/**
-	 * Register a reassignment listener.
-	 */
 	public function addReassignment(Reassignment $listener): Catalog {
 		$this->reassignments[] = $listener;
 		return $this;
@@ -236,45 +189,33 @@ class LemuriaCatalog implements Catalog
 	}
 
 	/**
-	 * Check if namespace is valid.
-	 *
-	 * @throws LemuriaException
+	 * Search for next available ID of given domain.
 	 */
-	private function checkNamespace(int $namespace): void {
-		if (!isset($this->catalog[$namespace])) {
-			$bug = 'Namespace ' . $namespace . ' is not a valid catalog namespace.';
-			throw new LemuriaException($bug, new \InvalidArgumentException());
-		}
-	}
-
-	/**
-	 * Search for next available ID of given namespace.
-	 */
-	private function searchNextId(int $namespace): void {
-		$id = $this->nextId[$namespace];
+	private function searchNextId(int $domain): void {
+		$id = $this->nextId[$domain];
 		do {
 			$id++;
-		} while (isset($this->catalog[$namespace][$id]));
-		$this->nextId[$namespace] = $id;
+		} while (isset($this->catalog[$domain][$id]));
+		$this->nextId[$domain] = $id;
 	}
 
 	/**
 	 * Calls collectAll() on all collectors in the Catalog.
 	 */
 	private function callCollectAll(): void {
-		foreach ($this->catalog[Catalog::PARTIES] as $party /* @var Party $party */) {
+		foreach ($this->catalog[Domain::PARTY->value] as $party /* @var Party $party */) {
 			$party->collectAll();
 		}
-		foreach ($this->catalog[Catalog::LOCATIONS] as $region /* @var Region $region */) {
+		foreach ($this->catalog[Domain::LOCATION->value] as $region /* @var Region $region */) {
 			$region->collectAll();
 		}
-		foreach ($this->catalog[Catalog::CONSTRUCTIONS] as $construction /* @var Construction $construction */) {
+		foreach ($this->catalog[Domain::CONSTRUCTION->value] as $construction /* @var Construction $construction */) {
 			$construction->collectAll();
 		}
-		foreach ($this->catalog[Catalog::VESSELS] as $vessel /* @var Vessel $vessel */) {
+		foreach ($this->catalog[Domain::VESSEL->value] as $vessel /* @var Vessel $vessel */) {
 			$vessel->collectAll();
 		}
-		foreach ($this->catalog[Catalog::CONTINENTS] as $continent /* @var Continent $continent */) {
+		foreach ($this->catalog[Domain::CONTINENT->value] as $continent /* @var Continent $continent */) {
 			$continent->collectAll();
 		}
 	}

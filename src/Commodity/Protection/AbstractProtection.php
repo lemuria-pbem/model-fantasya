@@ -23,7 +23,7 @@ abstract class AbstractProtection implements Artifact, Commodity, Protection
 	use BuilderTrait;
 	use CommodityTrait;
 
-	protected Requirement $craft;
+	private Requirement $craft;
 
 	public static function all(): SingletonSet {
 		return self::getAll(__DIR__);

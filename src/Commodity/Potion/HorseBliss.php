@@ -11,7 +11,7 @@ use Lemuria\Model\Fantasya\Commodity\Herb\TangyTemerity;
 
 final class HorseBliss extends AbstractPotion
 {
-	public const HORSES = 50;
+	public final const HORSES = 50;
 
 	private const LEVEL = 3;
 

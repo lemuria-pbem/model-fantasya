@@ -21,7 +21,7 @@ class Island
 {
 	private static int $nextId = 1;
 
-	private Id $id;
+	private readonly Id $id;
 
 	private Coordinates $origin;
 

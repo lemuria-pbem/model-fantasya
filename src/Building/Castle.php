@@ -11,7 +11,7 @@ use Lemuria\Model\Fantasya\Building;
  */
 interface Castle extends Building
 {
-	public const MARKET_SIZE = 5;
+	public final const MARKET_SIZE = 5;
 
 	#[Pure] public function Defense(): int;
 

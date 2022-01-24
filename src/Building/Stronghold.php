@@ -17,7 +17,7 @@ final class Stronghold extends AbstractCastle
 
 	private const MIN_SIZE = 250;
 
-	public const MAX_SIZE = 1249;
+	public final const MAX_SIZE = 1249;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;

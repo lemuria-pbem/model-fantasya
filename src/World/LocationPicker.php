@@ -5,7 +5,7 @@ namespace Lemuria\Model\Fantasya\World;
 use function Lemuria\getClass;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Lemuria;
-use Lemuria\Model\Catalog;
+use Lemuria\Model\Domain;
 use Lemuria\Model\Fantasya\Landscape;
 use Lemuria\Model\Fantasya\Landscape\Ocean;
 use Lemuria\Model\Fantasya\Region;
@@ -131,7 +131,7 @@ class LocationPicker implements \ArrayAccess, \Countable
 		$this->locations  = [];
 		$this->landscapes = [];
 		$i = 0;
-		foreach (Lemuria::Catalog()->getAll(Catalog::LOCATIONS) as $region /* @var Region $region */) {
+		foreach (Lemuria::Catalog()->getAll(Domain::LOCATION) as $region /* @var Region $region */) {
 			$this->locations[]              = $region;
 			$landscape                      = getClass($region->Landscape());
 			$this->landscapes[$landscape][] = $i++;

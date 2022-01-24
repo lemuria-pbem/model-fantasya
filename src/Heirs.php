@@ -4,15 +4,15 @@ namespace Lemuria\Model\Fantasya;
 
 class Heirs
 {
-	protected People $inConstruction;
+	protected readonly People $inConstruction;
 
-	protected People $onVessel;
+	protected readonly People $onVessel;
 
-	protected People $outside;
+	protected readonly People $outside;
 
-	protected People $otherConstruction;
+	protected readonly People $otherConstruction;
 
-	protected People $otherVessel;
+	protected readonly People $otherVessel;
 
 	protected ?Construction $construction = null;
 

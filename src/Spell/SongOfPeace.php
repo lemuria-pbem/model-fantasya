@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Spell;
 
-use Lemuria\Model\Fantasya\BattleSpell;
+use Lemuria\Model\Fantasya\Combat\Phase;
 
 final class SongOfPeace extends AbstractBattleSpell
 {
@@ -18,7 +18,7 @@ final class SongOfPeace extends AbstractBattleSpell
 		return self::DIFFICULTY;
 	}
 
-	public function Phase(): int {
-		return BattleSpell::PREPARATION;
+	public function Phase(): Phase {
+		return Phase::PREPARATION;
 	}
 }

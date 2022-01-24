@@ -9,11 +9,11 @@ use JetBrains\PhpStorm\Pure;
  */
 interface Building extends Artifact
 {
-	const IS_FREE = 0;
+	public const IS_FREE = 0;
 
-	const IS_INDEPENDENT = null;
+	public const IS_INDEPENDENT = null;
 
-	const IS_UNLIMITED = 0;
+	public const IS_UNLIMITED = 0;
 
 	/**
 	 * Get the building that must exist as a precondition.

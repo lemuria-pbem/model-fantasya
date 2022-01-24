@@ -13,7 +13,7 @@ use Lemuria\CollectorTrait;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
-use Lemuria\Model\Catalog;
+use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Serializable;
@@ -40,7 +40,7 @@ class Construction extends Entity implements Collectible, Collector
 	 */
 	public static function get(Id $id): self {
 		/* @var Construction $construction */
-		$construction = Lemuria::Catalog()->get($id, Catalog::CONSTRUCTIONS);
+		$construction = Lemuria::Catalog()->get($id, Domain::CONSTRUCTION);
 		return $construction;
 	}
 
@@ -79,10 +79,10 @@ class Construction extends Entity implements Collectible, Collector
 	}
 
 	/**
-	 * Get the catalog namespace.
+	 * Get the catalog domain.
 	 */
-	public function Catalog(): int {
-		return Catalog::CONSTRUCTIONS;
+	public function Catalog(): Domain {
+		return Domain::CONSTRUCTION;
 	}
 
 	/**

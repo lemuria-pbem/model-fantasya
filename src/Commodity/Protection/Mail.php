@@ -12,9 +12,9 @@ use Lemuria\Model\Fantasya\Commodity\Iron;
  */
 final class Mail extends AbstractProtection implements Armature
 {
-	public const WEIGHT = 2 * 100;
+	public final const WEIGHT = 2 * 100;
 
-	public const BLOCK = 5;
+	public final const BLOCK = 5;
 
 	private const CRAFT = 3;
 

@@ -3,7 +3,6 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\ExpectedValues;
 use JetBrains\PhpStorm\Pure;
 
 use function Lemuria\getClass;
@@ -12,8 +11,9 @@ use Lemuria\CollectibleTrait;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
-use Lemuria\Model\Catalog;
+use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
+use Lemuria\Model\Fantasya\Combat\BattleRow;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Serializable;
 
@@ -33,7 +33,7 @@ class Unit extends Entity implements Collectible
 
 	private bool $isGuarding = false;
 
-	private int $battleRow = Combat::BYSTANDER;
+	private BattleRow $battleRow = BattleRow::BYSTANDER;
 
 	private bool $isHiding = false;
 
@@ -56,7 +56,7 @@ class Unit extends Entity implements Collectible
 	 */
 	public static function get(Id $id): Unit {
 		/* @var Unit $unit */
-		$unit = Lemuria::Catalog()->get($id, Catalog::UNITS);
+		$unit = Lemuria::Catalog()->get($id, Domain::UNIT);
 		return $unit;
 	}
 
@@ -69,8 +69,8 @@ class Unit extends Entity implements Collectible
 	}
 
 
-	public function Catalog(): int {
-		return Catalog::UNITS;
+	public function Catalog(): Domain {
+		return Domain::UNIT;
 	}
 
 	public function Aura(): ?Aura {
@@ -105,7 +105,7 @@ class Unit extends Entity implements Collectible
 		return $this->isGuarding;
 	}
 
-	public function BattleRow(): int {
+	public function BattleRow(): BattleRow {
 		return $this->battleRow;
 	}
 
@@ -251,13 +251,7 @@ class Unit extends Entity implements Collectible
 		return $this;
 	}
 
-	/**
-	 * @throws \InvalidArgumentException
-	 */
-	public function setBattleRow(#[ExpectedValues(valuesFromClass: Combat::class)] int $battleRow): Unit {
-		if (!Combat::isBattleRow($battleRow)) {
-			throw new \InvalidArgumentException('Invalid battle row value: ' . $battleRow);
-		}
+	public function setBattleRow(BattleRow $battleRow): Unit {
 		$this->battleRow = $battleRow;
 		return $this;
 	}

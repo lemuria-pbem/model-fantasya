@@ -3,11 +3,9 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\ExpectedValues;
 use JetBrains\PhpStorm\Pure;
 
 use function Lemuria\getClass;
-use Lemuria\Model\World;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
 use Lemuria\Collector;
@@ -15,10 +13,10 @@ use Lemuria\CollectorTrait;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
-use Lemuria\Model\Catalog;
+use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
-use Lemuria\Model\Exception\ModelException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Model\World\Direction;
 use Lemuria\Serializable;
 
 /**
@@ -30,9 +28,7 @@ class Vessel extends Entity implements Collectible, Collector
 	use CollectibleTrait;
 	use CollectorTrait;
 
-	const IN_DOCK = '';
-
-	private string $anchor = self::IN_DOCK;
+	private Direction $anchor = Direction::NONE;
 
 	private Ship $ship;
 
@@ -51,7 +47,7 @@ class Vessel extends Entity implements Collectible, Collector
 	 */
 	public static function get(Id $id): Vessel {
 		/* @var Vessel $vessel */
-		$vessel = Lemuria::Catalog()->get($id, Catalog::VESSELS);
+		$vessel = Lemuria::Catalog()->get($id, Domain::VESSEL);
 		return $vessel;
 	}
 
@@ -93,8 +89,8 @@ class Vessel extends Entity implements Collectible, Collector
 		return $this;
 	}
 
-	public function Catalog(): int {
-		return Catalog::VESSELS;
+	public function Catalog(): Domain {
+		return Domain::VESSEL;
 	}
 
 	/**
@@ -106,7 +102,7 @@ class Vessel extends Entity implements Collectible, Collector
 		return $this;
 	}
 
-	#[Pure] public function Anchor(): string {
+	#[Pure] public function Anchor(): Direction {
 		return $this->anchor;
 	}
 
@@ -140,13 +136,9 @@ class Vessel extends Entity implements Collectible, Collector
 		return $region;
 	}
 
-	public function setAnchor(#[ExpectedValues(values: [self::IN_DOCK], valuesFromClass: World::class)] string $anchor): Vessel {
-		/** @noinspection PhpExpectedValuesShouldBeUsedInspection */
-		if ($anchor === self::IN_DOCK || Lemuria::World()->isDirection($anchor)) {
-			$this->anchor = $anchor;
-			return $this;
-		}
-		throw new ModelException('Invalid anchor: ' . $anchor . '.');
+	public function setAnchor(Direction $anchor): Vessel {
+		$this->anchor = $anchor;
+		return $this;
 	}
 
 	public function setPort(?Construction $port): Vessel {

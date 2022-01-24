@@ -9,7 +9,7 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Windbag;
 
 final class SevenLeagueTea extends AbstractPotion
 {
-	public const PERSONS = 10;
+	public final const PERSONS = 10;
 
 	private const LEVEL = 1;
 

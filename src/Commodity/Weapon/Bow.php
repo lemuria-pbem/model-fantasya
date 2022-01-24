@@ -16,9 +16,9 @@ use Lemuria\Model\Fantasya\Talent\Bowmaking;
  */
 final class Bow extends AbstractWeapon
 {
-	public const WEIGHT = 1 * 100;
+	public final const WEIGHT = 1 * 100;
 
-	public const DAMAGE = [1, 4, 4];
+	public final const DAMAGE = [1, 4, 4];
 
 	private const CRAFT = 2;
 

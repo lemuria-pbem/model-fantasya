@@ -17,7 +17,7 @@ abstract class AbstractHerb implements Herb
 	use RawMaterialTrait;
 	use SingletonTrait;
 
-	protected const LEVEL = 3;
+	private const LEVEL = 3;
 
 	private const WEIGHT = 1;
 

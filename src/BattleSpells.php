@@ -6,6 +6,7 @@ use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
+use Lemuria\Model\Fantasya\Combat\Phase;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 
@@ -13,14 +14,18 @@ class BattleSpells implements \Countable, Serializable
 {
 	use SerializableTrait;
 
-	protected array $spells = [BattleSpell::PREPARATION => null, BattleSpell::COMBAT => null];
+	protected array $spells;
+
+	public function __construct() {
+		$this->spells = [Phase::PREPARATION->value => null, Phase::COMBAT->value => null];
+	}
 
 	public function Preparation(): ?SpellGrade {
-		return $this->spells[BattleSpell::PREPARATION];
+		return $this->spells[Phase::PREPARATION->value];
 	}
 
 	public function Combat(): ?SpellGrade {
-		return $this->spells[BattleSpell::COMBAT];
+		return $this->spells[Phase::COMBAT->value];
 	}
 
 	public function count(): int {
@@ -50,7 +55,7 @@ class BattleSpells implements \Countable, Serializable
 	}
 
 	public function has(BattleSpell $spell): bool {
-		$phase = $spell->Phase();
+		$phase = $spell->Phase()->value;
 		if (isset($this->spells[$phase])) {
 			/** @var SpellGrade $spellGrade */
 			$spellGrade = $this->spells[$phase];
@@ -62,7 +67,7 @@ class BattleSpells implements \Countable, Serializable
 	}
 
 	public function add(SpellGrade $spell): BattleSpells {
-		$phase = $spell->Spell()->Phase();
+		$phase = $spell->Spell()->Phase()->value;
 		if (array_key_exists($phase, $this->spells)) {
 			$this->spells[$phase] = $spell;
 			return $this;
@@ -74,7 +79,7 @@ class BattleSpells implements \Countable, Serializable
 		if (!$this->has($spell)) {
 			throw new LemuriaException('Battle spell not set: ' . $spell);
 		}
-		unset($this->spells[$spell->Phase()]);
+		unset($this->spells[$spell->Phase()->value]);
 		return $this;
 	}
 
@@ -85,14 +90,14 @@ class BattleSpells implements \Countable, Serializable
 		if (count($data) !== 2) {
 			throw new UnserializeException('Expected two SpellGrade objects.');
 		}
-		if (!array_key_exists(BattleSpell::PREPARATION, $data) || !array_key_exists(BattleSpell::COMBAT, $data)) {
+		if (!array_key_exists(Phase::PREPARATION->value, $data) || !array_key_exists(Phase::COMBAT->value, $data)) {
 			throw new UnserializeException('Invalid BattleSpell indices.');
 		}
-		$spellGrade = $data[BattleSpell::PREPARATION];
+		$spellGrade = $data[Phase::PREPARATION->value];
 		if ($spellGrade !== null && !is_array($spellGrade)) {
 			throw new UnserializeException('Invalid BattleSpell defined.');
 		}
-		$spellGrade = $data[BattleSpell::COMBAT];
+		$spellGrade = $data[Phase::COMBAT->value];
 		if ($spellGrade !== null && !is_array($spellGrade)) {
 			throw new UnserializeException('Invalid BattleSpell defined.');
 		}

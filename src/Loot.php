@@ -14,25 +14,25 @@ class Loot implements Serializable
 {
 	use SerializableTrait;
 
-	public const NOTHING = 0;
+	public final const NOTHING = 0;
 
-	public const ALL = 1;
+	public final const ALL = 1;
 
-	public const RAW_MATERIAL = 2;
+	public final const RAW_MATERIAL = 2;
 
-	public const LUXURY = 4;
+	public final const LUXURY = 4;
 
-	public const TRANSPORT = 8;
+	public final const TRANSPORT = 8;
 
-	public const WEAPON = 16;
+	public final const WEAPON = 16;
 
-	public const PROTECTION = 32;
+	public final const PROTECTION = 32;
 
-	public const HERB = 64;
+	public final const HERB = 64;
 
-	public const POTION = 128;
+	public final const POTION = 128;
 
-	public const TROPHY = 256;
+	public final const TROPHY = 256;
 
 	protected int $group = self::ALL;
 

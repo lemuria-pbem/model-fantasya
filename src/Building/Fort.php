@@ -17,7 +17,7 @@ final class Fort extends AbstractCastle
 
 	private const MIN_SIZE = 2;
 
-	public const MAX_SIZE = 9;
+	public final const MAX_SIZE = 9;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;

@@ -16,9 +16,9 @@ use Lemuria\Model\Fantasya\Talent\Weaponry;
  */
 final class Battleaxe extends AbstractWeapon
 {
-	public const WEIGHT = 2 * 100;
+	public final const WEIGHT = 2 * 100;
 
-	public const DAMAGE = [1, 8, 8];
+	public final const DAMAGE = [1, 8, 8];
 
 	private const WOOD = 2;
 

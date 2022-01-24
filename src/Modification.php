@@ -12,7 +12,7 @@ use Lemuria\Exception\LemuriaException;
  */
 class Modification extends Ability
 {
-	private int $sign;
+	private readonly int $sign;
 
 	public function __construct(Talent $talent, int $modification) {
 		$this->sign = sign($modification);

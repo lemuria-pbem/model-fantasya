@@ -11,7 +11,7 @@ use Lemuria\Model\Fantasya\Commodity\Herb\WhiteHemlock;
 
 final class Woundshut extends AbstractPotion
 {
-	public const HITPOINTS = 400;
+	public final const HITPOINTS = 400;
 
 	private const LEVEL = 3;
 

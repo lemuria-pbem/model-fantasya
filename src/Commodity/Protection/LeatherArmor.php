@@ -13,9 +13,9 @@ use Lemuria\Model\Fantasya\Commodity\Elephant;
  */
 final class LeatherArmor extends AbstractProtection implements Armature
 {
-	public const WEIGHT = 1 * 100;
+	public final const WEIGHT = 1 * 100;
 
-	public const BLOCK = 4;
+	public final const BLOCK = 4;
 
 	private const CRAFT = 3;
 

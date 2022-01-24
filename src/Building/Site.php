@@ -17,7 +17,7 @@ final class Site extends AbstractCastle
 
 	private const MIN_SIZE = 0;
 
-	public const MAX_SIZE = 1;
+	public final const MAX_SIZE = 1;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;

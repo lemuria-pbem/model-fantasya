@@ -12,7 +12,7 @@ use Lemuria\Exception\UnserializeException;
 use Lemuria\Id;
 use Lemuria\Identifiable;
 use Lemuria\Lemuria;
-use Lemuria\Model\Catalog;
+use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Reassignment;
 use Lemuria\Serializable;
@@ -43,7 +43,7 @@ class Continent extends Entity implements Collector, Reassignment
 	 */
 	public static function get(Id $id): self {
 		/* @var Continent $continent */
-		$continent = Lemuria::Catalog()->get($id, Catalog::CONTINENTS);
+		$continent = Lemuria::Catalog()->get($id, Domain::CONTINENT);
 		return $continent;
 	}
 
@@ -84,10 +84,10 @@ class Continent extends Entity implements Collector, Reassignment
 	}
 
 	/**
-	 * Get the catalog namespace.
+	 * Get the catalog domain.
 	 */
-	#[Pure] public function Catalog(): int {
-		return Catalog::CONTINENTS;
+	#[Pure] public function Catalog(): Domain {
+		return Domain::CONTINENT;
 	}
 
 	/**
@@ -107,7 +107,7 @@ class Continent extends Entity implements Collector, Reassignment
 	}
 
 	public function reassign(Id $oldId, Identifiable $identifiable): void {
-		if ($identifiable->Catalog() === Catalog::PARTIES) {
+		if ($identifiable->Catalog() === Domain::PARTY) {
 			$oldId = $oldId->Id();
 			$newId = $identifiable->Id()->Id();
 			if (isset($this->names[$oldId])) {
@@ -122,7 +122,7 @@ class Continent extends Entity implements Collector, Reassignment
 	}
 
 	public function remove(Identifiable $identifiable): void {
-		if ($identifiable->Catalog() === Catalog::PARTIES) {
+		if ($identifiable->Catalog() === Domain::PARTY) {
 			$id = $identifiable->Id()->Id();
 			unset($this->names[$id]);
 			unset($this->descriptions[$id]);

@@ -12,9 +12,9 @@ use Lemuria\Model\Fantasya\Commodity\Iron;
  */
 final class Armor extends AbstractProtection implements Armature
 {
-	public const WEIGHT = 4 * 100;
+	public final const WEIGHT = 4 * 100;
 
-	public const BLOCK = 7;
+	public final const BLOCK = 7;
 
 	private const CRAFT = 4;
 

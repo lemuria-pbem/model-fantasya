@@ -26,7 +26,7 @@ abstract class AbstractRepairable implements Commodity, Protection, Repairable
 
 	private const REDUCTION = 0.25;
 
-	protected Requirement $craft;
+	private Requirement $craft;
 
 	public static function all(): SingletonSet {
 		return self::getAll(__DIR__);

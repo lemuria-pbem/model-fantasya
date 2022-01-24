@@ -10,13 +10,14 @@ use Lemuria\Model\Fantasya\People;
 use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\Fantasya\Unit;
 use Lemuria\Model\World\Atlas;
+use Lemuria\Model\World\SortMode;
 
 /**
  * The census is an analysis of a parties' regions and the units in its regions.
  */
 class Census implements \Countable
 {
-	private Atlas $atlas;
+	private readonly Atlas $atlas;
 
 	/**
 	 * @var array(int=>People)
@@ -37,7 +38,7 @@ class Census implements \Countable
 			}
 			$this->getPeople($region)->add($unit);
 		}
-		$this->atlas->sort(Atlas::NORTH_TO_SOUTH);
+		$this->atlas->sort(SortMode::NORTH_TO_SOUTH);
 	}
 
 	public function Party(): Party {

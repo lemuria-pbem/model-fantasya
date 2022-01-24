@@ -14,13 +14,13 @@ use Lemuria\Model\Fantasya\Exception\JsonException;
  */
 final class Json
 {
-	public const DEPTH = 8;
+	public final const DEPTH = 8;
 
-	public const TAB_WIDTH = 4;
+	public final const TAB_WIDTH = 4;
 
-	public const DECODE_OPTIONS = JSON_THROW_ON_ERROR | JSON_OBJECT_AS_ARRAY;
+	public final const DECODE_OPTIONS = JSON_THROW_ON_ERROR | JSON_OBJECT_AS_ARRAY;
 
-	public const ENCODE_OPTIONS = JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION;
+	public final const ENCODE_OPTIONS = JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION;
 
 	/**
 	 * @param string $json

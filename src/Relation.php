@@ -10,35 +10,35 @@ use JetBrains\PhpStorm\Pure;
  */
 class Relation
 {
-	public const NONE = 0;
+	public final const NONE = 0;
 
-	public const TELL = 1;
+	public final const TELL = 1;
 
-	public const TRADE = 2;
+	public final const TRADE = 2;
 
-	public const EARN = 4;
+	public final const EARN = 4;
 
-	public const RESOURCES = 8;
+	public final const RESOURCES = 8;
 
-	public const ENTER = 16;
+	public final const ENTER = 16;
 
-	public const GIVE = 32;
+	public final const GIVE = 32;
 
-	public const PASS = 64;
+	public final const PASS = 64;
 
-	public const GUARD = 128;
+	public final const GUARD = 128;
 
-	public const PERCEPTION = 256;
+	public final const PERCEPTION = 256;
 
-	public const DISGUISE = 512;
+	public final const DISGUISE = 512;
 
-	public const SILVER = 1024;
+	public final const SILVER = 1024;
 
-	public const FOOD = 2048;
+	public final const FOOD = 2048;
 
-	public const COMBAT = 4096;
+	public final const COMBAT = 4096;
 
-	public const ALL = 8191;
+	public final const ALL = 8191;
 
 	private int $agreement = self::NONE;
 

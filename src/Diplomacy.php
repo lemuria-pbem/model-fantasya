@@ -34,7 +34,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * @var Acquaintances
 	 */
-	private Acquaintances $acquaintances;
+	private readonly Acquaintances $acquaintances;
 
 	/**
 	 * @var array(string=>Relation)

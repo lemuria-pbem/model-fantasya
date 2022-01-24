@@ -13,7 +13,7 @@ use Lemuria\Storage\Provider;
 
 class JsonProvider implements Provider
 {
-	private FileProvider $provider;
+	private readonly FileProvider $provider;
 
 	#[Pure]
 	public function __construct(string $directory) {

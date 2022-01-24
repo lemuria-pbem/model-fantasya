@@ -17,7 +17,7 @@ final class Palace extends AbstractCastle
 
 	private const MIN_SIZE = 50;
 
-	public const MAX_SIZE = 249;
+	public final const MAX_SIZE = 249;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;

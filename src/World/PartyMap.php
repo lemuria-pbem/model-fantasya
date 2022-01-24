@@ -3,7 +3,6 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\World;
 
 use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\ExpectedValues;
 use JetBrains\PhpStorm\Immutable;
 
 use Lemuria\Model\Coordinates;
@@ -73,14 +72,14 @@ final class PartyMap implements World
 	/**
 	 * Get the path from a location to a distant point.
 	 */
-	public function getPath(Location $start, string $direction, int $distance): Path {
+	public function getPath(Location $start, World\Direction $direction, int $distance): Path {
 		return $this->world->getPath($start, $direction, $distance);
 	}
 
 	/**
 	 * Check if a direction is valid in this world.
 	 */
-	public function isDirection(#[ExpectedValues(valuesFromClass: self::class)] string $direction): bool {
+	public function isDirection(World\Direction $direction): bool {
 		return $this->world->isDirection($direction);
 	}
 

@@ -2,20 +2,18 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ExpectedValues;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Engine\Message;
-use Lemuria\Engine\Report;
+use Lemuria\Model\Domain;
 
 interface MessageType
 {
 	/**
 	 * Get the report type of this message.
 	 */
-	#[ExpectedValues(valuesFromClass: Report::class)]
 	#[Pure]
-	public function Report(): int;
+	public function Report(): Domain;
 
 	/**
 	 * Build the message.
