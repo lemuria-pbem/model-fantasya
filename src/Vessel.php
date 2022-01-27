@@ -81,7 +81,7 @@ class Vessel extends Entity implements Collectible, Collector
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$this->setAnchor($data['anchor']);
+		$this->setAnchor(Direction::from($data['anchor']));
 		$this->initPort($data['port']);
 		$this->setShip(self::createShip($data['ship']));
 		$this->setCompletion($data['completion']);

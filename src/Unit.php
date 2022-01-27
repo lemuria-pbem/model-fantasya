@@ -203,7 +203,7 @@ class Unit extends Entity implements Collectible
 		$this->setSize($data['size']);
 		$this->setHealth($data['health']);
 		$this->setIsGuarding($data['isGuarding']);
-		$this->setBattleRow($data['battleRow']);
+		$this->setBattleRow(BattleRow::from($data['battleRow']));
 		$this->setIsHiding($data['isHiding']);
 		$this->setIsLooting($data['isLooting']);
 		$id               = $data['disguiseAs'];

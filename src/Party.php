@@ -215,7 +215,7 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$this->type     = $data['type'];
+		$this->type     = Type::from($data['type']);
 		$this->banner   = $data['banner'];
 		$this->uuid     = Uuid::fromString($data['uuid']);
 		$this->creation = $data['creation'];

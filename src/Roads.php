@@ -2,7 +2,10 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
+use JetBrains\PhpStorm\Pure;
+
 use Lemuria\Exception\UnserializeException;
+use Lemuria\Model\World\Direction;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 
@@ -18,38 +21,38 @@ class Roads implements \ArrayAccess, \Countable, Serializable
 	/**
 	 * Check if a road in the specified direction exists.
 	 *
-	 * @param string $offset
+	 * @param Direction|string $offset
 	 */
-	public function offsetExists($offset): bool {
-		return isset($this->completion[$offset]);
+	#[Pure] public function offsetExists(mixed $offset): bool {
+		return isset($this->completion[$this->offset($offset)]);
 	}
 
 	/**
 	 * Get completion of a road.
 	 *
-	 * @param string $offset
+	 * @param Direction|string $offset
 	 */
-	public function offsetGet($offset): float {
-		return $this->completion[$offset] ?? 0.0;
+	#[Pure] public function offsetGet(mixed $offset): float {
+		return $this->completion[$this->offset($offset)] ?? 0.0;
 	}
 
 	/**
 	 * Set completion of a road.
 	 *
-	 * @param string $offset
+	 * @param Direction|string $offset
 	 * @param float $value
 	 */
-	public function offsetSet($offset, $value): void {
-		$this->completion[$offset] = max(0.0, min(1.0, (float)$value));
+	public function offsetSet(mixed $offset, mixed $value): void {
+		$this->completion[$this->offset($offset)] = max(0.0, min(1.0, (float)$value));
 	}
 
 	/**
 	 * Remove a road.
 	 *
-	 * @param string $offset
+	 * @param Direction|string $offset
 	 */
-	public function offsetUnset($offset): void {
-		unset($this->completion[$offset]);
+	public function offsetUnset(mixed $offset): void {
+		unset($this->completion[$this->offset($offset)]);
 	}
 
 	/**
@@ -91,5 +94,9 @@ class Roads implements \ArrayAccess, \Countable, Serializable
 				throw new UnserializeException('Completion must be float.');
 			}
 		}
+	}
+
+	private function offset(mixed $offset): string {
+		return $offset instanceof Direction ? $offset->value : $offset;
 	}
 }
