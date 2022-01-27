@@ -28,7 +28,7 @@ class Vessel extends Entity implements Collectible, Collector
 	use CollectibleTrait;
 	use CollectorTrait;
 
-	private Direction $anchor = Direction::NONE;
+	private Direction $anchor = Direction::IN_DOCK;
 
 	private Ship $ship;
 
