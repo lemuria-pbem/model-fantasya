@@ -41,9 +41,9 @@ class Unit extends Entity implements Collectible
 
 	private Id|false|null $disguiseAs = false;
 
-	private Resources $inventory;
+	private readonly Resources $inventory;
 
-	private Knowledge $knowledge;
+	private readonly Knowledge $knowledge;
 
 	private ?Aura $aura = null;
 

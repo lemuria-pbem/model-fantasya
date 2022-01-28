@@ -33,13 +33,13 @@ class Region extends Entity implements Collectible, Collector, Location
 
 	private ?Roads $roads = null;
 
-	private Resources $resources;
+	private readonly Resources $resources;
 
-	private Estate $estate;
+	private readonly Estate $estate;
 
-	private Fleet $fleet;
+	private readonly Fleet $fleet;
 
-	private People $residents;
+	private readonly People $residents;
 
 	private ?Herbage $herbage = null;
 

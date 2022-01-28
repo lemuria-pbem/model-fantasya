@@ -31,7 +31,7 @@ class Construction extends Entity implements Collectible, Collector
 
 	private int $size = 0;
 
-	private Inhabitants $inhabitants;
+	private readonly Inhabitants $inhabitants;
 
 	/**
 	 * Get a construction.

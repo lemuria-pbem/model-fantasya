@@ -34,7 +34,7 @@ class Vessel extends Entity implements Collectible, Collector
 
 	private float $completion = 0.0;
 
-	private Inhabitants $passengers;
+	private readonly Inhabitants $passengers;
 
 	private ?Construction $port = null;
 

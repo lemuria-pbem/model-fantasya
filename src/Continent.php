@@ -24,7 +24,7 @@ class Continent extends Entity implements Collector, Reassignment
 {
 	use CollectorTrait;
 
-	private Landmass $landmass;
+	private readonly Landmass $landmass;
 
 	/**
 	 * @var array(int=>string)

@@ -37,17 +37,17 @@ class Party extends Entity implements Assignable, Collector
 
 	private Race $race;
 
-	private People $people;
+	private readonly People $people;
 
-	private Chronicle $chronicle;
+	private readonly Chronicle $chronicle;
 
-	private Diplomacy $diplomacy;
+	private readonly Diplomacy $diplomacy;
 
-	private HerbalBook $herbalBook;
+	private readonly HerbalBook $herbalBook;
 
-	private SpellBook $spellBook;
+	private readonly SpellBook $spellBook;
 
-	private Loot $loot;
+	private readonly Loot $loot;
 
 	private ?array $serializedDiplomacy = null;
 
