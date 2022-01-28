@@ -6,6 +6,7 @@ use Lemuria\Exception\SingletonException;
 use Lemuria\Lemuria;
 use Lemuria\Model\Fantasya\Building;
 use Lemuria\Model\Fantasya\Building\Castle;
+use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\Landscape;
 use Lemuria\Model\Fantasya\Monster;
@@ -159,5 +160,18 @@ trait BuilderTrait
 			return $trophy;
 		}
 		throw new SingletonException($class, 'trophy');
+	}
+
+	/**
+	 * Create a unicum composition.
+	 *
+	 * @throws SingletonException
+	 */
+	protected static function createComposition(string $class): Composition {
+		$category = Lemuria::Builder()->create($class);
+		if ($category instanceof Composition) {
+			return $category;
+		}
+		throw new SingletonException($class, 'composition');
 	}
 }
