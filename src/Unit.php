@@ -8,6 +8,8 @@ use JetBrains\PhpStorm\Pure;
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
+use Lemuria\Collector;
+use Lemuria\CollectorTrait;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
@@ -20,10 +22,11 @@ use Lemuria\Serializable;
 /**
  * A unit consists of a number of persons of the same race.
  */
-class Unit extends Entity implements Collectible
+class Unit extends Entity implements Collectible, Collector
 {
 	use BuilderTrait;
 	use CollectibleTrait;
+	use CollectorTrait;
 
 	private Race $race;
 
@@ -42,6 +45,8 @@ class Unit extends Entity implements Collectible
 	private Id|false|null $disguiseAs = false;
 
 	private readonly Resources $inventory;
+
+	private readonly Treasure $treasure;
 
 	private readonly Knowledge $knowledge;
 
@@ -65,6 +70,7 @@ class Unit extends Entity implements Collectible
 	 */
 	#[Pure] public function __construct() {
 		$this->inventory = new Resources();
+		$this->treasure  = new Treasure();
 		$this->knowledge = new Knowledge();
 	}
 
@@ -83,6 +89,10 @@ class Unit extends Entity implements Collectible
 
 	public function Inventory(): Resources {
 		return $this->inventory;
+	}
+
+	public function Treasure(): Treasure {
+		return $this->treasure;
 	}
 
 	public function Knowledge(): Knowledge {
@@ -155,12 +165,24 @@ class Unit extends Entity implements Collectible
 	}
 
 	/**
+	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
+	 * then.
+	 */
+	public function collectAll(): Collector {
+		$this->Treasure()->addCollectorsToAll();
+		return $this;
+	}
+
+	/**
 	 * Get the total weight of this Unit including its inventory.
 	 */
 	#[Pure] public function Weight(): int {
 		$weight = $this->Size() * $this->Race()->Weight();
-		foreach ($this->Inventory() as $quantity/* @var Quantity $quantity */) {
+		foreach ($this->Inventory() as $quantity /* @var Quantity $quantity */) {
 			$weight += $quantity->Weight();
+		}
+		foreach ($this->Treasure() as $unicum /* @var Unicum $unicum */) {
+			$weight += $unicum->Composition()->Weight();
 		}
 		return $weight;
 	}

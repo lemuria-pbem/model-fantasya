@@ -5,9 +5,9 @@ namespace Lemuria\Model\Fantasya;
 use Lemuria\Serializable;
 
 /**
- * Describes the capabilities of a Unicum.
+ * Describes the capabilities of an Unicum.
  */
 interface Composition extends Artifact, Commodity, Serializable
 {
-
+	public function supports(Practice $action): bool;
 }

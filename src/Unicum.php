@@ -8,8 +8,6 @@ use JetBrains\PhpStorm\Pure;
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
-use Lemuria\Collector;
-use Lemuria\CollectorTrait;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
@@ -21,11 +19,10 @@ use Lemuria\Serializable;
 /**
  * An Unicum is an individual special item.
  */
-class Unicum extends Entity implements Collectible, Collector
+class Unicum extends Entity implements Collectible
 {
 	use BuilderTrait;
 	use CollectibleTrait;
-	use CollectorTrait;
 
 	private Composition $composition;
 
@@ -44,9 +41,9 @@ class Unicum extends Entity implements Collectible, Collector
 
 	#[ArrayShape(['id' => 'int', 'name' => 'string', 'description' => 'string', 'composition' => 'string'])]
 	public function serialize(): array {
-		$data               = parent::serialize();
-		$data['composition']   = getClass($this->Composition());
-		$data['properties'] = $this->Composition()->serialize();
+		$data                = parent::serialize();
+		$data['composition'] = getClass($this->Composition());
+		$data['properties']  = $this->Composition()->serialize();
 		return $data;
 	}
 
@@ -60,15 +57,6 @@ class Unicum extends Entity implements Collectible, Collector
 
 	public function Catalog(): Domain {
 		return Domain::UNICUM;
-	}
-
-	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): Collector {
-
-		return $this;
 	}
 
 	#[Pure] public function Composition(): Composition {
