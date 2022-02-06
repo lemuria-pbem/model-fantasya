@@ -46,7 +46,7 @@ class Unit extends Entity implements Collectible, Collector
 
 	private readonly Resources $inventory;
 
-	private readonly Treasure $treasure;
+	private readonly Treasury $treasury;
 
 	private readonly Knowledge $knowledge;
 
@@ -70,7 +70,7 @@ class Unit extends Entity implements Collectible, Collector
 	 */
 	#[Pure] public function __construct() {
 		$this->inventory = new Resources();
-		$this->treasure  = new Treasure();
+		$this->treasury  = new Treasury();
 		$this->knowledge = new Knowledge();
 	}
 
@@ -91,8 +91,8 @@ class Unit extends Entity implements Collectible, Collector
 		return $this->inventory;
 	}
 
-	public function Treasure(): Treasure {
-		return $this->treasure;
+	public function Treasury(): Treasury {
+		return $this->treasury;
 	}
 
 	public function Knowledge(): Knowledge {
@@ -169,7 +169,7 @@ class Unit extends Entity implements Collectible, Collector
 	 * then.
 	 */
 	public function collectAll(): Collector {
-		$this->Treasure()->addCollectorsToAll();
+		$this->Treasury()->addCollectorsToAll();
 		return $this;
 	}
 
@@ -181,7 +181,7 @@ class Unit extends Entity implements Collectible, Collector
 		foreach ($this->Inventory() as $quantity /* @var Quantity $quantity */) {
 			$weight += $quantity->Weight();
 		}
-		foreach ($this->Treasure() as $unicum /* @var Unicum $unicum */) {
+		foreach ($this->Treasury() as $unicum /* @var Unicum $unicum */) {
 			$weight += $unicum->Composition()->Weight();
 		}
 		return $weight;
@@ -195,8 +195,8 @@ class Unit extends Entity implements Collectible, Collector
 	#[ArrayShape([
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'race' => 'string', 'size' => 'int',
 		'health' => 'float', 'isGuarding' => 'bool', 'battleRow' => 'int', 'isHiding' => 'bool', 'isLooting' => 'bool',
-		'disguiseAs' => 'int|false|null', 'inventory' => 'array', 'knowledge' => 'array', 'aura' => 'array|null',
-		'battleSpells' => 'array|null'
+		'disguiseAs' => 'int|false|null', 'inventory' => 'array', 'treasury' => 'array', 'knowledge' => 'array',
+		'aura' => 'array|null', 'battleSpells' => 'array|null'
 	])]
 	#[Pure] public function serialize(): array {
 		$data                 = parent::serialize();
@@ -211,6 +211,7 @@ class Unit extends Entity implements Collectible, Collector
 		$id                   = $this->disguiseAs;
 		$data['disguiseAs']   = $id instanceof Id ? $id->Id() : $id;
 		$data['inventory']    = $this->Inventory()->serialize();
+		$data['treasury']     = $this->Treasury()->serialize();
 		$data['knowledge']    = $this->Knowledge()->serialize();
 		$data['battleSpells'] = $this->battleSpells?->serialize();
 		return $data;
@@ -231,6 +232,7 @@ class Unit extends Entity implements Collectible, Collector
 		$id               = $data['disguiseAs'];
 		$this->disguiseAs = is_int($id) ? new Id($id) : $id;
 		$this->Inventory()->unserialize($data['inventory']);
+		$this->Treasury()->unserialize($data['treasury']);
 		$this->Knowledge()->unserialize($data['knowledge']);
 		if (isset($data['aura'])) {
 			$this->aura = new Aura();
@@ -331,6 +333,7 @@ class Unit extends Entity implements Collectible, Collector
 			$this->validate($data, 'disguiseAs', '?int');
 		}
 		$this->validate($data, 'inventory', 'array');
+		$this->validate($data, 'treasury', 'array');
 		$this->validate($data, 'knowledge', 'array');
 		$this->validate($data, 'battleSpells', '?array');
 	}

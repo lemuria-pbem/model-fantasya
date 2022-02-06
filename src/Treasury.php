@@ -7,11 +7,11 @@ use Lemuria\EntitySet;
 use Lemuria\Id;
 
 /**
- * The treasure of a unit is the collection of all unica it possesses.
+ * The treasury of a unit is the collection of all unica it possesses.
  */
-class Treasure extends EntitySet
+class Treasury extends EntitySet
 {
-	public function add(Unicum $unicum): Treasure {
+	public function add(Unicum $unicum): Treasury {
 		$this->addEntity($unicum->Id());
 		if ($this->hasCollector()) {
 			$unicum->addCollector($this->collector());
@@ -19,7 +19,7 @@ class Treasure extends EntitySet
 		return $this;
 	}
 
-	public function remove(Unicum $unicum): Treasure {
+	public function remove(Unicum $unicum): Treasury {
 		$this->removeEntity($unicum->Id());
 		if ($this->hasCollector()) {
 			$unicum->removeCollector($this->collector());
