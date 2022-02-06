@@ -74,6 +74,13 @@ class Unicum extends Entity implements Collectible
 		return $this;
 	}
 
+	public function replaceId(Id $id): Unicum {
+		$oldId = $this->Id();
+		$this->setId($id);
+		$this->Unit()->Treasury()->replace($oldId, $id);
+		return $this;
+	}
+
 	/**
 	 * @param array (string=>mixed) $data
 	 */
