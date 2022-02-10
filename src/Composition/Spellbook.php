@@ -7,11 +7,12 @@ use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Commodity\Silver;
+use Lemuria\Model\Fantasya\Readable;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Serializable;
 use Lemuria\SingletonSet;
 
-class Spellbook extends AbstractComposition
+class Spellbook extends AbstractComposition implements Readable
 {
 	private const SILVER = 1000;
 

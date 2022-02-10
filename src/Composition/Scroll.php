@@ -7,11 +7,12 @@ use JetBrains\PhpStorm\Pure;
 
 use function Lemuria\getClass;
 use Lemuria\Model\Fantasya\Commodity\Silver;
+use Lemuria\Model\Fantasya\Readable;
 use Lemuria\Model\Fantasya\Spell;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Serializable;
 
-class Scroll extends AbstractComposition
+class Scroll extends AbstractComposition implements Readable
 {
 	private const SILVER = 10;
 
