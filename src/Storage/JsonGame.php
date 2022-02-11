@@ -77,6 +77,10 @@ abstract class JsonGame implements Game
 		return $this->getData('hostilities.json');
 	}
 
+	public function getUnica(): array {
+		return $this->getData('unica.json');
+	}
+
 	public function getStrings(): array {
 		return $this->getData('strings.json');
 	}
@@ -146,6 +150,10 @@ abstract class JsonGame implements Game
 
 	public function setHostilities(array $hostilities): Game {
 		return $this->setData('hostilities.json', $hostilities);
+	}
+
+	public function setUnica(array $unica): Game {
+		return $this->setData('unica.json', $unica);
 	}
 
 	/**

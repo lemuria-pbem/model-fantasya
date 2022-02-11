@@ -15,6 +15,7 @@ use Lemuria\Model\Fantasya\Construction;
 use Lemuria\Model\Fantasya\Continent;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\Region;
+use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Model\Fantasya\Unit;
 use Lemuria\Model\Fantasya\Vessel;
 use Lemuria\Model\Reassignment;
@@ -93,6 +94,10 @@ class LemuriaCatalog implements Catalog
 				$continent = new Continent();
 				$continent->unserialize($data);
 			}
+			foreach (Lemuria::Game()->getUnica() as $data) {
+				$unicum = new Unicum();
+				$unicum->unserialize($data);
+			}
 			$this->isLoaded = true;
 
 			$this->callCollectAll();
@@ -131,6 +136,11 @@ class LemuriaCatalog implements Catalog
 			$entities[$id] = $continent->serialize();
 		}
 		Lemuria::Game()->setContinents($entities);
+		$entities = [];
+		foreach ($this->catalog[Domain::UNICUM->value] as $id => $unicum /* @var Unicum $unicum */) {
+			$entities[$id] = $unicum->serialize();
+		}
+		Lemuria::Game()->setUnica($entities);
 		return $this;
 	}
 
