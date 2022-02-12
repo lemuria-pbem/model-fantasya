@@ -16,7 +16,7 @@ class Scroll extends AbstractComposition implements Readable
 {
 	private const SILVER = 10;
 
-	private const WEIGHT = 3;
+	private const WEIGHT = 1;
 
 	protected ?Spell $spell = null;
 
@@ -35,7 +35,10 @@ class Scroll extends AbstractComposition implements Readable
 	}
 
 	public function unserialize(array $data): Serializable {
-		$this->spell = $data['spell'];
+		$spell = $data['spell'];
+		if ($spell) {
+			$this->spell = self::createSpell($spell);
+		}
 		return $this;
 	}
 
