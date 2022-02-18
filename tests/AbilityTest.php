@@ -3,6 +3,7 @@ declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya;
 
 use Lemuria\Model\Fantasya\Ability;
+
 use Lemuria\Tests\Test;
 
 class AbilityTest extends Test
