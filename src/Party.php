@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
+use Lemuria\Model\Fantasya\Party\Presettings;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -49,6 +50,8 @@ class Party extends Entity implements Assignable, Collector
 
 	private readonly Loot $loot;
 
+	private readonly Presettings $presettings;
+
 	private ?array $serializedDiplomacy = null;
 
 	private ?array $serializedHerbalBook = null;
@@ -78,16 +81,17 @@ class Party extends Entity implements Assignable, Collector
 	 * Create an empty party.
 	 */
 	public function __construct(?Newcomer $newcomer = null) {
-		$this->banner     = '';
-		$this->uuid       = $newcomer ? Uuid::fromString($newcomer->Uuid()) : Uuid::uuid4();
-		$this->creation   = $newcomer?->Creation() ?? time();
-		$this->round      = Lemuria::Calendar()->Round();
-		$this->people     = new People($this);
-		$this->chronicle  = new Chronicle();
-		$this->diplomacy  = new Diplomacy($this);
-		$this->herbalBook = new HerbalBook();
-		$this->spellBook  = new SpellBook();
-		$this->loot       = new Loot();
+		$this->banner      = '';
+		$this->uuid        = $newcomer ? Uuid::fromString($newcomer->Uuid()) : Uuid::uuid4();
+		$this->creation    = $newcomer?->Creation() ?? time();
+		$this->round       = Lemuria::Calendar()->Round();
+		$this->people      = new People($this);
+		$this->chronicle   = new Chronicle();
+		$this->diplomacy   = new Diplomacy($this);
+		$this->herbalBook  = new HerbalBook();
+		$this->spellBook   = new SpellBook();
+		$this->loot        = new Loot();
+		$this->presettings = new Presettings();
 	}
 
 	/**
@@ -181,6 +185,10 @@ class Party extends Entity implements Assignable, Collector
 		return $this->loot;
 	}
 
+	public function Presettings(): Presettings {
+		return $this->presettings;
+	}
+
 	/**
 	 * Get a plain data array of the model's data.
 	 *
@@ -190,23 +198,24 @@ class Party extends Entity implements Assignable, Collector
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'type' => 'int', 'banner' => 'string',
 		'uuid' => 'string', 'creation' => 'int', 'round' => 'int', 'origin' => 'int', 'race' => 'string',
 		'diplomacy' => 'array', 'people' => 'int[]', 'chronicle' => 'array', 'herbalBook' => 'array',
-		'spellBook' => 'array', 'loot' => 'array'
+		'spellBook' => 'array', 'loot' => 'array', 'presettings' => 'array'
 	])]
 	public function serialize(): array {
-		$data               = parent::serialize();
-		$data['type']       = $this->type;
-		$data['banner']     = $this->banner;
-		$data['uuid']       = $this->Uuid();
-		$data['creation']   = $this->creation;
-		$data['round']      = $this->round;
-		$data['origin']     = $this->origin->Id();
-		$data['race']       = getClass($this->Race());
-		$data['diplomacy']  = $this->Diplomacy()->serialize();
-		$data['people']     = $this->People()->serialize();
-		$data['chronicle']  = $this->Chronicle()->serialize();
-		$data['herbalBook'] = $this->HerbalBook()->serialize();
-		$data['spellBook']  = $this->SpellBook()->serialize();
-		$data['loot']       = $this->Loot()->serialize();
+		$data                = parent::serialize();
+		$data['type']        = $this->type;
+		$data['banner']      = $this->banner;
+		$data['uuid']        = $this->Uuid();
+		$data['creation']    = $this->creation;
+		$data['round']       = $this->round;
+		$data['origin']      = $this->origin->Id();
+		$data['race']        = getClass($this->Race());
+		$data['diplomacy']   = $this->Diplomacy()->serialize();
+		$data['people']      = $this->People()->serialize();
+		$data['chronicle']   = $this->Chronicle()->serialize();
+		$data['herbalBook']  = $this->HerbalBook()->serialize();
+		$data['spellBook']   = $this->SpellBook()->serialize();
+		$data['loot']        = $this->Loot()->serialize();
+		$data['presettings'] = $this->Presettings()->serialize();
 		return $data;
 	}
 
@@ -224,6 +233,7 @@ class Party extends Entity implements Assignable, Collector
 		$this->setRace(self::createRace($data['race']));
 		$this->People()->unserialize($data['people']);
 		$this->Chronicle()->unserialize($data['chronicle']);
+		$this->Presettings()->unserialize($data['presettings']);
 		$this->serializedDiplomacy  = $data['diplomacy'];
 		$this->serializedHerbalBook = $data['herbalBook'];
 		$this->serializedSpellBook  = $data['spellBook'];
@@ -275,5 +285,6 @@ class Party extends Entity implements Assignable, Collector
 		$this->validate($data, 'herbalBook', 'array');
 		$this->validate($data, 'spellBook', 'array');
 		$this->validate($data, 'loot', 'array');
+		$this->validate($data, 'presettings', 'array');
 	}
 }

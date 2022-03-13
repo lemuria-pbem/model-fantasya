@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya\Storage\Migration;
 
 use function Lemuria\getClass;
 use Lemuria\Exception\LemuriaException;
+use Lemuria\Serializable;
 
 abstract class AbstractModel
 {
@@ -53,5 +54,9 @@ abstract class AbstractModel
 
 	protected function addArray(string $key, ?array $default = []): void {
 		$this->default[$key] = $default;
+	}
+
+	protected function addSerializable(string $key, ?Serializable $default = null): void {
+		$this->default[$key] = $default?->serialize();
 	}
 }

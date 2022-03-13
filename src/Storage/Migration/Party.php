@@ -2,6 +2,8 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Storage\Migration;
 
+use Lemuria\Model\Fantasya\Party\Presettings;
+
 class Party extends AbstractModel
 {
 	public function __construct() {
@@ -21,5 +23,6 @@ class Party extends AbstractModel
 		$this->addArray('herbalBook');
 		$this->addArray('spellBook');
 		$this->addArray('loot');
+		$this->addSerializable('presettings', new Presettings());
 	}
 }
