@@ -22,7 +22,8 @@ class PartyTest extends BaseMigrationTest
 		'chronicle'   => [],
 		'herbalBook'  => [],
 		'spellBook'   => [],
-		'loot'        => []
+		'loot'        => [],
+		'presettings' => ['battleRow' => 1, 'isHiding' => true, 'disguiseAs' => false, 'isLooting'=> false]
 	];
 
 	protected function setUp(): void {
