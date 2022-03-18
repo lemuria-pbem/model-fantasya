@@ -165,15 +165,6 @@ class Unit extends Entity implements Collectible, Collector
 	}
 
 	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): Collector {
-		$this->Treasury()->addCollectorsToAll();
-		return $this;
-	}
-
-	/**
 	 * Get the total weight of this Unit including its inventory.
 	 */
 	#[Pure] public function Weight(): int {
@@ -185,6 +176,15 @@ class Unit extends Entity implements Collectible, Collector
 			$weight += $unicum->Composition()->Weight();
 		}
 		return $weight;
+	}
+
+	/**
+	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
+	 * then.
+	 */
+	public function collectAll(): Collector {
+		$this->Treasury()->addCollectorsToAll();
+		return $this;
 	}
 
 	/**

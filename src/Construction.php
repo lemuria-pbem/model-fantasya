@@ -33,6 +33,8 @@ class Construction extends Entity implements Collectible, Collector
 
 	private readonly Inhabitants $inhabitants;
 
+	private readonly Treasury $treasury;
+
 	/**
 	 * Get a construction.
 	 *
@@ -49,33 +51,7 @@ class Construction extends Entity implements Collectible, Collector
 	 */
 	#[Pure] public function __construct() {
 		$this->inhabitants = new Inhabitants($this);
-	}
-
-	/**
-	 * Get a plain data array of the model's data.
-	 */
-	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'inhabitants' => 'int[]', 'size' => 'int',
-		'building' => 'string'
-	])]
-	#[Pure]
-	public function serialize(): array {
-		$data                = parent::serialize();
-		$data['building']    = getClass($this->Building());
-		$data['size']        = $this->Size();
-		$data['inhabitants'] = $this->inhabitants->serialize();
-		return $data;
-	}
-
-	/**
-	 * Restore the model's data from serialized data.
-	 */
-	public function unserialize(array $data): Serializable {
-		parent::unserialize($data);
-		$this->setBuilding($this->createBuilding($data['building']));
-		$this->setSize($data['size']);
-		$this->inhabitants->unserialize($data['inhabitants']);
-		return $this;
+		$this->treasury    = new Treasury($this);
 	}
 
 	/**
@@ -83,15 +59,6 @@ class Construction extends Entity implements Collectible, Collector
 	 */
 	public function Catalog(): Domain {
 		return Domain::CONSTRUCTION;
-	}
-
-	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): Collector {
-		$this->Inhabitants()->addCollectorsToAll();
-		return $this;
 	}
 
 	#[Pure]
@@ -107,6 +74,55 @@ class Construction extends Entity implements Collectible, Collector
 	#[Pure]
 	public function Inhabitants(): Inhabitants {
 		return $this->inhabitants;
+	}
+
+	public function Region(): Region {
+		/* @var Region $region */
+		$region = $this->getCollector(__FUNCTION__);
+		return $region;
+	}
+
+	public function Treasury(): Treasury {
+		return $this->treasury;
+	}
+
+	/**
+	 * Get a plain data array of the model's data.
+	 */
+	#[ArrayShape([
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'inhabitants' => 'int[]', 'size' => 'int',
+		'building' => 'string', 'treasury' => 'array'
+	])]
+	#[Pure]
+	public function serialize(): array {
+		$data                = parent::serialize();
+		$data['building']    = getClass($this->Building());
+		$data['size']        = $this->Size();
+		$data['inhabitants'] = $this->inhabitants->serialize();
+		$data['treasury']    = $this->Treasury()->serialize();
+		return $data;
+	}
+
+	/**
+	 * Restore the model's data from serialized data.
+	 */
+	public function unserialize(array $data): Serializable {
+		parent::unserialize($data);
+		$this->setBuilding($this->createBuilding($data['building']));
+		$this->setSize($data['size']);
+		$this->inhabitants->unserialize($data['inhabitants']);
+		$this->Treasury()->unserialize($data['treasury']);
+		return $this;
+	}
+
+	/**
+	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
+	 * then.
+	 */
+	public function collectAll(): Collector {
+		$this->Inhabitants()->addCollectorsToAll();
+		$this->Treasury()->addCollectorsToAll();
+		return $this;
 	}
 
 	public function setBuilding(Building $building): Construction {
@@ -127,12 +143,6 @@ class Construction extends Entity implements Collectible, Collector
 		return $this;
 	}
 
-	public function Region(): Region {
-		/* @var Region $region */
-		$region = $this->getCollector(__FUNCTION__);
-		return $region;
-	}
-
 	#[Pure] public function getFreeSpace(): int {
 		return max(0, $this->size - $this->inhabitants->Size());
 	}
@@ -147,5 +157,6 @@ class Construction extends Entity implements Collectible, Collector
 		$this->validate($data, 'building', 'string');
 		$this->validate($data, 'size', 'int');
 		$this->validate($data, 'inhabitants', 'array');
+		$this->validate($data, 'treasury', 'array');
 	}
 }

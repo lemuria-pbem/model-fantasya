@@ -16,5 +16,6 @@ class Region extends AbstractModel
 		$this->addArray('fleet');
 		$this->addArray('residents');
 		$this->addArray('luxuries', null);
+		$this->addArray('treasury');
 	}
 }

@@ -47,6 +47,8 @@ class Region extends Entity implements Collectible, Collector, Location
 
 	private ?Luxuries $luxuries = null;
 
+	private readonly Treasury $treasury;
+
 	/**
 	 * Get a Region.
 	 *
@@ -66,61 +68,7 @@ class Region extends Entity implements Collectible, Collector, Location
 		$this->estate    = new Estate($this);
 		$this->fleet     = new Fleet($this);
 		$this->residents = new People($this);
-	}
-
-	/**
-	 * Get a plain data array of the model's data.
-	 */
-	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'luxuries' => 'array|null',
-		'residents' => 'int[]', 'fleet' => 'int[]', 'estate' => 'int[]', 'resources' => 'array',
-		'landscape' => 'string', 'roads' => 'array|null', 'herbage' => 'array|null'
-	])]
-	public function serialize(): array {
-		$data              = parent::serialize();
-		$data['landscape'] = getClass($this->Landscape());
-		$data['roads']     = $this->roads?->serialize();
-		$data['herbage']   = $this->herbage?->serialize();
-		$data['resources'] = $this->Resources()->serialize();
-		$data['estate']    = $this->Estate()->serialize();
-		$data['fleet']     = $this->Fleet()->serialize();
-		$data['residents'] = $this->Residents()->serialize();
-		$data['luxuries']  = $this->luxuries?->serialize();
-		return $data;
-	}
-
-	/**
-	 * Restore the model's data from serialized data.
-	 */
-	public function unserialize(array $data): Serializable {
-		parent::unserialize($data);
-		$this->setLandscape(self::createLandscape($data['landscape']));
-		$this->Resources()->unserialize($data['resources']);
-		$this->Estate()->unserialize($data['estate']);
-		$this->Fleet()->unserialize($data['fleet']);
-		$this->Residents()->unserialize($data['residents']);
-		if ($data['roads'] === null) {
-			$this->roads = null;
-		} else {
-			$roads = new Roads();
-			$roads->unserialize($data['roads']);
-			$this->setRoads($roads);
-		}
-		if ($data['herbage'] === null) {
-			$this->herbage = null;
-		} else {
-			$herbage = new Herbage();
-			$herbage->unserialize($data['herbage']);
-			$this->setHerbage($herbage);
-		}
-		if ($data['luxuries'] === null) {
-			$this->luxuries = null;
-		} else {
-			$luxuries = new Luxuries();
-			$luxuries->unserialize($data['luxuries']);
-			$this->setLuxuries($luxuries);
-		}
-		return $this;
+		$this->treasury  = new Treasury($this);
 	}
 
 	/**
@@ -128,17 +76,6 @@ class Region extends Entity implements Collectible, Collector, Location
 	 */
 	#[Pure] public function Catalog(): Domain {
 		return Domain::LOCATION;
-	}
-
-	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): Collector {
-		$this->Residents()->addCollectorsToAll();
-		$this->Estate()->addCollectorsToAll();
-		$this->Fleet()->addCollectorsToAll();
-		return $this;
 	}
 
 	#[Pure] public function Landscape(): Landscape {
@@ -173,6 +110,10 @@ class Region extends Entity implements Collectible, Collector, Location
 		return $this->luxuries;
 	}
 
+	public function Treasury(): Treasury {
+		return $this->treasury;
+	}
+
 	public function Continent(): ?Continent {
 		if ($this->hasCollector(__FUNCTION__)) {
 			/* @var Continent $continent */
@@ -180,6 +121,75 @@ class Region extends Entity implements Collectible, Collector, Location
 			return $continent;
 		}
 		return null;
+	}
+
+	/**
+	 * Get a plain data array of the model's data.
+	 */
+	#[ArrayShape([
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'luxuries' => 'array|null',
+		'residents' => 'int[]', 'fleet' => 'int[]', 'estate' => 'int[]', 'resources' => 'array',
+		'landscape' => 'string', 'roads' => 'array|null', 'herbage' => 'array|null', 'treasury' => 'array'
+	])]
+	public function serialize(): array {
+		$data              = parent::serialize();
+		$data['landscape'] = getClass($this->Landscape());
+		$data['roads']     = $this->roads?->serialize();
+		$data['herbage']   = $this->herbage?->serialize();
+		$data['resources'] = $this->Resources()->serialize();
+		$data['estate']    = $this->Estate()->serialize();
+		$data['fleet']     = $this->Fleet()->serialize();
+		$data['residents'] = $this->Residents()->serialize();
+		$data['luxuries']  = $this->luxuries?->serialize();
+		$data['treasury']  = $this->Treasury()->serialize();
+		return $data;
+	}
+
+	/**
+	 * Restore the model's data from serialized data.
+	 */
+	public function unserialize(array $data): Serializable {
+		parent::unserialize($data);
+		$this->setLandscape(self::createLandscape($data['landscape']));
+		$this->Resources()->unserialize($data['resources']);
+		$this->Estate()->unserialize($data['estate']);
+		$this->Fleet()->unserialize($data['fleet']);
+		$this->Residents()->unserialize($data['residents']);
+		if ($data['roads'] === null) {
+			$this->roads = null;
+		} else {
+			$roads = new Roads();
+			$roads->unserialize($data['roads']);
+			$this->setRoads($roads);
+		}
+		if ($data['herbage'] === null) {
+			$this->herbage = null;
+		} else {
+			$herbage = new Herbage();
+			$herbage->unserialize($data['herbage']);
+			$this->setHerbage($herbage);
+		}
+		if ($data['luxuries'] === null) {
+			$this->luxuries = null;
+		} else {
+			$luxuries = new Luxuries();
+			$luxuries->unserialize($data['luxuries']);
+			$this->setLuxuries($luxuries);
+		}
+		$this->Treasury()->unserialize($data['treasury']);
+		return $this;
+	}
+
+	/**
+	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
+	 * then.
+	 */
+	public function collectAll(): Collector {
+		$this->Residents()->addCollectorsToAll();
+		$this->Estate()->addCollectorsToAll();
+		$this->Fleet()->addCollectorsToAll();
+		$this->Treasury()->addCollectorsToAll();
+		return $this;
 	}
 
 	public function hasRoad(Direction $direction): bool {
@@ -221,5 +231,6 @@ class Region extends Entity implements Collectible, Collector, Location
 		$this->validate($data, 'fleet', 'array');
 		$this->validate($data, 'residents', 'array');
 		$this->validate($data, 'luxuries', '?array');
+		$this->validate($data, 'treasury', 'array');
 	}
 }

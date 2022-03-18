@@ -11,5 +11,6 @@ class Construction extends AbstractModel
 		$this->addString('building');
 		$this->addInteger('size');
 		$this->addArray('inhabitants');
+		$this->addArray('treasury');
 	}
 }

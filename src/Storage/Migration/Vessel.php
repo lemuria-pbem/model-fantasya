@@ -13,5 +13,6 @@ class Vessel extends AbstractModel
 		$this->addString('ship');
 		$this->addFloat('completion');
 		$this->addArray('passengers');
+		$this->addArray('treasury');
 	}
 }

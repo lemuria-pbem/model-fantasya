@@ -40,6 +40,8 @@ class Vessel extends Entity implements Collectible, Collector
 
 	private ?int $portId = null;
 
+	private readonly Treasury $treasury;
+
 	/**
 	 * Get a vessel.
 	 *
@@ -56,50 +58,11 @@ class Vessel extends Entity implements Collectible, Collector
 	 */
 	#[Pure] public function __construct() {
 		$this->passengers = new Inhabitants($this);
-	}
-
-	/**
-	 * Get a plain data array of the model's data.
-	 */
-	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'passengers' => 'int[]', 'completion' => 'float',
-		'ship' => 'string', 'anchor' => 'string', 'port' => 'int|null'
-	])]
-	#[Pure]
-	public function serialize(): array {
-		$data               = parent::serialize();
-		$data['anchor']     = $this->Anchor();
-		$data['port']       = $this->portId;
-		$data['ship']       = getClass($this->Ship());
-		$data['completion'] = $this->Completion();
-		$data['passengers'] = $this->passengers->serialize();
-		return $data;
-	}
-
-	/**
-	 * Restore the model's data from serialized data.
-	 */
-	public function unserialize(array $data): Serializable {
-		parent::unserialize($data);
-		$this->setAnchor(Direction::from($data['anchor']));
-		$this->initPort($data['port']);
-		$this->setShip(self::createShip($data['ship']));
-		$this->setCompletion($data['completion']);
-		$this->passengers->unserialize($data['passengers']);
-		return $this;
+		$this->treasury   = new Treasury($this);
 	}
 
 	public function Catalog(): Domain {
 		return Domain::VESSEL;
-	}
-
-	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): Collector {
-		$this->Passengers()->addCollectorsToAll();
-		return $this;
 	}
 
 	#[Pure] public function Anchor(): Direction {
@@ -134,6 +97,53 @@ class Vessel extends Entity implements Collectible, Collector
 		/* @var Region $region */
 		$region = $this->getCollector(__FUNCTION__);
 		return $region;
+	}
+
+	public function Treasury(): Treasury {
+		return $this->treasury;
+	}
+
+	/**
+	 * Get a plain data array of the model's data.
+	 */
+	#[ArrayShape([
+		'id' => 'int', 'name' => 'string', 'description' => 'string', 'passengers' => 'int[]', 'completion' => 'float',
+		'ship' => 'string', 'anchor' => 'string', 'port' => 'int|null', 'treasury' => 'array'
+	])]
+	#[Pure]
+	public function serialize(): array {
+		$data               = parent::serialize();
+		$data['anchor']     = $this->Anchor();
+		$data['port']       = $this->portId;
+		$data['ship']       = getClass($this->Ship());
+		$data['completion'] = $this->Completion();
+		$data['passengers'] = $this->passengers->serialize();
+		$data['treasury']   = $this->Treasury()->serialize();
+		return $data;
+	}
+
+	/**
+	 * Restore the model's data from serialized data.
+	 */
+	public function unserialize(array $data): Serializable {
+		parent::unserialize($data);
+		$this->setAnchor(Direction::from($data['anchor']));
+		$this->initPort($data['port']);
+		$this->setShip(self::createShip($data['ship']));
+		$this->setCompletion($data['completion']);
+		$this->passengers->unserialize($data['passengers']);
+		$this->Treasury()->unserialize($data['treasury']);
+		return $this;
+	}
+
+	/**
+	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
+	 * then.
+	 */
+	public function collectAll(): Collector {
+		$this->Passengers()->addCollectorsToAll();
+		$this->Treasury()->addCollectorsToAll();
+		return $this;
 	}
 
 	public function setAnchor(Direction $anchor): Vessel {
@@ -177,6 +187,7 @@ class Vessel extends Entity implements Collectible, Collector
 		$this->validate($data, 'ship', 'string');
 		$this->validate($data, 'completion', 'float');
 		$this->validate($data, 'passengers', 'array');
+		$this->validate($data, 'treasury', 'array');
 	}
 
 	private function initPort(?int $portId = null): ?Construction {
