@@ -4,7 +4,6 @@ namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
-use Lemuria\Model\Fantasya\Party\Presettings;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -14,11 +13,13 @@ use Lemuria\Collector;
 use Lemuria\CollectorTrait;
 use Lemuria\Engine\Newcomer;
 use Lemuria\Entity;
+use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Lemuria;
 use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Party\Presettings;
 use Lemuria\Model\Fantasya\Party\Type;
 use Lemuria\Serializable;
 
@@ -65,6 +66,8 @@ class Party extends Entity implements Assignable, Collector
 	private int $creation;
 
 	private int $round;
+
+	private ?int $retirement = null;
 
 	/**
 	 * Get a Party.
@@ -119,6 +122,10 @@ class Party extends Entity implements Assignable, Collector
 
 	public function Round(): int {
 		return $this->round;
+	}
+
+	public function Retirement(): ?int {
+		return $this->retirement;
 	}
 
 	/**
@@ -196,9 +203,9 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	#[ArrayShape([
 		'id' => 'int', 'name' => 'string', 'description' => 'string', 'type' => 'int', 'banner' => 'string',
-		'uuid' => 'string', 'creation' => 'int', 'round' => 'int', 'origin' => 'int', 'race' => 'string',
-		'diplomacy' => 'array', 'people' => 'int[]', 'chronicle' => 'array', 'herbalBook' => 'array',
-		'spellBook' => 'array', 'loot' => 'array', 'presettings' => 'array'
+		'uuid' => 'string', 'creation' => 'int', 'round' => 'int', 'retirement' => '?int', 'origin' => 'int',
+		'race' => 'string', 'diplomacy' => 'array', 'people' => 'int[]', 'chronicle' => 'array',
+		'herbalBook' => 'array', 'spellBook' => 'array', 'loot' => 'array', 'presettings' => 'array'
 	])]
 	public function serialize(): array {
 		$data                = parent::serialize();
@@ -207,6 +214,7 @@ class Party extends Entity implements Assignable, Collector
 		$data['uuid']        = $this->Uuid();
 		$data['creation']    = $this->creation;
 		$data['round']       = $this->round;
+		$data['retirement']  = $this->retirement;
 		$data['origin']      = $this->origin->Id();
 		$data['race']        = getClass($this->Race());
 		$data['diplomacy']   = $this->Diplomacy()->serialize();
@@ -224,12 +232,13 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$this->type     = Type::from($data['type']);
-		$this->banner   = $data['banner'];
-		$this->uuid     = Uuid::fromString($data['uuid']);
-		$this->creation = $data['creation'];
-		$this->round    = $data['round'];
-		$this->origin   = new Id($data['origin']);
+		$this->type       = Type::from($data['type']);
+		$this->banner     = $data['banner'];
+		$this->uuid       = Uuid::fromString($data['uuid']);
+		$this->creation   = $data['creation'];
+		$this->round      = $data['round'];
+		$this->retirement = $data['retirement'];
+		$this->origin     = new Id($data['origin']);
 		$this->setRace(self::createRace($data['race']));
 		$this->People()->unserialize($data['people']);
 		$this->Chronicle()->unserialize($data['chronicle']);
@@ -250,6 +259,10 @@ class Party extends Entity implements Assignable, Collector
 		return $this;
 	}
 
+	public function hasRetired(): bool {
+		return $this->retirement !== null;
+	}
+
 	public function setBanner(string $banner): Party {
 		$this->banner = $banner;
 		return $this;
@@ -265,6 +278,14 @@ class Party extends Entity implements Assignable, Collector
 		return $this;
 	}
 
+	public function retire(): Party {
+		if ($this->People()->count() > 0) {
+			throw new LemuriaException('A party that has units cannot be retired.');
+		}
+		$this->retirement = Lemuria::Calendar()->Round();
+		return $this;
+	}
+
 	/**
 	 * Check that a serialized data array is valid.
 	 *
@@ -277,6 +298,7 @@ class Party extends Entity implements Assignable, Collector
 		$this->validate($data, 'uuid', 'string');
 		$this->validate($data, 'creation', 'int');
 		$this->validate($data, 'round', 'int');
+		$this->validate($data, 'retirement', '?int');
 		$this->validate($data, 'origin', 'int');
 		$this->validate($data, 'race', 'string');
 		$this->validate($data, 'people', 'array');

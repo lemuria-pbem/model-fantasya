@@ -15,6 +15,7 @@ class Party extends AbstractModel
 		$this->addString('uuid');
 		$this->addInteger('creation');
 		$this->addInteger('round');
+		$this->addInteger('retirement', null);
 		$this->addInteger('origin');
 		$this->addString('race');
 		$this->addArray('diplomacy');
