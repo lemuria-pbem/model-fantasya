@@ -4,11 +4,17 @@ namespace Lemuria\Model\Fantasya;
 
 enum Practice
 {
+	case TAKE;
+
 	case GIVE;
+
+	case LOSE;
 
 	case READ;
 
 	case WRITE;
 
 	case APPLY;
+
+	case DESTROY;
 }
