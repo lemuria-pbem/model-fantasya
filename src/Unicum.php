@@ -39,7 +39,8 @@ class Unicum extends Entity implements Collectible
 
 	}
 
-	#[ArrayShape(['id' => 'int', 'name' => 'string', 'description' => 'string', 'composition' => 'string'])]
+	#[ArrayShape(['id' => 'int', 'name' => 'string', 'description' => 'string', 'composition' => 'string',
+				  'properties' => 'array'])]
 	public function serialize(): array {
 		$data                = parent::serialize();
 		$data['composition'] = getClass($this->Composition());

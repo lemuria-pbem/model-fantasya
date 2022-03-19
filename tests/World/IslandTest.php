@@ -11,6 +11,7 @@ use Lemuria\Model\Fantasya\Landscape\Plain;
 use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\Fantasya\World\Island;
 use Lemuria\Model\World\MapCoordinates;
+
 use Lemuria\Tests\Test;
 
 class IslandTest extends Test

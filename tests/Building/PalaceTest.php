@@ -4,6 +4,7 @@ namespace Lemuria\Tests\Model\Fantasya\Building;
 
 use Lemuria\Model\Fantasya\Building\Palace;
 use Lemuria\Model\Fantasya\Building\Tower;
+
 use Lemuria\Tests\Test;
 
 class PalaceTest extends Test
