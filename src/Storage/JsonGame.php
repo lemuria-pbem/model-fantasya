@@ -4,6 +4,13 @@ namespace Lemuria\Model\Fantasya\Storage;
 
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Exception\ModelException;
+use Lemuria\Model\Fantasya\Construction;
+use Lemuria\Model\Fantasya\Continent;
+use Lemuria\Model\Fantasya\Party;
+use Lemuria\Model\Fantasya\Region;
+use Lemuria\Model\Fantasya\Unicum;
+use Lemuria\Model\Fantasya\Unit;
+use Lemuria\Model\Fantasya\Vessel;
 use Lemuria\Model\Game;
 use Lemuria\Storage\Provider;
 
@@ -156,6 +163,38 @@ abstract class JsonGame implements Game
 		return $this->setData('unica.json', $unica);
 	}
 
+	public function migrate(): Game {
+		$data = $this->getConstructions();
+		if ($this->migrateData(Construction::class, $data)) {
+			$this->setConstructions($data);
+		}
+		$data = $this->getContinents();
+		if ($this->migrateData(Continent::class, $data)) {
+			$this->setContinents($data);
+		}
+		$data = $this->getParties();
+		if ($this->migrateData(Party::class, $data)) {
+			$this->setParties($data);
+		}
+		$data = $this->getRegions();
+		if ($this->migrateData(Region::class, $data)) {
+			$this->setRegions($data);
+		}
+		$data = $this->getUnica();
+		if ($this->migrateData(Unicum::class, $data)) {
+			$this->setUnica($data);
+		}
+		$data = $this->getUnits();
+		if ($this->migrateData(Unit::class, $data)) {
+			$this->setUnits($data);
+		}
+		$data = $this->getVessels();
+		if ($this->migrateData(Vessel::class, $data)) {
+			$this->setVessels($data);
+		}
+		return $this;
+	}
+
 	/**
 	 * @return array(string=>JsonProvider)
 	 */
@@ -171,6 +210,18 @@ abstract class JsonGame implements Game
 			return $provider;
 		}
 		throw new LemuriaException('JsonProvider required.');
+	}
+
+	protected function migrateData(string $entity, array &$data): bool {
+		$migration  = new Migration($entity);
+		$hasChanges = false;
+		foreach ($data as $i => $model) {
+			if (!$migration->isUpToDate($model)) {
+				$data[$i]   = $migration->migrate($model);
+				$hasChanges = true;
+			}
+		}
+		return $hasChanges;
 	}
 
 	private function getData(string $fileName): array {

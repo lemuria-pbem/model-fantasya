@@ -5,19 +5,19 @@ namespace Lemuria\Model\Fantasya\Building;
 use JetBrains\PhpStorm\Pure;
 
 /**
- * The sixth level of a castle.
+ * The last level of a castle.
  */
-final class Citadel extends AbstractCastle
+final class Acropolis extends AbstractCastle
 {
-	private const TALENT = 7;
+	private const TALENT = 10;
 
-	private const WAGE = 16;
+	private const WAGE = 17;
 
-	private const DEFENSE = 4;
+	private const DEFENSE = 5;
 
-	private const MIN_SIZE = 1250;
+	private const MIN_SIZE = 6250;
 
-	public final const MAX_SIZE = 6249;
+	public final const MAX_SIZE = PHP_INT_MAX;
 
 	#[Pure] public function Defense(): int {
 		return self::DEFENSE;
@@ -36,11 +36,11 @@ final class Citadel extends AbstractCastle
 	}
 
 	public function Downgrade(): Castle {
-		return self::createCastle(Stronghold::class);
+		return self::createCastle(Citadel::class);
 	}
 
 	public function Upgrade(): Castle {
-		return self::createCastle(Acropolis::class);
+		return $this;
 	}
 
 	#[Pure] public function Wage(): int {

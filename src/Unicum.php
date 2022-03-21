@@ -21,6 +21,8 @@ use Lemuria\Serializable;
  */
 class Unicum extends Entity implements Collectible
 {
+	protected final const COLLECTORS = [Unit::class, Construction::class, Vessel::class, Region::class];
+
 	use BuilderTrait;
 	use CollectibleTrait;
 
@@ -35,11 +37,8 @@ class Unicum extends Entity implements Collectible
 		return $unicum;
 	}
 
-	#[Pure] public function __construct() {
-
-	}
-
-	#[ArrayShape(['id' => 'int', 'name' => 'string', 'description' => 'string', 'composition' => 'string'])]
+	#[ArrayShape(['id' => 'int', 'name' => 'string', 'description' => 'string', 'composition' => 'string',
+				  'properties' => 'array'])]
 	public function serialize(): array {
 		$data                = parent::serialize();
 		$data['composition'] = getClass($this->Composition());
@@ -63,10 +62,11 @@ class Unicum extends Entity implements Collectible
 		return $this->composition;
 	}
 
-	public function Unit(): Unit {
-		/** @var Unit $unit */
-		$unit = $this->getCollector(__FUNCTION__);
-		return $unit;
+	/**
+	 * @noinspection PhpIncompatibleReturnTypeInspection
+	 */
+	public function Collector(): Construction|Region|Unit|Vessel {
+		return $this->findCollector(self::COLLECTORS);
 	}
 
 	public function setComposition(Composition $composition): Unicum {
@@ -77,7 +77,7 @@ class Unicum extends Entity implements Collectible
 	public function replaceId(Id $id): Unicum {
 		$oldId = $this->Id();
 		$this->setId($id);
-		$this->Unit()->Treasury()->replace($oldId, $id);
+		$this->Collector()->Treasury()->replace($oldId, $id);
 		return $this;
 	}
 
