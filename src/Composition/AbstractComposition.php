@@ -11,6 +11,7 @@ use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\SerializableTrait;
 use Lemuria\SingletonSet;
 use Lemuria\SingletonTrait;
+use Lemuria\TenantTrait;
 
 abstract class AbstractComposition implements Composition
 {
@@ -19,6 +20,7 @@ abstract class AbstractComposition implements Composition
 	use CommodityTrait;
 	use SerializableTrait;
 	use SingletonTrait;
+	use TenantTrait;
 
 	protected int $level = 1;
 

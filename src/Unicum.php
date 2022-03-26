@@ -59,7 +59,7 @@ class Unicum extends Entity implements Collectible
 	}
 
 	#[Pure] public function Composition(): Composition {
-		return $this->composition;
+		return $this->composition->reshape($this);
 	}
 
 	/**
@@ -70,13 +70,15 @@ class Unicum extends Entity implements Collectible
 	}
 
 	public function setComposition(Composition $composition): Unicum {
-		$this->composition = $composition;
+		$this->composition = $composition->register($this);
 		return $this;
 	}
 
 	public function replaceId(Id $id): Unicum {
+		$this->composition->reshape($this);
 		$oldId = $this->Id();
 		$this->setId($id);
+		$this->composition->register($this);
 		$this->Collector()->Treasury()->replace($oldId, $id);
 		return $this;
 	}
