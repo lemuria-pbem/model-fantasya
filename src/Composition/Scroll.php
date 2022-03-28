@@ -6,6 +6,8 @@ use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 
 use function Lemuria\getClass;
+use Lemuria\Model\Fantasya\Composition;
+use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Readable;
 use Lemuria\Model\Fantasya\Spell;
@@ -39,6 +41,16 @@ class Scroll extends AbstractComposition implements Readable
 		if ($spell) {
 			$this->spell = self::createSpell($spell);
 		}
+		return $this;
+	}
+
+	public function register(Unicum $tenant): Composition {
+		$this->property($tenant)->spell = $this->spell;
+		return $this;
+	}
+
+	public function reshape(Unicum $tenant): Composition {
+		$this->spell = $this->property($tenant)->spell;
 		return $this;
 	}
 

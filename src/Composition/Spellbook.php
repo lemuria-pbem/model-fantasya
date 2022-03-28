@@ -7,18 +7,23 @@ use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Commodity\Silver;
+use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\Readable;
 use Lemuria\Model\Fantasya\Talent\Magic;
+use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Serializable;
 use Lemuria\SingletonSet;
+use Lemuria\TenantTrait;
 
 class Spellbook extends AbstractComposition implements Readable
 {
+	use TenantTrait;
+
 	private const SILVER = 1000;
 
 	private const WEIGHT = 1 * 100;
 
-	protected readonly SingletonSet $spells;
+	protected SingletonSet $spells;
 
 	#[Pure] public function __construct() {
 		$this->spells = new SingletonSet();
@@ -40,6 +45,16 @@ class Spellbook extends AbstractComposition implements Readable
 
 	public function unserialize(array $data): Serializable {
 		$this->spells->unserialize($data['spells']);
+		return $this;
+	}
+
+	public function register(Unicum $tenant): Composition {
+		$this->property($tenant)->spells = $this->spells;
+		return $this;
+	}
+
+	public function reshape(Unicum $tenant): Composition {
+		$this->spells = $this->property($tenant)->spells;
 		return $this;
 	}
 
