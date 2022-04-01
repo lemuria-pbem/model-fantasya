@@ -10,14 +10,14 @@
 			"email": "lemuria@online.de"
 		}
 	],
-	"version": "0.11.1",
-	"time": "2022-03-26",
+	"version": "0.12.0",
+	"time": "2022-04-01",
 
 	"require": {
 		"php": "~8.1",
 		"ext-json": "~8.1",
 		"ramsey/uuid": "~4.2",
-		"lemuria-pbem/lemuria": "dev-dev"
+		"lemuria-pbem/lemuria": "dev-feature/statistics"
 	},
 	"require-dev": {
 		"jetbrains/phpstorm-attributes": "~1.0",
