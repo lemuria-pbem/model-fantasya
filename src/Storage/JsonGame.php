@@ -88,6 +88,10 @@ abstract class JsonGame implements Game
 		return $this->getData('unica.json');
 	}
 
+	public function getStatistics(): array {
+		return $this->getData('statistics.json');
+	}
+
 	public function getStrings(): array {
 		return $this->getData('strings.json');
 	}
@@ -161,6 +165,10 @@ abstract class JsonGame implements Game
 
 	public function setUnica(array $unica): Game {
 		return $this->setData('unica.json', $unica);
+	}
+
+	public function setStatistics(array $statistics): Game {
+		return $this->setData('statistics.json', $statistics);
 	}
 
 	public function migrate(): Game {
