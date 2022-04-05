@@ -32,7 +32,7 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	use IteratorTrait;
 	use SerializableTrait;
 
-	protected const LUXURIES = [
+	public final const LUXURIES = [
 		Balsam::class, Fur::class, Gem::class, Myrrh::class, Oil::class, Olibanum::class, Silk::class, Spice::class
 	];
 
