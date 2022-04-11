@@ -25,6 +25,22 @@ class People extends EntitySet
 		return $size;
 	}
 
+	/**
+	 * Get the first unit.
+	 */
+	public function getFirst(): ?Unit {
+		$id = $this->first();
+		return $id ? Unit::get($id) : null;
+	}
+
+	/**
+	 * Get the last unit.
+	 */
+	public function getLast(): ?Unit {
+		$id = $this->last();
+		return $id ? Unit::get($id) : null;
+	}
+
 	public function add(Unit $unit): People {
 		$this->addEntity($unit->Id());
 		if ($this->hasCollector()) {
