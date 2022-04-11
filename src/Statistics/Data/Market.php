@@ -4,10 +4,10 @@ namespace Lemuria\Model\Fantasya\Statistics\Data;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Exception\LemuriaException;
-use Lemuria\Model\Fantasya\Commodity;
 use function Lemuria\getClass;
+use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
+use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Luxuries;
 use Lemuria\Statistics\Data;
