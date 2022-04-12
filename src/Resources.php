@@ -4,9 +4,19 @@ namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\Pure;
 
+use function Lemuria\getClass;
 use Lemuria\Item;
 use Lemuria\ItemSet;
+use Lemuria\Model\Fantasya\Commodity\Herb\AbstractHerb;
+use Lemuria\Model\Fantasya\Commodity\Luxury\AbstractLuxury;
+use Lemuria\Model\Fantasya\Commodity\Potion\AbstractPotion;
+use Lemuria\Model\Fantasya\Commodity\Protection\AbstractProtection;
+use Lemuria\Model\Fantasya\Commodity\Trophy\AbstractTrophy;
+use Lemuria\Model\Fantasya\Commodity\Weapon\AbstractWeapon;
+use Lemuria\Model\Fantasya\Commodity\Weapon\Repairable\AbstractRepairable as AbstractRepairableWeapon;
+use Lemuria\Model\Fantasya\Commodity\Protection\Repairable\AbstractRepairable as AbstractRepairableProtection;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\SingletonSet;
 
 /**
  * Resources are sets of quantities.
@@ -14,6 +24,24 @@ use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 class Resources extends ItemSet
 {
 	use BuilderTrait;
+
+	private static ?array $all = null;
+
+	public static function getAll(): array {
+		if (!self::$all) {
+			self::$all = [];
+			self::addSingletons(Commodity::MISC);
+			self::addSingletons(AbstractLuxury::all());
+			self::addSingletons(AbstractWeapon::all());
+			self::addSingletons(AbstractProtection::all());
+			self::addSingletons(AbstractRepairableWeapon::all());
+			self::addSingletons(AbstractRepairableProtection::all());
+			self::addSingletons(AbstractHerb::all());
+			self::addSingletons(AbstractPotion::all());
+			self::addSingletons(AbstractTrophy::all());
+		}
+		return self::$all;
+	}
 
 	public function add(Quantity $quantity): Resources {
 		$this->addItem($quantity);
@@ -37,5 +65,11 @@ class Resources extends ItemSet
 	 */
 	#[Pure] protected function isValidItem(Item $item): bool {
 		return $item instanceof Quantity;
+	}
+
+	private static function addSingletons(SingletonSet|array $set): void {
+		foreach ($set as $class) {
+			self::$all[] = getClass($class);
+		}
 	}
 }
