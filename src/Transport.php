@@ -4,6 +4,11 @@ namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Commodity\Camel;
+use Lemuria\Model\Fantasya\Commodity\Elephant;
+use Lemuria\Model\Fantasya\Commodity\Griffin;
+use Lemuria\Model\Fantasya\Commodity\Horse;
+use Lemuria\Model\Fantasya\Commodity\Pegasus;
 use Lemuria\Singleton;
 
 /**
@@ -11,6 +16,8 @@ use Lemuria\Singleton;
  */
 interface Transport extends Singleton
 {
+	public final const ANIMALS = [Horse::class, Camel::class, Elephant::class, Pegasus::class, Griffin::class];
+
 	/**
 	 * Get the maximum weight of payload.
 	 */
