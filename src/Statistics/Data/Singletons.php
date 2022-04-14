@@ -7,15 +7,13 @@ use JetBrains\PhpStorm\Pure;
 use function Lemuria\getClass;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
-use Lemuria\Model\Fantasya\Commodity;
-use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Lemuria;
+use Lemuria\Singleton;
 use Lemuria\Statistics\Data;
 use Lemuria\Statistics\Data\Number;
 
-class Commodities implements \ArrayAccess, \Countable, \Iterator, Data
+class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 {
-	use BuilderTrait;
-
 	/**
 	 * @var array(string=>Number)
 	 */
@@ -26,21 +24,21 @@ class Commodities implements \ArrayAccess, \Countable, \Iterator, Data
 	private int $index;
 
 	/**
-	 * @param string|Commodity $offset
+	 * @param string|Singleton $offset
 	 */
 	#[Pure] public function offsetExists(mixed $offset): bool {
 		return isset($this->commodities[getClass($offset)]);
 	}
 
 	/**
-	 * @param string|Commodity $offset
+	 * @param string|Singleton $offset
 	 */
 	#[Pure] public function offsetGet(mixed $offset): ?Number {
 		return $this->commodities[getClass($offset)] ?? null;
 	}
 
 	/**
-	 * @param string|Commodity $offset
+	 * @param string|Singleton $offset
 	 * @param Number $value
 	 */
 	public function offsetSet(mixed $offset, mixed $value): void {
@@ -52,7 +50,7 @@ class Commodities implements \ArrayAccess, \Countable, \Iterator, Data
 	}
 
 	/**
-	 * @param string|Commodity $offset
+	 * @param string|Singleton $offset
 	 */
 	public function offsetUnset(mixed $offset): void {
 		unset($this->commodities[getClass($offset)]);
@@ -94,7 +92,7 @@ class Commodities implements \ArrayAccess, \Countable, \Iterator, Data
 	public function unserialize(mixed $data): Data {
 		if (is_array($data)) {
 			foreach ($data as $class => $numberData) {
-				self::createCommodity($class);
+				Lemuria::Builder()->create($class);
 				$number                    = new Number(0);
 				$this->commodities[$class] = $number->unserialize($numberData);
 			}
