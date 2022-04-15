@@ -6,6 +6,7 @@ use Lemuria\EntitySet;
 use Lemuria\Exception\EntitySetException;
 use Lemuria\Exception\EntitySetReplaceException;
 use Lemuria\Id;
+use Lemuria\Model\World\SortMode;
 use Lemuria\Reorder;
 
 /**
@@ -66,6 +67,16 @@ class Inhabitants extends People
 			if ($position !== $this->Owner() || $order >= Reorder::AFTER) {
 				$this->reorderEntity($unit->Id(), $position->Id(), $order);
 			}
+		}
+		return $this;
+	}
+
+	public function sort(SortMode $mode = SortMode::BY_ID, ?Party $party = null): People {
+		$owner = $this->Owner();
+		parent::sort($mode, $party);
+		if ($owner) {
+			$this->owner = $this->first();
+			$this->setOwner($owner);
 		}
 		return $this;
 	}
