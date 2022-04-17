@@ -6,8 +6,12 @@ use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Entity;
 use Lemuria\EntitySet;
+use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
+use Lemuria\Model\Fantasya\Sorting\Unit\ByParty;
+use Lemuria\Model\World\SortMode;
 use Lemuria\Reorder;
+use Lemuria\Sorting\ById;
 
 /**
  * The people of a player or party is the community of all its units.
@@ -63,6 +67,23 @@ class People extends EntitySet
 	public function reorder(Unit $unit, Unit $position, Reorder $order = Reorder::FLIP): People
 	{
 		$this->reorderEntity($unit->Id(), $position->Id(), $order);
+		return $this;
+	}
+
+	/**
+	 * Sort the units.
+	 */
+	public function sort(SortMode $mode = SortMode::BY_ID, ?Party $party = null): People {
+		switch ($mode) {
+			case SortMode::BY_ID :
+				$this->sortUsing(new ById());
+				break;
+			case SortMode::BY_PARTY :
+				$this->sortUsing(new ByParty($party));
+				break;
+			default :
+				throw new LemuriaException('Unsupported sort mode: ' . $mode->name);
+		}
 		return $this;
 	}
 
