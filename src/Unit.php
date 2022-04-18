@@ -167,7 +167,7 @@ class Unit extends Entity implements Collectible, Collector
 	/**
 	 * Get the total weight of this Unit including its inventory.
 	 */
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		$weight = $this->Size() * $this->Race()->Weight();
 		foreach ($this->Inventory() as $quantity /* @var Quantity $quantity */) {
 			$weight += $quantity->Weight();

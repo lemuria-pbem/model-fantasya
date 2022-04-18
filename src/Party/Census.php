@@ -27,7 +27,7 @@ class Census implements \Countable
 	/**
 	 * Create a Census for a Party.
 	 */
-	public function __construct(private Party $party) {
+	public function __construct(private readonly Party $party) {
 		$this->atlas = new Atlas();
 		foreach ($party->People() as $unit /* @var Unit $unit */) {
 			$region = $unit->Region();

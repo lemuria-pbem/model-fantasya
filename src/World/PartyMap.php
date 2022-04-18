@@ -21,7 +21,7 @@ use Lemuria\Serializable;
 #[Immutable]
 final class PartyMap implements World
 {
-	public function __construct(private World $world, private Party $party) {
+	public function __construct(private readonly World $world, private readonly Party $party) {
 	}
 
 	#[ArrayShape(['id' => "int", 'name' => "string", 'description' => "string", 'inhabitants' => "int[]",

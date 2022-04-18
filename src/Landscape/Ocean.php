@@ -15,7 +15,7 @@ final class Ocean extends AbstractLandscape
 
 	private static array $herbs = [];
 
-	#[Pure] public function Herbs(): array {
+	public function Herbs(): array {
 		return self::$herbs;
 	}
 

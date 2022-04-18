@@ -3,7 +3,6 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
 
 use function Lemuria\getClass;
 use Lemuria\Collectible;
@@ -58,7 +57,7 @@ class Unicum extends Entity implements Collectible
 		return Domain::UNICUM;
 	}
 
-	#[Pure] public function Composition(): Composition {
+	public function Composition(): Composition {
 		return $this->composition->reshape($this);
 	}
 

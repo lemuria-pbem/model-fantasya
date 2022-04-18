@@ -50,7 +50,8 @@ Einstellungen für alle Fremdparteien zu treffen (sozusagen eine
 - ENTER: Erlaubt das Betreten von Gebäuden und Schiffen.
 - FOOD: Gibt Almosen (Nahrung oder Silber) an hungernde Fremdeinheiten.
 - GIVE: Nimmt Geschenke von der Fremdpartei an.
-- GUARD: Erlaubt der Fremdpartei, durch bewachte Regionen zu reisen.
+- GUARD: Erlaubt der Fremdpartei die Weiterreise nach Betreten einer Region.
+- PASS: Erlaubt die Durchreise durch eine bewachte Region.
 - PERCEPTION: Unsichtbare Einheiten verstecken sich nicht vor der Fremdpartei.
 - RESOURCES: Erlaubt den Abbau von Ressourcen.
 - SILVER: Erlaubt Fremdeinheiten den Zugriff auf den Silberpool.
