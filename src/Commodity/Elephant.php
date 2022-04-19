@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya\Commodity;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Animal;
 use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\RawMaterial;
 use Lemuria\Model\Fantasya\RawMaterialTrait;
@@ -14,7 +15,7 @@ use Lemuria\SingletonTrait;
 /**
  * An elephant.
  */
-final class Elephant implements Commodity, RawMaterial, Transport
+final class Elephant implements Animal, Commodity, RawMaterial, Transport
 {
 	use RawMaterialTrait;
 	use SingletonTrait;

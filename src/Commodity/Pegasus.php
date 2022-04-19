@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya\Commodity;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Animal;
 use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\Transport;
 use Lemuria\SingletonTrait;
@@ -11,7 +12,7 @@ use Lemuria\SingletonTrait;
 /**
  * A pegasus.
  */
-final class Pegasus implements Commodity, Transport
+final class Pegasus implements Animal, Commodity, Transport
 {
 	use SingletonTrait;
 

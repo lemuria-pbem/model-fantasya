@@ -5,6 +5,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Weapon\Repairable;
 use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Animal;
 use Lemuria\Model\Fantasya\Commodity\Elephant;
 use Lemuria\Model\Fantasya\Commodity\Weapon\WarElephant;
 use Lemuria\Model\Fantasya\Damage;
@@ -14,7 +15,7 @@ use Lemuria\Model\Fantasya\Talent\Weaponry;
 /**
  * A foundering war elephant.
  */
-final class FounderingWarElephant extends AbstractRepairable
+final class FounderingWarElephant extends AbstractRepairable implements Animal
 {
 	private const ELEPHANT = 1;
 

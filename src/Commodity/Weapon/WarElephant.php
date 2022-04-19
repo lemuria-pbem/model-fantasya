@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Animal;
 use Lemuria\Model\Fantasya\Commodity\Elephant;
 use Lemuria\Model\Fantasya\Commodity\ElephantArmor;
 use Lemuria\Model\Fantasya\Commodity\Wood;
@@ -17,7 +18,7 @@ use Lemuria\SingletonTrait;
 /**
  * A war elephant is a special weapon.
  */
-final class WarElephant extends AbstractWeapon implements Transport
+final class WarElephant extends AbstractWeapon implements Animal, Transport
 {
 	use SingletonTrait;
 
