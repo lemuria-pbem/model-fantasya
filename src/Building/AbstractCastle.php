@@ -94,6 +94,9 @@ abstract class AbstractCastle extends AbstractBuilding implements Castle
 		if ($size <= Citadel::MAX_SIZE) {
 			return Citadel::class;
 		}
-		return Acropolis::class;
+		if ($size <= Acropolis::MAX_SIZE) {
+			return Acropolis::class;
+		}
+		return Megapolis::class;
 	}
 }
