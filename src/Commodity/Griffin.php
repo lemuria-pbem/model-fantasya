@@ -5,7 +5,6 @@ namespace Lemuria\Model\Fantasya\Commodity;
 use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Animal;
-use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\Commodity\Weapon\NativeMelee;
 use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
@@ -19,7 +18,7 @@ use Lemuria\SingletonTrait;
 /**
  * A griffin.
  */
-final class Griffin implements Animal, Commodity, Monster
+final class Griffin implements Animal, Monster
 {
 	use BuilderTrait;
 	use MonsterTrait;

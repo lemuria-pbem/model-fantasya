@@ -4,8 +4,8 @@ namespace Lemuria\Model\Fantasya\Building;
 
 use JetBrains\PhpStorm\Pure;
 
+use Lemuria\Model\Fantasya\Animal;
 use Lemuria\Model\Fantasya\Building;
-use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
@@ -52,7 +52,7 @@ abstract class AbstractBreeding extends AbstractBuilding
 		return self::USEFUL_SIZE;
 	}
 
-	abstract public function Animal(): Commodity;
+	abstract public function Animal(): Animal;
 
 	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
