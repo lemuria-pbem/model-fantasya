@@ -70,7 +70,7 @@ class Unit extends Entity implements Collectible, Collector
 	 */
 	#[Pure] public function __construct() {
 		$this->inventory = new Resources();
-		$this->treasury  = new Treasury();
+		$this->treasury  = new Treasury($this);
 		$this->knowledge = new Knowledge();
 	}
 
