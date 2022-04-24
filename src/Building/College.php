@@ -4,7 +4,6 @@ namespace Lemuria\Model\Fantasya\Building;
 
 use JetBrains\PhpStorm\Pure;
 
-use Lemuria\Model\Fantasya\Animal;
 use Lemuria\Model\Fantasya\Building;
 use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Silver;
@@ -12,28 +11,28 @@ use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
 
 /**
- * A horse breeding farm.
+ * Units in a college are able to learn twice as fast.
  */
-abstract class AbstractBreeding extends AbstractBuilding
+final class College extends AbstractBuilding
 {
-	private const TALENT = 3;
+	private const TALENT = 4;
 
-	private const UPKEEP = 100;
+	private const UPKEEP = 500;
 
-	private const FEED = 5;
+	private const FEED = 50;
 
-	private const SILVER = 100;
+	private const USEFUL_SIZE = 10;
+
+	private const SILVER = 500;
 
 	private const WOOD = 5;
 
-	private const STONE = 3;
+	private const STONE = 5;
 
-	private const IRON = 2;
-
-	private const USEFUL_SIZE = 3;
+	private const IRON = 1;
 
 	public function Dependency(): ?Building {
-		return Building::IS_INDEPENDENT;
+		return self::createBuilding(Stronghold::class);
 	}
 
 	#[Pure] public function Feed(): int {
@@ -52,9 +51,9 @@ abstract class AbstractBreeding extends AbstractBuilding
 		return self::USEFUL_SIZE;
 	}
 
-	abstract public function Animal(): Animal;
-
-	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
+	/**
+	 * @noinspection PhpArrayShapeAttributeCanBeAddedInspection
+	 */
 	#[Pure] protected function material(): array {
 		return [Silver::class => self::SILVER, Wood::class => self::WOOD, Stone::class => self::STONE, Iron::class => self::IRON];
 	}

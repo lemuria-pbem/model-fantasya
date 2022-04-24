@@ -10,7 +10,7 @@ use JetBrains\PhpStorm\Pure;
  */
 class Offer
 {
-	#[Pure] public function __construct(#[Immutable] private Commodity $commodity, private int $price = 0) {
+	#[Pure] public function __construct(#[Immutable] private readonly Commodity $commodity, private int $price = 0) {
 	}
 
 	#[Pure] public function Commodity(): Commodity {

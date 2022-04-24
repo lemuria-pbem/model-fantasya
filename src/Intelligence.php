@@ -12,7 +12,7 @@ use Lemuria\Model\Fantasya\Party\Type;
  */
 final class Intelligence
 {
-	#[Pure]	public function __construct(private Region $region) {
+	#[Pure]	public function __construct(private readonly Region $region) {
 	}
 
 	public function Region(): Region {

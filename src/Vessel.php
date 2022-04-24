@@ -81,7 +81,7 @@ class Vessel extends Entity implements Collectible, Collector
 		return $this->ship;
 	}
 
-	#[Pure] public function Space(): int {
+	public function Space(): int {
 		$space = $this->Ship()->Payload();
 		foreach ($this->Passengers() as $unit/* @var Unit $unit */) {
 			$space -= $unit->Weight();

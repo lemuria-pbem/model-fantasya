@@ -17,7 +17,7 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 	/**
 	 * @var array(string=>Number)
 	 */
-	protected array $commodities = [];
+	protected array $singletons = [];
 
 	private array $keys;
 
@@ -27,14 +27,14 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 	 * @param string|Singleton $offset
 	 */
 	#[Pure] public function offsetExists(mixed $offset): bool {
-		return isset($this->commodities[getClass($offset)]);
+		return isset($this->singletons[getClass($offset)]);
 	}
 
 	/**
 	 * @param string|Singleton $offset
 	 */
 	#[Pure] public function offsetGet(mixed $offset): ?Number {
-		return $this->commodities[getClass($offset)] ?? null;
+		return $this->singletons[getClass($offset)] ?? null;
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 	 */
 	public function offsetSet(mixed $offset, mixed $value): void {
 		if ($value instanceof Number) {
-			$this->commodities[getClass($offset)] = $value;
+			$this->singletons[getClass($offset)] = $value;
 		} else {
 			throw new LemuriaException();
 		}
@@ -53,15 +53,15 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 	 * @param string|Singleton $offset
 	 */
 	public function offsetUnset(mixed $offset): void {
-		unset($this->commodities[getClass($offset)]);
+		unset($this->singletons[getClass($offset)]);
 	}
 
 	public function count(): int {
-		return count($this->commodities);
+		return count($this->singletons);
 	}
 
 	public function current(): Number {
-		return $this->commodities[$this->key()];
+		return $this->singletons[$this->key()];
 	}
 
 	public function key(): string {
@@ -73,7 +73,7 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 	}
 
 	public function rewind(): void {
-		$this->keys  = array_keys($this->commodities);
+		$this->keys  = array_keys($this->singletons);
 		$this->index = 0;
 	}
 
@@ -83,7 +83,7 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 
 	#[Pure] public function serialize(): array {
 		$data = [];
-		foreach ($this->commodities as $class => $number /* @var Number $number */) {
+		foreach ($this->singletons as $class => $number /* @var Number $number */) {
 			$data[$class] = $number->serialize();
 		}
 		return $data;
@@ -93,8 +93,8 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 		if (is_array($data)) {
 			foreach ($data as $class => $numberData) {
 				Lemuria::Builder()->create($class);
-				$number                    = new Number(0);
-				$this->commodities[$class] = $number->unserialize($numberData);
+				$number                   = new Number(0);
+				$this->singletons[$class] = $number->unserialize($numberData);
 			}
 			return $this;
 		}

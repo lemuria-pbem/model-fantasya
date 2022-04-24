@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Factory;
 
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\Commodity\CarriageWreck;
@@ -35,7 +33,7 @@ class RepairableCatalog
 		}
 	}
 
-	#[Pure] public function getRepairable(Commodity $commodity): ?Repairable {
+	public function getRepairable(Commodity $commodity): ?Repairable {
 		$class = getClass($commodity);
 		return self::$repairable[$class] ?? null;
 	}

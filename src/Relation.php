@@ -45,7 +45,7 @@ class Relation
 	/**
 	 * Create a new relation, general or specific.
 	 */
-	#[Pure] public function __construct(private Party $party, private ?Region $region = null) {
+	#[Pure] public function __construct(private readonly Party $party, private readonly ?Region $region = null) {
 	}
 
 	#[Pure] public function Party(): Party {

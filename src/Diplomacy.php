@@ -55,7 +55,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 * Create the diplomacy of given party.
 	 */
 	#[Pure]
-	public function __construct(private Party $party) {
+	public function __construct(private readonly Party $party) {
 		$this->acquaintances = new Acquaintances();
 	}
 
