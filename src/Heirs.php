@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-class Heirs
+class Heirs implements \Countable
 {
 	protected readonly People $inConstruction;
 
@@ -18,7 +18,7 @@ class Heirs
 
 	protected ?Vessel $vessel = null;
 
-	public function __construct(protected Unit $unit) {
+	public function __construct(Unit $unit) {
 		$this->inConstruction    = new People();
 		$this->onVessel          = new People();
 		$this->outside           = new People();
@@ -26,6 +26,11 @@ class Heirs
 		$this->otherVessel       = new People();
 		$this->construction      = $unit->Construction();
 		$this->vessel            = $unit->Vessel();
+	}
+
+	public function count(): int {
+		return $this->inConstruction->count() + $this->onVessel->count() + $this->outside->count() +
+			   $this->otherConstruction->count() + $this->otherVessel->count();
 	}
 
 	public function add(Unit $unit): Heirs {
