@@ -21,8 +21,6 @@ abstract class AbstractPotion implements Potion
 
 	private const WEIGHT = 10;
 
-	private string $craft = Alchemy::class;
-
 	public static function all(): SingletonSet {
 		return self::getAll(__DIR__);
 	}
