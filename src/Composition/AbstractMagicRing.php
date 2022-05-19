@@ -7,12 +7,13 @@ use JetBrains\PhpStorm\Pure;
 
 use Lemuria\Model\Fantasya\Commodity\Jewelry\GoldRing;
 use Lemuria\Model\Fantasya\Composition;
+use Lemuria\Model\Fantasya\MagicRing;
 use Lemuria\Model\Fantasya\Practice;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Serializable;
 
-abstract class AbstractMagicRing extends AbstractComposition
+abstract class AbstractMagicRing extends AbstractComposition implements MagicRing
 {
 	#[Pure] public function Weight(): int {
 		return GoldRing::WEIGHT;
