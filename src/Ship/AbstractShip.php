@@ -29,6 +29,10 @@ abstract class AbstractShip implements Ship
 		return $this->craft;
 	}
 
+	public function Tare(): int {
+		return $this->Wood() * self::createCommodity(Wood::class)->Weight();
+	}
+
 	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
 	#[Pure] protected function material(): array {
 		return [Wood::class => 1];

@@ -23,4 +23,9 @@ interface Ship extends Artifact, Transport
 	 * Get the amount of wood needed to build the ship.
 	 */
 	#[Pure] public function Wood(): int;
+
+	/**
+	 * Get the tare weight.
+	 */
+	public function Tare(): int;
 }
