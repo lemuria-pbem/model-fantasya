@@ -20,6 +20,16 @@ class BattleSpells implements \Countable, Serializable
 		$this->spells = [Phase::PREPARATION->value => null, Phase::COMBAT->value => null];
 	}
 
+	public function __clone(): void {
+		foreach (array_keys($this->spells) as $phase) {
+			/** @var SpellGrade $spell */
+			$spell = $this->spells[$phase];
+			if ($spell) {
+				$this->spells[$phase] = new SpellGrade($spell->Spell(), $spell->Level());
+			}
+		}
+	}
+
 	public function Preparation(): ?SpellGrade {
 		return $this->spells[Phase::PREPARATION->value];
 	}
