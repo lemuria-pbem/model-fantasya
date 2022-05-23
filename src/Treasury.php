@@ -8,6 +8,9 @@ use Lemuria\Id;
 
 /**
  * The treasury of a unit is the collection of all unica it possesses.
+ *
+ * @\ArrayAccess<int|Id, Unicum>
+ * @\Iterator<int, Unicum>
  */
 class Treasury extends EntitySet
 {

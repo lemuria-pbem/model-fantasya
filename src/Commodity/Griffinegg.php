@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\SingletonTrait;
 
@@ -16,7 +14,7 @@ final class Griffinegg implements Commodity
 
 	private const WEIGHT = 20 * 100;
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 }

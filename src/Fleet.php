@@ -8,6 +8,9 @@ use Lemuria\Id;
 
 /**
  * The fleet in a region is the list of vessels that have landed there.
+ *
+ * @\ArrayAccess<int|Id, Vessel>
+ * @\Iterator<int, Vessel>
  */
 class Fleet extends EntitySet
 {

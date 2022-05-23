@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Storage;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Exception\DirectoryNotFoundException;
 use Lemuria\Exception\FileException;
 use Lemuria\Exception\LemuriaException;
@@ -15,7 +13,7 @@ class JsonProvider implements Provider
 {
 	private readonly FileProvider $provider;
 
-	#[Pure]
+	
 	public function __construct(string $directory) {
 		$this->provider = new FileProvider($directory);
 	}

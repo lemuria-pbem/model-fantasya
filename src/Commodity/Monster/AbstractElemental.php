@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Commodity\Weapon\NativeMelee;
 use Lemuria\Model\Fantasya\Damage;
 
@@ -22,15 +20,15 @@ abstract class AbstractElemental extends AbstractMonster
 		}
 	}
 
-	#[Pure] public function Hitpoints(): int {
+	public function Hitpoints(): int {
 		return self::HITPOINTS;
 	}
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return 0;
 	}
 
-	#[Pure] public function Recreation(): float {
+	public function Recreation(): float {
 		return 1.0;
 	}
 }

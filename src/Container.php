@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Singleton;
 use Lemuria\SingletonSet;
 use Lemuria\SingletonTrait;
@@ -36,7 +34,7 @@ class Container implements Commodity
 		$this->commodities = new SingletonSet();
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return $this->weight;
 	}
 
@@ -51,8 +49,8 @@ class Container implements Commodity
 	public function setResources(Resources $resources): Container {
 		$this->commodities->clear();
 		$this->weight = 0;
-		foreach ($resources as $quantity /* @var Quantity $quantity */) {
-			$commodity = $quantity->Commodity();
+		foreach ($resources as $quantity) {
+			$commodity = $quantity->getObject();
 			if (self::isKindOf($commodity, $this->type)) {
 				$this->commodities->add($commodity);
 				$this->weight += $quantity->Weight();

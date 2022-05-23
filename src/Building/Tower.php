@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Building;
 
-use JetBrains\PhpStorm\Pure;
-
 /**
  * The third level of a castle.
  */
@@ -19,19 +17,19 @@ final class Tower extends AbstractCastle
 
 	public final const MAX_SIZE = 49;
 
-	#[Pure] public function Defense(): int {
+	public function Defense(): int {
 		return self::DEFENSE;
 	}
 
-	#[Pure] public function MaxSize(): int {
+	public function MaxSize(): int {
 		return self::MAX_SIZE;
 	}
 
-	#[Pure] public function MinSize(): int {
+	public function MinSize(): int {
 		return self::MIN_SIZE;
 	}
 
-	#[Pure] public function Talent(): int {
+	public function Talent(): int {
 		return self::TALENT;
 	}
 
@@ -43,7 +41,7 @@ final class Tower extends AbstractCastle
 		return self::createCastle(Palace::class);
 	}
 
-	#[Pure] public function Wage(): int {
+	public function Wage(): int {
 		return self::WAGE;
 	}
 }

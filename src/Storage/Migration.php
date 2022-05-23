@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Storage;
 
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use function Lemuria\getNamespace;
 use Lemuria\Entity;
@@ -25,7 +23,7 @@ class Migration
 		}
 	}
 
-	#[Pure] public function isUpToDate(array $model): bool {
+	public function isUpToDate(array $model): bool {
 		return empty($this->model->getMissing($model));
 	}
 

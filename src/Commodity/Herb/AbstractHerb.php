@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Herb;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\CommodityTrait;
 use Lemuria\Model\Fantasya\Herb;
 use Lemuria\Model\Fantasya\RawMaterialTrait;
@@ -25,7 +23,7 @@ abstract class AbstractHerb implements Herb
 		return self::getAll(__DIR__);
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 

@@ -2,10 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\ExpectedValues;
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\CountableTrait;
 use Lemuria\Id;
 use Lemuria\IteratorTrait;
@@ -24,6 +20,9 @@ use Lemuria\SerializableTrait;
  * A party can have specific relations to its acquaintances.
  * 3. Contacts
  * These are special relations to a single unit that last until the end of a game round.
+ *
+ * @\ArrayAccess<Relation|string, Relation>
+ * @\Iterator<string, Relation>
  */
 final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializable
 {
@@ -37,34 +36,34 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	private readonly Acquaintances $acquaintances;
 
 	/**
-	 * @var array(string=>Relation)
+	 * @var array<string, Relation>
 	 */
 	private array $relations = [];
 
 	/**
-	 * @var array(int=>Unit)
+	 * @var array<int, Unit>
 	 */
 	private array $contacts = [];
 
 	/**
-	 * @var array(int=>int)
+	 * @var array<int, int>
 	 */
 	private array $indices = [];
 
 	/**
 	 * Create the diplomacy of given party.
 	 */
-	#[Pure]
+
 	public function __construct(private readonly Party $party) {
 		$this->acquaintances = new Acquaintances();
 	}
 
-	#[Pure]
+
 	public function Party(): Party {
 		return $this->party;
 	}
 
-	#[Pure]
+
 	public function Acquaintances(): Acquaintances {
 		return $this->acquaintances;
 	}
@@ -115,12 +114,12 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 		}
 	}
 
-	#[Pure] public function current(): ?Relation {
+	public function current(): ?Relation {
 		$id = $this->key();
 		return $id ? $this->relations[$id] : null;
 	}
 
-	#[Pure]	public function key(): ?string {
+		public function key(): ?string {
 		if ($this->valid()) {
 			return $this->indices[$this->index];
 		}
@@ -130,11 +129,9 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Get a plain data array of the model's data.
 	 */
-	#[ArrayShape(['acquaintances' => 'array', 'relations' => 'array'])]
-	#[Pure]
 	public function serialize(): array {
 		$relations = [];
-		foreach ($this->relations as $relation/* @var Relation $relation */) {
+		foreach ($this->relations as $relation) {
 			$relations[] = [
 				'party'     => $relation->Party()->Id()->Id(),
 				'region'    => $relation->Region()?->Id()->Id(),
@@ -171,7 +168,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Check if given party is an acquaintance.
 	 */
-	#[Pure] public function isKnown(Party $party): bool {
+	public function isKnown(Party $party): bool {
 		return $this->acquaintances->has($party->Id());
 	}
 
@@ -188,7 +185,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Check if there is a specific agreement with a unit or the party of a unit.
 	 */
-	public function has(#[ExpectedValues(valuesFromClass: Relation::class)] int $agreement, Party|Unit $partner, Region $region = null): bool {
+	public function has(int $agreement, Party|Unit $partner, Region $region = null): bool {
 		if ($partner instanceof Unit) {
 			if ($this->hasContact($partner, $agreement)) {
 				return true;
@@ -263,7 +260,6 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 		$id = (string)$relation;
 		if (isset($this->relations[$id])) {
 			$oldRelation = $this->relations[$id];
-			/* @var Relation $oldRelation */
 			$oldRelation->set($relation->Agreement());
 		} else {
 			$this->relations[$id] = $relation;
@@ -329,7 +325,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Check if there is contact to a unit, optionally for a specific agreement.
 	 */
-	#[Pure]
+
 	protected function hasContact(Unit $unit, int $agreement): bool {
 		if (isset($this->contacts[$unit->Id()->Id()])) {
 			return $agreement >= Relation::NONE && $agreement <= Relation::DISGUISE;

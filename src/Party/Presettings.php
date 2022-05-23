@@ -2,9 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Party;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Id;
 use Lemuria\Model\Fantasya\Combat\BattleRow;
 use Lemuria\Model\Fantasya\Party;
@@ -39,8 +36,7 @@ class Presettings implements Serializable
 		return $this->isLooting;
 	}
 
-	#[ArrayShape(['battleRow' => 'int', 'disguiseAs' => 'int|false|null', 'isHiding' => 'bool', 'isLooting' => 'bool'])]
-	#[Pure] public function serialize(): array {
+	public function serialize(): array {
 		return [
 			'battleRow'  => $this->BattleRow(),
 			'isHiding'   => $this->IsHiding(),

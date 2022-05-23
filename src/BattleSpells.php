@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Model\Fantasya\Combat\Phase;
@@ -14,6 +12,9 @@ class BattleSpells implements \Countable, Serializable
 {
 	use SerializableTrait;
 
+	/**
+	 * @var array<int, SpellGrade>
+	 */
 	protected array $spells;
 
 	public function __construct() {
@@ -22,7 +23,6 @@ class BattleSpells implements \Countable, Serializable
 
 	public function __clone(): void {
 		foreach (array_keys($this->spells) as $phase) {
-			/** @var SpellGrade $spell */
 			$spell = $this->spells[$phase];
 			if ($spell) {
 				$this->spells[$phase] = new SpellGrade($spell->Spell(), $spell->Level());
@@ -48,9 +48,9 @@ class BattleSpells implements \Countable, Serializable
 		return $n;
 	}
 
-	#[Pure] public function serialize(): array {
+	public function serialize(): array {
 		$data = [];
-		foreach ($this->spells as $phase => $spell /* @var SpellGrade|null $spell */) {
+		foreach ($this->spells as $phase => $spell) {
 			$data[$phase] = $spell?->serialize();
 		}
 		return $data;
@@ -67,7 +67,6 @@ class BattleSpells implements \Countable, Serializable
 	public function has(BattleSpell $spell): bool {
 		$phase = $spell->Phase()->value;
 		if (isset($this->spells[$phase])) {
-			/** @var SpellGrade $spellGrade */
 			$spellGrade = $this->spells[$phase];
 			if ($spellGrade->Spell() === $spell) {
 				return true;

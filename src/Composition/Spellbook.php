@@ -3,9 +3,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Composition;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\Readable;
@@ -25,7 +22,7 @@ class Spellbook extends AbstractComposition implements Readable
 
 	protected SingletonSet $spells;
 
-	#[Pure] public function __construct() {
+	public function __construct() {
 		$this->spells = new SingletonSet();
 	}
 
@@ -33,12 +30,11 @@ class Spellbook extends AbstractComposition implements Readable
 		return $this->spells;
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	#[ArrayShape(['spells' => "string[]"])]
-	#[Pure] public function serialize(): array {
+	public function serialize(): array {
 		$data = ['spells' => $this->spells->serialize()];
 		return $data;
 	}
@@ -65,8 +61,7 @@ class Spellbook extends AbstractComposition implements Readable
 		$this->validate($data, 'spells', 'array');
 	}
 
-	#[ArrayShape([Silver::class => "int"])]
-	#[Pure] protected function material(): array {
+	protected function material(): array {
 		return [Silver::class => self::SILVER];
 	}
 

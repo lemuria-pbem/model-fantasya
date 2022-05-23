@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Talent\Stoning;
 
 /**
@@ -11,7 +9,7 @@ use Lemuria\Model\Fantasya\Talent\Stoning;
  */
 class NativeDistant extends Native
 {
-	#[Pure] protected function talent(): string {
+	protected function talent(): string {
 		return Stoning::class;
 	}
 }

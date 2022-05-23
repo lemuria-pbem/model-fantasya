@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Animal;
 use Lemuria\Model\Fantasya\Commodity\Elephant;
 use Lemuria\Model\Fantasya\Commodity\ElephantArmor;
@@ -40,23 +38,23 @@ final class WarElephant extends AbstractWeapon implements Animal, Transport
 
 	private const SPEED = 1;
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	#[Pure] public function Damage(): Damage {
+	public function Damage(): Damage {
 		return new Damage(...self::DAMAGE);
 	}
 
-	#[Pure] public function Hits(): int {
+	public function Hits(): int {
 		return self::HITS;
 	}
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	#[Pure] public function Speed(): int {
+	public function Speed(): int {
 		return self::SPEED;
 	}
 
@@ -65,12 +63,11 @@ final class WarElephant extends AbstractWeapon implements Animal, Transport
 		return new Requirement($weaponry, self::CRAFT);
 	}
 
-	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
-	#[Pure] protected function material(): array {
+	protected function material(): array {
 		return [Wood::class => self::WOOD, ElephantArmor::class => self::ELEPHANT_ARMOR, Elephant::class => self::ELEPHANT];
 	}
 
-	#[Pure] protected function talent(): string {
+	protected function talent(): string {
 		return Riding::class;
 	}
 

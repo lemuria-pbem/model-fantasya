@@ -2,9 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
@@ -48,7 +45,7 @@ class Vessel extends Entity implements Collectible, Collector
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): Vessel {
-		/* @var Vessel $vessel */
+		/** @var Vessel $vessel */
 		$vessel = Lemuria::Catalog()->get($id, Domain::VESSEL);
 		return $vessel;
 	}
@@ -56,7 +53,7 @@ class Vessel extends Entity implements Collectible, Collector
 	/**
 	 * Create an empty vessel.
 	 */
-	#[Pure] public function __construct() {
+	public function __construct() {
 		$this->passengers = new Inhabitants($this);
 		$this->treasury   = new Treasury($this);
 	}
@@ -65,7 +62,7 @@ class Vessel extends Entity implements Collectible, Collector
 		return Domain::VESSEL;
 	}
 
-	#[Pure] public function Anchor(): Direction {
+	public function Anchor(): Direction {
 		return $this->anchor;
 	}
 
@@ -73,28 +70,28 @@ class Vessel extends Entity implements Collectible, Collector
 		return $this->initPort();
 	}
 
-	#[Pure] public function Completion(): float {
+	public function Completion(): float {
 		return $this->completion;
 	}
 
-	#[Pure] public function Ship(): Ship {
+	public function Ship(): Ship {
 		return $this->ship;
 	}
 
 	public function Space(): int {
 		$space = $this->Ship()->Payload();
-		foreach ($this->Passengers() as $unit/* @var Unit $unit */) {
+		foreach ($this->Passengers() as $unit /* @var Unit $unit */) {
 			$space -= $unit->Weight();
 		}
 		return $space;
 	}
 
-	#[Pure] public function Passengers(): Inhabitants {
+	public function Passengers(): Inhabitants {
 		return $this->passengers;
 	}
 
 	public function Region(): Region {
-		/* @var Region $region */
+		/** @var Region $region */
 		$region = $this->getCollector(__FUNCTION__);
 		return $region;
 	}
@@ -103,14 +100,6 @@ class Vessel extends Entity implements Collectible, Collector
 		return $this->treasury;
 	}
 
-	/**
-	 * Get a plain data array of the model's data.
-	 */
-	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'passengers' => 'int[]', 'completion' => 'float',
-		'ship' => 'string', 'anchor' => 'string', 'port' => 'int|null', 'treasury' => 'array'
-	])]
-	#[Pure]
 	public function serialize(): array {
 		$data               = parent::serialize();
 		$data['anchor']     = $this->Anchor();
@@ -167,11 +156,11 @@ class Vessel extends Entity implements Collectible, Collector
 		return $this;
 	}
 
-	#[Pure] public function getUsedWood(): int {
+	public function getUsedWood(): int {
 		return (int)round($this->completion * $this->ship->Wood());
 	}
 
-	#[Pure] public function getRemainingWood(): int {
+	public function getRemainingWood(): int {
 		return $this->ship->Wood() - $this->getUsedWood();
 	}
 

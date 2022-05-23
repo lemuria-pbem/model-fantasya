@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Statistics\Data;
 
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
@@ -13,6 +11,9 @@ use Lemuria\Model\Fantasya\Luxuries;
 use Lemuria\Statistics\Data;
 use Lemuria\Statistics\Data\Number;
 
+/**
+ * @\ArrayAccess<Commodity|string, Number>
+ */
 class Market implements \ArrayAccess, Data
 {
 	use BuilderTrait;
@@ -40,14 +41,14 @@ class Market implements \ArrayAccess, Data
 	/**
 	 * @param string|Commodity $offset
 	 */
-	#[Pure] public function offsetExists(mixed $offset): bool {
+	public function offsetExists(mixed $offset): bool {
 		return isset($this->commodities[getClass($offset)]);
 	}
 
 	/**
 	 * @param string|Commodity $offset
 	 */
-	#[Pure] public function offsetGet(mixed $offset): ?Number {
+	public function offsetGet(mixed $offset): ?Number {
 		return $this->commodities[getClass($offset)] ?? null;
 	}
 
@@ -74,7 +75,7 @@ class Market implements \ArrayAccess, Data
 		}
 	}
 
-	#[Pure] public function serialize(): array {
+	public function serialize(): array {
 		$data = [];
 		foreach ($this->commodities as $class => $number /* @var Number $number */) {
 			$data[$class] = $number->serialize();

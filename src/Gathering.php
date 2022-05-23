@@ -8,6 +8,9 @@ use Lemuria\Id;
 
 /**
  * A Gathering is a set of parties.
+ *
+ * @\ArrayAccess<int|Id, Party>
+ * @\Iterator<int, Party>
  */
 class Gathering extends EntitySet
 {

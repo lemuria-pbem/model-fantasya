@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Damage;
 
 /**
@@ -13,7 +11,7 @@ final class Fists extends NativeMelee
 {
 	private const DAMAGE = [1, 5, 0];
 
-	#[Pure] public function __construct() {
+	public function __construct() {
 		parent::__construct(new Damage(...self::DAMAGE));
 	}
 }

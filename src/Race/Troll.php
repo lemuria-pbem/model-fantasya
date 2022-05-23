@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Race;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Talent\Archery;
 use Lemuria\Model\Fantasya\Talent\Armory;
 use Lemuria\Model\Fantasya\Talent\Bladefighting;
@@ -40,31 +38,31 @@ final class Troll extends AbstractRace
 
 	private const WEIGHT = 20 * 100;
 
-	#[Pure] public function Hitpoints(): int {
+	public function Hitpoints(): int {
 		return self::HITPOINTS;
 	}
 
-	#[Pure] public function Hunger(): int {
+	public function Hunger(): int {
 		return self::HUNGER;
 	}
 
-	#[Pure] public function Refill(): float {
+	public function Refill(): float {
 		return self::REFILL;
 	}
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	#[Pure] public function Recruiting(): int {
+	public function Recruiting(): int {
 		return self::RECRUITING;
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	#[Pure] protected function mods(): array {
+	protected function mods(): array {
 		return [
 			Archery::class      => -2, Armory::class      =>  2, Bladefighting::class =>  1,
 			Camouflage::class   => -3, Catapulting::class =>  2, Constructing::class  =>  2,

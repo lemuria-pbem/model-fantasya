@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Commodity\Carriage;
 use Lemuria\Model\Fantasya\Commodity\CarriageWreck;
 use Lemuria\Model\Fantasya\Commodity\Gold;
@@ -28,5 +26,5 @@ interface Commodity extends Singleton
 	/**
 	 * Get the weight of a product.
 	 */
-	#[Pure] public function Weight(): int;
+	public function Weight(): int;
 }

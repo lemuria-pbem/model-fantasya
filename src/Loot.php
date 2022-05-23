@@ -2,9 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
@@ -38,7 +35,7 @@ class Loot implements Serializable
 
 	protected SingletonSet $class;
 
-	#[Pure] public function __construct() {
+	public function __construct() {
 		$this->class = new SingletonSet();
 	}
 
@@ -46,8 +43,6 @@ class Loot implements Serializable
 		return $this->class;
 	}
 
-	#[ArrayShape(['group' => 'int', 'class' => 'array'])]
-	#[Pure]
 	public function serialize(): array {
 		return [
 			'group' => $this->group, 'class' => $this->class->serialize()

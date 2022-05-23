@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Race;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Talent\Archery;
 use Lemuria\Model\Fantasya\Talent\Bladefighting;
 use Lemuria\Model\Fantasya\Talent\Camouflage;
@@ -43,35 +41,35 @@ final class Halfling extends AbstractRace
 
 	private const WEIGHT = 8 * 100;
 
-	#[Pure] public function Hitpoints(): int {
+	public function Hitpoints(): int {
 		return self::HITPOINTS;
 	}
 
-	#[Pure] public function FlightChance(): float {
+	public function FlightChance(): float {
 		return self::FLIGHT_CHANCE;
 	}
 
-	#[Pure] public function Hunger(): int {
+	public function Hunger(): int {
 		return self::HUNGER;
 	}
 
-	#[Pure] public function Refill(): float {
+	public function Refill(): float {
 		return self::REFILL;
 	}
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	#[Pure] public function Recruiting(): int {
+	public function Recruiting(): int {
 		return self::RECRUITING;
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	#[Pure] protected function mods(): array {
+	protected function mods(): array {
 		return [
 			Archery::class        => -1, Bladefighting::class => -1, Camouflage::class    =>  1,
 			Carriagemaking::class =>  2, Catapulting::class   => -1, Constructing::class  =>  1,
