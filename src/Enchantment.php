@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Item;
 
 /**
@@ -11,11 +9,11 @@ use Lemuria\Item;
  */
 class Enchantment extends Item
 {
-	#[Pure] public function __construct(Spell $spell, int $count = 1) {
+	public function __construct(Spell $spell, int $count = 1) {
 		parent::__construct($spell, $count);
 	}
 
-	#[Pure] public function Spell(): Spell {
+	public function Spell(): Spell {
 		/** @var Spell $spell */
 		$spell = $this->getObject();
 		return $spell;

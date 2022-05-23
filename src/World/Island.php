@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\World;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Model\Coordinates;
@@ -40,23 +38,23 @@ class Island
 		$this->map    = [[$region]];
 	}
 
-	#[Pure] public function Id(): Id {
+	public function Id(): Id {
 		return $this->id;
 	}
 
-	#[Pure] public function Origin(): Coordinates {
+	public function Origin(): Coordinates {
 		return $this->origin;
 	}
 
-	#[Pure] public function Width(): int {
+	public function Width(): int {
 		return $this->width;
 	}
 
-	#[Pure] public function Height(): int {
+	public function Height(): int {
 		return $this->height;
 	}
 
-	#[Pure] public function Size(): int {
+	public function Size(): int {
 		$size = 0;
 		for ($y = 0; $y < $this->height; $y++) {
 			for ($x = 0; $x < $this->width; $x++) {
@@ -68,7 +66,7 @@ class Island
 		return $size;
 	}
 
-	#[Pure] public function isMapped(Coordinates $coordinates): bool {
+	public function isMapped(Coordinates $coordinates): bool {
 		if ($coordinates->X() >= $this->origin->X() && $coordinates->X() < $this->outerX()) {
 			if ($coordinates->Y() >= $this->origin->Y() && $coordinates->Y() < $this->outerY()) {
 				return true;
@@ -77,7 +75,7 @@ class Island
 		return false;
 	}
 
-	#[Pure] public function contains(Region $region): bool {
+	public function contains(Region $region): bool {
 		for ($y = 0; $y < $this->height; $y++) {
 			for ($x = 0; $x < $this->width; $x++) {
 				if ($this->map[$y][$x] === $region) {
@@ -88,7 +86,7 @@ class Island
 		return false;
 	}
 
-	#[Pure] public function get(Coordinates $coordinates): ?Region {
+	public function get(Coordinates $coordinates): ?Region {
 		if ($this->isMapped($coordinates)) {
 			$x = $coordinates->X() - $this->origin->X();
 			$y = $coordinates->Y() - $this->origin->Y();
@@ -206,7 +204,7 @@ class Island
 	/**
 	 * Check if another island has common coordinates.
 	 */
-	#[Pure] public function hasIntersection(Island $island): bool {
+	public function hasIntersection(Island $island): bool {
 		$x1 = $this->origin->X();
 		$y1 = $this->origin->Y();
 		$w1 = $x1 + $this->width - 1;
@@ -237,7 +235,7 @@ class Island
 	/**
 	 * Check if another island is a direct neighbour.
 	 */
-	#[Pure] public function hasNeighbour(Island $island): bool {
+	public function hasNeighbour(Island $island): bool {
 		$x1 = $this->origin->X();
 		$y1 = $this->origin->Y();
 		$w1 = $x1 + $this->width;
@@ -288,10 +286,8 @@ class Island
 		do {
 			$count = count($regions);
 			foreach (array_keys($regions) as $i) {
-				/* @var Coordinates */
 				$coordinates = $regions[$i][0];
-				/* @var Region $region */
-				$region = $regions[$i][1];
+				$region      = $regions[$i][1];
 				try {
 					$merged->add($coordinates, $region);
 					unset ($regions[$i]);
@@ -310,7 +306,7 @@ class Island
 		return $this;
 	}
 
-	#[Pure] public function getRegions(): array {
+	public function getRegions(): array {
 		$regions = [];
 		for ($y = 0; $y < $this->height; $y++) {
 			for ($x = 0; $x < $this->width; $x++) {
@@ -323,11 +319,11 @@ class Island
 		return $regions;
 	}
 
-	#[Pure] protected function outerX(): int {
+	protected function outerX(): int {
 		return $this->origin->X() + $this->width;
 	}
 
-	#[Pure] protected function outerY(): int {
+	protected function outerY(): int {
 		return $this->origin->Y() + $this->height;
 	}
 }

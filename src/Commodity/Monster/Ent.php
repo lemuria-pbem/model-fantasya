@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Commodity\Weapon\NativeMelee;
 use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Landscape\Forest;
@@ -33,23 +31,23 @@ final class Ent extends AbstractMonster
 		$this->environment[] = self::createLandscape(Swamp::class);
 	}
 
-	#[Pure] public function Block(): int {
+	public function Block(): int {
 		return self::BLOCK;
 	}
 
-	#[Pure] public function Hitpoints(): int {
+	public function Hitpoints(): int {
 		return self::HITPOINTS;
 	}
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	#[Pure] public function Recreation(): float {
+	public function Recreation(): float {
 		return self::RECREATION;
 	}
 }

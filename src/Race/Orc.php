@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Race;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Talent\Alchemy;
 use Lemuria\Model\Fantasya\Talent\Armory;
 use Lemuria\Model\Fantasya\Talent\Carriagemaking;
@@ -39,31 +37,31 @@ final class Orc extends AbstractRace
 
 	private const WEIGHT = 10 * 100;
 
-	#[Pure] public function Hitpoints(): int {
+	public function Hitpoints(): int {
 		return self::HITPOINTS;
 	}
 
-	#[Pure] public function Hunger(): int {
+	public function Hunger(): int {
 		return self::HUNGER;
 	}
 
-	#[Pure] public function Refill(): float {
+	public function Refill(): float {
 		return self::REFILL;
 	}
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	#[Pure] public function Recruiting(): int {
+	public function Recruiting(): int {
 		return self::RECRUITING;
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	#[Pure] protected function mods(): array {
+	protected function mods(): array {
 		return [
 			Alchemy::class      =>  1, Armory::class        =>  1, Carriagemaking::class => -1,
 			Constructing::class =>  1, Entertaining::class  => -2, Herballore::class     => -2,

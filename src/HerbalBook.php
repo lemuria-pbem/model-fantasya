@@ -2,9 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\EntitySet;
 use Lemuria\Serializable;
 use Lemuria\Entity;
@@ -21,7 +18,7 @@ class HerbalBook extends Annals
 	use BuilderTrait;
 
 	/**
-	 * @var array(int=>array)
+	 * @var array<int, Herbage>
 	 */
 	private array $herbage = [];
 
@@ -30,13 +27,10 @@ class HerbalBook extends Annals
 	 *
 	 * @return int[]
 	 */
-	#[ArrayShape(['entities' => "array", 'rounds' => "array", 'herbages' => "array"])]
-	#[Pure]
 	public function serialize(): array {
 		$entities = parent::serialize();
 		$herbages = [];
 		foreach ($entities['entities'] as $id) {
-			/** @var Herbage $herbage */
 			$herbage    = $this->herbage[$id];
 			$herbages[] = $herbage?->serialize();
 		}
@@ -81,7 +75,7 @@ class HerbalBook extends Annals
 		return $this;
 	}
 
-	#[Pure] public function getHerbage(Region $region): ?Herbage {
+	public function getHerbage(Region $region): ?Herbage {
 		return $this->herbage[$region->Id()->Id()] ?? null;
 	}
 

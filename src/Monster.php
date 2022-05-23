@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\SingletonSet;
 
 interface Monster extends Protection, Race
@@ -11,7 +9,7 @@ interface Monster extends Protection, Race
 	/**
 	 * Get the native weapon.
 	 */
-	#[Pure] public function Weapon(): ?Weapon;
+	public function Weapon(): ?Weapon;
 
 	/**
 	 * Get the items that this monster takes from loot.
@@ -21,12 +19,12 @@ interface Monster extends Protection, Race
 	/**
 	 * Get the trophy that can be gained in combat against this monster.
 	 */
-	#[Pure] public function Trophy(): ?Trophy;
+	public function Trophy(): ?Trophy;
 
 	/**
 	 * Get the health recreation factor.
 	 */
-	#[Pure] public function Recreation(): float;
+	public function Recreation(): float;
 
 	/**
 	 * Get the living environment.

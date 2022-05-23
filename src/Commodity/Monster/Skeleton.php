@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Commodity\Gold;
 use Lemuria\Model\Fantasya\Commodity\Luxury\AbstractLuxury;
 use Lemuria\Model\Fantasya\Commodity\Potion\AbstractPotion;
@@ -38,15 +36,15 @@ final class Skeleton extends AbstractMonster
 		$this->environment[] = self::createLandscape(Glacier::class);
 	}
 
-	#[Pure] public function Hitpoints(): int {
+	public function Hitpoints(): int {
 		return self::HITPOINTS;
 	}
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
@@ -58,7 +56,7 @@ final class Skeleton extends AbstractMonster
 		];
 	}
 
-	#[Pure] public function Recreation(): float {
+	public function Recreation(): float {
 		return 0.0;
 	}
 }

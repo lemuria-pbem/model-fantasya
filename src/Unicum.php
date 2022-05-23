@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
@@ -36,8 +34,6 @@ class Unicum extends Entity implements Collectible
 		return $unicum;
 	}
 
-	#[ArrayShape(['id' => 'int', 'name' => 'string', 'description' => 'string', 'composition' => 'string',
-				  'properties' => 'array'])]
 	public function serialize(): array {
 		$data                = parent::serialize();
 		$data['composition'] = getClass($this->Composition());

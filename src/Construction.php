@@ -2,9 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
@@ -41,7 +38,7 @@ class Construction extends Entity implements Collectible, Collector
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): self {
-		/* @var Construction $construction */
+		/** @var Construction $construction */
 		$construction = Lemuria::Catalog()->get($id, Domain::CONSTRUCTION);
 		return $construction;
 	}
@@ -49,7 +46,7 @@ class Construction extends Entity implements Collectible, Collector
 	/**
 	 * Create an empty construction.
 	 */
-	#[Pure] public function __construct() {
+	public function __construct() {
 		$this->inhabitants = new Inhabitants($this);
 		$this->treasury    = new Treasury($this);
 	}
@@ -61,23 +58,23 @@ class Construction extends Entity implements Collectible, Collector
 		return Domain::CONSTRUCTION;
 	}
 
-	#[Pure]
+
 	public function Building(): Building {
 		return $this->building;
 	}
 
-	#[Pure]
+
 	public function Size(): int {
 		return $this->size;
 	}
 
-	#[Pure]
+
 	public function Inhabitants(): Inhabitants {
 		return $this->inhabitants;
 	}
 
 	public function Region(): Region {
-		/* @var Region $region */
+		/** @var Region $region */
 		$region = $this->getCollector(__FUNCTION__);
 		return $region;
 	}
@@ -89,11 +86,6 @@ class Construction extends Entity implements Collectible, Collector
 	/**
 	 * Get a plain data array of the model's data.
 	 */
-	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'inhabitants' => 'int[]', 'size' => 'int',
-		'building' => 'string', 'treasury' => 'array'
-	])]
-	#[Pure]
 	public function serialize(): array {
 		$data                = parent::serialize();
 		$data['building']    = getClass($this->Building());
@@ -143,7 +135,7 @@ class Construction extends Entity implements Collectible, Collector
 		return $this;
 	}
 
-	#[Pure] public function getFreeSpace(): int {
+	public function getFreeSpace(): int {
 		return max(0, $this->size - $this->inhabitants->Size());
 	}
 

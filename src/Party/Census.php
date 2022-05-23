@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Party;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Exception\CensusException;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\People;
@@ -48,7 +46,7 @@ class Census implements \Countable
 	/**
 	 * Get the number of all persons belonging to the party.
 	 */
-	#[Pure] public function count(): int {
+	public function count(): int {
 		$n = 0;
 		foreach ($this->party->People() as $unit /* @var Unit $unit */) {
 			$n += $unit->Size();
@@ -59,7 +57,7 @@ class Census implements \Countable
 	/**
 	 * Get the Atlas of all regions known to the Party.
 	 */
-	#[Pure] public function getAtlas(): Atlas {
+	public function getAtlas(): Atlas {
 		return $this->atlas;
 	}
 

@@ -2,9 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Protection\Repairable;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\CommodityTrait;
@@ -44,10 +41,8 @@ abstract class AbstractRepairable implements Commodity, Protection, Repairable
 		return $this->craft;
 	}
 
-	#[Pure] abstract protected function protection(): string;
+	abstract protected function protection(): string;
 
-	#[ArrayShape([self::class => "int"])]
-	#[Pure]
 	protected function material(): array {
 		return [self::class => 1];
 	}

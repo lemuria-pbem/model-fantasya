@@ -2,9 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
@@ -55,7 +52,7 @@ class Region extends Entity implements Collectible, Collector, Location
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): Region {
-		/* @var Region $region */
+		/** @var Region $region */
 		$region = Lemuria::Catalog()->get($id, Domain::LOCATION);
 		return $region;
 	}
@@ -63,7 +60,7 @@ class Region extends Entity implements Collectible, Collector, Location
 	/**
 	 * Create an empty region.
 	 */
-	#[Pure] public function __construct() {
+	public function __construct() {
 		$this->resources = new Resources();
 		$this->estate    = new Estate($this);
 		$this->fleet     = new Fleet($this);
@@ -74,39 +71,39 @@ class Region extends Entity implements Collectible, Collector, Location
 	/**
 	 * Get the catalog namespace.
 	 */
-	#[Pure] public function Catalog(): Domain {
+	public function Catalog(): Domain {
 		return Domain::LOCATION;
 	}
 
-	#[Pure] public function Landscape(): Landscape {
+	public function Landscape(): Landscape {
 		return $this->landscape;
 	}
 
-	#[Pure] public function Roads(): ?Roads {
+	public function Roads(): ?Roads {
 		return $this->roads;
 	}
 
-	#[Pure] public function Herbage(): ?Herbage {
+	public function Herbage(): ?Herbage {
 		return $this->herbage;
 	}
 
-	#[Pure] public function Estate(): Estate {
+	public function Estate(): Estate {
 		return $this->estate;
 	}
 
-	#[Pure] public function Fleet(): Fleet {
+	public function Fleet(): Fleet {
 		return $this->fleet;
 	}
 
-	#[Pure] public function Resources(): Resources {
+	public function Resources(): Resources {
 		return $this->resources;
 	}
 
-	#[Pure] public function Residents(): People {
+	public function Residents(): People {
 		return $this->residents;
 	}
 
-	#[Pure] public function Luxuries(): ?Luxuries {
+	public function Luxuries(): ?Luxuries {
 		return $this->luxuries;
 	}
 
@@ -116,7 +113,7 @@ class Region extends Entity implements Collectible, Collector, Location
 
 	public function Continent(): ?Continent {
 		if ($this->hasCollector(__FUNCTION__)) {
-			/* @var Continent $continent */
+			/** @var Continent $continent */
 			$continent = $this->getCollector(__FUNCTION__);
 			return $continent;
 		}
@@ -126,11 +123,6 @@ class Region extends Entity implements Collectible, Collector, Location
 	/**
 	 * Get a plain data array of the model's data.
 	 */
-	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'luxuries' => 'array|null',
-		'residents' => 'int[]', 'fleet' => 'int[]', 'estate' => 'int[]', 'resources' => 'array',
-		'landscape' => 'string', 'roads' => 'array|null', 'herbage' => 'array|null', 'treasury' => 'array'
-	])]
 	public function serialize(): array {
 		$data              = parent::serialize();
 		$data['landscape'] = getClass($this->Landscape());

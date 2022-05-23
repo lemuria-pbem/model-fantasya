@@ -2,9 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Collector;
 use Lemuria\CollectorTrait;
 use Lemuria\Entity;
@@ -42,7 +39,7 @@ class Continent extends Entity implements Collector, Reassignment
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): self {
-		/* @var Continent $continent */
+		/** @var Continent $continent */
 		$continent = Lemuria::Catalog()->get($id, Domain::CONTINENT);
 		return $continent;
 	}
@@ -60,11 +57,7 @@ class Continent extends Entity implements Collector, Reassignment
 	 *
 	 * @return array
 	 */
-	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'landmass' => 'int[]', 'names' => 'array',
-		'descriptions' => 'array'
-	])]
-	#[Pure] public function serialize(): array {
+	public function serialize(): array {
 		$data                 = parent::serialize();
 		$data['landmass']     = $this->landmass->serialize();
 		$data['names']        = $this->names;
@@ -86,7 +79,7 @@ class Continent extends Entity implements Collector, Reassignment
 	/**
 	 * Get the catalog domain.
 	 */
-	#[Pure] public function Catalog(): Domain {
+	public function Catalog(): Domain {
 		return Domain::CONTINENT;
 	}
 
@@ -102,7 +95,7 @@ class Continent extends Entity implements Collector, Reassignment
 	/**
 	 * Get all regions.
 	 */
-	#[Pure] public function Landmass(): Landmass {
+	public function Landmass(): Landmass {
 		return $this->landmass;
 	}
 
@@ -129,22 +122,22 @@ class Continent extends Entity implements Collector, Reassignment
 		}
 	}
 
-	#[Pure] public function hasNameFor(Party $party): bool {
+	public function hasNameFor(Party $party): bool {
 		$id = $party->Id()->Id();
 		return isset($this->names[$id]);
 	}
 
-	#[Pure] public function hasDescriptionFor(Party $party): bool {
+	public function hasDescriptionFor(Party $party): bool {
 		$id = $party->Id()->Id();
 		return isset($this->descriptions[$id]);
 	}
 
-	#[Pure] public function getNameFor(Party $party): string {
+	public function getNameFor(Party $party): string {
 		$id = $party->Id()->Id();
 		return $this->names[$id] ?? $this->Name();
 	}
 
-	#[Pure] public function getDescriptionFor(Party $party): string {
+	public function getDescriptionFor(Party $party): string {
 		$id = $party->Id()->Id();
 		return $this->descriptions[$id] ?? $this->Description();
 	}

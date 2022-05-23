@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Potion;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\CommodityTrait;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
@@ -28,14 +26,14 @@ abstract class AbstractPotion implements Potion
 	/**
 	 * Get the weight of a product.
 	 */
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
 	/**
 	 * The effect duration of the potion.
 	 */
-	#[Pure] public function Weeks(): int {
+	public function Weeks(): int {
 		return 1;
 	}
 
@@ -43,7 +41,7 @@ abstract class AbstractPotion implements Potion
 		return Alchemy::class;
 	}
 
-	#[Pure] protected function getCraftLevel(): int {
+	protected function getCraftLevel(): int {
 		return $this->Level() * 2;
 	}
 }

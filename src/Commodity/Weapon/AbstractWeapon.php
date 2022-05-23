@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\CommodityTrait;
@@ -25,11 +23,11 @@ abstract class AbstractWeapon implements Commodity, Weapon
 		return self::getAll(__DIR__);
 	}
 
-	#[Pure] public function Hits(): int {
+	public function Hits(): int {
 		return 1;
 	}
 
-	#[Pure] public function Interval(): int {
+	public function Interval(): int {
 		return 1;
 	}
 
@@ -42,5 +40,5 @@ abstract class AbstractWeapon implements Commodity, Weapon
 		return !str_starts_with($class, 'Native');
 	}
 
-	#[Pure] abstract protected function talent(): string;
+	abstract protected function talent(): string;
 }

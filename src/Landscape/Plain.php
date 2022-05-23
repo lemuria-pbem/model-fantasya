@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Landscape;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Commodity\Herb\Flatroot;
 use Lemuria\Model\Fantasya\Commodity\Herb\Owlsgaze;
 use Lemuria\Model\Fantasya\Commodity\Herb\TangyTemerity;
@@ -28,11 +26,11 @@ class Plain extends AbstractLandscape
 		return self::$herbs;
 	}
 
-	#[Pure] public function RoadStones(): int {
+	public function RoadStones(): int {
 		return self::ROAD_STONES;
 	}
 
-	#[Pure] public function Workplaces(): int {
+	public function Workplaces(): int {
 		return self::WORKPLACES;
 	}
 }

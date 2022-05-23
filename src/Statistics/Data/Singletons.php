@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Statistics\Data;
 
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
@@ -12,6 +10,10 @@ use Lemuria\Singleton;
 use Lemuria\Statistics\Data;
 use Lemuria\Statistics\Data\Number;
 
+/**
+ * @\ArrayAccess<Singleton|string, Number>
+ * @\Iterator<string, Number>
+ */
 class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 {
 	/**
@@ -26,14 +28,14 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 	/**
 	 * @param string|Singleton $offset
 	 */
-	#[Pure] public function offsetExists(mixed $offset): bool {
+	public function offsetExists(mixed $offset): bool {
 		return isset($this->singletons[getClass($offset)]);
 	}
 
 	/**
 	 * @param string|Singleton $offset
 	 */
-	#[Pure] public function offsetGet(mixed $offset): ?Number {
+	public function offsetGet(mixed $offset): ?Number {
 		return $this->singletons[getClass($offset)] ?? null;
 	}
 
@@ -81,7 +83,7 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 		return $this->index < count($this->keys);
 	}
 
-	#[Pure] public function serialize(): array {
+	public function serialize(): array {
 		$data = [];
 		foreach ($this->singletons as $class => $number /* @var Number $number */) {
 			$data[$class] = $number->serialize();

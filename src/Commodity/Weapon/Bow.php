@@ -3,8 +3,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Commodity\Wood;
 use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Requirement;
@@ -24,11 +22,11 @@ final class Bow extends AbstractWeapon
 
 	private const WOOD = 1;
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	#[Pure] public function Damage(): Damage {
+	public function Damage(): Damage {
 		return new Damage(...self::DAMAGE);
 	}
 
@@ -37,12 +35,11 @@ final class Bow extends AbstractWeapon
 		return new Requirement($weaponry, self::CRAFT);
 	}
 
-	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
-	#[Pure] protected function material(): array {
+	protected function material(): array {
 		return [Wood::class => self::WOOD];
 	}
 
-	#[Pure] protected function talent(): string {
+	protected function talent(): string {
 		return Archery::class;
 	}
 }

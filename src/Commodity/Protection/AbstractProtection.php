@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Protection;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Artifact;
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\Commodity;
@@ -37,5 +35,5 @@ abstract class AbstractProtection implements Artifact, Commodity, Protection
 		return $this->craft;
 	}
 
-	#[Pure] abstract protected function craft(): int;
+	abstract protected function craft(): int;
 }

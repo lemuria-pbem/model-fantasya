@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 
 class BuildingEffect
@@ -19,7 +17,7 @@ class BuildingEffect
 		return $this;
 	}
 
-	#[Pure] public function getEffect(Talent $talent): ?Modification {
+	public function getEffect(Talent $talent): ?Modification {
 		$talent = getClass($talent);
 		return $this->effects[$talent] ?? null;
 	}

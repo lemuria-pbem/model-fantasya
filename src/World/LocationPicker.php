@@ -12,6 +12,8 @@ use Lemuria\Model\Fantasya\Region;
 
 /**
  * The LocationPicker is a helper class to find the best fitting locations.
+ *
+ * @\ArrayAccess<int, Region>
  */
 class LocationPicker implements \ArrayAccess, \Countable
 {

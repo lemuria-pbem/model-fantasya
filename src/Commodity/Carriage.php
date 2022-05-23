@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Artifact;
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\Commodity;
@@ -32,15 +30,15 @@ class Carriage implements Artifact, Commodity, Transport
 
 	private ?Requirement $craft = null;
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	#[Pure] public function Speed(): int {
+	public function Speed(): int {
 		return self::SPEED;
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
@@ -52,8 +50,7 @@ class Carriage implements Artifact, Commodity, Transport
 		return $this->craft;
 	}
 
-	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
-	#[Pure] protected function material(): array {
+	protected function material(): array {
 		return [Wood::class => self::WOOD];
 	}
 }

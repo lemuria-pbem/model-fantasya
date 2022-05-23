@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\RawMaterial;
 use Lemuria\Model\Fantasya\RawMaterialTrait;
@@ -20,7 +18,7 @@ final class Wood implements Commodity, RawMaterial
 
 	private const WEIGHT = 5 * 100;
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 

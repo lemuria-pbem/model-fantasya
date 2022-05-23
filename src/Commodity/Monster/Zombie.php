@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Landscape\Desert;
 use Lemuria\Model\Fantasya\Landscape\Highland;
 use Lemuria\Model\Fantasya\Landscape\Plain;
@@ -24,19 +22,19 @@ final class Zombie extends AbstractMonster
 		$this->environment[] = self::createLandscape(Desert::class);
 	}
 
-	#[Pure] public function Hitpoints(): int {
+	public function Hitpoints(): int {
 		return self::HITPOINTS;
 	}
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	#[Pure] public function Recreation(): float {
+	public function Recreation(): float {
 		return 0.0;
 	}
 }

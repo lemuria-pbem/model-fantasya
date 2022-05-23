@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Item;
 
 /**
@@ -14,11 +12,11 @@ class Gang extends Item
 	/**
 	 * Create a quantity of some race.
 	 */
-	#[Pure] public function __construct(Race $race, int $count = 1) {
+	public function __construct(Race $race, int $count = 1) {
 		parent::__construct($race, $count);
 	}
 
-	#[Pure] public function Race(): Race {
+	public function Race(): Race {
 		/** @var Race $race */
 		$race = $this->getObject();
 		return $race;
@@ -27,7 +25,7 @@ class Gang extends Item
 	/**
 	 * Get the gangs' total weight.
 	 */
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return $this->Count() * $this->Race()->Weight();
 	}
 

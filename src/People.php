@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Entity;
 use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
@@ -15,13 +13,16 @@ use Lemuria\Sorting\ById;
 
 /**
  * The people of a player or party is the community of all its units.
+ *
+ * @\ArrayAccess<int|Id, Unit>
+ * @\Iterator<int, Unit>
  */
 class People extends EntitySet
 {
 	/**
 	 * Count the total size of all entities.
 	 */
-	#[Pure] public function Size(): int {
+	public function Size(): int {
 		$size = 0;
 		foreach ($this as $unit /* @var Unit $unit */) {
 			$size += $unit->Size();

@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeEntityException;
 use Lemuria\Serializable;
@@ -25,7 +23,6 @@ class Aura implements Serializable
 		return $this->maximum;
 	}
 
-	#[ArrayShape(['aura' => "int", 'maximum' => "int"])]
 	public function serialize(): array {
 		return ['aura' => $this->aura, 'maximum' => $this->maximum];
 	}

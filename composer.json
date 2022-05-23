@@ -11,16 +11,15 @@
 		}
 	],
 	"version": "0.12.4",
-	"time": "2022-05-20",
+	"time": "2022-05-23",
 
 	"require": {
 		"php": "~8.1",
 		"ext-json": "~8.1",
 		"ramsey/uuid": "~4.2",
-		"lemuria-pbem/lemuria": "dev-dev"
+		"lemuria-pbem/lemuria": "dev-feature/release"
 	},
 	"require-dev": {
-		"jetbrains/phpstorm-attributes": "~1.0",
 		"phpunit/phpunit": "~9.5"
 	},
 	"repositories": [

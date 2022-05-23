@@ -2,9 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Composition;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\Unicum;
@@ -26,12 +23,11 @@ class Scroll extends AbstractComposition implements Readable
 		return $this->spell;
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	#[ArrayShape(['spell' => "string"])]
-	#[Pure] public function serialize(): array {
+	public function serialize(): array {
 		$data = ['spell' => $this->spell ? getClass($this->spell) : null];
 		return $data;
 	}
@@ -66,8 +62,7 @@ class Scroll extends AbstractComposition implements Readable
 		$this->validate($data, 'spell', '?string');
 	}
 
-	#[ArrayShape([Silver::class => "int"])]
-	#[Pure] protected function material(): array {
+	protected function material(): array {
 		return [Silver::class => self::SILVER];
 	}
 

@@ -2,22 +2,19 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Immutable;
-use JetBrains\PhpStorm\Pure;
-
 /**
  * An offer on the market describes the price of a commodity.
  */
 class Offer
 {
-	#[Pure] public function __construct(#[Immutable] private readonly Commodity $commodity, private int $price = 0) {
+	public function __construct(private readonly Luxury $commodity, private int $price = 0) {
 	}
 
-	#[Pure] public function Commodity(): Commodity {
+	public function Commodity(): Luxury {
 		return $this->commodity;
 	}
 
-	#[Pure] public function Price(): int {
+	public function Price(): int {
 		return $this->price;
 	}
 

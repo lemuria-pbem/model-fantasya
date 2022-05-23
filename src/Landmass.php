@@ -8,6 +8,9 @@ use Lemuria\Id;
 
 /**
  * The estate in a region is the list of constructions that have been build there.
+ *
+ * @\ArrayAccess<int|Id, Region>
+ * @\Iterator<int, Region>
  */
 class Landmass extends EntitySet
 {

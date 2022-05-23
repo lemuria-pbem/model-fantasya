@@ -2,9 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
@@ -60,7 +57,7 @@ class Unit extends Entity implements Collectible, Collector
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): Unit {
-		/* @var Unit $unit */
+		/** @var Unit $unit */
 		$unit = Lemuria::Catalog()->get($id, Domain::UNIT);
 		return $unit;
 	}
@@ -68,12 +65,11 @@ class Unit extends Entity implements Collectible, Collector
 	/**
 	 * Create a new unit.
 	 */
-	#[Pure] public function __construct() {
+	public function __construct() {
 		$this->inventory = new Resources();
 		$this->treasury  = new Treasury($this);
 		$this->knowledge = new Knowledge();
 	}
-
 
 	public function Catalog(): Domain {
 		return Domain::UNIT;
@@ -135,20 +131,20 @@ class Unit extends Entity implements Collectible, Collector
 	}
 
 	public function Party(): Party {
-		/* @var Party $party */
+		/** @var Party $party */
 		$party = $this->getCollector(__FUNCTION__);
 		return $party;
 	}
 
 	public function Region(): Region {
-		/* @var Region $region */
+		/** @var Region $region */
 		$region = $this->getCollector(__FUNCTION__);
 		return $region;
 	}
 
 	public function Construction(): ?Construction {
 		if ($this->hasCollector(__FUNCTION__)) {
-			/* @var Construction $construction */
+			/** @var Construction $construction */
 			$construction = $this->getCollector(__FUNCTION__);
 			return $construction;
 		}
@@ -157,7 +153,7 @@ class Unit extends Entity implements Collectible, Collector
 
 	public function Vessel(): ?Vessel {
 		if ($this->hasCollector(__FUNCTION__)) {
-			/* @var Vessel $vessel */
+			/** @var Vessel $vessel */
 			$vessel = $this->getCollector(__FUNCTION__);
 			return $vessel;
 		}
@@ -187,18 +183,7 @@ class Unit extends Entity implements Collectible, Collector
 		return $this;
 	}
 
-	/**
-	 * Get a plain data array of the model's data.
-	 *
-	 * @return array
-	 */
-	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'race' => 'string', 'size' => 'int',
-		'health' => 'float', 'isGuarding' => 'bool', 'battleRow' => 'int', 'isHiding' => 'bool', 'isLooting' => 'bool',
-		'disguiseAs' => 'int|false|null', 'inventory' => 'array', 'treasury' => 'array', 'knowledge' => 'array',
-		'aura' => 'array|null', 'battleSpells' => 'array|null'
-	])]
-	#[Pure] public function serialize(): array {
+	public function serialize(): array {
 		$data                 = parent::serialize();
 		$data['race']         = getClass($this->Race());
 		$data['size']         = $this->Size();

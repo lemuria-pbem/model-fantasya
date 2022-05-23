@@ -3,8 +3,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Luxury;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\CommodityTrait;
 use Lemuria\Model\Fantasya\Luxury;
 use Lemuria\SingletonSet;
@@ -24,7 +22,7 @@ abstract class AbstractLuxury implements Luxury
 		return self::getAll(__DIR__);
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 }
