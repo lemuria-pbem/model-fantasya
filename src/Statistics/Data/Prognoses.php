@@ -17,7 +17,7 @@ use Lemuria\Statistics\Data\Prognosis;
 class Prognoses implements \ArrayAccess, \Countable, \Iterator, Data
 {
 	/**
-	 * @var array(string=>Prognosis)
+	 * @var array<string, Prognosis>
 	 */
 	protected array $singletons = [];
 
