@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Ship;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Commodity\Wood;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Ship;
@@ -29,12 +27,15 @@ abstract class AbstractShip implements Ship
 		return $this->craft;
 	}
 
-	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
-	#[Pure] protected function material(): array {
+	public function Tare(): int {
+		return $this->Wood() * self::createCommodity(Wood::class)->Weight();
+	}
+
+	protected function material(): array {
 		return [Wood::class => 1];
 	}
 
-	#[Pure] protected function shipbuildingLevel(): int {
+	protected function shipbuildingLevel(): int {
 		return $this->Captain();
 	}
 }

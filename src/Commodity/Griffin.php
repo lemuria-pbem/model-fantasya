@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Animal;
 use Lemuria\Model\Fantasya\Commodity\Weapon\NativeMelee;
 use Lemuria\Model\Fantasya\Damage;
@@ -50,27 +48,27 @@ final class Griffin implements Animal, Monster
 		$this->environment[] = self::createLandscape(Glacier::class);
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	#[Pure] public function Speed(): int {
+	public function Speed(): int {
 		return self::SPEED;
 	}
 
-	#[Pure] public function Block(): int {
+	public function Block(): int {
 		return self::BLOCK;
 	}
 
-	#[Pure] public function Hitpoints(): int {
+	public function Hitpoints(): int {
 		return self::HITPOINTS;
 	}
 
-	#[Pure] public function FlightChance(): float {
+	public function FlightChance(): float {
 		return self::FLIGHT_CHANCE;
 	}
 
@@ -81,7 +79,7 @@ final class Griffin implements Animal, Monster
 		return $this->loot;
 	}
 
-	#[Pure] public function Recreation(): float {
+	public function Recreation(): float {
 		return self::RECREATION;
 	}
 }

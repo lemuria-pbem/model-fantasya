@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Building;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Building;
 
 /**
@@ -13,15 +11,15 @@ interface Castle extends Building
 {
 	public final const MARKET_SIZE = 5;
 
-	#[Pure] public function Defense(): int;
+	public function Defense(): int;
 
-	#[Pure] public function MaxSize(): int;
+	public function MaxSize(): int;
 
-	#[Pure] public function MinSize(): int;
+	public function MinSize(): int;
 
 	public function Downgrade(): Castle;
 
 	public function Upgrade(): Castle;
 
-	#[Pure] public function Wage(): int;
+	public function Wage(): int;
 }

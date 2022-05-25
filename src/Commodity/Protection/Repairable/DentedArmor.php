@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Protection\Repairable;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Armature;
 use Lemuria\Model\Fantasya\Commodity\Protection\Armor;
 
@@ -12,15 +10,15 @@ use Lemuria\Model\Fantasya\Commodity\Protection\Armor;
  */
 final class DentedArmor extends AbstractRepairable implements Armature
 {
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return Armor::WEIGHT;
 	}
 
-	#[Pure] public function Block(): int {
+	public function Block(): int {
 		return $this->reduceBlock(Armor::BLOCK);
 	}
 
-	#[Pure] protected function protection(): string {
+	protected function protection(): string {
 		return Armor::class;
 	}
 }

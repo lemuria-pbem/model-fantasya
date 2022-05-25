@@ -2,14 +2,15 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Item;
 use Lemuria\ItemSet;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 
 /**
  * The wizardry is a set of enchantments.
+ *
+ * @\ArrayAccess <Spell|string, Enchantment>
+ * @\Iterator <string, Enchantment>
  */
 class Wizardry extends ItemSet
 {
@@ -35,7 +36,7 @@ class Wizardry extends ItemSet
 	/**
 	 * Check if an item is valid for this set.
 	 */
-	#[Pure] protected function isValidItem(Item $item): bool {
+	protected function isValidItem(Item $item): bool {
 		return $item instanceof Enchantment;
 	}
 }

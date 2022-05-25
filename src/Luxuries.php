@@ -2,9 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\CountableTrait;
 use Lemuria\IteratorTrait;
@@ -24,6 +21,9 @@ use Lemuria\SerializableTrait;
 
 /**
  * Represents the prices of luxuries on the market of a region.
+ *
+ * @\ArrayAccess<Luxury|string, Offer>
+ * @\Iterator<string, Offer>
  */
 class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 {
@@ -39,7 +39,7 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	private ?Offer $offer;
 
 	/**
-	 * @var array(string=>Offer)
+	 * @var array<string, Offer>
 	 */
 	private array $demand = [];
 
@@ -60,7 +60,7 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	 *
 	 * @param Luxury|string $offset
 	 */
-	#[Pure] public function offsetExists(mixed $offset): bool {
+	public function offsetExists(mixed $offset): bool {
 		$class = getClass($offset);
 		return isset($this->demand[$class]);
 	}
@@ -108,36 +108,34 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 			throw new LemuriaException('Demand ' . $class . ' does not exist.');
 		}
 		$demand = $this->demand[$class];
-		/* @var Offer $demand */
 		$luxury = $demand->Commodity();
-		/* @var Luxury $luxury */
 		$this->demand[$class]->setPrice($luxury->Value());
 	}
 
 	/**
 	 * Get number of demand luxuries.
 	 */
-	#[Pure] public function count(): int {
+	public function count(): int {
 		return count($this->demand);
 	}
 
-	#[Pure]	public function current(): ?Offer {
+		public function current(): ?Offer {
 		$key = $this->key();
 		return $this->demand[$key] ?? null;
 	}
 
-	#[Pure] public function key(): ?string {
+	public function key(): ?string {
 		return $this->indices[$this->index] ?? null;
 	}
 
 	/**
 	 * Get a plain data array of the model's data.
 	 */
-	#[ArrayShape(['offer' => "string", 'price' => 'int', 'demand' => "array"])] public function serialize(): array {
+	public function serialize(): array {
 		$offer  = getClass($this->Offer()->Commodity());
 		$price  = $this->Offer()->Price();
 		$demand = [];
-		foreach ($this->demand as $class => $item/* @var Offer $item */) {
+		foreach ($this->demand as $class => $item) {
 			$demand[$class] = $item->Price();
 		}
 		return ['offer' => $offer, 'price' => $price, 'demand' => $demand];
@@ -204,11 +202,9 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	 */
 	protected function initialize(): void {
 		$offer = $this->offer->Commodity();
-		if (!$offer instanceof Luxury) {
-			throw new UnserializeException('Expected luxury: ' . $offer);
-		}
-		$i = 0;
+		$i     = 0;
 		foreach (self::LUXURIES as $class) {
+			/** @var Luxury $luxury */
 			$luxury = self::createCommodity($class);
 			if ($luxury === $offer) {
 				continue;

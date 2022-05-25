@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\Item;
 use Lemuria\ItemSet;
@@ -20,6 +18,9 @@ use Lemuria\SingletonSet;
 
 /**
  * Resources are sets of quantities.
+ *
+ * @\ArrayAccess <Commodity|string, Quantity>
+ * @\Iterator <string, Quantity>
  */
 class Resources extends ItemSet
 {
@@ -63,7 +64,7 @@ class Resources extends ItemSet
 	/**
 	 * Check if an item is valid for this set.
 	 */
-	#[Pure] protected function isValidItem(Item $item): bool {
+	protected function isValidItem(Item $item): bool {
 		return $item instanceof Quantity;
 	}
 

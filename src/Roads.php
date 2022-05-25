@@ -2,13 +2,14 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Model\World\Direction;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 
+/**
+ * @\ArrayAccess<Direction|string, float>
+ */
 class Roads implements \ArrayAccess, \Countable, Serializable
 {
 	use SerializableTrait;
@@ -23,7 +24,7 @@ class Roads implements \ArrayAccess, \Countable, Serializable
 	 *
 	 * @param Direction|string $offset
 	 */
-	#[Pure] public function offsetExists(mixed $offset): bool {
+	public function offsetExists(mixed $offset): bool {
 		return isset($this->completion[$this->offset($offset)]);
 	}
 
@@ -32,7 +33,7 @@ class Roads implements \ArrayAccess, \Countable, Serializable
 	 *
 	 * @param Direction|string $offset
 	 */
-	#[Pure] public function offsetGet(mixed $offset): float {
+	public function offsetGet(mixed $offset): float {
 		return $this->completion[$this->offset($offset)] ?? 0.0;
 	}
 

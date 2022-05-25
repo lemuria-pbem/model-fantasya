@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 /**
  * A building is an artifact than can be entered by units.
  */
@@ -23,22 +21,22 @@ interface Building extends Artifact
 	/**
 	 * Get the additional feed for every person of a unit that has entered the building.
 	 */
-	#[Pure] public function Feed(): int;
+	public function Feed(): int;
 
 	/**
 	 * Get the talent level needed to create the building.
 	 */
-	#[Pure] public function Talent(): int;
+	public function Talent(): int;
 
 	/**
 	 * Get the amount of silver to maintain the building's function.
 	 */
-	#[Pure] public function Upkeep(): int;
+	public function Upkeep(): int;
 
 	/**
 	 * Get the minimum size the building must have.
 	 */
-	#[Pure] public function UsefulSize(): int;
+	public function UsefulSize(): int;
 
 	public function BuildingEffect(): BuildingEffect;
 

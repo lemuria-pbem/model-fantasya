@@ -8,16 +8,16 @@ use Lemuria\Exception\UnserializeException;
 use Lemuria\Lemuria;
 use Lemuria\Singleton;
 use Lemuria\Statistics\Data;
-use Lemuria\Statistics\Data\Number;
+use Lemuria\Statistics\Data\Prognosis;
 
 /**
- * @\ArrayAccess<Singleton|string, Number>
- * @\Iterator<string, Number>
+ * @\ArrayAccess<Singleton|string, array<int, Prognosis>>
+ * @\Iterator<string, array<int, Prognosis>>
  */
-class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
+class Qualification implements \ArrayAccess, \Countable, \Iterator, Data
 {
 	/**
-	 * @var array<string, Number>
+	 * @var array<string, Prognosis>
 	 */
 	protected array $singletons = [];
 
@@ -34,17 +34,18 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 
 	/**
 	 * @param string|Singleton $offset
+	 * @return array<int, Prognosis>
 	 */
-	public function offsetGet(mixed $offset): ?Number {
+	public function offsetGet(mixed $offset): ?array {
 		return $this->singletons[getClass($offset)] ?? null;
 	}
 
 	/**
 	 * @param string|Singleton $offset
-	 * @param Number $value
+	 * @param array<int, Prognosis> $value
 	 */
 	public function offsetSet(mixed $offset, mixed $value): void {
-		if ($value instanceof Number) {
+		if ($this->isQualification($value)) {
 			$this->singletons[getClass($offset)] = $value;
 		} else {
 			throw new LemuriaException();
@@ -62,7 +63,10 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 		return count($this->singletons);
 	}
 
-	public function current(): Number {
+	/**
+	 * @return array<int, Prognosis>
+	 */
+	public function current(): array {
 		return $this->singletons[$this->key()];
 	}
 
@@ -85,21 +89,47 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 
 	public function serialize(): array {
 		$data = [];
-		foreach ($this->singletons as $class => $number /* @var Number $number */) {
-			$data[$class] = $number->serialize();
+		foreach ($this->singletons as $class => $prognoses) {
+			$values = [];
+			foreach ($prognoses as $level => $prognosis /* @var Prognosis $prognosis */) {
+				$values[$level] = $prognosis->serialize();
+			}
+			$data[$class] = $values;
 		}
 		return $data;
 	}
 
 	public function unserialize(mixed $data): Data {
 		if (is_array($data)) {
-			foreach ($data as $class => $numberData) {
+			foreach ($data as $class => $prognosesData) {
 				Lemuria::Builder()->create($class);
-				$number                   = new Number(0);
-				$this->singletons[$class] = $number->unserialize($numberData);
+				if (!is_array($prognosesData)) {
+					throw new UnserializeException();
+				}
+				$values = [];
+				foreach ($prognosesData as $level => $prognosisData) {
+					$prognosis      = new Prognosis(0);
+					$values[$level] = $prognosis->unserialize($prognosisData);
+				}
+				$this->singletons[$class] = $values;
 			}
 			return $this;
 		}
 		throw new UnserializeException();
+	}
+
+	private function isQualification(mixed $value): bool {
+		if (!is_array($value)) {
+			return false;
+		}
+		foreach ($value as $level => $prognosis) {
+			if (!is_int($level)) {
+				return false;
+			}
+			if (!($prognosis instanceof Prognosis)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

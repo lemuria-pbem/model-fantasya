@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Building\Castle;
 use Lemuria\Model\Fantasya\Party\Type;
 
@@ -12,7 +10,7 @@ use Lemuria\Model\Fantasya\Party\Type;
  */
 final class Intelligence
 {
-	#[Pure]	public function __construct(private readonly Region $region) {
+		public function __construct(private readonly Region $region) {
 	}
 
 	public function Region(): Region {
@@ -84,7 +82,7 @@ final class Intelligence
 	/**
 	 * Get the government of a region, which is the biggest castle in that region.
 	 */
-	#[Pure] public function getGovernment(): ?Construction {
+	public function getGovernment(): ?Construction {
 		$castle  = null;
 		$biggest = 0;
 		foreach ($this->region->Estate() as $construction /* @var Construction $construction */) {
@@ -102,7 +100,7 @@ final class Intelligence
 	/**
 	 * Get the wage of the region that every peasant can earn.
 	 */
-	#[Pure] public function getWage(int $defaultWage): int {
+	public function getWage(int $defaultWage): int {
 		/** @var Castle $castle */
 		$castle = $this->getGovernment()?->Building();
 		return $castle?->Wage() ?? $defaultWage;

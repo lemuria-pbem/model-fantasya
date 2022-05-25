@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Lemuria;
 use Lemuria\SingletonTrait;
 
@@ -24,7 +22,7 @@ trait ArtifactTrait
 			$this->material = new Resources();
 			foreach ($this->material() as $product => $quantity) {
 				$commodity = Lemuria::Builder()->create($product);
-				/* @var Commodity $commodity */
+				/** @var Commodity $commodity */
 				$this->material->add(new Quantity($commodity, $quantity));
 			}
 		}
@@ -36,5 +34,5 @@ trait ArtifactTrait
 	 *
 	 * @return array(string=>int)
 	 */
-	#[Pure] abstract protected function material(): array;
+	abstract protected function material(): array;
 }

@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -75,7 +73,7 @@ class Party extends Entity implements Assignable, Collector
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): self {
-		/* @var Party $party */
+		/** @var Party $party */
 		$party = Lemuria::Catalog()->get($id, Domain::PARTY);
 		return $party;
 	}
@@ -100,7 +98,7 @@ class Party extends Entity implements Assignable, Collector
 	/**
 	 * Get the catalog domain.
 	 */
-	#[Pure] public function Catalog(): Domain {
+	public function Catalog(): Domain {
 		return Domain::PARTY;
 	}
 
@@ -138,21 +136,21 @@ class Party extends Entity implements Assignable, Collector
 	/**
 	 * Get the party's race.
 	 */
-	#[Pure] public function Race(): Race {
+	public function Race(): Race {
 		return $this->race;
 	}
 
 	/**
 	 * Get all units.
 	 */
-	#[Pure] public function People(): People {
+	public function People(): People {
 		return $this->people;
 	}
 
 	/**
 	 * Get the chronicle.
 	 */
-	#[Pure]
+
 	public function Chronicle(): Chronicle {
 		return $this->chronicle;
 	}
@@ -201,12 +199,6 @@ class Party extends Entity implements Assignable, Collector
 	 *
 	 * @return array
 	 */
-	#[ArrayShape([
-		'id' => 'int', 'name' => 'string', 'description' => 'string', 'type' => 'int', 'banner' => 'string',
-		'uuid' => 'string', 'creation' => 'int', 'round' => 'int', 'retirement' => '?int', 'origin' => 'int',
-		'race' => 'string', 'diplomacy' => 'array', 'people' => 'int[]', 'chronicle' => 'array',
-		'herbalBook' => 'array', 'spellBook' => 'array', 'loot' => 'array', 'presettings' => 'array'
-	])]
 	public function serialize(): array {
 		$data                = parent::serialize();
 		$data['type']        = $this->type;

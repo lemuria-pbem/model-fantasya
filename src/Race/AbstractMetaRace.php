@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Race;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Knowledge;
 use Lemuria\Model\Fantasya\Race;
 use Lemuria\Model\Fantasya\TerrainEffect;
@@ -17,19 +15,19 @@ abstract class AbstractMetaRace implements Race
 
 	private ?TerrainEffect $terrainEffect = null;
 
-	#[Pure] public function Hitpoints(): int {
+	public function Hitpoints(): int {
 		return 0;
 	}
 
-	#[Pure] public function FlightChance(): float {
+	public function FlightChance(): float {
 		return 0.0;
 	}
 
-	#[Pure] public function Hunger(): int {
+	public function Hunger(): int {
 		return 0;
 	}
 
-	#[Pure] public function Refill(): float {
+	public function Refill(): float {
 		return 0.0;
 	}
 
@@ -47,19 +45,19 @@ abstract class AbstractMetaRace implements Race
 		return $this->terrainEffect;
 	}
 
-	#[Pure] public function Recruiting(): int {
+	public function Recruiting(): int {
 		return 0;
 	}
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return 0;
 	}
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return 0;
 	}
 
-	#[Pure] public function Speed(): int {
+	public function Speed(): int {
 		return 0;
 	}
 }

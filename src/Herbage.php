@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
@@ -31,7 +29,7 @@ class Herbage implements Serializable
 	/**
 	 * Get a plain data array of the model's data.
 	 */
-	#[Pure] public function serialize(): array {
+	public function serialize(): array {
 		return [getClass($this->herb) => $this->occurrence];
 	}
 

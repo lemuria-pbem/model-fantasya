@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\World;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\CountableTrait;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\IteratorTrait;
@@ -33,14 +31,14 @@ class Map implements \Countable, \Iterator
 	 */
 	protected array $latitude = [];
 
-	#[Pure] public function current(): ?Island {
+	public function current(): ?Island {
 		return $this->islands[$this->index] ?? null;
 	}
 
 	/**
 	 * Find island that contains a region.
 	 */
-	#[Pure] public function search(Region $region): ?Island {
+	public function search(Region $region): ?Island {
 		foreach ($this->islands as $island) {
 			if ($island->contains($region)) {
 				return $island;
@@ -78,7 +76,7 @@ class Map implements \Countable, \Iterator
 	/**
 	 * @return Island[]
 	 */
-	#[Pure] protected function findIslands(Coordinates $coordinates): array {
+	protected function findIslands(Coordinates $coordinates): array {
 		$longitude = $this->longitude[$coordinates->X()] ?? [];
 		$latitude  = $this->latitude[$coordinates->Y()] ?? [];
 		$islands   = [];

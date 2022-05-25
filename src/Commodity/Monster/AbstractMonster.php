@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Landscape;
 use Lemuria\Model\Fantasya\Monster;
@@ -27,23 +25,23 @@ abstract class AbstractMonster extends AbstractRace implements Monster
 	 */
 	protected array $environment = [];
 
-	#[Pure] public function Block(): int {
+	public function Block(): int {
 		return 0;
 	}
 
-	#[Pure] public function Hunger(): int {
+	public function Hunger(): int {
 		return 0;
 	}
 
-	#[Pure] public function Refill(): float {
+	public function Refill(): float {
 		return 0.0;
 	}
 
-	#[Pure] public function Recruiting(): int {
+	public function Recruiting(): int {
 		return 0;
 	}
 
-	#[Pure] public function Weapon(): ?Weapon {
+	public function Weapon(): ?Weapon {
 		return $this->weapon;
 	}
 
@@ -61,7 +59,7 @@ abstract class AbstractMonster extends AbstractRace implements Monster
 		return $this->loot;
 	}
 
-	#[Pure] public function Trophy(): ?Trophy {
+	public function Trophy(): ?Trophy {
 		return $this->trophy;
 	}
 
@@ -72,7 +70,7 @@ abstract class AbstractMonster extends AbstractRace implements Monster
 		return $this->environment;
 	}
 
-	#[Pure] protected function mods(): array {
+	protected function mods(): array {
 		return [];
 	}
 

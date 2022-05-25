@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Building;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Building;
 use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Silver;
@@ -33,24 +31,23 @@ final class Canal extends AbstractBuilding
 		return Building::IS_INDEPENDENT;
 	}
 
-	#[Pure] public function Feed(): int {
+	public function Feed(): int {
 		return 0;
 	}
 
-	#[Pure] public function Talent(): int {
+	public function Talent(): int {
 		return self::TALENT;
 	}
 
-	#[Pure] public function Upkeep(): int {
+	public function Upkeep(): int {
 		return self::UPKEEP;
 	}
 
-	#[Pure] public function UsefulSize(): int {
+	public function UsefulSize(): int {
 		return self::USEFUL_SIZE;
 	}
 
-	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
-	#[Pure] protected function material(): array {
+	protected function material(): array {
 		return [Silver::class => self::SILVER, Wood::class => self::WOOD, Stone::class => self::STONE, Iron::class => self::IRON];
 	}
 }

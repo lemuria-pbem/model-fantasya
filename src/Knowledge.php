@@ -2,14 +2,15 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Item;
 use Lemuria\ItemSet;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 
 /**
  * The knowledge that a unit has represents all talents that it is able to use.
+ *
+ * @\ArrayAccess <Talent|string, Ability>
+ * @\Iterator <string, Ability>
  */
 class Knowledge extends ItemSet
 {
@@ -35,7 +36,7 @@ class Knowledge extends ItemSet
 	/**
 	 * Check if an item is valid for this set.
 	 */
-	#[Pure]	protected function isValidItem(Item $item): bool {
+		protected function isValidItem(Item $item): bool {
 		return $item instanceof Ability;
 	}
 }

@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Race;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Knowledge;
 use Lemuria\Model\Fantasya\Modification;
@@ -27,11 +25,11 @@ abstract class AbstractRace implements Race
 
 	private ?TerrainEffect $terrainEffect = null;
 
-	#[Pure] public function FlightChance(): float {
+	public function FlightChance(): float {
 		return self::FLIGHT_CHANCE;
 	}
 
-	#[Pure] public function Speed(): int {
+	public function Speed(): int {
 		return self::SPEED;
 	}
 
@@ -54,7 +52,7 @@ abstract class AbstractRace implements Race
 		return $this->terrainEffect;
 	}
 
-	#[Pure] abstract protected function mods(): array;
+	abstract protected function mods(): array;
 
 	protected function fill(TerrainEffect $terrainEffect): void {
 	}

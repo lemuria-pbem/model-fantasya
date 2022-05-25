@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Jewelry;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Commodity\Gold;
 
 /**
@@ -17,12 +15,11 @@ class GoldRing extends AbstractJewelry
 
 	private const GOLD = 1;
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
-	#[Pure] protected function material(): array {
+	protected function material(): array {
 		return [Gold::class => self::GOLD];
 	}
 

@@ -2,9 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Weapon\Repairable;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\CommodityTrait;
@@ -30,11 +27,11 @@ abstract class AbstractRepairable implements Commodity, Repairable, Weapon
 		return self::getAll(__DIR__);
 	}
 
-	#[Pure] public function Hits(): int {
+	public function Hits(): int {
 		return 1;
 	}
 
-	#[Pure] public function Interval(): int {
+	public function Interval(): int {
 		return 1;
 	}
 
@@ -52,14 +49,12 @@ abstract class AbstractRepairable implements Commodity, Repairable, Weapon
 		return new Requirement($talent, 1);
 	}
 
-	#[Pure] abstract protected function craft(): string;
+	abstract protected function craft(): string;
 
-	#[Pure] abstract protected function talent(): string;
+	abstract protected function talent(): string;
 
-	#[Pure] abstract protected function weapon(): string;
+	abstract protected function weapon(): string;
 
-	#[ArrayShape([self::class => "int"])]
-	#[Pure]
 	protected function material(): array {
 		return [self::class => 1];
 	}
@@ -67,9 +62,8 @@ abstract class AbstractRepairable implements Commodity, Repairable, Weapon
 	/**
 	 * @param int[]
 	 * @return Damage
-	 * @noinspection PhpPureFunctionMayProduceSideEffectsInspection
 	 */
-	#[Pure] protected function createDamage(array $damage): Damage {
+	protected function createDamage(array $damage): Damage {
 		return (new Damage(...$damage))->reducedBy(self::REDUCTION);
 	}
 }

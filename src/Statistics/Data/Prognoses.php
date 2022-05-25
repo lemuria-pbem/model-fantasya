@@ -8,16 +8,16 @@ use Lemuria\Exception\UnserializeException;
 use Lemuria\Lemuria;
 use Lemuria\Singleton;
 use Lemuria\Statistics\Data;
-use Lemuria\Statistics\Data\Number;
+use Lemuria\Statistics\Data\Prognosis;
 
 /**
- * @\ArrayAccess<Singleton|string, Number>
- * @\Iterator<string, Number>
+ * @\ArrayAccess<Singleton|string, Prognosis>
+ * @\Iterator<string, Prognosis>
  */
-class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
+class Prognoses implements \ArrayAccess, \Countable, \Iterator, Data
 {
 	/**
-	 * @var array<string, Number>
+	 * @var array<string, Prognosis>
 	 */
 	protected array $singletons = [];
 
@@ -35,16 +35,16 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 	/**
 	 * @param string|Singleton $offset
 	 */
-	public function offsetGet(mixed $offset): ?Number {
+	public function offsetGet(mixed $offset): ?Prognosis {
 		return $this->singletons[getClass($offset)] ?? null;
 	}
 
 	/**
 	 * @param string|Singleton $offset
-	 * @param Number $value
+	 * @param Prognosis $value
 	 */
 	public function offsetSet(mixed $offset, mixed $value): void {
-		if ($value instanceof Number) {
+		if ($value instanceof Prognosis) {
 			$this->singletons[getClass($offset)] = $value;
 		} else {
 			throw new LemuriaException();
@@ -62,7 +62,7 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 		return count($this->singletons);
 	}
 
-	public function current(): Number {
+	public function current(): Prognosis {
 		return $this->singletons[$this->key()];
 	}
 
@@ -85,18 +85,18 @@ class Singletons implements \ArrayAccess, \Countable, \Iterator, Data
 
 	public function serialize(): array {
 		$data = [];
-		foreach ($this->singletons as $class => $number /* @var Number $number */) {
-			$data[$class] = $number->serialize();
+		foreach ($this->singletons as $class => $prognosis /* @var Prognosis $prognosis */) {
+			$data[$class] = $prognosis->serialize();
 		}
 		return $data;
 	}
 
 	public function unserialize(mixed $data): Data {
 		if (is_array($data)) {
-			foreach ($data as $class => $numberData) {
+			foreach ($data as $class => $prognosisData) {
 				Lemuria::Builder()->create($class);
-				$number                   = new Number(0);
-				$this->singletons[$class] = $number->unserialize($numberData);
+				$prognosis                = new Prognosis(0);
+				$this->singletons[$class] = $prognosis->unserialize($prognosisData);
 			}
 			return $this;
 		}

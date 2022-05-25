@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\sign;
 use Lemuria\Exception\LemuriaException;
 
@@ -20,7 +18,7 @@ class Modification extends Ability
 		parent::__construct($talent, $experience);
 	}
 
-	#[Pure] public function Experience(): int {
+	public function Experience(): int {
 		$experience = parent::Experience();
 		return $this->sign * $experience;
 	}

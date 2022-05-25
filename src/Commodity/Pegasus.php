@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Model\Fantasya\Animal;
 use Lemuria\Model\Fantasya\Transport;
 use Lemuria\SingletonTrait;
@@ -21,15 +19,15 @@ final class Pegasus implements Animal, Transport
 
 	private const WEIGHT = 50 * 100;
 
-	#[Pure] public function Weight(): int {
+	public function Weight(): int {
 		return self::WEIGHT;
 	}
 
-	#[Pure] public function Payload(): int {
+	public function Payload(): int {
 		return self::PAYLOAD;
 	}
 
-	#[Pure] public function Speed(): int {
+	public function Speed(): int {
 		return self::SPEED;
 	}
 }

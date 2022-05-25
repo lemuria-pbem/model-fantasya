@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Building;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Building;
 use Lemuria\Model\Fantasya\Commodity\Stone;
@@ -21,24 +19,24 @@ abstract class AbstractCastle extends AbstractBuilding implements Castle
 			throw new LemuriaException('Size must be positive.');
 		}
 		$class = self::getClassForSize($size);
-		/* @var Castle $castle */
+		/** @var Castle $castle */
 		$castle = self::createBuilding($class);
 		return $castle;
 	}
 
-	#[Pure] public function Dependency(): ?Building {
+	public function Dependency(): ?Building {
 		return Building::IS_INDEPENDENT;
 	}
 
-	#[Pure] public function Feed(): int {
+	public function Feed(): int {
 		return Building::IS_FREE;
 	}
 
-	#[Pure] public function Upkeep(): int {
+	public function Upkeep(): int {
 		return Building::IS_FREE;
 	}
 
-	#[Pure] public function UsefulSize(): int {
+	public function UsefulSize(): int {
 		return Building::IS_UNLIMITED;
 	}
 
@@ -70,12 +68,11 @@ abstract class AbstractCastle extends AbstractBuilding implements Castle
 		return $size;
 	}
 
-	/** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
-	#[Pure] protected function material(): array {
+	protected function material(): array {
 		return [Stone::class => 1];
 	}
 
-	#[Pure] private static function getClassForSize(int $size): string {
+	private static function getClassForSize(int $size): string {
 		if ($size <= Site::MAX_SIZE) {
 			return Site::class;
 		}

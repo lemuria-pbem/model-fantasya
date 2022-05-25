@@ -3,9 +3,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\EntitySet;
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Id;
@@ -29,8 +26,6 @@ class Acquaintances extends Gathering
 	 *
 	 * @return int[]
 	 */
-	#[ArrayShape(['entities' => "array", 'isTold' => "array"])]
-	#[Pure]
 	public function serialize(): array {
 		$entities = [];
 		$isTold   = [];
@@ -81,7 +76,7 @@ class Acquaintances extends Gathering
 		return parent::remove($party);
 	}
 
-	#[Pure] public function isTold(Party $party): bool {
+	public function isTold(Party $party): bool {
 		$id = $party->Id();
 		if ($this->has($id)) {
 			return $this->isTold[$id->Id()];

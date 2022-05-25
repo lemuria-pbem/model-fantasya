@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 trait MonsterTrait
 {
 	private ?Knowledge $modifications = null;
@@ -19,11 +17,11 @@ trait MonsterTrait
 	 */
 	private array $environment = [];
 
-	#[Pure] public function Hunger(): int {
+	public function Hunger(): int {
 		return 0;
 	}
 
-	#[Pure] public function Refill(): float {
+	public function Refill(): float {
 		return 0.0;
 	}
 
@@ -41,15 +39,15 @@ trait MonsterTrait
 		return $this->terrainEffect;
 	}
 
-	#[Pure] public function Recruiting(): int {
+	public function Recruiting(): int {
 		return 0;
 	}
 
-	#[Pure] public function Weapon(): ?Weapon {
+	public function Weapon(): ?Weapon {
 		return $this->weapon;
 	}
 
-	#[Pure] public function Trophy(): ?Trophy {
+	public function Trophy(): ?Trophy {
 		return $this->trophy;
 	}
 

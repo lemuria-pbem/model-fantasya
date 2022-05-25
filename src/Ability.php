@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Item;
 use Lemuria\Model\Exception\ModelException;
 
@@ -36,14 +34,11 @@ class Ability extends Item
 		return (int)floor(sqrt($experience / 100));
 	}
 
-	/**
-	 * @noinspection PhpAttributeCanBeAddedToOverriddenMemberInspection
-	 */
-	#[Pure] public function __construct(Talent $talent, int $experience) {
+	public function __construct(Talent $talent, int $experience) {
 		parent::__construct($talent, $experience);
 	}
 
-	#[Pure] public function Experience(): int {
+	public function Experience(): int {
 		return $this->Count();
 	}
 
@@ -51,7 +46,7 @@ class Ability extends Item
 		return self::getLevel($this->Count());
 	}
 
-	#[Pure] public function Talent(): Talent {
+	public function Talent(): Talent {
 		/** @var Talent $talent */
 		$talent = $this->getObject();
 		return $talent;

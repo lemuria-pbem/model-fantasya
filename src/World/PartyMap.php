@@ -2,9 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\World;
 
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Immutable;
-
 use Lemuria\Model\Coordinates;
 use Lemuria\Model\Exception\MapException;
 use Lemuria\Model\Fantasya\Party;
@@ -18,14 +15,11 @@ use Lemuria\Serializable;
 /**
  * This is a decorated world that calculates map coordinates for a specific party.
  */
-#[Immutable]
 final class PartyMap implements World
 {
 	public function __construct(private readonly World $world, private readonly Party $party) {
 	}
 
-	#[ArrayShape(['id' => "int", 'name' => "string", 'description' => "string", 'inhabitants' => "int[]",
-				  'size' => "int", 'building' => "string"])]
 	public function serialize(): array {
 		return $this->world->serialize();
 	}

@@ -2,8 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Factory;
 
-use JetBrains\PhpStorm\Pure;
-
 use Lemuria\Id;
 use Lemuria\Identifiable;
 use Lemuria\Lemuria;
@@ -48,11 +46,11 @@ class LemuriaCatalog implements Catalog
 		}
 	}
 
-	#[Pure] public function has(Id $id, Domain $domain): bool {
+	public function has(Id $id, Domain $domain): bool {
 		return isset($this->catalog[$domain->value][$id->Id()]);
 	}
 
-	#[Pure] public function isLoaded(): bool {
+	public function isLoaded(): bool {
 		return $this->isLoaded;
 	}
 

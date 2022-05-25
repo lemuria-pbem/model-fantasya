@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use JetBrains\PhpStorm\Pure;
-
 use function Lemuria\getClass;
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
@@ -34,7 +32,7 @@ class SpellGrade implements Serializable
 		return $this->level;
 	}
 
-	#[Pure] public function serialize(): array {
+	public function serialize(): array {
 		return [getClass($this->spell) => $this->level];
 	}
 
