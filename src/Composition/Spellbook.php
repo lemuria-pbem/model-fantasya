@@ -18,7 +18,7 @@ class Spellbook extends AbstractComposition implements Readable
 
 	private const SILVER = 1000;
 
-	private const WEIGHT = 1 * 100;
+	private const WEIGHT = 50;
 
 	protected SingletonSet $spells;
 

@@ -94,7 +94,7 @@ class LocationPicker implements \ArrayAccess, \Countable
 			$landscape = [];
 			foreach ($indices as $index) {
 				$region = $this->locations[$index];
-				foreach ($world->getNeighbours($region)->getAll() as $neighbour /* @var Region $neighbour */) {
+				foreach ($world->getNeighbours($region) as $neighbour /* @var Region $neighbour */) {
 					if ($neighbour->Landscape() instanceof Ocean) {
 						$locations[] = $region;
 						$landscape[] = $i++;
