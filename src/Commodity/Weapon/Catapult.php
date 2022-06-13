@@ -42,8 +42,8 @@ final class Catapult extends AbstractWeapon
 	}
 
 	public function getCraft(): Requirement {
-		$weaponry = self::createTalent(Carriagemaking::class);
-		return new Requirement($weaponry, self::CRAFT);
+		$carriagemaking = self::createTalent(Carriagemaking::class);
+		return new Requirement($carriagemaking, self::CRAFT);
 	}
 
 	protected function material(): array {

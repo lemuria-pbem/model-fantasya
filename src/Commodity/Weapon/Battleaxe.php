@@ -18,7 +18,7 @@ final class Battleaxe extends AbstractWeapon
 
 	public final const DAMAGE = [1, 8, 8];
 
-	private const WOOD = 2;
+	private const WOOD = 1;
 
 	private const IRON = 3;
 
