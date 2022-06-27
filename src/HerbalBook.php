@@ -68,9 +68,9 @@ class HerbalBook extends Annals
 		return parent::clear();
 	}
 
-	public function record(Region $region, ?Herbage $herbage): self {
+	public function record(Region $region, ?Herbage $herbage, ?int $round = null): self {
 		$id = $region->Id();
-		$this->addEntity($id);
+		$this->addEntity($id, $round);
 		$this->herbage[$id->Id()] = $herbage;
 		return $this;
 	}
