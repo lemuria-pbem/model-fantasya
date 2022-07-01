@@ -7,6 +7,8 @@ namespace Lemuria\Model\Fantasya\Talent;
  */
 final class Herballore extends AbstractTalent
 {
+	public const EXPLORE_LEVEL = 3;
+
 	public function getExpense(int $level): int {
 		return 100;
 	}
