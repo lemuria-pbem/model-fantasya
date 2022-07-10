@@ -16,7 +16,7 @@ final class Ironshield extends AbstractProtection implements Shield
 
 	private const CRAFT = 3;
 
-	private const IRON = 1;
+	private const IRON = 2;
 
 	public function Weight(): int {
 		return self::WEIGHT;

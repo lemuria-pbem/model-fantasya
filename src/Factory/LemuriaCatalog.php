@@ -214,6 +214,9 @@ class LemuriaCatalog implements Catalog
 		foreach ($this->catalog[Domain::PARTY->value] as $party /* @var Party $party */) {
 			$party->collectAll();
 		}
+		foreach ($this->catalog[Domain::UNIT->value] as $unit /* @var Unit $unit */) {
+			$unit->collectAll();
+		}
 		foreach ($this->catalog[Domain::LOCATION->value] as $region /* @var Region $region */) {
 			$region->collectAll();
 		}
