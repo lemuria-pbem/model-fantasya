@@ -4,7 +4,11 @@ namespace Lemuria\Model\Fantasya;
 
 use Lemuria\Entity;
 use Lemuria\EntitySet;
+use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
+use Lemuria\Model\Fantasya\Sorting\Construction\ByBuilding;
+use Lemuria\Model\World\SortMode;
+use Lemuria\Sorting\ById;
 
 /**
  * The estate in a region is the list of constructions that have been build there.
@@ -24,6 +28,23 @@ class Estate extends EntitySet
 
 	public function remove(Construction $construction): self {
 		$this->removeEntity($construction->Id());
+		return $this;
+	}
+
+	/**
+	 * Sort the constructions.
+	 */
+	public function sort(SortMode $mode = SortMode::BY_TYPE): Estate {
+		switch ($mode) {
+			case SortMode::BY_ID :
+				$this->sortUsing(new ById());
+				break;
+			case SortMode::BY_TYPE :
+				$this->sortUsing(new ByBuilding());
+				break;
+			default :
+				throw new LemuriaException('Unsupported sort mode: ' . $mode->name);
+		}
 		return $this;
 	}
 
