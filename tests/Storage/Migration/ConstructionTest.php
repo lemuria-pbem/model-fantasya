@@ -12,7 +12,8 @@ class ConstructionTest extends BaseMigrationTest
 		'description' => '',
 		'building'    => 'Cabin',
 		'size'        => 6,
-		'inhabitants' => []
+		'inhabitants' => [],
+		'treasury'    => []
 	];
 
 	protected function setUp(): void {
@@ -37,6 +38,14 @@ class ConstructionTest extends BaseMigrationTest
 	 */
 	public function getDefaultInhabitants(Construction $construction): void {
 		$this->assertSame([], $construction->getDefault('inhabitants'));
+	}
+
+	/**
+	 * @test
+	 * @depends construct
+	 */
+	public function getDefaultTreasury(Construction $construction): void {
+		$this->assertSame([], $construction->getDefault('treasury'));
 	}
 
 	protected function getCompleteModel(): array {

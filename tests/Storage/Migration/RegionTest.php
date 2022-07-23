@@ -17,7 +17,8 @@ class RegionTest extends BaseMigrationTest
 		'estate'      => [],
 		'fleet'       => [],
 		'residents'   => [],
-		'luxuries'    => null
+		'luxuries'    => null,
+		'treasury'    => []
 	];
 
 	protected function setUp(): void {
@@ -42,6 +43,14 @@ class RegionTest extends BaseMigrationTest
 	 */
 	public function getDefaultLuxuries(Region $region): void {
 		$this->assertNull($region->getDefault('luxuries'));
+	}
+
+	/**
+	 * @test
+	 * @depends construct
+	 */
+	public function getDefaultTreasury(Region $region): void {
+		$this->assertSame([], $region->getDefault('treasury'));
 	}
 
 	protected function getCompleteModel(): array {
