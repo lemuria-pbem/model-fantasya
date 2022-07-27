@@ -62,6 +62,10 @@ class LocationPicker implements \ArrayAccess, \Countable
 		return count($this->locations);
 	}
 
+	public function random(): Region {
+		return $this->locations[array_rand($this->locations)];
+	}
+
 	/**
 	 * Filter for regions of a specific landscape.
 	 */
