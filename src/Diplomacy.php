@@ -46,7 +46,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	private array $contacts = [];
 
 	/**
-	 * @var array<int, int>
+	 * @var array<int, string>
 	 */
 	private array $indices = [];
 
