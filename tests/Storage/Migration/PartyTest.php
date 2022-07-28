@@ -15,6 +15,7 @@ class PartyTest extends BaseMigrationTest
 		'uuid'        => '',
 		'creation'    => 1609963601,
 		'round'       => 0,
+		'retirement'  => null,
 		'origin'      => 123,
 		'race'        => 'Human',
 		'diplomacy'   => [],

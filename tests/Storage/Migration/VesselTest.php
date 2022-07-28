@@ -14,7 +14,8 @@ class VesselTest extends BaseMigrationTest
 		'port'        => null,
 		'ship'        => 'Boat',
 		'completion'  => 1.0,
-		'passengers'  => []
+		'passengers'  => [],
+		'treasury'    => []
 	];
 
 	protected function setUp(): void {
@@ -39,6 +40,14 @@ class VesselTest extends BaseMigrationTest
 	 */
 	public function getDefaultPort(Vessel $vessel): void {
 		$this->assertNull($vessel->getDefault('port'));
+	}
+
+	/**
+	 * @test
+	 * @depends construct
+	 */
+	public function getDefaultTreasury(Vessel $vessel): void {
+		$this->assertSame([], $vessel->getDefault('treasury'));
 	}
 
 	protected function getCompleteModel(): array {

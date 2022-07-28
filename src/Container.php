@@ -49,7 +49,7 @@ class Container implements Commodity
 	public function setResources(Resources $resources): Container {
 		$this->commodities->clear();
 		$this->weight = 0;
-		foreach ($resources as $quantity) {
+		foreach ($resources as $quantity /* @var Quantity $quantity */) {
 			$commodity = $quantity->getObject();
 			if (self::isKindOf($commodity, $this->type)) {
 				$this->commodities->add($commodity);
