@@ -1,6 +1,7 @@
 /vendor
 
 /.idea/deployment.xml
+/.idea/symfony2.xml
 /.idea/workspace.xml
 /.phpunit.result.cache
 /composer.lock
