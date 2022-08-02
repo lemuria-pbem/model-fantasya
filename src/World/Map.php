@@ -7,6 +7,11 @@ use Lemuria\Exception\LemuriaException;
 use Lemuria\IteratorTrait;
 use Lemuria\Model\Coordinates;
 use Lemuria\Model\Fantasya\Region;
+use Lemuria\Model\Fantasya\World\Island\Locator;
+use Lemuria\Model\Fantasya\World\Island\OctagonalLocator;
+use Lemuria\Model\World;
+use Lemuria\Model\World\HexagonalMap;
+use Lemuria\Model\World\OctagonalMap;
 
 /**
  * A map represents the regions of the world as islands.
@@ -30,6 +35,16 @@ class Map implements \Countable, \Iterator
 	 * @var array(int=>array)
 	 */
 	protected array $latitude = [];
+
+	protected Locator $locator;
+
+	public function __construct(World $world) {
+		if ($world instanceof HexagonalMap) {
+			$this->locator = new OctagonalLocator();
+		} else {
+			$this->locator = new OctagonalLocator();
+		}
+	}
 
 	public function current(): ?Island {
 		return $this->islands[$this->index] ?? null;
@@ -59,7 +74,7 @@ class Map implements \Countable, \Iterator
 			}
 		}
 
-		$island          = new Island($coordinates, $region);
+		$island          = new Island($coordinates, $region, $this->locator);
 		$index           = ++$this->count;
 		$this->islands[] = $island;
 		if (!isset($this->longitude[$coordinates->X()])) {

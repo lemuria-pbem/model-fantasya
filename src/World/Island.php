@@ -7,6 +7,7 @@ use Lemuria\Id;
 use Lemuria\Model\Coordinates;
 use Lemuria\Model\Fantasya\Landscape\Ocean;
 use Lemuria\Model\Fantasya\Region;
+use Lemuria\Model\Fantasya\World\Island\Locator;
 use Lemuria\Model\World\MapCoordinates;
 
 /**
@@ -21,7 +22,7 @@ class Island
 
 	private readonly Id $id;
 
-	private Coordinates $origin;
+	private Coordinates $outer;
 
 	/**
 	 * @var array[]
@@ -32,10 +33,10 @@ class Island
 
 	private int $height = 1;
 
-	public function __construct(Coordinates $coordinates, Region $region) {
-		$this->id     = new Id(self::$nextId++);
-		$this->origin = $coordinates;
-		$this->map    = [[$region]];
+	public function __construct(private Coordinates $origin, Region $region, private readonly Locator $locator) {
+		$this->id  = new Id(self::$nextId++);
+		$this->map = [[$region]];
+		$this->updateOuter();
 	}
 
 	public function Id(): Id {
@@ -54,6 +55,10 @@ class Island
 		return $this->height;
 	}
 
+	public function Outer(): Coordinates {
+		return $this->outer;
+	}
+
 	public function Size(): int {
 		$size = 0;
 		for ($y = 0; $y < $this->height; $y++) {
@@ -67,8 +72,8 @@ class Island
 	}
 
 	public function isMapped(Coordinates $coordinates): bool {
-		if ($coordinates->X() >= $this->origin->X() && $coordinates->X() < $this->outerX()) {
-			if ($coordinates->Y() >= $this->origin->Y() && $coordinates->Y() < $this->outerY()) {
+		if ($coordinates->X() >= $this->origin->X() && $coordinates->X() < $this->outer->X()) {
+			if ($coordinates->Y() >= $this->origin->Y() && $coordinates->Y() < $this->outer->Y()) {
 				return true;
 			}
 		}
@@ -100,63 +105,17 @@ class Island
 			throw new LemuriaException('Oceans are not part of islands.');
 		}
 
-		$neighbour = null;
 		if ($this->isMapped($coordinates)) {
-			// Region is within island area.
 			$existing = $this->get($coordinates);
 			if ($existing === $region) {
 				return $this; // Region already added.
 			}
-			if ($existing) {
-				throw new LemuriaException('There is already a region at these coordinates.');
-			}
-			// Look for a neighbour.
-			$neighbour = $this->get(new MapCoordinates($coordinates->X(), $coordinates->Y() + 1)); // north
-			if (!$neighbour) {
-				$neighbour = $this->get(new MapCoordinates($coordinates->X() + 1, $coordinates->Y())); // east
-				if (!$neighbour) {
-					$neighbour = $this->get(new MapCoordinates($coordinates->X(), $coordinates->Y() - 1)); // south
-					if (!$neighbour) {
-						$neighbour = $this->get(new MapCoordinates($coordinates->X() - 1, $coordinates->Y())); // west
-					}
-				}
-			}
-		} else {
-			// Check if region is touching the island area.
-			if ($coordinates->X() >= $this->origin->X() && $coordinates->X() < $this->outerX()) {
-				if ($coordinates->Y() === $this->outerY()) {
-					// Check if region is touching northward.
-					$neighbour = $this->get(new MapCoordinates($coordinates->X(), $this->outerY() - 1));
-					if ($neighbour) {
-						$this->extendNorth();
-					}
-				} elseif ($coordinates->Y() === $this->origin->Y() - 1) {
-					// Check if region is touching southward.
-					$neighbour = $this->get(new MapCoordinates($coordinates->X(), $this->origin->Y()));
-					if ($neighbour) {
-						$this->extendSouth();
-					}
-				}
-			} elseif ($coordinates->Y() >= $this->origin->Y() && $coordinates->Y() < $this->outerY()) {
-				if ($coordinates->X() === $this->outerX()) {
-					// Check if region is touching eastward.
-					$neighbour = $this->get(new MapCoordinates($this->outerX() - 1, $coordinates->Y()));
-					if ($neighbour) {
-						$this->extendEast();
-					}
-				} elseif ($coordinates->X() === $this->origin->X() - 1) {
-					// Check if region is touching westward.
-					$neighbour = $this->get(new MapCoordinates($this->origin->X(), $coordinates->Y()));
-					if ($neighbour) {
-						$this->extendWest();
-					}
-				}
-			}
 		}
+
+		$neighbour = $this->locator->findNeighbour($region, $coordinates, $this);
 		if (!$neighbour) {
 			throw new LemuriaException('There is no landmass next to the region.');
 		}
-
 		$x                 = $coordinates->X() - $this->origin->X();
 		$y                 = $coordinates->Y() - $this->origin->Y();
 		$this->map[$y][$x] = $region;
@@ -168,7 +127,9 @@ class Island
 	 */
 	public function extendNorth(): int {
 		$this->map[] = array_fill(0, $this->width, null);
-		return ++$this->height;
+		$this->height++;
+		$this->updateOuter();
+		return $this->height;
 	}
 
 	/**
@@ -178,7 +139,9 @@ class Island
 		for ($y = 0; $y < $this->height; $y++) {
 			$this->map[$y][] = null;
 		}
-		return ++$this->width;
+		$this->width++;
+		$this->updateOuter();
+		return $this->width;
 	}
 
 	/**
@@ -187,7 +150,9 @@ class Island
 	public function extendSouth(): int {
 		array_unshift($this->map, array_fill(0, $this->width, null));
 		$this->origin = new MapCoordinates($this->origin->X(), $this->origin->Y() - 1);
-		return ++$this->height;
+		$this->height++;
+		$this->updateOuter();
+		return $this->height;
 	}
 
 	/**
@@ -198,7 +163,9 @@ class Island
 			array_unshift($this->map[$y], null);
 		}
 		$this->origin = new MapCoordinates($this->origin->X() - 1, $this->origin->Y());
-		return ++$this->width;
+		$this->width++;
+		$this->updateOuter();
+		return $this->width;
 	}
 
 	/**
@@ -303,6 +270,7 @@ class Island
 		$this->width  = $merged->width;
 		$this->height = $merged->height;
 		$this->map    = $merged->map;
+		$this->updateOuter();
 		return $this;
 	}
 
@@ -317,6 +285,10 @@ class Island
 			}
 		}
 		return $regions;
+	}
+
+	protected function updateOuter(): void {
+		$this->outer = new MapCoordinates($this->outerX(), $this->outerY());
 	}
 
 	protected function outerX(): int {
