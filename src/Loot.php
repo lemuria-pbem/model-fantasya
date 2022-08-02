@@ -111,7 +111,7 @@ class Loot implements Serializable
 	}
 
 	/**
-	 * @param array (string=>mixed) &$data
+	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedData(array &$data): void {
 		$this->validate($data, 'group', 'int');

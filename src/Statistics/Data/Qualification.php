@@ -17,7 +17,7 @@ use Lemuria\Statistics\Data\Prognosis;
 class Qualification implements \ArrayAccess, \Countable, \Iterator, Data
 {
 	/**
-	 * @var array<string, Prognosis>
+	 * @var array<string, array<int, Prognosis>>
 	 */
 	protected array $singletons = [];
 
@@ -34,7 +34,7 @@ class Qualification implements \ArrayAccess, \Countable, \Iterator, Data
 
 	/**
 	 * @param string|Singleton $offset
-	 * @return array<int, Prognosis>
+	 * @return array<int, Prognosis>|null
 	 */
 	public function offsetGet(mixed $offset): ?array {
 		return $this->singletons[getClass($offset)] ?? null;

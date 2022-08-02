@@ -60,7 +60,7 @@ abstract class AbstractRepairable implements Commodity, Repairable, Weapon
 	}
 
 	/**
-	 * @param int[]
+	 * @param int[] $damage
 	 * @return Damage
 	 */
 	protected function createDamage(array $damage): Damage {

@@ -79,7 +79,7 @@ class Unicum extends Entity implements Collectible
 	}
 
 	/**
-	 * @param array (string=>mixed) $data
+	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);

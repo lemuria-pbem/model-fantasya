@@ -41,7 +41,7 @@ class HerbalBook extends Annals
 	/**
 	 * Restore the model's data from serialized data.
 	 *
-	 * @param array(array) $data
+	 * @param array<string, array> $data
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
@@ -90,7 +90,7 @@ class HerbalBook extends Annals
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array(string=>mixed) $data
+	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);

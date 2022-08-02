@@ -48,7 +48,7 @@ class SpellGrade implements Serializable
 	}
 
 	/**
-	 * @param array(string=>int) $data
+	 * @param array<string, int> $data
 	 */
 	protected function validateSerializedData(array &$data): void {
 		if (empty($data)) {

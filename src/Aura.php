@@ -54,7 +54,7 @@ class Aura implements Serializable
 	}
 
 	/**
-	 * @param array (string=>mixed) &$data
+	 * @param array<string, mixed> $data
 	 * @throws UnserializeEntityException
 	 */
 	protected function validateSerializedData(array &$data): void {

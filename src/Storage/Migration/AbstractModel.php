@@ -21,7 +21,7 @@ abstract class AbstractModel
 	}
 
 	/**
-	 * @param array(string=>mixed) $data
+	 * @param array<string, mixed> $data
 	 * @return array(int=>string)
 	 */
 	public function getMissing(array $data): array {

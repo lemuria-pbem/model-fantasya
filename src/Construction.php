@@ -142,7 +142,7 @@ class Construction extends Entity implements Collectible, Collector
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array (string=>mixed) $data
+	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedData(array &$data): void {
 		parent::validateSerializedData($data);

@@ -54,7 +54,7 @@ class Spellbook extends AbstractComposition implements Readable
 	}
 
 	/**
-	 * @param array (string=>mixed) $data
+	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedData(array &$data): void {
 		$this->validate($data, 'spells', 'array');

@@ -40,7 +40,7 @@ abstract class AbstractMagicRing extends AbstractComposition implements MagicRin
 	}
 
 	/**
-	 * @param array (string=>mixed) $data
+	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedData(array &$data): void {
 	}

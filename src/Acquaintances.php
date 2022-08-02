@@ -39,7 +39,7 @@ class Acquaintances extends Gathering
 	/**
 	 * Restore the model's data from serialized data.
 	 *
-	 * @param array(array) $data
+	 * @param array<string, array> $data
 	 */
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);
@@ -104,7 +104,7 @@ class Acquaintances extends Gathering
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array(string=>mixed) $data
+	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedData(array &$data): void {
 		$this->validate($data, 'entities', 'array');

@@ -181,7 +181,7 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array (string=>mixed) $data
+	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedData(array &$data): void {
 		$this->validate($data, 'offer', 'string');

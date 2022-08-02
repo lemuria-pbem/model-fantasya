@@ -55,7 +55,7 @@ class Herbage implements Serializable
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array (string=>float) $data
+	 * @param array<string, float> $data
 	 */
 	protected function validateSerializedData(array $data): void {
 		if (count($data) !== 1) {

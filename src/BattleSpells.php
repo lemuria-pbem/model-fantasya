@@ -93,7 +93,7 @@ class BattleSpells implements \Countable, Serializable
 	}
 
 	/**
-	 * @param array(string=>array)
+	 * @param array<string, array> $data
 	 */
 	protected function validateSerializedData(array $data): void {
 		if (count($data) !== 2) {

@@ -304,7 +304,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Check that a serialized data array is valid.
 	 *
-	 * @param array (string=>mixed) $data
+	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedData(array &$data): void {
 		$this->validate($data, 'acquaintances', 'array');
@@ -314,7 +314,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Check that serialized relation is valid.
 	 *
-	 * @param array(string=>mixed) $data
+	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedRelation(array &$data): void {
 		$this->validate($data, 'party', 'int');
