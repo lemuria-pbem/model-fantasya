@@ -7,11 +7,11 @@ use Lemuria\Exception\LemuriaException;
 use Lemuria\IteratorTrait;
 use Lemuria\Model\Coordinates;
 use Lemuria\Model\Fantasya\Region;
+use Lemuria\Model\Fantasya\World\Island\HexagonalLocator;
 use Lemuria\Model\Fantasya\World\Island\Locator;
 use Lemuria\Model\Fantasya\World\Island\OctagonalLocator;
 use Lemuria\Model\World;
 use Lemuria\Model\World\HexagonalMap;
-use Lemuria\Model\World\OctagonalMap;
 
 /**
  * A map represents the regions of the world as islands.
@@ -40,7 +40,7 @@ class Map implements \Countable, \Iterator
 
 	public function __construct(World $world) {
 		if ($world instanceof HexagonalMap) {
-			$this->locator = new OctagonalLocator();
+			$this->locator = new HexagonalLocator();
 		} else {
 			$this->locator = new OctagonalLocator();
 		}

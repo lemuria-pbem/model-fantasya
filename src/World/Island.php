@@ -172,62 +172,14 @@ class Island
 	 * Check if another island has common coordinates.
 	 */
 	public function hasIntersection(Island $island): bool {
-		$x1 = $this->origin->X();
-		$y1 = $this->origin->Y();
-		$w1 = $x1 + $this->width - 1;
-		$h1 = $y1 + $this->height - 1;
-		$x2 = $island->origin->X();
-		$y2 = $island->origin->Y();
-		$w2 = $x2 + $island->width - 1;
-		$h2 = $y2 + $island->height - 1;
-
-		if ($h2 >= $y1 && $h2 <= $h1) {
-			if ($x2 >= $x1 && $x2 <= $w1) {
-				return true; // Island's NW corner intersects.
-			}
-			if ($w2 >= $x1 && $w2 <= $w1) {
-				return true; // Island's NE corner intersects.
-			}
-		} elseif ($y2 >= $y1 && $y2 <= $h1) {
-			if ($x2 >= $x1 && $x2 <= $w1) {
-				return true; // Island's SW corner intersects.
-			}
-			if ($w2 >= $x1 && $w2 <= $w1) {
-				return true; // Island's SE corner intersects.
-			}
-		}
-		return false;
+		return $this->locator->hasIntersection($this, $island);
 	}
 
 	/**
 	 * Check if another island is a direct neighbour.
 	 */
 	public function hasNeighbour(Island $island): bool {
-		$x1 = $this->origin->X();
-		$y1 = $this->origin->Y();
-		$w1 = $x1 + $this->width;
-		$h1 = $y1 + $this->height;
-		$x2 = $island->origin->X();
-		$y2 = $island->origin->Y();
-		$w2 = $x2 + $island->width;
-		$h2 = $y2 + $island->height;
-
-		if ($x1 < $w2 && $x2 < $w1) {
-			if ($y2 === $h1) {
-				return true; // Island is touching north.
-			}
-			if ($y1 === $h2) {
-				return true; // Island is touching south.
-			}
-		} elseif ($y1 < $h2 && $y2 < $h1) {
-			if ($x2 === $w1) {
-				return true; // Island is touching east.
-			}
-			if ($x1 === $w2) {
-				return true; // Island is touching west.
-			}
-		}
-		return false;
+		return $this->locator->hasNeighbour($this, $island);
 	}
 
 	/**
