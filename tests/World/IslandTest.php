@@ -7,8 +7,8 @@ use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Landscape\Ocean;
 use Lemuria\Model\Fantasya\Landscape\Plain;
 use Lemuria\Model\Fantasya\Region;
-use Lemuria\Model\Fantasya\World\Island;
-use Lemuria\Model\Fantasya\World\Island\OctagonalLocator;
+use Lemuria\Model\World\Island\Island;
+use Lemuria\Model\World\Island\OctagonalLocator;
 use Lemuria\Model\World\MapCoordinates;
 
 use Lemuria\Tests\Test;
@@ -225,17 +225,6 @@ class IslandTest extends Test
 		$this->expectException(LemuriaException::class);
 
 		$island->add(self::$origin, $region->setLandscape(new Plain()));
-	}
-
-	/**
-	 * @test
-	 * @depends construct
-	 */
-	public function addThrowsExceptionForOceans(Island $island): void {
-		$region = new Region();
-		$this->expectException(LemuriaException::class);
-
-		$island->add(self::createLocation(0, 1), $region->setLandscape(new Ocean()));
 	}
 
 	/**
