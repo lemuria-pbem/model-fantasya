@@ -4,7 +4,6 @@ declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\World;
 
 use Lemuria\Exception\LemuriaException;
-use Lemuria\Model\Fantasya\Landscape\Ocean;
 use Lemuria\Model\Fantasya\Landscape\Plain;
 use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\World\Island\Island;

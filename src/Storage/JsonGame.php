@@ -156,7 +156,10 @@ abstract class JsonGame implements Game
 	}
 
 	public function setContinents(array $continents): Game {
-		return $this->setData('continents.json', $continents);
+		if (!ksort($continents)) {
+			throw new ModelException('Sorting continents failed.');
+		}
+		return $this->setData('continents.json', array_values($continents));
 	}
 
 	public function setHostilities(array $hostilities): Game {
