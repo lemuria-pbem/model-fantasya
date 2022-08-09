@@ -4,7 +4,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Weapon\Repairable;
 
 use Lemuria\Model\Fantasya\Commodity\Weapon\Spear;
 use Lemuria\Model\Fantasya\Damage;
-use Lemuria\Model\Fantasya\Talent\Bladefighting;
+use Lemuria\Model\Fantasya\Talent\Spearfighting;
 use Lemuria\Model\Fantasya\Talent\Weaponry;
 
 /**
@@ -25,7 +25,7 @@ final class StumpSpear extends AbstractRepairable
 	}
 
 	protected function talent(): string {
-		return Bladefighting::class;
+		return Spearfighting::class;
 	}
 
 	protected function weapon(): string {
