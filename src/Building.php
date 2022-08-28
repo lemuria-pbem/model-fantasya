@@ -49,4 +49,14 @@ interface Building extends Artifact
 	 * Get the best fitting size for given size of this building.
 	 */
 	public function correctSize(int $size): int;
+
+	/**
+	 * Get the constraints for serialization.
+	 */
+	public function getConstraints(?Constraints $constraints): ?array;
+
+	/**
+	 * Set the constraints from serialized data.
+	 */
+	public function makeConstraints(?array $serialized): ?Constraints;
 }

@@ -32,6 +32,8 @@ class Construction extends Entity implements Collectible, Collector
 
 	private readonly Treasury $treasury;
 
+	private ?Constraints $constraints = null;
+
 	/**
 	 * Get a construction.
 	 *
@@ -83,6 +85,10 @@ class Construction extends Entity implements Collectible, Collector
 		return $this->treasury;
 	}
 
+	public function Constraints(): ?Constraints {
+		return $this->constraints;
+	}
+
 	/**
 	 * Get a plain data array of the model's data.
 	 */
@@ -92,6 +98,7 @@ class Construction extends Entity implements Collectible, Collector
 		$data['size']        = $this->Size();
 		$data['inhabitants'] = $this->inhabitants->serialize();
 		$data['treasury']    = $this->Treasury()->serialize();
+		$data['constraints'] = $this->Building()->getConstraints($this->Constraints());
 		return $data;
 	}
 
@@ -104,6 +111,7 @@ class Construction extends Entity implements Collectible, Collector
 		$this->setSize($data['size']);
 		$this->inhabitants->unserialize($data['inhabitants']);
 		$this->Treasury()->unserialize($data['treasury']);
+		$this->constraints = $this->Building()->makeConstraints($data['constraints']);
 		return $this;
 	}
 
@@ -150,5 +158,6 @@ class Construction extends Entity implements Collectible, Collector
 		$this->validate($data, 'size', 'int');
 		$this->validate($data, 'inhabitants', 'array');
 		$this->validate($data, 'treasury', 'array');
+		$this->validate($data, 'constraints', '?array');
 	}
 }

@@ -1,0 +1,62 @@
+<?php
+declare (strict_types = 1);
+namespace Lemuria\Model\Fantasya\Building;
+
+use Lemuria\Model\Fantasya\Building;
+use Lemuria\Model\Fantasya\Commodity\Iron;
+use Lemuria\Model\Fantasya\Commodity\Silver;
+use Lemuria\Model\Fantasya\Commodity\Stone;
+use Lemuria\Model\Fantasya\Commodity\Wood;
+use Lemuria\Model\Fantasya\Constraints;
+use Lemuria\Model\Fantasya\Constraints\MarketKeeper;
+
+/**
+ * A market allows simplified trade between units.
+ */
+final class Market extends AbstractBuilding
+{
+	private const TALENT = 2;
+
+	private const UPKEEP = 100;
+
+	private const SILVER = 100;
+
+	private const WOOD = 2;
+
+	private const STONE = 8;
+
+	private const IRON = 2;
+
+	public function Dependency(): ?Building {
+		return self::createBuilding(Tower::class);
+	}
+
+	public function Feed(): int {
+		return 0;
+	}
+
+	public function Talent(): int {
+		return self::TALENT;
+	}
+
+	public function Upkeep(): int {
+		return self::UPKEEP;
+	}
+
+	public function UsefulSize(): int {
+		return Building::IS_UNLIMITED;
+	}
+
+	public function makeConstraints(?array $serialized): ?Constraints {
+		if ($serialized) {
+			$constraints = new MarketKeeper();
+			$constraints->unserialize($serialized);
+			return $constraints;
+		}
+		return null;
+	}
+
+	protected function material(): array {
+		return [Silver::class => self::SILVER, Wood::class => self::WOOD, Stone::class => self::STONE, Iron::class => self::IRON];
+	}
+}
