@@ -19,23 +19,25 @@ class Relation
 
 	public final const ENTER = 16;
 
-	public final const GIVE = 32;
+	public final const MARKET = 32;
 
-	public final const PASS = 64;
+	public final const GIVE = 64;
 
-	public final const GUARD = 128;
+	public final const PASS = 128;
 
-	public final const PERCEPTION = 256;
+	public final const GUARD = 256;
 
-	public final const DISGUISE = 512;
+	public final const PERCEPTION = 512;
 
-	public final const SILVER = 1024;
+	public final const DISGUISE = 1024;
 
-	public final const FOOD = 2048;
+	public final const SILVER = 2048;
 
-	public final const COMBAT = 4096;
+	public final const FOOD = 4096;
 
-	public final const ALL = 8191;
+	public final const COMBAT = 8192;
+
+	public final const ALL = 16383;
 
 	private int $agreement = self::NONE;
 

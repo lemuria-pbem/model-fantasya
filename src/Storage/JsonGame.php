@@ -8,6 +8,7 @@ use Lemuria\Model\Fantasya\Construction;
 use Lemuria\Model\Fantasya\Continent;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\Region;
+use Lemuria\Model\Fantasya\Storage\Migration\AbstractUpgrade;
 use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Model\Fantasya\Unit;
 use Lemuria\Model\Fantasya\Vessel;
@@ -202,6 +203,16 @@ abstract class JsonGame implements Game
 		$data = $this->getVessels();
 		if ($this->migrateData(Vessel::class, $data)) {
 			$this->setVessels($data);
+		}
+
+		$calendar = $this->getCalendar();
+		$version  = $calendar['version'];
+		foreach (AbstractUpgrade::getAll() as $class) {
+			/** @var AbstractUpgrade $upgrade */
+			$upgrade = new $class($this);
+			if ($upgrade->isPending($version)) {
+				$upgrade->upgrade();
+			}
 		}
 		return $this;
 	}
