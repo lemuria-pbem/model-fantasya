@@ -4,6 +4,6 @@ namespace Lemuria\Model\Fantasya;
 
 use Lemuria\Serializable;
 
-interface Constraints extends Serializable
+interface Extension extends \Stringable, Serializable
 {
 }

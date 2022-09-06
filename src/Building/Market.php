@@ -7,8 +7,8 @@ use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
-use Lemuria\Model\Fantasya\Constraints;
-use Lemuria\Model\Fantasya\Constraints\MarketKeeper;
+use Lemuria\Model\Fantasya\Construction;
+use Lemuria\Model\Fantasya\Extension\Market as MarketExtension;
 
 /**
  * A market allows simplified trade between units.
@@ -47,13 +47,11 @@ final class Market extends AbstractBuilding
 		return Building::IS_UNLIMITED;
 	}
 
-	public function makeConstraints(?array $serialized): ?Constraints {
-		if ($serialized) {
-			$constraints = new MarketKeeper();
-			$constraints->unserialize($serialized);
-			return $constraints;
-		}
-		return null;
+	public function getMarket(Construction $construction): MarketExtension {
+		$extensions = $construction->Extensions();
+		/** @var MarketExtension $market */
+		$market = $extensions[MarketExtension::class];
+		return $market;
 	}
 
 	protected function material(): array {

@@ -23,6 +23,7 @@ class Construction extends Entity implements Collectible, Collector
 	use BuilderTrait;
 	use CollectibleTrait;
 	use CollectorTrait;
+	use ExtensionTrait;
 
 	private Building $building;
 
@@ -31,8 +32,6 @@ class Construction extends Entity implements Collectible, Collector
 	private readonly Inhabitants $inhabitants;
 
 	private readonly Treasury $treasury;
-
-	private ?Constraints $constraints = null;
 
 	/**
 	 * Get a construction.
@@ -51,6 +50,7 @@ class Construction extends Entity implements Collectible, Collector
 	public function __construct() {
 		$this->inhabitants = new Inhabitants($this);
 		$this->treasury    = new Treasury($this);
+		$this->initExtensions();
 	}
 
 	/**
@@ -85,10 +85,6 @@ class Construction extends Entity implements Collectible, Collector
 		return $this->treasury;
 	}
 
-	public function Constraints(): ?Constraints {
-		return $this->constraints;
-	}
-
 	/**
 	 * Get a plain data array of the model's data.
 	 */
@@ -98,7 +94,7 @@ class Construction extends Entity implements Collectible, Collector
 		$data['size']        = $this->Size();
 		$data['inhabitants'] = $this->inhabitants->serialize();
 		$data['treasury']    = $this->Treasury()->serialize();
-		$data['constraints'] = $this->Building()->getConstraints($this->Constraints());
+		$this->serializeExtensions($data);
 		return $data;
 	}
 
@@ -111,7 +107,7 @@ class Construction extends Entity implements Collectible, Collector
 		$this->setSize($data['size']);
 		$this->inhabitants->unserialize($data['inhabitants']);
 		$this->Treasury()->unserialize($data['treasury']);
-		$this->constraints = $this->Building()->makeConstraints($data['constraints']);
+		$this->unserializeExtensions($data);
 		return $this;
 	}
 
@@ -158,6 +154,6 @@ class Construction extends Entity implements Collectible, Collector
 		$this->validate($data, 'size', 'int');
 		$this->validate($data, 'inhabitants', 'array');
 		$this->validate($data, 'treasury', 'array');
-		$this->validate($data, 'constraints', '?array');
+		$this->validateExtensions($data);
 	}
 }

@@ -1,16 +1,15 @@
 <?php
 declare(strict_types = 1);
-namespace Lemuria\Model\Fantasya\Constraints;
+namespace Lemuria\Model\Fantasya\Extension;
 
 use Lemuria\Exception\UnserializeEntityException;
-use Lemuria\Model\Fantasya\Constraints;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Quantity;
 use Lemuria\Model\Fantasya\Tradeables;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 
-class MarketKeeper implements Constraints
+class Market extends AbstractExtension
 {
 	use BuilderTrait;
 	use SerializableTrait;
@@ -46,7 +45,7 @@ class MarketKeeper implements Constraints
 		return $this;
 	}
 
-	public function setFee(Quantity|float|null $fee): MarketKeeper {
+	public function setFee(Quantity|float|null $fee): Market {
 		$this->fee = $fee;
 		return $this;
 	}

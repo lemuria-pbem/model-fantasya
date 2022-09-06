@@ -6,7 +6,6 @@ use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Building;
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\BuildingEffect;
-use Lemuria\Model\Fantasya\Constraints;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\Model\Fantasya\Talent\Constructing;
@@ -48,20 +47,6 @@ abstract class AbstractBuilding implements Building
 	public function correctSize(int $size): int {
 		$this->validateSize($size);
 		return $size;
-	}
-
-	/**
-	 * Get the constraints for serialization.
-	 */
-	public function getConstraints(?Constraints $constraints): ?array {
-		return $constraints?->serialize();
-	}
-
-	/**
-	 * Set the constraints from serialized data.
-	 */
-	public function makeConstraints(?array $serialized): ?Constraints {
-		return null;
 	}
 
 	public function BuildingEffect(): BuildingEffect {
