@@ -1,8 +1,9 @@
 <?php
 declare(strict_types = 1);
-namespace Lemuria\Model\Fantasya;
+namespace Lemuria\Model\Fantasya\Market;
 
 use Lemuria\Exception\SingletonException;
+use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\SingletonSet;

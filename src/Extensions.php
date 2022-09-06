@@ -71,6 +71,11 @@ class Extensions implements \ArrayAccess, Serializable
 		return $this;
 	}
 
+	public function add(Extension $extension): Extensions {
+		$this->offsetSet($extension, $extension);
+		return $this;
+	}
+
 	protected function createExtension(string $class): Extension {
 		$class = self::NAMESPACE . $class;
 		return new $class();

@@ -13,6 +13,7 @@ use Lemuria\Lemuria;
 use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Combat\BattleRow;
+use Lemuria\Model\Fantasya\Extension\Trades;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Serializable;
 
@@ -24,6 +25,7 @@ class Unit extends Entity implements Collectible, Collector
 	use BuilderTrait;
 	use CollectibleTrait;
 	use CollectorTrait;
+	use ExtensionTrait;
 
 	private Race $race;
 
@@ -69,6 +71,7 @@ class Unit extends Entity implements Collectible, Collector
 		$this->inventory = new Resources();
 		$this->treasury  = new Treasury($this);
 		$this->knowledge = new Knowledge();
+		$this->initExtensions();
 	}
 
 	public function Catalog(): Domain {
@@ -174,6 +177,17 @@ class Unit extends Entity implements Collectible, Collector
 		return $weight;
 	}
 
+	public function Trades(): Trades {
+		if ($this->Extensions()->offsetExists(Trades::class)) {
+			/** @var Trades $trades */
+			$trades = $this->Extensions()->offsetGet(Trades::class);
+		} else {
+			$trades = new Trades();
+			$this->Extensions()->add($trades);
+		}
+		return $trades;
+	}
+
 	/**
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
@@ -199,6 +213,7 @@ class Unit extends Entity implements Collectible, Collector
 		$data['treasury']     = $this->Treasury()->serialize();
 		$data['knowledge']    = $this->Knowledge()->serialize();
 		$data['battleSpells'] = $this->battleSpells?->serialize();
+		$this->serializeExtensions($data);
 		return $data;
 	}
 
@@ -227,6 +242,7 @@ class Unit extends Entity implements Collectible, Collector
 			$this->battleSpells = new BattleSpells();
 			$this->battleSpells->unserialize($data['battleSpells']);
 		}
+		$this->unserializeExtensions($data);
 		return $this;
 	}
 
@@ -321,5 +337,6 @@ class Unit extends Entity implements Collectible, Collector
 		$this->validate($data, 'treasury', 'array');
 		$this->validate($data, 'knowledge', 'array');
 		$this->validate($data, 'battleSpells', '?array');
+		$this->validateExtensions($data);
 	}
 }

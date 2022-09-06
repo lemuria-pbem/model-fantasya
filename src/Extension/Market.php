@@ -4,8 +4,8 @@ namespace Lemuria\Model\Fantasya\Extension;
 
 use Lemuria\Exception\UnserializeEntityException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Market\Tradeables;
 use Lemuria\Model\Fantasya\Quantity;
-use Lemuria\Model\Fantasya\Tradeables;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 

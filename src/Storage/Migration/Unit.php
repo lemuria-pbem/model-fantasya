@@ -23,5 +23,6 @@ class Unit extends AbstractModel
 		$this->addArray('treasury');
 		$this->addArray('knowledge');
 		$this->addArray('battleSpells', null);
+		$this->addArray('extensions');
 	}
 }
