@@ -2,34 +2,37 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Extension;
 
+use Lemuria\EntitySet;
+use Lemuria\Id;
+use Lemuria\Model\Fantasya\Extension;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
-use Lemuria\Serializable;
-use Lemuria\SerializableTrait;
+use Lemuria\Model\Fantasya\Market\Trade;
 
-class Trades extends AbstractExtension
+/**
+ * Trades of a unit are offers and demands on the market.
+ *
+ * @\ArrayAccess<int|Id, Trade>
+ * @\Iterator<int, Trade>
+ */
+class Trades extends EntitySet implements Extension
 {
 	use BuilderTrait;
-	use SerializableTrait;
+	use ExtensionTrait;
 
-	public function __construct() {
-	}
-
-	public function serialize(): array {
-		$data = [];
-
-		return $data;
-	}
-
-	public function unserialize(array $data): Serializable {
-		$this->validateSerializedData($data);
-
+	public function add(Trade $trade): self {
+		$this->addEntity($trade->Id());
+		if ($this->hasCollector()) {
+			$trade->addCollector($this->collector());
+		}
 		return $this;
 	}
 
-	/**
-	 * @param array<string, mixed> $data
-	 */
-	protected function validateSerializedData(array $data): void {
-		$this->validate($data, 'tradeables', 'array');
+	public function remove(Trade $trade): self {
+		$this->removeEntity($trade->Id());
+		return $this;
+	}
+
+	protected function get(Id $id): Trade {
+		return Trade::get($id);
 	}
 }

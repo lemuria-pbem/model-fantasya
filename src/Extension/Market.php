@@ -3,15 +3,17 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Extension;
 
 use Lemuria\Exception\UnserializeEntityException;
+use Lemuria\Model\Fantasya\Extension;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Market\Tradeables;
 use Lemuria\Model\Fantasya\Quantity;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 
-class Market extends AbstractExtension
+class Market implements Extension
 {
 	use BuilderTrait;
+	use ExtensionTrait;
 	use SerializableTrait;
 
 	protected Quantity|float|null $fee = null;

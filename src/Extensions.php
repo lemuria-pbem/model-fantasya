@@ -76,6 +76,11 @@ class Extensions implements \ArrayAccess, Serializable
 		return $this;
 	}
 
+	public function clear(): Extensions {
+		$this->extensions = [];
+		return $this;
+	}
+
 	protected function createExtension(string $class): Extension {
 		$class = self::NAMESPACE . $class;
 		return new $class();

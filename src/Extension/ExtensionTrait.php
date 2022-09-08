@@ -4,9 +4,7 @@ namespace Lemuria\Model\Fantasya\Extension;
 
 use function Lemuria\getClass;
 
-use Lemuria\Model\Fantasya\Extension;
-
-abstract class AbstractExtension implements Extension
+trait ExtensionTrait
 {
 	public function __toString(): string {
 		return getClass($this);

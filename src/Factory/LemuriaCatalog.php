@@ -11,6 +11,7 @@ use Lemuria\Model\Exception\DuplicateIdException;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Construction;
 use Lemuria\Model\Fantasya\Continent;
+use Lemuria\Model\Fantasya\Market\Trade;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\Fantasya\Unicum;
@@ -76,6 +77,10 @@ class LemuriaCatalog implements Catalog
 				$unit = new Unit();
 				$unit->unserialize($data);
 			}
+			foreach (Lemuria::Game()->getTrades() as $data) {
+				$trade = new Trade(true);
+				$trade->unserialize($data);
+			}
 			foreach (Lemuria::Game()->getRegions() as $data) {
 				$region = new Region();
 				$region->unserialize($data);
@@ -114,6 +119,11 @@ class LemuriaCatalog implements Catalog
 			$entities[$id] = $unit->serialize();
 		}
 		Lemuria::Game()->setUnits($entities);
+		$entities = [];
+		foreach ($this->catalog[Domain::TRADE->value] as $id => $trade /* @var Trade $trade */) {
+			$entities[$id] = $trade->serialize();
+		}
+		Lemuria::Game()->setTrades($entities);
 		$entities = [];
 		foreach ($this->catalog[Domain::LOCATION->value] as $id => $region /* @var Region $region */) {
 			$entities[$id] = $region->serialize();

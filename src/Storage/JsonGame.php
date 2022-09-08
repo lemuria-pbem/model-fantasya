@@ -6,6 +6,7 @@ use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Exception\ModelException;
 use Lemuria\Model\Fantasya\Construction;
 use Lemuria\Model\Fantasya\Continent;
+use Lemuria\Model\Fantasya\Market\Trade;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\Fantasya\Storage\Migration\AbstractUpgrade;
@@ -87,6 +88,10 @@ abstract class JsonGame implements Game
 
 	public function getUnica(): array {
 		return $this->getData('unica.json');
+	}
+
+	public function getTrades(): array {
+		return $this->getData('trades.json');
 	}
 
 	public function getStatistics(): array {
@@ -171,6 +176,10 @@ abstract class JsonGame implements Game
 		return $this->setData('unica.json', $unica);
 	}
 
+	public function setTrades(array $trades): Game {
+		return $this->setData('trades.json', $trades);
+	}
+
 	public function setStatistics(array $statistics): Game {
 		return $this->setData('statistics.json', $statistics);
 	}
@@ -191,6 +200,10 @@ abstract class JsonGame implements Game
 		$data = $this->getRegions();
 		if ($this->migrateData(Region::class, $data)) {
 			$this->setRegions($data);
+		}
+		$data = $this->getTrades();
+		if ($this->migrateData(Trade::class, $data)) {
+			$this->setTrades($data);
 		}
 		$data = $this->getUnica();
 		if ($this->migrateData(Unicum::class, $data)) {
