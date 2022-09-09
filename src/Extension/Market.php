@@ -28,6 +28,10 @@ class Market implements Extension
 		return $this->fee;
 	}
 
+	public function Tradeables(): Tradeables {
+		return $this->tradeables;
+	}
+
 	public function serialize(): array {
 		$fee = $this->fee;
 		if ($this->fee instanceof Quantity) {
