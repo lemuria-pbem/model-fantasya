@@ -70,15 +70,21 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 	public function serialize(): array {
 		$goods = $this->goods->serialize();
 		$price = $this->price->serialize();
-		$data  = ['id' => $this->Id()->Id(), 'goods' => $goods[0], 'price' => $price[0]];
+		$data  = ['id' => $this->Id()->Id(), 'isOffer' => $this->trade, 'goods' => $goods[0], 'price' => $price[0]];
 		return $data;
 	}
 
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);
 		$this->setId(new Id(($data['id'])));
+		$this->trade = $data['isOffer'];
 		$this->goods->unserialize([$data['goods']]);
 		$this->price->unserialize([$data['price']]);
+		return $this;
+	}
+
+	public function setTrade(bool $isOffer): Trade {
+		$this->trade = $isOffer;
 		return $this;
 	}
 
@@ -97,6 +103,7 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 	 */
 	protected function validateSerializedData(array &$data): void {
 		$this->validate($data, 'id', 'int');
+		$this->validate($data, 'isOffer', 'bool');
 		$this->validate($data, 'goods', 'array');
 		$this->validate($data, 'price', 'array');
 	}
