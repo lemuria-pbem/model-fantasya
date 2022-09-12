@@ -7,6 +7,7 @@ class Trade extends AbstractModel
 	public function __construct() {
 		$this->addInteger('id');
 		$this->addBool('isOffer');
+		$this->addBool('isRepeat');
 		$this->addString('goods');
 		$this->addString('price');
 	}

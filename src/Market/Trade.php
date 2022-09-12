@@ -27,6 +27,8 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 
 	private bool $trade;
 
+	private bool $isRepeat = false;
+
 	private Deal $goods;
 
 	private Deal $price;
@@ -55,6 +57,10 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 		return $this->trade;
 	}
 
+	public function IsRepeat(): bool {
+		return $this->isRepeat;
+	}
+
 	public function Goods(): Deal {
 		return $this->goods;
 	}
@@ -70,14 +76,20 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 	public function serialize(): array {
 		$goods = $this->goods->serialize();
 		$price = $this->price->serialize();
-		$data  = ['id' => $this->Id()->Id(), 'isOffer' => $this->trade, 'goods' => $goods[0], 'price' => $price[0]];
+		$data  = [
+			'id'       => $this->Id()->Id(),
+			'isOffer'  => $this->trade,
+			'isRepeat' => $this->isRepeat,
+			'goods'    => $goods[0],
+			'price'    => $price[0]];
 		return $data;
 	}
 
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);
 		$this->setId(new Id(($data['id'])));
-		$this->trade = $data['isOffer'];
+		$this->trade    = $data['isOffer'];
+		$this->isRepeat = $data['isRepeat'];
 		$this->goods->unserialize([$data['goods']]);
 		$this->price->unserialize([$data['price']]);
 		return $this;
@@ -85,6 +97,11 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 
 	public function setTrade(bool $isOffer): Trade {
 		$this->trade = $isOffer;
+		return $this;
+	}
+
+	public function setIsRepeat(bool $isRepeat): Trade {
+		$this->isRepeat = $isRepeat;
 		return $this;
 	}
 
@@ -104,6 +121,7 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 	protected function validateSerializedData(array &$data): void {
 		$this->validate($data, 'id', 'int');
 		$this->validate($data, 'isOffer', 'bool');
+		$this->validate($data, 'isRepeat', 'bool');
 		$this->validate($data, 'goods', 'array');
 		$this->validate($data, 'price', 'array');
 	}
