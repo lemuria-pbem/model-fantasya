@@ -28,6 +28,11 @@ class Tradeables extends SingletonSet
 		return $this;
 	}
 
+	public function isAllowed(Commodity $commodity): bool {
+		$isListed = $this->offsetExists($commodity);
+		return $this->IsExclusion() ? !$isListed : $isListed;
+	}
+
 	public function setIsExclusion(bool $isExclusion): Tradeables {
 		$this->isExclusion = $isExclusion;
 		return $this;
