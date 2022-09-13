@@ -11,6 +11,7 @@ use Lemuria\Lemuria;
 use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Unit;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 
@@ -67,6 +68,12 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 
 	public function Price(): Deal {
 		return $this->price;
+	}
+
+	public function Unit(): Unit {
+		/** @var Unit $unit */
+		$unit = $this->getCollector(__FUNCTION__);
+		return $unit;
 	}
 
 	public function __toString(): string {
