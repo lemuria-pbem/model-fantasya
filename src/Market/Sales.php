@@ -63,8 +63,7 @@ class Sales implements \Countable
 		$extensions = $unit->Extensions();
 		if ($extensions->offsetExists(Trades::class)) {
 			/** @var Trades $trades */
-			$trades    = $extensions[Trades::class];
-			$inventory = $unit->Inventory();
+			$trades = $extensions[Trades::class];
 			foreach ($trades as $trade /* @var Trade $trade */) {
 				$goods     = $trade->Goods();
 				$commodity = $goods->Commodity();
@@ -80,8 +79,7 @@ class Sales implements \Countable
 					continue;
 				}
 
-				$reserve = $inventory[$commodity];
-				if ($reserve->Count() < $goods->Amount()) {
+				if ($trade->IsSatisfiable()) {
 					$this->trades->add($trade);
 				} else {
 					$this->notTradeable[$trade->Id()->Id()] = self::UNSATISFIABLE;
