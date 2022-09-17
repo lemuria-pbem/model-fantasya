@@ -5,6 +5,7 @@ namespace Lemuria\Model\Fantasya\Sorting\Construction;
 use function Lemuria\getClass;
 use Lemuria\EntityOrder;
 use Lemuria\EntitySet;
+use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Building\Acropolis;
 use Lemuria\Model\Fantasya\Building\AlchemyKitchen;
 use Lemuria\Model\Fantasya\Building\Blacksmith;
@@ -19,6 +20,7 @@ use Lemuria\Model\Fantasya\Building\GriffinBreeding;
 use Lemuria\Model\Fantasya\Building\HorseBreeding;
 use Lemuria\Model\Fantasya\Building\Lighthouse;
 use Lemuria\Model\Fantasya\Building\Magespire;
+use Lemuria\Model\Fantasya\Building\Market;
 use Lemuria\Model\Fantasya\Building\Megapolis;
 use Lemuria\Model\Fantasya\Building\Mine;
 use Lemuria\Model\Fantasya\Building\Monument;
@@ -47,7 +49,7 @@ class ByBuilding implements EntityOrder
 	protected const ORDER = [
 		Monument::class,
 		Megapolis::class, Acropolis::class, Citadel::class, Stronghold::class, Palace::class, Tower::class, Fort::class, Site::class,
-		Magespire::class, College::class, Tavern::class,
+		Market::class, Magespire::class, College::class, Tavern::class,
 		AlchemyKitchen::class, Blacksmith::class, Saddlery::class, Workshop::class,
 		Cabin::class, Sawmill::class, Shack::class, Quarry::class, Pit::class, Mine::class,
 		HorseBreeding::class, CamelBreeding::class, GriffinBreeding::class,
@@ -60,6 +62,7 @@ class ByBuilding implements EntityOrder
 	 */
 	public function sort(EntitySet $set): array {
 		$buildings = [];
+		$n         = 0;
 		foreach ($set as $construction /* @var Construction $construction */) {
 			$building = getClass($construction->Building());
 			$size     = $construction->Size();
@@ -67,6 +70,7 @@ class ByBuilding implements EntityOrder
 				$buildings[$building][$size] = [];
 			}
 			$buildings[$building][$size][] = $construction->Id()->Id();
+			$n++;
 		}
 
 		$sorted = [];
@@ -82,6 +86,10 @@ class ByBuilding implements EntityOrder
 					}
 				}
 			}
+		}
+
+		if (count($sorted) !== $n) {
+			throw new LemuriaException('There is a building that is not supported yet.');
 		}
 		return $sorted;
 	}
