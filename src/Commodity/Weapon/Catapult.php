@@ -7,11 +7,12 @@ use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\Model\Fantasya\Talent\Carriagemaking;
 use Lemuria\Model\Fantasya\Talent\Catapulting;
+use Lemuria\Model\Fantasya\Transport;
 
 /**
  * A catapult.
  */
-final class Catapult extends AbstractWeapon
+final class Catapult extends AbstractWeapon implements Transport
 {
 	public final const WEIGHT = 100 * 100;
 
@@ -24,6 +25,10 @@ final class Catapult extends AbstractWeapon
 	private const HITS = 3;
 
 	private const INTERVAL = 5;
+
+	private const PAYLOAD = 10 * 100;
+
+	private const SPEED = 1;
 
 	public function Weight(): int {
 		return self::WEIGHT;
@@ -44,6 +49,14 @@ final class Catapult extends AbstractWeapon
 	public function getCraft(): Requirement {
 		$carriagemaking = self::createTalent(Carriagemaking::class);
 		return new Requirement($carriagemaking, self::CRAFT);
+	}
+
+	public function Payload(): int {
+		return self::PAYLOAD;
+	}
+
+	public function Speed(): int {
+		return self::SPEED;
 	}
 
 	protected function material(): array {
