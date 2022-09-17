@@ -12,7 +12,7 @@ class Tradeables extends SingletonSet
 {
 	use SerializableTrait;
 
-	private bool $isExclusion = false;
+	private bool $isExclusion = true;
 
 	public function IsExclusion(): bool {
 		return $this->isExclusion;
