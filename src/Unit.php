@@ -182,7 +182,7 @@ class Unit extends Entity implements Collectible, Collector
 			/** @var Trades $trades */
 			$trades = $this->Extensions()->offsetGet(Trades::class);
 		} else {
-			$trades = new Trades();
+			$trades = new Trades($this);
 			$this->Extensions()->add($trades);
 		}
 		return $trades;
@@ -194,6 +194,7 @@ class Unit extends Entity implements Collectible, Collector
 	 */
 	public function collectAll(): Collector {
 		$this->Treasury()->addCollectorsToAll();
+		$this->Trades()->addCollectorsToAll();
 		return $this;
 	}
 

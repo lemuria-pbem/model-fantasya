@@ -66,7 +66,7 @@ class Extensions implements \ArrayAccess, Serializable
 	 */
 	public function unserialize(array $data): Serializable {
 		foreach ($data as $class => $extension) {
-			$this->data[$class] = $this->createExtension($class)->unserialize($extension);
+			$this->extensions[$class] = $this->createExtension($class)->unserialize($extension);
 		}
 		return $this;
 	}
