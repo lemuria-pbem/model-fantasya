@@ -64,7 +64,8 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 
 	public function IsSatisfiable(): bool {
 		$inventory = $this->Unit()->Inventory();
-		$commodity = $this->goods->Commodity();
+		$deal      = $this->trade === self::OFFER ? $this->goods : $this->price;
+		$commodity = $deal->Commodity();
 		$reserve   = $inventory[$commodity];
 		return $reserve->Count() >= $this->goods->Amount();
 	}
