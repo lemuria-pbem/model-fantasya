@@ -27,6 +27,10 @@ class MarketRelation extends AbstractUpgrade
 	}
 
 	protected function migrate(int $agreement): int {
+		if ($agreement === Relation::ALL >> 1) {
+			return Relation::ALL;
+		}
+
 		$low       = $agreement & Relation::MARKET - 1;
 		$high      = $agreement & Relation::ALL - $low;
 		$agreement = $low | $high << 1;
