@@ -28,7 +28,7 @@ class Sales implements \Countable
 	 */
 	protected array $notTradeable = [];
 
-	public function __construct(Construction $construction) {
+	public function __construct(protected Construction $construction) {
 		$extensions = $construction->Extensions();
 		if (!$extensions->offsetExists(Market::class)) {
 			throw new SalesException('Construction ' . $construction . ' has no market.');
