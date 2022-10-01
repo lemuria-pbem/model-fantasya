@@ -19,7 +19,7 @@ class Tradeables extends SingletonSet
 	}
 
 	public function serialize(): array {
-		return ['iExclusion' => $this->isExclusion, 'goods' => parent::serialize()];
+		return ['isExclusion' => $this->isExclusion, 'goods' => parent::serialize()];
 	}
 
 	public function unserialize(array $data): Serializable {
