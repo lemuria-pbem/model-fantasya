@@ -2,6 +2,8 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
+use Lemuria\Collector;
+
 trait ExtensionTrait
 {
 	private readonly Extensions $extensions;
@@ -10,8 +12,8 @@ trait ExtensionTrait
 		return $this->extensions;
 	}
 
-	private function initExtensions(): void {
-		$this->extensions = new Extensions();
+	private function initExtensions(?Collector $collector = null): void {
+		$this->extensions = new Extensions($collector);
 	}
 
 	private function serializeExtensions(array &$data): void {

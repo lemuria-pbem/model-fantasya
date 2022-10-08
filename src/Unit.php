@@ -71,7 +71,7 @@ class Unit extends Entity implements Collectible, Collector
 		$this->inventory = new Resources();
 		$this->treasury  = new Treasury($this);
 		$this->knowledge = new Knowledge();
-		$this->initExtensions();
+		$this->initExtensions($this);
 	}
 
 	public function Catalog(): Domain {

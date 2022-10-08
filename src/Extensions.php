@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use function Lemuria\getClass;
+use Lemuria\Collector;
 use Lemuria\Model\Fantasya\Exception\ExtensionNotFoundException;
 use Lemuria\Serializable;
 
@@ -14,6 +15,9 @@ class Extensions implements \ArrayAccess, Serializable
 	 * @var array<string, Extension>
 	 */
 	protected array $extensions = [];
+
+	public function __construct(private readonly ?Collector $collector = null) {
+	}
 
 	/**
 	 * @param Extension|string $offset
@@ -83,6 +87,6 @@ class Extensions implements \ArrayAccess, Serializable
 
 	protected function createExtension(string $class): Extension {
 		$class = self::NAMESPACE . $class;
-		return new $class();
+		return new $class($this->collector);
 	}
 }
