@@ -62,8 +62,8 @@ class Deal implements \Stringable, Serializable
 			throw new UnserializeException('Deal has invalid format: ' . $data[0]);
 		}
 		return match(count($matches)) {
-			2 => [$matches[2], $matches[1], 0],
-			3 => [$matches[3], $matches[1], $matches[2]],
+			3 => [$matches[2], (int)$matches[1], 0],
+			4 => [$matches[3], (int)$matches[1], (int)$matches[2]],
 			default => throw new LemuriaException()
 		};
 	}

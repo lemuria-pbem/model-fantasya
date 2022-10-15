@@ -137,7 +137,7 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 		$this->validate($data, 'id', 'int');
 		$this->validate($data, 'isOffer', 'bool');
 		$this->validate($data, 'isRepeat', 'bool');
-		$this->validate($data, 'goods', 'array');
-		$this->validate($data, 'price', 'array');
+		$this->validate($data, 'goods', 'string');
+		$this->validate($data, 'price', 'string');
 	}
 }
