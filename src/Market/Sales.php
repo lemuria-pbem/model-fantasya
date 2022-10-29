@@ -47,6 +47,11 @@ class Sales implements \Countable
 		return $this->trades->count();
 	}
 
+	public function has(Trade $trade): bool {
+		$id = $trade->Id();
+		return isset($this->notTradeable[$id->Id()]) || $this->trades->has($id);
+	}
+
 	public function getStatus(Trade $trade): int {
 		$id = $trade->Id();
 		$i  = $id->Id();
