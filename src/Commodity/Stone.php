@@ -2,7 +2,7 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity;
 
-use Lemuria\Model\Fantasya\Commodity;
+use Lemuria\Model\Fantasya\Material;
 use Lemuria\Model\Fantasya\RawMaterial;
 use Lemuria\Model\Fantasya\RawMaterialTrait;
 use Lemuria\Model\Fantasya\Talent\Quarrying;
@@ -11,7 +11,7 @@ use Lemuria\SingletonTrait;
 /**
  * Stone is a basic building material.
  */
-final class Stone implements Commodity, RawMaterial
+final class Stone implements Material, RawMaterial
 {
 	use RawMaterialTrait;
 	use SingletonTrait;

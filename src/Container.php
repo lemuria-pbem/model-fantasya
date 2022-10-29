@@ -22,6 +22,7 @@ class Container implements Commodity
 			Kind::Animal     => $singleton instanceof Animal,
 			Kind::Herb       => $singleton instanceof Herb,
 			Kind::Luxury     => $singleton instanceof Luxury,
+			Kind::Material   => $singleton instanceof Material,
 			Kind::Potion     => $singleton instanceof Potion,
 			Kind::Shield     => $singleton instanceof Shield,
 			Kind::Protection => $singleton instanceof Protection,

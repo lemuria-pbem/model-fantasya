@@ -10,6 +10,8 @@ enum Kind
 
 	case Luxury;
 
+	case Material;
+
 	case Potion;
 
 	case Protection;
