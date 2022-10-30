@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use Lemuria\Exception\LemuriaException;
+use Lemuria\Model\Fantasya\Commodity\AbstractCommodity;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\SingletonSet;
@@ -34,6 +35,20 @@ class Loot implements Serializable
 	protected int $group = self::ALL;
 
 	protected SingletonSet $class;
+
+	public static function getGroup(Commodity $commodity): int {
+		return match (true) {
+			$commodity instanceof Weapon                             => self::WEAPON,
+			$commodity instanceof Protection                         => self::PROTECTION,
+			$commodity instanceof Luxury                             => self::LUXURY,
+			AbstractCommodity::resources()->offsetExists($commodity) => self::RAW_MATERIAL,
+			$commodity instanceof Transport                          => self::TRANSPORT,
+			$commodity instanceof Herb                               => self::HERB,
+			$commodity instanceof Potion                             => self::POTION,
+			$commodity instanceof Trophy                             => self::TROPHY,
+			default => self::NOTHING
+		};
+	}
 
 	public function __construct() {
 		$this->class = new SingletonSet();
@@ -108,6 +123,11 @@ class Loot implements Serializable
 			}
 		}
 		return $this;
+	}
+
+	public function wants(Commodity $commodity): bool {
+		$wants = $this->isWhitelist();
+		return $this->class->offsetExists($commodity) || $this->has(self::getGroup($commodity)) ? !$wants : $wants;
 	}
 
 	/**
