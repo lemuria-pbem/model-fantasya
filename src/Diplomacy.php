@@ -203,25 +203,25 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 		// Check relations for party.
 		$relation = $this->offsetGet(new Relation($party, $region));
-		if ($relation) {
-			return $relation->has($agreement);
+		if ($relation?->has($agreement)) {
+			return true;
 		}
 		if ($region) {
 			$relation = $this->offsetGet(new Relation($party));
-			if ($relation) {
-				return $relation->has($agreement);
+			if ($relation?->has($agreement)) {
+				return true;
 			}
 		}
 
 		// Check general relations.
 		$relation = $this->offsetGet(new Relation($this->party, $region));
-		if ($relation) {
-			return $relation->has($agreement);
+		if ($relation?->has($agreement)) {
+			return true;
 		}
 		if ($region) {
 			$relation = $this->offsetGet(new Relation($this->party));
-			if ($relation) {
-				return $relation->has($agreement);
+			if ($relation?->has($agreement)) {
+				return true;
 			}
 		}
 
