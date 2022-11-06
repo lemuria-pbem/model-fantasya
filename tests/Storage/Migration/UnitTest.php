@@ -22,7 +22,8 @@ class UnitTest extends BaseMigrationTest
 		'inventory'    => ['Crossbow' => 1],
 		'treasury'     => [],
 		'knowledge'    => ['Camouflage' => 14400],
-		'battleSpells' => null
+		'battleSpells' => null,
+		'extensions'   => ['Trades' => []]
 	];
 
 	protected function setUp(): void {
