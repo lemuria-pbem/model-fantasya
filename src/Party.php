@@ -29,8 +29,6 @@ class Party extends Entity implements Assignable, Collector
 	use BuilderTrait;
 	use CollectorTrait;
 
-	private Type $type = Type::PLAYER;
-
 	private string $banner;
 
 	private Id $origin;
@@ -81,7 +79,7 @@ class Party extends Entity implements Assignable, Collector
 	/**
 	 * Create an empty party.
 	 */
-	public function __construct(?Newcomer $newcomer = null) {
+	public function __construct(?Newcomer $newcomer = null, private Type $type = Type::PLAYER) {
 		$this->banner      = '';
 		$this->uuid        = $newcomer ? Uuid::fromString($newcomer->Uuid()) : Uuid::uuid4();
 		$this->creation    = $newcomer?->Creation() ?? time();
