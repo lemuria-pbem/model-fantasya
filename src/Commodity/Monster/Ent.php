@@ -22,10 +22,12 @@ final class Ent extends AbstractMonster
 
 	private const DAMAGE = [3, 5, 3];
 
+	private const SKILL = 4;
+
 	private const RECREATION = 0.1;
 
 	public function __construct() {
-		$this->weapon        = new NativeMelee(new Damage(...self::DAMAGE), self::HITS);
+		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE), self::HITS);
 		$this->environment[] = self::createLandscape(Forest::class);
 		$this->environment[] = self::createLandscape(Plain::class);
 		$this->environment[] = self::createLandscape(Swamp::class);

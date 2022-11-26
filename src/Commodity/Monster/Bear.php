@@ -20,12 +20,14 @@ final class Bear extends AbstractMonster
 
 	private const DAMAGE = [1, 7, 1];
 
+	private const SKILL = 3;
+
 	private const TROPHY = Carnassial::class;
 
 	private const RECREATION = 0.6;
 
 	public function __construct() {
-		$this->weapon        = new NativeMelee(new Damage(...self::DAMAGE));
+		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE));
 		$this->trophy        = self::createTrophy(self::TROPHY);
 		$this->environment[] = self::createLandscape(Forest::class);
 		$this->environment[] = self::createLandscape(Mountain::class);

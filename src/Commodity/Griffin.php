@@ -36,6 +36,8 @@ final class Griffin implements Animal, Monster
 
 	private const DAMAGE = [2, 5, 0];
 
+	private const SKILL = 5;
+
 	private const TROPHY = GriffinFeather::class;
 
 	private const RECREATION = 0.6;
@@ -43,7 +45,7 @@ final class Griffin implements Animal, Monster
 	protected ?SingletonSet $loot = null;
 
 	public function __construct() {
-		$this->weapon        = new NativeMelee(new Damage(...self::DAMAGE));
+		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE));
 		$this->trophy        = self::createTrophy(self::TROPHY);
 		$this->environment[] = self::createLandscape(Glacier::class);
 	}

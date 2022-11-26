@@ -20,10 +20,12 @@ final class Kraken extends AbstractMonster
 
 	private const DAMAGE = [2, 10, 3];
 
+	private const SKILL = 3;
+
 	private const RECREATION = 0.4;
 
 	public function __construct() {
-		$this->weapon        = new NativeMelee(new Damage(...self::DAMAGE), self::HITS);
+		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE), self::HITS);
 		$this->environment[] = self::createLandscape(Ocean::class);
 	}
 

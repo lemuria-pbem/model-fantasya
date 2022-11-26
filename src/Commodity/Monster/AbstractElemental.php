@@ -13,8 +13,10 @@ abstract class AbstractElemental extends AbstractMonster
 
 	private const DAMAGE = [2, 3, 4];
 
+	private const SKILL = 8;
+
 	public function __construct(array $landscapes) {
-		$this->weapon = new NativeMelee(new Damage(...self::DAMAGE), self::HITS);
+		$this->weapon = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE), self::HITS);
 		foreach ($landscapes as $landscape) {
 			$this->environment[] = self::createLandscape($landscape);
 		}
