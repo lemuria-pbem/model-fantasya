@@ -13,7 +13,8 @@ class ConstructionTest extends BaseMigrationTest
 		'building'    => 'Cabin',
 		'size'        => 6,
 		'inhabitants' => [],
-		'treasury'    => []
+		'treasury'    => [],
+		'extensions'  => []
 	];
 
 	protected function setUp(): void {
