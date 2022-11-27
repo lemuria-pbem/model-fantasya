@@ -36,6 +36,8 @@ final class Goblin extends AbstractMonster
 
 	private const TROPHY = GoblinEar::class;
 
+	private const RECREATION = 1.0;
+
 	public function __construct() {
 		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE));
 		$this->trophy        = self::createTrophy(self::TROPHY);
@@ -68,6 +70,6 @@ final class Goblin extends AbstractMonster
 	}
 
 	public function Recreation(): float {
-		return 1.0;
+		return self::RECREATION;
 	}
 }
