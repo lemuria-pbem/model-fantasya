@@ -2,6 +2,7 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
+use Lemuria\Model\Fantasya\Ability;
 use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Requirement;
 
@@ -10,7 +11,7 @@ use Lemuria\Model\Fantasya\Requirement;
  */
 abstract class Native extends AbstractWeapon
 {
-	public function __construct(protected Damage $damage, protected int $hits = 1) {
+	public function __construct(protected int $skill, protected Damage $damage, protected int $hits = 1) {
 	}
 
 	public function Weight(): int {
@@ -23,6 +24,10 @@ abstract class Native extends AbstractWeapon
 
 	public function Damage(): Damage {
 		return $this->damage;
+	}
+
+	public function Ability(): Ability {
+		return new Ability(self::createTalent($this->talent()), Ability::getExperience($this->skill));
 	}
 
 	public function getCraft(): Requirement {

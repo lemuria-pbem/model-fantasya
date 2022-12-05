@@ -19,6 +19,10 @@ class Damage implements \Stringable
 		return $this->addition;
 	}
 
+	public function Maximum(): int {
+		return $this->count * $this->dice + $this->addition;
+	}
+
 	public function __toString(): string {
 		return $this->count . 'd' . $this->dice . '+' . $this->addition;
 	}

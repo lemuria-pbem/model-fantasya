@@ -2,6 +2,8 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
+use Lemuria\Model\Fantasya\Commodity\Weapon\NativeMelee;
+use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Landscape\Desert;
 use Lemuria\Model\Fantasya\Landscape\Highland;
 use Lemuria\Model\Fantasya\Landscape\Plain;
@@ -15,7 +17,14 @@ final class Zombie extends AbstractMonster
 
 	private const WEIGHT = 5 * 100;
 
+	private const HITS = 1;
+
+	private const DAMAGE = [1, 3, 0];
+
+	private const SKILL = 1;
+
 	public function __construct() {
+		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE), self::HITS);
 		$this->environment[] = self::createLandscape(Plain::class);
 		$this->environment[] = self::createLandscape(Highland::class);
 		$this->environment[] = self::createLandscape(Swamp::class);

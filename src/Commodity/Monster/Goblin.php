@@ -12,7 +12,9 @@ use Lemuria\Model\Fantasya\Commodity\Protection\Repairable\AbstractRepairable as
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Trophy\GoblinEar;
 use Lemuria\Model\Fantasya\Commodity\Weapon\AbstractWeapon;
+use Lemuria\Model\Fantasya\Commodity\Weapon\NativeMelee;
 use Lemuria\Model\Fantasya\Commodity\Weapon\Repairable\AbstractRepairable as RepairableWeapon;
+use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Landscape\Desert;
 use Lemuria\Model\Fantasya\Landscape\Forest;
 use Lemuria\Model\Fantasya\Landscape\Highland;
@@ -28,9 +30,16 @@ final class Goblin extends AbstractMonster
 
 	private const WEIGHT = 6 * 100;
 
+	private const DAMAGE = [1, 2, 0];
+
+	private const SKILL = 1;
+
 	private const TROPHY = GoblinEar::class;
 
+	private const RECREATION = 1.0;
+
 	public function __construct() {
+		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE));
 		$this->trophy        = self::createTrophy(self::TROPHY);
 		$this->environment[] = self::createLandscape(Plain::class);
 		$this->environment[] = self::createLandscape(Forest::class);
@@ -61,6 +70,6 @@ final class Goblin extends AbstractMonster
 	}
 
 	public function Recreation(): float {
-		return 1.0;
+		return self::RECREATION;
 	}
 }
