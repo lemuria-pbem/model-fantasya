@@ -2,19 +2,24 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Extension;
 
-use Lemuria\Exception\UnserializeEntityException;
+use Lemuria\Exception\UnserializeException;
 use Lemuria\Model\Fantasya\Extension;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Market\Tradeables;
 use Lemuria\Model\Fantasya\Quantity;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
+use Lemuria\Validate;
 
 class Market implements Extension
 {
 	use BuilderTrait;
 	use ExtensionTrait;
 	use SerializableTrait;
+
+	private const FEE = 'fee';
+
+	private const TRADEABLES = 'tradeables';
 
 	protected Quantity|float|null $fee = null;
 
@@ -37,17 +42,17 @@ class Market implements Extension
 		if ($this->fee instanceof Quantity) {
 			$fee = [(string)$this->fee->Commodity() => $this->fee->Count()];
 		}
-		return ['fee' => $fee, 'tradeables' => $this->tradeables->serialize()];
+		return [self::FEE => $fee, self::TRADEABLES => $this->tradeables->serialize()];
 	}
 
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);
-		$fee = $data['fee'];
+		$fee = $data[self::FEE];
 		if (is_array($fee)) {
 			$fee = new Quantity(self::createCommodity(key($fee)), current($fee));
 		}
 		$this->fee = $fee;
-		$this->tradeables->unserialize($data['tradeables']);
+		$this->tradeables->unserialize($data[self::TRADEABLES]);
 		return $this;
 	}
 
@@ -60,17 +65,17 @@ class Market implements Extension
 	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedData(array $data): void {
-		if (!array_key_exists('fee', $data)) {
-			throw new UnserializeEntityException('fee', 'array or float');
+		if (!array_key_exists(self::FEE, $data)) {
+			throw new UnserializeException('Serialized data has no fee of type array or float.');
 		}
-		$fee = $data['fee'];
+		$fee = $data[self::FEE];
 		if (is_array($fee)) {
 			if (count($fee) !== 1 || !is_string(key($fee)) || !is_int(current($fee))) {
-				throw new UnserializeEntityException('fee', 'Quantity array');
+				throw new UnserializeException('Serialized data has no fee of type Quantity array.');
 			}
 		} else {
-			$this->validate($data, 'fee', '?float');
+			$this->validate($data, self::FEE, Validate::FloatOrNull);
 		}
-		$this->validate($data, 'tradeables', 'array');
+		$this->validate($data, self::TRADEABLES, Validate::Array);
 	}
 }

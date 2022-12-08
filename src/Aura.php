@@ -6,10 +6,15 @@ use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeEntityException;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
+use Lemuria\Validate;
 
 class Aura implements Serializable
 {
 	use SerializableTrait;
+
+	private const AURA = 'aura';
+
+	private const MAXIMUM = 'maximum';
 
 	private int $aura = 0;
 
@@ -24,13 +29,13 @@ class Aura implements Serializable
 	}
 
 	public function serialize(): array {
-		return ['aura' => $this->aura, 'maximum' => $this->maximum];
+		return [self::AURA => $this->aura, self::MAXIMUM => $this->maximum];
 	}
 
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);
-		$this->aura    = $data['aura'];
-		$this->maximum = $data['maximum'];
+		$this->aura    = $data[self::AURA];
+		$this->maximum = $data[self::MAXIMUM];
 		return $this;
 	}
 
@@ -57,8 +62,8 @@ class Aura implements Serializable
 	 * @param array<string, mixed> $data
 	 * @throws UnserializeEntityException
 	 */
-	protected function validateSerializedData(array &$data): void {
-		$this->validate($data, 'aura', 'int');
-		$this->validate($data, 'maximum', 'int');
+	protected function validateSerializedData(array $data): void {
+		$this->validate($data, self::AURA, Validate::Int);
+		$this->validate($data, self::MAXIMUM, Validate::Int);
 	}
 }

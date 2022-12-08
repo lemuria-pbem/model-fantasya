@@ -18,6 +18,7 @@ use Lemuria\Model\Fantasya\Commodity\Luxury\Spice;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
+use Lemuria\Validate;
 
 /**
  * Represents the prices of luxuries on the market of a region.
@@ -35,6 +36,12 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	public final const LUXURIES = [
 		Balsam::class, Fur::class, Gem::class, Myrrh::class, Oil::class, Olibanum::class, Silk::class, Spice::class
 	];
+
+	private const OFFER = 'offer';
+
+	private const PRICE = 'price';
+
+	private const DEMAND = 'demand';
 
 	private ?Offer $offer;
 
@@ -138,22 +145,22 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 		foreach ($this->demand as $class => $item) {
 			$demand[$class] = $item->Price();
 		}
-		return ['offer' => $offer, 'price' => $price, 'demand' => $demand];
+		return [self::OFFER => $offer, self::PRICE => $price, self::DEMAND => $demand];
 	}
 
 	/**
 	 * Restore the model's data from serialized data.
 	 */
 	public function unserialize(array $data): Serializable {
-		$class  = $data['offer'];
-		$price  = $data['price'];
+		$class  = $data[self::OFFER];
+		$price  = $data[self::PRICE];
 		$luxury = self::createCommodity($class);
 		/* @var Luxury $luxury */
 		$this->offer = new Offer($luxury, $price);
 		$this->initialize();
 
 		$n = 0;
-		foreach ($data['demand'] as $class => $price) {
+		foreach ($data[self::DEMAND] as $class => $price) {
 			if (array_key_exists($class, $this->demand)) {
 				if ($this->demand[$class]->Price() > 0) {
 					throw new UnserializeException('Luxury already set: ' . $class);
@@ -183,10 +190,10 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	 *
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
-		$this->validate($data, 'offer', 'string');
-		$this->validate($data, 'price', 'int');
-		$this->validate($data, 'demand', 'array');
+	protected function validateSerializedData(array $data): void {
+		$this->validate($data, self::OFFER, Validate::String);
+		$this->validate($data, self::PRICE, Validate::Int);
+		$this->validate($data, self::DEMAND, Validate::Array);
 		foreach ($data as $class => $price) {
 			if (!is_string($class)) {
 				throw new UnserializeException('Demand must be string.');

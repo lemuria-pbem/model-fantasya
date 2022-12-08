@@ -7,9 +7,9 @@ use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Model\Fantasya\Sorting\Unit\ByParty;
-use Lemuria\Model\World\SortMode;
 use Lemuria\Reorder;
 use Lemuria\Sorting\ById;
+use Lemuria\SortMode;
 
 /**
  * The people of a player or party is the community of all its units.

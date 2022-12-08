@@ -7,6 +7,7 @@ use Lemuria\Model\Fantasya\Commodity\AbstractCommodity;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\SingletonSet;
+use Lemuria\Validate;
 
 class Loot implements Serializable
 {
@@ -31,6 +32,10 @@ class Loot implements Serializable
 	public final const POTION = 128;
 
 	public final const TROPHY = 256;
+
+	private const GROUP = 'group';
+
+	private const CLASS = 'class';
 
 	protected int $group = self::ALL;
 
@@ -60,14 +65,14 @@ class Loot implements Serializable
 
 	public function serialize(): array {
 		return [
-			'group' => $this->group, 'class' => $this->class->serialize()
+			self::GROUP => $this->group, self::CLASS => $this->class->serialize()
 		];
 	}
 
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);
-		$this->group = $data['group'];
-		$this->class->unserialize($data['class']);
+		$this->group = $data[self::GROUP];
+		$this->class->unserialize($data[self::CLASS]);
 		return $this;
 	}
 
@@ -133,8 +138,8 @@ class Loot implements Serializable
 	/**
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
-		$this->validate($data, 'group', 'int');
-		$this->validate($data, 'class', 'array');
+	protected function validateSerializedData(array $data): void {
+		$this->validate($data, self::GROUP, Validate::Int);
+		$this->validate($data, self::CLASS, Validate::Array);
 	}
 }

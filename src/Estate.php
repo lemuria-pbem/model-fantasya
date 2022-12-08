@@ -7,8 +7,8 @@ use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Model\Fantasya\Sorting\Construction\ByBuilding;
-use Lemuria\Model\World\SortMode;
 use Lemuria\Sorting\ById;
+use Lemuria\SortMode;
 
 /**
  * The estate in a region is the list of constructions that have been build there.

@@ -12,6 +12,7 @@ use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Serializable;
+use Lemuria\Validate;
 
 /**
  * An Unicum is an individual special item.
@@ -22,6 +23,10 @@ class Unicum extends Entity implements Collectible
 
 	use BuilderTrait;
 	use CollectibleTrait;
+
+	private const COMPOSITION = 'composition';
+
+	private const PROPERTIES = 'properties';
 
 	private Composition $composition;
 
@@ -35,16 +40,16 @@ class Unicum extends Entity implements Collectible
 	}
 
 	public function serialize(): array {
-		$data                = parent::serialize();
-		$data['composition'] = getClass($this->Composition());
-		$data['properties']  = $this->Composition()->serialize();
+		$data                    = parent::serialize();
+		$data[self::COMPOSITION] = getClass($this->Composition());
+		$data[self::PROPERTIES]  = $this->Composition()->serialize();
 		return $data;
 	}
 
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$category = self::createComposition($data['composition']);
-		$category->unserialize($data['properties']);
+		$category = self::createComposition($data[self::COMPOSITION]);
+		$category->unserialize($data[self::PROPERTIES]);
 		$this->setComposition($category);
 		return $this;
 	}
@@ -81,9 +86,9 @@ class Unicum extends Entity implements Collectible
 	/**
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
+	protected function validateSerializedData(array $data): void {
 		parent::validateSerializedData($data);
-		$this->validate($data, 'composition', 'string');
-		$this->validate($data, 'properties', 'array');
+		$this->validate($data, self::COMPOSITION, Validate::String);
+		$this->validate($data, self::PROPERTIES, Validate::Array);
 	}
 }

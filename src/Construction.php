@@ -14,6 +14,7 @@ use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Serializable;
+use Lemuria\Validate;
 
 /**
  * A construction is a building in a region that is inhabited by units.
@@ -24,6 +25,14 @@ class Construction extends Entity implements Collectible, Collector
 	use CollectibleTrait;
 	use CollectorTrait;
 	use ExtensionTrait;
+
+	private const BUILDING = 'building';
+
+	private const SIZE = 'size';
+
+	private const INHABITANTS = 'inhabitants';
+
+	private const TREASURY = 'treasury';
 
 	private Building $building;
 
@@ -90,10 +99,10 @@ class Construction extends Entity implements Collectible, Collector
 	 */
 	public function serialize(): array {
 		$data                = parent::serialize();
-		$data['building']    = getClass($this->Building());
-		$data['size']        = $this->Size();
-		$data['inhabitants'] = $this->inhabitants->serialize();
-		$data['treasury']    = $this->Treasury()->serialize();
+		$data[self::BUILDING]    = getClass($this->Building());
+		$data[self::SIZE]        = $this->Size();
+		$data[self::INHABITANTS] = $this->inhabitants->serialize();
+		$data[self::TREASURY]    = $this->Treasury()->serialize();
 		$this->serializeExtensions($data);
 		return $data;
 	}
@@ -103,10 +112,10 @@ class Construction extends Entity implements Collectible, Collector
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$this->setBuilding($this->createBuilding($data['building']));
-		$this->setSize($data['size']);
-		$this->inhabitants->unserialize($data['inhabitants']);
-		$this->Treasury()->unserialize($data['treasury']);
+		$this->setBuilding($this->createBuilding($data[self::BUILDING]));
+		$this->setSize($data[self::SIZE]);
+		$this->inhabitants->unserialize($data[self::INHABITANTS]);
+		$this->Treasury()->unserialize($data[self::TREASURY]);
 		$this->unserializeExtensions($data);
 		return $this;
 	}
@@ -148,12 +157,12 @@ class Construction extends Entity implements Collectible, Collector
 	 *
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
+	protected function validateSerializedData(array $data): void {
 		parent::validateSerializedData($data);
-		$this->validate($data, 'building', 'string');
-		$this->validate($data, 'size', 'int');
-		$this->validate($data, 'inhabitants', 'array');
-		$this->validate($data, 'treasury', 'array');
+		$this->validate($data, self::BUILDING, Validate::String);
+		$this->validate($data, self::SIZE, Validate::Int);
+		$this->validate($data, self::INHABITANTS, Validate::Array);
+		$this->validate($data, self::TREASURY, Validate::Array);
 		$this->validateExtensions($data);
 	}
 }

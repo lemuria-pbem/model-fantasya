@@ -7,10 +7,15 @@ use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\SingletonSet;
+use Lemuria\Validate;
 
 class Tradeables extends SingletonSet
 {
 	use SerializableTrait;
+
+	private const IS_EXCLUSION = 'isExclusion';
+
+	private const GOODS = 'goods';
 
 	private bool $isExclusion = true;
 
@@ -19,12 +24,12 @@ class Tradeables extends SingletonSet
 	}
 
 	public function serialize(): array {
-		return ['isExclusion' => $this->isExclusion, 'goods' => parent::serialize()];
+		return [self::IS_EXCLUSION => $this->isExclusion, self::GOODS => parent::serialize()];
 	}
 
 	public function unserialize(array $data): Serializable {
-		parent::unserialize($data['goods']);
-		$this->isExclusion = $data['isExclusion'];
+		parent::unserialize($data[self::GOODS]);
+		$this->isExclusion = $data[self::IS_EXCLUSION];
 		return $this;
 	}
 
@@ -66,7 +71,7 @@ class Tradeables extends SingletonSet
 	 * @param array<string, mixed> $data
 	 */
 	protected function validateSerializedData(array $data): void {
-		$this->validate($data, 'isExclusion', 'bool');
-		$this->validate($data, 'goods', 'array');
+		$this->validate($data, self::IS_EXCLUSION, Validate::Bool);
+		$this->validate($data, self::GOODS, Validate::Array);
 	}
 }

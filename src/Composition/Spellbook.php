@@ -10,10 +10,13 @@ use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Serializable;
 use Lemuria\SingletonSet;
 use Lemuria\TenantTrait;
+use Lemuria\Validate;
 
 class Spellbook extends AbstractComposition implements Readable
 {
 	use TenantTrait;
+
+	private const SPELLS = 'spells';
 
 	private const SILVER = 1000;
 
@@ -34,12 +37,12 @@ class Spellbook extends AbstractComposition implements Readable
 	}
 
 	public function serialize(): array {
-		$data = ['spells' => $this->spells->serialize()];
+		$data = [self::SPELLS => $this->spells->serialize()];
 		return $data;
 	}
 
 	public function unserialize(array $data): Serializable {
-		$this->spells->unserialize($data['spells']);
+		$this->spells->unserialize($data[self::SPELLS]);
 		return $this;
 	}
 
@@ -56,8 +59,8 @@ class Spellbook extends AbstractComposition implements Readable
 	/**
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
-		$this->validate($data, 'spells', 'array');
+	protected function validateSerializedData(array $data): void {
+		$this->validate($data, self::SPELLS, Validate::Array);
 	}
 
 	protected function material(): array {

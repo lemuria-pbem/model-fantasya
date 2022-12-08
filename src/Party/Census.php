@@ -8,7 +8,7 @@ use Lemuria\Model\Fantasya\People;
 use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\Fantasya\Unit;
 use Lemuria\Model\World\Atlas;
-use Lemuria\Model\World\SortMode;
+use Lemuria\SortMode;
 
 /**
  * The census is an analysis of a parties' regions and the units in its regions.

@@ -9,8 +9,8 @@ use Lemuria\Model\Fantasya\Extension;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Market\Trade;
 use Lemuria\Model\Fantasya\Sorting\Trade\ByDeal;
-use Lemuria\Model\World\SortMode;
 use Lemuria\Sorting\ById;
+use Lemuria\SortMode;
 
 /**
  * Trades of a unit are offers and demands on the market.

@@ -8,6 +8,7 @@ use Lemuria\Model\Fantasya\Commodity;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
+use Lemuria\Validate;
 
 class Deal implements \Stringable, Serializable
 {
@@ -56,8 +57,8 @@ class Deal implements \Stringable, Serializable
 	/**
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): array {
-		$this->validate($data, 0, 'string');
+	protected function validateSerializedData(array $data): array {
+		$this->validate($data, 0, Validate::String);
 		if (preg_match('/^(\d+)(?:-(\d+))? ([a-zA-Z]+)$/', $data[0], $matches) !== 1) {
 			throw new UnserializeException('Deal has invalid format: ' . $data[0]);
 		}

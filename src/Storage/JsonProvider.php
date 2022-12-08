@@ -9,11 +9,11 @@ use Lemuria\Model\Fantasya\Exception\JsonException;
 use Lemuria\Storage\FileProvider;
 use Lemuria\Storage\Provider;
 
-class JsonProvider implements Provider
+readonly class JsonProvider implements Provider
 {
-	private readonly FileProvider $provider;
+	private FileProvider $provider;
 
-	
+
 	public function __construct(string $directory) {
 		$this->provider = new FileProvider($directory);
 	}

@@ -10,9 +10,9 @@ use Lemuria\Model\Fantasya\Unit;
 /**
  * An ordering for units by their party.
  */
-class ByParty implements EntityOrder
+readonly class ByParty implements EntityOrder
 {
-	public function __construct(private readonly Party $party) {
+	public function __construct(private Party $party) {
 	}
 
 	/**

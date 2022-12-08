@@ -13,6 +13,7 @@ use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Reassignment;
 use Lemuria\Serializable;
+use Lemuria\Validate;
 
 /**
  * A continent is a landmass of connected regions.
@@ -20,6 +21,12 @@ use Lemuria\Serializable;
 class Continent extends Entity implements Collector, Reassignment
 {
 	use CollectorTrait;
+
+	private const LANDMASS = 'landmass';
+
+	private const NAMES = 'names';
+
+	private const DESCRIPTIONS = 'descriptions';
 
 	private readonly Landmass $landmass;
 
@@ -59,9 +66,9 @@ class Continent extends Entity implements Collector, Reassignment
 	 */
 	public function serialize(): array {
 		$data                 = parent::serialize();
-		$data['landmass']     = $this->landmass->serialize();
-		$data['names']        = $this->names;
-		$data['descriptions'] = $this->descriptions;
+		$data[self::LANDMASS]     = $this->landmass->serialize();
+		$data[self::NAMES]        = $this->names;
+		$data[self::DESCRIPTIONS] = $this->descriptions;
 		return $data;
 	}
 
@@ -70,9 +77,9 @@ class Continent extends Entity implements Collector, Reassignment
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$this->landmass->unserialize($data['landmass']);
-		$this->names        = $data['names'];
-		$this->descriptions = $data['descriptions'];
+		$this->landmass->unserialize($data[self::LANDMASS]);
+		$this->names        = $data[self::NAMES];
+		$this->descriptions = $data[self::DESCRIPTIONS];
 		return $this;
 	}
 
@@ -167,11 +174,11 @@ class Continent extends Entity implements Collector, Reassignment
 	 *
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
+	protected function validateSerializedData(array $data): void {
 		parent::validateSerializedData($data);
-		$this->validate($data, 'landmass', 'array');
-		$this->validate($data, 'names', 'array');
-		foreach ($data['names'] as $id => $name) {
+		$this->validate($data, self::LANDMASS, Validate::Array);
+		$this->validate($data, self::NAMES, Validate::Array);
+		foreach ($data[self::NAMES] as $id => $name) {
 			if (!is_int($id)) {
 				throw new UnserializeException('Party name ID is not an int.');
 			}
@@ -179,8 +186,8 @@ class Continent extends Entity implements Collector, Reassignment
 				throw new UnserializeException('Party name is not a string.');
 			}
 		}
-		$this->validate($data, 'descriptions', 'array');
-		foreach ($data['descriptions'] as $id => $description) {
+		$this->validate($data, self::DESCRIPTIONS, Validate::Array);
+		foreach ($data[self::DESCRIPTIONS] as $id => $description) {
 			if (!is_int($id)) {
 				throw new UnserializeException('Party description ID is not an int.');
 			}

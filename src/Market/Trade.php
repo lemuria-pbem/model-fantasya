@@ -14,12 +14,23 @@ use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Unit;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
+use Lemuria\Validate;
 
 class Trade implements \Stringable, Collectible, Identifiable, Serializable
 {
 	public final const DEMAND = false;
 
 	public final const OFFER = true;
+
+	private const ID = 'id';
+
+	private const IS_OFFER = 'isOffer';
+
+	private const IS_REPEAT = 'isRepeat';
+
+	private const GOODS = 'goods';
+
+	private const PRICE = 'price';
 
 	use BuilderTrait;
 	use CollectibleTrait;
@@ -92,21 +103,21 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 		$goods = $this->goods->serialize();
 		$price = $this->price->serialize();
 		$data  = [
-			'id'       => $this->Id()->Id(),
-			'isOffer'  => $this->trade,
-			'isRepeat' => $this->isRepeat,
-			'goods'    => $goods[0],
-			'price'    => $price[0]];
+			self::ID        => $this->Id()->Id(),
+			self::IS_OFFER  => $this->trade,
+			self::IS_REPEAT => $this->isRepeat,
+			self::GOODS     => $goods[0],
+			self::PRICE     => $price[0]];
 		return $data;
 	}
 
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);
-		$this->setId(new Id(($data['id'])));
-		$this->trade    = $data['isOffer'];
-		$this->isRepeat = $data['isRepeat'];
-		$this->goods->unserialize([$data['goods']]);
-		$this->price->unserialize([$data['price']]);
+		$this->setId(new Id(($data[self::ID])));
+		$this->trade    = $data[self::IS_OFFER];
+		$this->isRepeat = $data[self::IS_REPEAT];
+		$this->goods->unserialize([$data[self::GOODS]]);
+		$this->price->unserialize([$data[self::PRICE]]);
 		return $this;
 	}
 
@@ -133,11 +144,11 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 	/**
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
-		$this->validate($data, 'id', 'int');
-		$this->validate($data, 'isOffer', 'bool');
-		$this->validate($data, 'isRepeat', 'bool');
-		$this->validate($data, 'goods', 'string');
-		$this->validate($data, 'price', 'string');
+	protected function validateSerializedData(array $data): void {
+		$this->validate($data, self::ID, Validate::Int);
+		$this->validate($data, self::IS_OFFER, Validate::Bool);
+		$this->validate($data, self::IS_REPEAT, Validate::Bool);
+		$this->validate($data, self::GOODS, Validate::String);
+		$this->validate($data, self::PRICE, Validate::String);
 	}
 }

@@ -6,8 +6,8 @@ use Lemuria\EntitySet;
 use Lemuria\Exception\EntitySetException;
 use Lemuria\Exception\EntitySetReplaceException;
 use Lemuria\Id;
-use Lemuria\Model\World\SortMode;
 use Lemuria\Reorder;
+use Lemuria\SortMode;
 
 /**
  * Among the inhabitants of a Construction or Vessel is one of them who is in command.

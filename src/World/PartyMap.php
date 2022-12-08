@@ -15,9 +15,9 @@ use Lemuria\Serializable;
 /**
  * This is a decorated world that calculates map coordinates for a specific party.
  */
-final class PartyMap implements World
+final readonly class PartyMap implements World
 {
-	public function __construct(private readonly World $world, private readonly Party $party) {
+	public function __construct(private World $world, private Party $party) {
 	}
 
 	public function serialize(): array {

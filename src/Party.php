@@ -20,6 +20,7 @@ use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Party\Presettings;
 use Lemuria\Model\Fantasya\Party\Type;
 use Lemuria\Serializable;
+use Lemuria\Validate;
 
 /**
  * A party is the representation of a Lemuria player.
@@ -28,6 +29,36 @@ class Party extends Entity implements Assignable, Collector
 {
 	use BuilderTrait;
 	use CollectorTrait;
+
+	private const TYPE = 'type';
+
+	private const BANNER = 'banner';
+
+	private const UUID = 'uuid';
+
+	private const CREATION = 'creation';
+
+	private const ROUND = 'round';
+
+	private const RETIREMENT = 'retirement';
+
+	private const ORIGIN = 'origin';
+
+	private const RACE = 'race';
+
+	private const DIPLOMACY = 'diplomacy';
+
+	private const PEOPLE = 'people';
+
+	private const CHRONICLE = 'chronicle';
+
+	private const HERBAL_BOOK = 'herbalBook';
+
+	private const SPELL_BOOK = 'spellBook';
+
+	private const LOOT = 'loot';
+
+	private const PRESETTINGS = 'presettings';
 
 	private string $banner;
 
@@ -198,22 +229,22 @@ class Party extends Entity implements Assignable, Collector
 	 * @return array
 	 */
 	public function serialize(): array {
-		$data                = parent::serialize();
-		$data['type']        = $this->type;
-		$data['banner']      = $this->banner;
-		$data['uuid']        = $this->Uuid();
-		$data['creation']    = $this->creation;
-		$data['round']       = $this->round;
-		$data['retirement']  = $this->retirement;
-		$data['origin']      = $this->origin->Id();
-		$data['race']        = getClass($this->Race());
-		$data['diplomacy']   = $this->Diplomacy()->serialize();
-		$data['people']      = $this->People()->serialize();
-		$data['chronicle']   = $this->Chronicle()->serialize();
-		$data['herbalBook']  = $this->HerbalBook()->serialize();
-		$data['spellBook']   = $this->SpellBook()->serialize();
-		$data['loot']        = $this->Loot()->serialize();
-		$data['presettings'] = $this->Presettings()->serialize();
+		$data                     = parent::serialize();
+		$data[self::TYPE]         = $this->type;
+		$data[self::BANNER]       = $this->banner;
+		$data[self::UUID]         = $this->Uuid();
+		$data[self::CREATION]     = $this->creation;
+		$data[self::ROUND]        = $this->round;
+		$data[self::RETIREMENT]   = $this->retirement;
+		$data[self::ORIGIN]       = $this->origin->Id();
+		$data[self::RACE]         = getClass($this->Race());
+		$data[self::DIPLOMACY]    = $this->Diplomacy()->serialize();
+		$data[self::PEOPLE]       = $this->People()->serialize();
+		$data[self::CHRONICLE]    = $this->Chronicle()->serialize();
+		$data[self::HERBAL_BOOK]  = $this->HerbalBook()->serialize();
+		$data[self::SPELL_BOOK]   = $this->SpellBook()->serialize();
+		$data[self::LOOT]         = $this->Loot()->serialize();
+		$data[self::PRESETTINGS]  = $this->Presettings()->serialize();
 		return $data;
 	}
 
@@ -222,21 +253,21 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$this->type       = Type::from($data['type']);
-		$this->banner     = $data['banner'];
-		$this->uuid       = Uuid::fromString($data['uuid']);
-		$this->creation   = $data['creation'];
-		$this->round      = $data['round'];
-		$this->retirement = $data['retirement'];
-		$this->origin     = new Id($data['origin']);
-		$this->setRace(self::createRace($data['race']));
-		$this->People()->unserialize($data['people']);
-		$this->Chronicle()->unserialize($data['chronicle']);
-		$this->Presettings()->unserialize($data['presettings']);
-		$this->serializedDiplomacy  = $data['diplomacy'];
-		$this->serializedHerbalBook = $data['herbalBook'];
-		$this->serializedSpellBook  = $data['spellBook'];
-		$this->serializedLoot       = $data['loot'];
+		$this->type       = Type::from($data[self::TYPE]);
+		$this->banner     = $data[self::BANNER];
+		$this->uuid       = Uuid::fromString($data[self::UUID]);
+		$this->creation   = $data[self::CREATION];
+		$this->round      = $data[self::ROUND];
+		$this->retirement = $data[self::RETIREMENT];
+		$this->origin     = new Id($data[self::ORIGIN]);
+		$this->setRace(self::createRace($data[self::RACE]));
+		$this->People()->unserialize($data[self::PEOPLE]);
+		$this->Chronicle()->unserialize($data[self::CHRONICLE]);
+		$this->Presettings()->unserialize($data[self::PRESETTINGS]);
+		$this->serializedDiplomacy  = $data[self::DIPLOMACY];
+		$this->serializedHerbalBook = $data[self::HERBAL_BOOK];
+		$this->serializedSpellBook  = $data[self::SPELL_BOOK];
+		$this->serializedLoot       = $data[self::LOOT];
 		return $this;
 	}
 
@@ -280,23 +311,24 @@ class Party extends Entity implements Assignable, Collector
 	 * Check that a serialized data array is valid.
 	 *
 	 * @param array<string, mixed> $data
+	 * @noinspection DuplicatedCode
 	 */
-	protected function validateSerializedData(array &$data): void {
+	protected function validateSerializedData(array $data): void {
 		parent::validateSerializedData($data);
-		$this->validate($data, 'type', 'int');
-		$this->validate($data, 'banner', 'string');
-		$this->validate($data, 'uuid', 'string');
-		$this->validate($data, 'creation', 'int');
-		$this->validate($data, 'round', 'int');
-		$this->validate($data, 'retirement', '?int');
-		$this->validate($data, 'origin', 'int');
-		$this->validate($data, 'race', 'string');
-		$this->validate($data, 'people', 'array');
-		$this->validate($data, 'diplomacy', 'array');
-		$this->validate($data, 'chronicle', 'array');
-		$this->validate($data, 'herbalBook', 'array');
-		$this->validate($data, 'spellBook', 'array');
-		$this->validate($data, 'loot', 'array');
-		$this->validate($data, 'presettings', 'array');
+		$this->validate($data, self::TYPE, Validate::Int);
+		$this->validate($data, self::BANNER, Validate::String);
+		$this->validate($data, self::UUID, Validate::String);
+		$this->validate($data, self::CREATION, Validate::Int);
+		$this->validate($data, self::ROUND, Validate::Int);
+		$this->validate($data, self::RETIREMENT, Validate::IntOrNull);
+		$this->validate($data, self::ORIGIN, Validate::Int);
+		$this->validate($data, self::RACE, Validate::String);
+		$this->validate($data, self::PEOPLE, Validate::Array);
+		$this->validate($data, self::DIPLOMACY, Validate::Array);
+		$this->validate($data, self::CHRONICLE, Validate::Array);
+		$this->validate($data, self::HERBAL_BOOK, Validate::Array);
+		$this->validate($data, self::SPELL_BOOK, Validate::Array);
+		$this->validate($data, self::LOOT, Validate::Array);
+		$this->validate($data, self::PRESETTINGS, Validate::Array);
 	}
 }

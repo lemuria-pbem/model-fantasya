@@ -10,12 +10,15 @@ use Lemuria\Model\Fantasya\Readable;
 use Lemuria\Model\Fantasya\Spell;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Serializable;
+use Lemuria\Validate;
 
 class Scroll extends AbstractComposition implements Readable
 {
 	private const SILVER = 10;
 
 	private const WEIGHT = 1;
+
+	private const SPELL = 'spell';
 
 	protected ?Spell $spell = null;
 
@@ -28,12 +31,12 @@ class Scroll extends AbstractComposition implements Readable
 	}
 
 	public function serialize(): array {
-		$data = ['spell' => $this->spell ? getClass($this->spell) : null];
+		$data = [self::SPELL => $this->spell ? getClass($this->spell) : null];
 		return $data;
 	}
 
 	public function unserialize(array $data): Serializable {
-		$spell = $data['spell'];
+		$spell = $data[self::SPELL];
 		if ($spell) {
 			$this->spell = self::createSpell($spell);
 		}
@@ -58,8 +61,8 @@ class Scroll extends AbstractComposition implements Readable
 	/**
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
-		$this->validate($data, 'spell', '?string');
+	protected function validateSerializedData(array $data): void {
+		$this->validate($data, self::SPELL, Validate::StringOrNull);
 	}
 
 	protected function material(): array {

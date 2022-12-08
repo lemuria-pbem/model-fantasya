@@ -16,6 +16,7 @@ use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Location;
 use Lemuria\Model\World\Direction;
 use Lemuria\Serializable;
+use Lemuria\Validate;
 
 /**
  * A region in the world of Lemuria has a dominant kind of landscape that is the main development factor.
@@ -25,6 +26,24 @@ class Region extends Entity implements Collectible, Collector, Location
 	use BuilderTrait;
 	use CollectibleTrait;
 	use CollectorTrait;
+
+	private const LANDSCAPE = 'landscape';
+
+	private const ROADS = 'roads';
+
+	private const HERBAGE = 'herbage';
+
+	private const RESOURCES = 'resources';
+
+	private const ESTATE = 'estate';
+
+	private const FLEET = 'fleet';
+
+	private const RESIDENTS = 'residents';
+
+	private const LUXURIES = 'luxuries';
+
+	private const TREASURY = 'treasury';
 
 	private Landscape $landscape;
 
@@ -124,16 +143,16 @@ class Region extends Entity implements Collectible, Collector, Location
 	 * Get a plain data array of the model's data.
 	 */
 	public function serialize(): array {
-		$data              = parent::serialize();
-		$data['landscape'] = getClass($this->Landscape());
-		$data['roads']     = $this->roads?->serialize();
-		$data['herbage']   = $this->herbage?->serialize();
-		$data['resources'] = $this->Resources()->serialize();
-		$data['estate']    = $this->Estate()->serialize();
-		$data['fleet']     = $this->Fleet()->serialize();
-		$data['residents'] = $this->Residents()->serialize();
-		$data['luxuries']  = $this->luxuries?->serialize();
-		$data['treasury']  = $this->Treasury()->serialize();
+		$data                  = parent::serialize();
+		$data[self::LANDSCAPE] = getClass($this->Landscape());
+		$data[self::ROADS]     = $this->roads?->serialize();
+		$data[self::HERBAGE]   = $this->herbage?->serialize();
+		$data[self::RESOURCES] = $this->Resources()->serialize();
+		$data[self::ESTATE]    = $this->Estate()->serialize();
+		$data[self::FLEET]     = $this->Fleet()->serialize();
+		$data[self::RESIDENTS] = $this->Residents()->serialize();
+		$data[self::LUXURIES]  = $this->luxuries?->serialize();
+		$data[self::TREASURY]  = $this->Treasury()->serialize();
 		return $data;
 	}
 
@@ -142,33 +161,33 @@ class Region extends Entity implements Collectible, Collector, Location
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$this->setLandscape(self::createLandscape($data['landscape']));
-		$this->Resources()->unserialize($data['resources']);
-		$this->Estate()->unserialize($data['estate']);
-		$this->Fleet()->unserialize($data['fleet']);
-		$this->Residents()->unserialize($data['residents']);
-		if ($data['roads'] === null) {
+		$this->setLandscape(self::createLandscape($data[self::LANDSCAPE]));
+		$this->Resources()->unserialize($data[self::RESOURCES]);
+		$this->Estate()->unserialize($data[self::ESTATE]);
+		$this->Fleet()->unserialize($data[self::FLEET]);
+		$this->Residents()->unserialize($data[self::RESIDENTS]);
+		if ($data[self::ROADS] === null) {
 			$this->roads = null;
 		} else {
 			$roads = new Roads();
-			$roads->unserialize($data['roads']);
+			$roads->unserialize($data[self::ROADS]);
 			$this->setRoads($roads);
 		}
-		if ($data['herbage'] === null) {
+		if ($data[self::HERBAGE] === null) {
 			$this->herbage = null;
 		} else {
 			$herbage = new Herbage();
-			$herbage->unserialize($data['herbage']);
+			$herbage->unserialize($data[self::HERBAGE]);
 			$this->setHerbage($herbage);
 		}
-		if ($data['luxuries'] === null) {
+		if ($data[self::LUXURIES] === null) {
 			$this->luxuries = null;
 		} else {
 			$luxuries = new Luxuries();
-			$luxuries->unserialize($data['luxuries']);
+			$luxuries->unserialize($data[self::LUXURIES]);
 			$this->setLuxuries($luxuries);
 		}
-		$this->Treasury()->unserialize($data['treasury']);
+		$this->Treasury()->unserialize($data[self::TREASURY]);
 		return $this;
 	}
 
@@ -213,16 +232,16 @@ class Region extends Entity implements Collectible, Collector, Location
 	 *
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
+	protected function validateSerializedData(array $data): void {
 		parent::validateSerializedData($data);
-		$this->validate($data, 'landscape', 'string');
-		$this->validate($data, 'roads', '?array');
-		$this->validate($data, 'herbage', '?array');
-		$this->validate($data, 'resources', 'array');
-		$this->validate($data, 'estate', 'array');
-		$this->validate($data, 'fleet', 'array');
-		$this->validate($data, 'residents', 'array');
-		$this->validate($data, 'luxuries', '?array');
-		$this->validate($data, 'treasury', 'array');
+		$this->validate($data, self::LANDSCAPE, Validate::String);
+		$this->validate($data, self::ROADS, Validate::ArrayOrNull);
+		$this->validate($data, self::HERBAGE, Validate::ArrayOrNull);
+		$this->validate($data, self::RESOURCES, Validate::Array);
+		$this->validate($data, self::ESTATE, Validate::Array);
+		$this->validate($data, self::FLEET, Validate::Array);
+		$this->validate($data, self::RESIDENTS, Validate::Array);
+		$this->validate($data, self::LUXURIES, Validate::ArrayOrNull);
+		$this->validate($data, self::TREASURY, Validate::Array);
 	}
 }

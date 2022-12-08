@@ -7,8 +7,8 @@ use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Model\Fantasya\Sorting\Vessel\ByShip;
-use Lemuria\Model\World\SortMode;
 use Lemuria\Sorting\ById;
+use Lemuria\SortMode;
 
 /**
  * The fleet in a region is the list of vessels that have landed there.

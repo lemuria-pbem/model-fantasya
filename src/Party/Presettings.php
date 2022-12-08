@@ -7,10 +7,21 @@ use Lemuria\Model\Fantasya\Combat\BattleRow;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
+use Lemuria\Validate;
 
 class Presettings implements Serializable
 {
 	use SerializableTrait;
+
+	private const BATTLE_ROW = 'battleRow';
+
+	private const IS_HIDING = 'isHiding';
+
+	private const DISGUISE_AS = 'disguiseAs';
+
+	private const IS_LOOTING = 'isLooting';
+
+	private const IS_REPEAT = 'isRepeat';
 
 	protected BattleRow $battleRow = BattleRow::BYSTANDER;
 
@@ -47,21 +58,21 @@ class Presettings implements Serializable
 
 	public function serialize(): array {
 		return [
-			'battleRow'  => $this->BattleRow()->value,
-			'isHiding'   => $this->IsHiding(),
-			'disguiseAs' => $this->disguiseAs instanceof Id ? $this->disguiseAs->Id() : $this->disguiseAs,
-			'isLooting'  => $this->IsLooting(),
-			'isRepeat'   => $this->IsRepeat()
+			self::BATTLE_ROW  => $this->BattleRow()->value,
+			self::IS_HIDING   => $this->IsHiding(),
+			self::DISGUISE_AS => $this->disguiseAs instanceof Id ? $this->disguiseAs->Id() : $this->disguiseAs,
+			self::IS_LOOTING  => $this->IsLooting(),
+			self::IS_REPEAT   => $this->IsRepeat()
 		];
 	}
 
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);
-		$this->setBattleRow(BattleRow::from($data['battleRow']));
-		$this->setIsHiding($data['isHiding']);
-		$this->setIsLooting($data['isLooting']);
-		$this->setIsRepeat($data['isRepeat']);
-		$id               = $data['disguiseAs'];
+		$this->setBattleRow(BattleRow::from($data[self::BATTLE_ROW]));
+		$this->setIsHiding($data[self::IS_HIDING]);
+		$this->setIsLooting($data[self::IS_LOOTING]);
+		$this->setIsRepeat($data[self::IS_REPEAT]);
+		$id               = $data[self::DISGUISE_AS];
 		$this->disguiseAs = is_int($id) ? new Id($id) : $id;
 		return $this;
 	}
@@ -96,14 +107,14 @@ class Presettings implements Serializable
 	 *
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
-		$this->validate($data, 'battleRow', 'int');
-		$this->validate($data, 'isHiding', 'bool');
-		$disguiseAs = $data['disguiseAs'];
+	protected function validateSerializedData(array $data): void {
+		$this->validate($data, self::BATTLE_ROW, Validate::Int);
+		$this->validate($data, self::IS_HIDING, Validate::Bool);
+		$disguiseAs = $data[self::DISGUISE_AS];
 		if (!is_bool($disguiseAs) || $disguiseAs) {
-			$this->validate($data, 'disguiseAs', '?int');
+			$this->validate($data, self::DISGUISE_AS, Validate::IntOrNull);
 		}
-		$this->validate($data, 'isLooting', 'bool');
-		$this->validate($data, 'isRepeat', 'bool');
+		$this->validate($data, self::IS_LOOTING, Validate::Bool);
+		$this->validate($data, self::IS_REPEAT, Validate::Bool);
 	}
 }

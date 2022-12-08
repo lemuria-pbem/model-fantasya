@@ -8,8 +8,8 @@ use Lemuria\Model\Fantasya\Continent;
 use Lemuria\Model\Fantasya\Sorting\Region\ByResidents;
 use Lemuria\Model\Location;
 use Lemuria\Model\World\Atlas;
-use Lemuria\Model\World\SortMode;
 use Lemuria\NullContainer;
+use Lemuria\SortMode;
 
 class FantasyaAtlas extends Atlas
 {

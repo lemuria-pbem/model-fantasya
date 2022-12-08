@@ -16,6 +16,7 @@ use Lemuria\Model\Fantasya\Combat\BattleRow;
 use Lemuria\Model\Fantasya\Extension\Trades;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Serializable;
+use Lemuria\Validate;
 
 /**
  * A unit consists of a number of persons of the same race.
@@ -26,6 +27,32 @@ class Unit extends Entity implements Collectible, Collector
 	use CollectibleTrait;
 	use CollectorTrait;
 	use ExtensionTrait;
+
+	private const RACE = 'race';
+
+	private const SIZE = 'size';
+
+	private const AURA = 'aura';
+
+	private const HEALTH = 'health';
+
+	private const IS_GUARDING = 'isGuarding';
+
+	private const BATTLE_ROW = 'battleRow';
+
+	private const IS_HIDING = 'isHiding';
+
+	private const IS_LOOTING = 'isLooting';
+
+	private const DISGUISE_AS = 'disguiseAs';
+
+	private const INVENTORY = 'inventory';
+
+	private const TREASURY = 'treasury';
+
+	private const KNOWLEDGE = 'knowledge';
+
+	private const BATTLE_SPELLS = 'battleSpells';
 
 	private Race $race;
 
@@ -199,21 +226,21 @@ class Unit extends Entity implements Collectible, Collector
 	}
 
 	public function serialize(): array {
-		$data                 = parent::serialize();
-		$data['race']         = getClass($this->Race());
-		$data['size']         = $this->Size();
-		$data['aura']         = $this->aura?->serialize();
-		$data['health']       = $this->Health();
-		$data['isGuarding']   = $this->IsGuarding();
-		$data['battleRow']    = $this->BattleRow();
-		$data['isHiding']     = $this->IsHiding();
-		$data['isLooting']    = $this->IsLooting();
-		$id                   = $this->disguiseAs;
-		$data['disguiseAs']   = $id instanceof Id ? $id->Id() : $id;
-		$data['inventory']    = $this->Inventory()->serialize();
-		$data['treasury']     = $this->Treasury()->serialize();
-		$data['knowledge']    = $this->Knowledge()->serialize();
-		$data['battleSpells'] = $this->battleSpells?->serialize();
+		$data                      = parent::serialize();
+		$data[self::RACE]          = getClass($this->Race());
+		$data[self::SIZE]          = $this->Size();
+		$data[self::AURA]          = $this->aura?->serialize();
+		$data[self::HEALTH]        = $this->Health();
+		$data[self::IS_GUARDING]   = $this->IsGuarding();
+		$data[self::BATTLE_ROW]    = $this->BattleRow();
+		$data[self::IS_HIDING]     = $this->IsHiding();
+		$data[self::IS_LOOTING]    = $this->IsLooting();
+		$id                        = $this->disguiseAs;
+		$data[self::DISGUISE_AS]   = $id instanceof Id ? $id->Id() : $id;
+		$data[self::INVENTORY]     = $this->Inventory()->serialize();
+		$data[self::TREASURY]      = $this->Treasury()->serialize();
+		$data[self::KNOWLEDGE]     = $this->Knowledge()->serialize();
+		$data[self::BATTLE_SPELLS] = $this->battleSpells?->serialize();
 		$this->serializeExtensions($data);
 		return $data;
 	}
@@ -223,25 +250,25 @@ class Unit extends Entity implements Collectible, Collector
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$this->setRace(self::createRace($data['race']));
-		$this->setSize($data['size']);
-		$this->setHealth($data['health']);
-		$this->setIsGuarding($data['isGuarding']);
-		$this->setBattleRow(BattleRow::from($data['battleRow']));
-		$this->setIsHiding($data['isHiding']);
-		$this->setIsLooting($data['isLooting']);
-		$id               = $data['disguiseAs'];
+		$this->setRace(self::createRace($data[self::RACE]));
+		$this->setSize($data[self::SIZE]);
+		$this->setHealth($data[self::HEALTH]);
+		$this->setIsGuarding($data[self::IS_GUARDING]);
+		$this->setBattleRow(BattleRow::from($data[self::BATTLE_ROW]));
+		$this->setIsHiding($data[self::IS_HIDING]);
+		$this->setIsLooting($data[self::IS_LOOTING]);
+		$id               = $data[self::DISGUISE_AS];
 		$this->disguiseAs = is_int($id) ? new Id($id) : $id;
-		$this->Inventory()->unserialize($data['inventory']);
-		$this->Treasury()->unserialize($data['treasury']);
-		$this->Knowledge()->unserialize($data['knowledge']);
-		if (isset($data['aura'])) {
+		$this->Inventory()->unserialize($data[self::INVENTORY]);
+		$this->Treasury()->unserialize($data[self::TREASURY]);
+		$this->Knowledge()->unserialize($data[self::KNOWLEDGE]);
+		if (isset($data[self::AURA])) {
 			$this->aura = new Aura();
-			$this->aura->unserialize($data['aura']);
+			$this->aura->unserialize($data[self::AURA]);
 		}
-		if (isset($data['battleSpells'])) {
+		if (isset($data[self::BATTLE_SPELLS])) {
 			$this->battleSpells = new BattleSpells();
-			$this->battleSpells->unserialize($data['battleSpells']);
+			$this->battleSpells->unserialize($data[self::BATTLE_SPELLS]);
 		}
 		$this->unserializeExtensions($data);
 		return $this;
@@ -319,25 +346,26 @@ class Unit extends Entity implements Collectible, Collector
 	 * Check that a serialized data array is valid.
 	 *
 	 * @param array<string, mixed> $data
+	 * @noinspection DuplicatedCode
 	 */
-	protected function validateSerializedData(array &$data): void {
+	protected function validateSerializedData(array $data): void {
 		parent::validateSerializedData($data);
-		$this->validate($data, 'race', 'string');
-		$this->validate($data, 'size', 'int');
-		$this->validate($data, 'aura', '?array');
-		$this->validate($data, 'health', 'float');
-		$this->validate($data, 'isGuarding', 'bool');
-		$this->validate($data, 'battleRow', 'int');
-		$this->validate($data, 'isHiding', 'bool');
-		$this->validate($data, 'isLooting', 'bool');
-		$disguiseAs = $data['disguiseAs'];
+		$this->validate($data, self::RACE, Validate::String);
+		$this->validate($data, self::SIZE, Validate::Int);
+		$this->validate($data, self::AURA, Validate::ArrayOrNull);
+		$this->validate($data, self::HEALTH, Validate::Float);
+		$this->validate($data, self::IS_GUARDING, Validate::Bool);
+		$this->validate($data, self::BATTLE_ROW, Validate::Int);
+		$this->validate($data, self::IS_HIDING, Validate::Bool);
+		$this->validate($data, self::IS_LOOTING, Validate::Bool);
+		$disguiseAs = $data[self::DISGUISE_AS];
 		if (!is_bool($disguiseAs) || $disguiseAs) {
-			$this->validate($data, 'disguiseAs', '?int');
+			$this->validate($data, self::DISGUISE_AS, Validate::IntOrNull);
 		}
-		$this->validate($data, 'inventory', 'array');
-		$this->validate($data, 'treasury', 'array');
-		$this->validate($data, 'knowledge', 'array');
-		$this->validate($data, 'battleSpells', '?array');
+		$this->validate($data, self::INVENTORY, Validate::Array);
+		$this->validate($data, self::TREASURY, Validate::Array);
+		$this->validate($data, self::KNOWLEDGE, Validate::Array);
+		$this->validate($data, self::BATTLE_SPELLS, Validate::ArrayOrNull);
 		$this->validateExtensions($data);
 	}
 }

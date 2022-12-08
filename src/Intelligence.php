@@ -8,9 +8,9 @@ use Lemuria\Model\Fantasya\Party\Type;
 /**
  * Helper class for region information.
  */
-final class Intelligence
+final readonly class Intelligence
 {
-		public function __construct(private readonly Region $region) {
+		public function __construct(private Region $region) {
 	}
 
 	public function Region(): Region {

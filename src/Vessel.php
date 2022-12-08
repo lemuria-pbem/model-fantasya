@@ -15,6 +15,7 @@ use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\World\Direction;
 use Lemuria\Serializable;
+use Lemuria\Validate;
 
 /**
  * A vessel is a ship that carries passengers.
@@ -24,6 +25,18 @@ class Vessel extends Entity implements Collectible, Collector
 	use BuilderTrait;
 	use CollectibleTrait;
 	use CollectorTrait;
+
+	private const ANCHOR = 'anchor';
+
+	private const PORT = 'port';
+
+	private const SHIP = 'ship';
+
+	private const COMPLETION = 'completion';
+
+	private const PASSENGERS = 'passengers';
+
+	private const TREASURY = 'treasury';
 
 	private Direction $anchor = Direction::IN_DOCK;
 
@@ -101,13 +114,13 @@ class Vessel extends Entity implements Collectible, Collector
 	}
 
 	public function serialize(): array {
-		$data               = parent::serialize();
-		$data['anchor']     = $this->Anchor();
-		$data['port']       = $this->portId;
-		$data['ship']       = getClass($this->Ship());
-		$data['completion'] = $this->Completion();
-		$data['passengers'] = $this->passengers->serialize();
-		$data['treasury']   = $this->Treasury()->serialize();
+		$data                   = parent::serialize();
+		$data[self::ANCHOR]     = $this->Anchor();
+		$data[self::PORT]       = $this->portId;
+		$data[self::SHIP]       = getClass($this->Ship());
+		$data[self::COMPLETION] = $this->Completion();
+		$data[self::PASSENGERS] = $this->passengers->serialize();
+		$data[self::TREASURY]   = $this->Treasury()->serialize();
 		return $data;
 	}
 
@@ -116,12 +129,12 @@ class Vessel extends Entity implements Collectible, Collector
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$this->setAnchor(Direction::from($data['anchor']));
-		$this->initPort($data['port']);
-		$this->setShip(self::createShip($data['ship']));
-		$this->setCompletion($data['completion']);
-		$this->passengers->unserialize($data['passengers']);
-		$this->Treasury()->unserialize($data['treasury']);
+		$this->setAnchor(Direction::from($data[self::ANCHOR]));
+		$this->initPort($data[self::PORT]);
+		$this->setShip(self::createShip($data[self::SHIP]));
+		$this->setCompletion($data[self::COMPLETION]);
+		$this->passengers->unserialize($data[self::PASSENGERS]);
+		$this->Treasury()->unserialize($data[self::TREASURY]);
 		return $this;
 	}
 
@@ -169,14 +182,14 @@ class Vessel extends Entity implements Collectible, Collector
 	 *
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
+	protected function validateSerializedData(array $data): void {
 		parent::validateSerializedData($data);
-		$this->validate($data, 'anchor', 'string');
-		$this->validate($data, 'port', '?int');
-		$this->validate($data, 'ship', 'string');
-		$this->validate($data, 'completion', 'float');
-		$this->validate($data, 'passengers', 'array');
-		$this->validate($data, 'treasury', 'array');
+		$this->validate($data, self::ANCHOR, Validate::String);
+		$this->validate($data, self::PORT, Validate::IntOrNull);
+		$this->validate($data, self::SHIP, Validate::String);
+		$this->validate($data, self::COMPLETION, Validate::Float);
+		$this->validate($data, self::PASSENGERS, Validate::Array);
+		$this->validate($data, self::TREASURY, Validate::Array);
 	}
 
 	private function initPort(?int $portId = null): ?Construction {

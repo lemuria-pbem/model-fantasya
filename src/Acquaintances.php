@@ -8,6 +8,7 @@ use Lemuria\Exception\UnserializeException;
 use Lemuria\Id;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
+use Lemuria\Validate;
 
 /**
  * The people of a player or party is the community of all its units.
@@ -15,6 +16,10 @@ use Lemuria\SerializableTrait;
 class Acquaintances extends Gathering
 {
 	use SerializableTrait;
+
+	private const ENTITIES = 'entities';
+
+	private const IS_TOLD = 'isTold';
 
 	/**
 	 * @var array(int=>bool)
@@ -33,7 +38,7 @@ class Acquaintances extends Gathering
 			$entities[] = $id;
 			$isTold[]   = $told;
 		}
-		return ['entities' => $entities, 'isTold' => $isTold];
+		return [self::ENTITIES => $entities, self::IS_TOLD => $isTold];
 	}
 
 	/**
@@ -47,11 +52,11 @@ class Acquaintances extends Gathering
 			$this->clear();
 		}
 
-		$entities = array_values($data['entities']);
-		$isTold   = array_values($data['isTold']);
+		$entities = array_values($data[self::ENTITIES]);
+		$isTold   = array_values($data[self::IS_TOLD]);
 		$n        = count($entities);
 		if (count($isTold) !== $n) {
-			throw new UnserializeException('Mismatch of entities and rounds count.');
+			throw new UnserializeException('Mismatch of ' . self::ENTITIES . ' and ' . self::IS_TOLD . ' count.');
 		}
 
 		for ($i = 0; $i < $n; $i++) {
@@ -106,8 +111,8 @@ class Acquaintances extends Gathering
 	 *
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
-		$this->validate($data, 'entities', 'array');
-		$this->validate($data, 'isTold', 'array');
+	protected function validateSerializedData(array $data): void {
+		$this->validate($data, self::ENTITIES, Validate::Array);
+		$this->validate($data, self::IS_TOLD, Validate::Array);
 	}
 }

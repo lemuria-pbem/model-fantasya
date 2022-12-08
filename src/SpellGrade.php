@@ -7,6 +7,7 @@ use Lemuria\Exception\UnserializeException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
+use Lemuria\Validate;
 
 class SpellGrade implements Serializable
 {
@@ -50,7 +51,7 @@ class SpellGrade implements Serializable
 	/**
 	 * @param array<string, int> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
+	protected function validateSerializedData(array $data): void {
 		if (empty($data)) {
 			throw new UnserializeException('SpellGrade must not have empty data.');
 		}
@@ -58,6 +59,6 @@ class SpellGrade implements Serializable
 		if (!is_string($key)) {
 			throw new UnserializeException('SpellGrade key must be a string.');
 		}
-		$this->validate($data, $key, 'int');
+		$this->validate($data, $key, Validate::Int);
 	}
 }

@@ -9,6 +9,7 @@ use Lemuria\Id;
 use Lemuria\Model\Annals;
 use Lemuria\Model\Calendar\Moment;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Validate;
 
 /**
  * Each party can record the occurrence of herbs in regions.
@@ -16,6 +17,8 @@ use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 class HerbalBook extends Annals
 {
 	use BuilderTrait;
+
+	private const HERBAGES = 'herbages';
 
 	/**
 	 * @var array<int, Herbage>
@@ -30,11 +33,11 @@ class HerbalBook extends Annals
 	public function serialize(): array {
 		$entities = parent::serialize();
 		$herbages = [];
-		foreach ($entities['entities'] as $id) {
+		foreach ($entities[parent::ENTITIES] as $id) {
 			$herbage    = $this->herbage[$id];
 			$herbages[] = $herbage?->serialize();
 		}
-		$entities['herbages'] = $herbages;
+		$entities[self::HERBAGES] = $herbages;
 		return $entities;
 	}
 
@@ -45,8 +48,8 @@ class HerbalBook extends Annals
 	 */
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
-		$entities = $data['entities'];
-		$herbages = $data['herbages'];
+		$entities = $data[parent::ENTITIES];
+		$herbages = $data[self::HERBAGES];
 		foreach ($entities as $id) {
 			$herb = current($herbages);
 			if ($herb) {
@@ -92,9 +95,9 @@ class HerbalBook extends Annals
 	 *
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
+	protected function validateSerializedData(array $data): void {
 		parent::validateSerializedData($data);
-		$this->validate($data, 'herbages', 'array');
+		$this->validate($data, self::HERBAGES, Validate::Array);
 	}
 
 	protected function get(Id $id): Entity {

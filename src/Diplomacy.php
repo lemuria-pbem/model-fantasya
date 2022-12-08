@@ -8,6 +8,7 @@ use Lemuria\IteratorTrait;
 use Lemuria\Model\Fantasya\Exception\UnknownPartyException;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
+use Lemuria\Validate;
 
 /**
  * A party's diplomacy consists of relations to other parties.
@@ -29,6 +30,16 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	use CountableTrait;
 	use IteratorTrait;
 	use SerializableTrait;
+
+	private const ACQUAINTANCES = 'acquaintances';
+
+	private const RELATIONS = 'relations';
+
+	private const PARTY = 'party';
+
+	private const REGION = 'region';
+
+	private const AGREEMENT = 'agreement';
 
 	/**
 	 * @var Acquaintances
@@ -133,12 +144,12 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 		$relations = [];
 		foreach ($this->relations as $relation) {
 			$relations[] = [
-				'party'     => $relation->Party()->Id()->Id(),
-				'region'    => $relation->Region()?->Id()->Id(),
-				'agreement' => $relation->Agreement()
+				self::PARTY     => $relation->Party()->Id()->Id(),
+				self::REGION    => $relation->Region()?->Id()->Id(),
+				self::AGREEMENT => $relation->Agreement()
 			];
 		}
-		return ['acquaintances' => $this->acquaintances->serialize(), 'relations' => $relations];
+		return [self::ACQUAINTANCES => $this->acquaintances->serialize(), self::RELATIONS => $relations];
 	}
 
 	/**
@@ -146,18 +157,18 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 */
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);
-		$this->acquaintances->unserialize($data['acquaintances']);
+		$this->acquaintances->unserialize($data[self::ACQUAINTANCES]);
 
 		if ($this->count > 0) {
 			$this->clear();
 		}
-		foreach ($data['relations'] as $row) {
+		foreach ($data[self::RELATIONS] as $row) {
 			$this->validateSerializedRelation($row);
-			$partyId   = $row['party'];
+			$partyId   = $row[self::PARTY];
 			$party     = Party::get(new Id($partyId));
-			$regionId  = $row['region'];
+			$regionId  = $row[self::REGION];
 			$region    = $regionId ? Region::get(new Id($regionId)) : null;
-			$agreement = $row['agreement'];
+			$agreement = $row[self::AGREEMENT];
 			$relation  = new Relation($party, $region);
 			$this->add($relation->set($agreement));
 		}
@@ -306,9 +317,9 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 *
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array &$data): void {
-		$this->validate($data, 'acquaintances', 'array');
-		$this->validate($data, 'relations', 'array');
+	protected function validateSerializedData(array $data): void {
+		$this->validate($data, self::ACQUAINTANCES, Validate::Array);
+		$this->validate($data, self::RELATIONS, Validate::Array);
 	}
 
 	/**
@@ -316,10 +327,10 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	 *
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedRelation(array &$data): void {
-		$this->validate($data, 'party', 'int');
-		$this->validate($data, 'region', '?int');
-		$this->validate($data, 'agreement', 'int');
+	protected function validateSerializedRelation(array $data): void {
+		$this->validate($data, self::PARTY, Validate::Int);
+		$this->validate($data, self::REGION, Validate::IntOrNull);
+		$this->validate($data, self::AGREEMENT, Validate::Int);
 	}
 
 	/**

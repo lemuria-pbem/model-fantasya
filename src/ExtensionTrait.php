@@ -3,9 +3,12 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use Lemuria\Collector;
+use Lemuria\Validate;
 
 trait ExtensionTrait
 {
+	private const EXTENSIONS = 'extensions';
+
 	private readonly Extensions $extensions;
 
 	public function Extensions(): Extensions {
@@ -17,14 +20,14 @@ trait ExtensionTrait
 	}
 
 	private function serializeExtensions(array &$data): void {
-		$data['extensions'] = $this->extensions->serialize();
+		$data[self::EXTENSIONS] = $this->extensions->serialize();
 	}
 
 	private function unserializeExtensions(array $data): void {
-		$this->extensions->unserialize($data['extensions']);
+		$this->extensions->unserialize($data[self::EXTENSIONS]);
 	}
 
-	private function validateExtensions(array &$data): void {
-		$this->validate($data, 'extensions', 'array');
+	private function validateExtensions(array $data): void {
+		$this->validate($data, self::EXTENSIONS, Validate::Array);
 	}
 }
