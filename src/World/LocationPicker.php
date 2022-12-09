@@ -137,7 +137,7 @@ class LocationPicker implements \ArrayAccess, \Countable
 		$this->locations  = [];
 		$this->landscapes = [];
 		$i = 0;
-		foreach (Lemuria::Catalog()->getAll(Domain::LOCATION) as $region /* @var Region $region */) {
+		foreach (Lemuria::Catalog()->getAll(Domain::Location) as $region /* @var Region $region */) {
 			$this->locations[]              = $region;
 			$landscape                      = getClass($region->Landscape());
 			$this->landscapes[$landscape][] = $i++;

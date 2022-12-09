@@ -72,7 +72,7 @@ class Region extends Entity implements Collectible, Collector, Location
 	 */
 	public static function get(Id $id): Region {
 		/** @var Region $region */
-		$region = Lemuria::Catalog()->get($id, Domain::LOCATION);
+		$region = Lemuria::Catalog()->get($id, Domain::Location);
 		return $region;
 	}
 
@@ -91,7 +91,7 @@ class Region extends Entity implements Collectible, Collector, Location
 	 * Get the catalog namespace.
 	 */
 	public function Catalog(): Domain {
-		return Domain::LOCATION;
+		return Domain::Location;
 	}
 
 	public function Landscape(): Landscape {

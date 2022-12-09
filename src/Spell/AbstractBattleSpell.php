@@ -12,6 +12,6 @@ abstract class AbstractBattleSpell extends AbstractSpell implements BattleSpell
 	}
 
 	public function Phase(): Phase {
-		return Phase::COMBAT;
+		return Phase::Combat;
 	}
 }

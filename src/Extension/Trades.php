@@ -39,12 +39,12 @@ class Trades extends EntitySet implements Extension
 	/**
 	 * Sort the constructions.
 	 */
-	public function sort(SortMode $mode = SortMode::BY_TYPE): Trades {
+	public function sort(SortMode $mode = SortMode::ByType): Trades {
 		switch ($mode) {
-			case SortMode::BY_ID :
+			case SortMode::ById :
 				$this->sortUsing(new ById());
 				break;
-			case SortMode::BY_TYPE :
+			case SortMode::ByType :
 				$this->sortUsing(new ByDeal());
 				break;
 			default :

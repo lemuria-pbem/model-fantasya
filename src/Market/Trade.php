@@ -50,7 +50,7 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 	 */
 	public static function get(Id $id): Trade {
 		/** @var Trade $trade */
-		$trade = Lemuria::Catalog()->get($id, Domain::TRADE);
+		$trade = Lemuria::Catalog()->get($id, Domain::Trade);
 		return $trade;
 	}
 
@@ -62,7 +62,7 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 	}
 
 	public function Catalog(): Domain {
-		return Domain::TRADE;
+		return Domain::Trade;
 	}
 
 	public function Trade(): bool {

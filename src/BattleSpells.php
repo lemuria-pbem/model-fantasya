@@ -18,7 +18,7 @@ class BattleSpells implements \Countable, Serializable
 	protected array $spells;
 
 	public function __construct() {
-		$this->spells = [Phase::PREPARATION->value => null, Phase::COMBAT->value => null];
+		$this->spells = [Phase::Preparation->value => null, Phase::Combat->value => null];
 	}
 
 	public function __clone(): void {
@@ -31,11 +31,11 @@ class BattleSpells implements \Countable, Serializable
 	}
 
 	public function Preparation(): ?SpellGrade {
-		return $this->spells[Phase::PREPARATION->value];
+		return $this->spells[Phase::Preparation->value];
 	}
 
 	public function Combat(): ?SpellGrade {
-		return $this->spells[Phase::COMBAT->value];
+		return $this->spells[Phase::Combat->value];
 	}
 
 	public function count(): int {
@@ -99,14 +99,14 @@ class BattleSpells implements \Countable, Serializable
 		if (count($data) !== 2) {
 			throw new UnserializeException('Expected two SpellGrade objects.');
 		}
-		if (!array_key_exists(Phase::PREPARATION->value, $data) || !array_key_exists(Phase::COMBAT->value, $data)) {
+		if (!array_key_exists(Phase::Preparation->value, $data) || !array_key_exists(Phase::Combat->value, $data)) {
 			throw new UnserializeException('Invalid BattleSpell indices.');
 		}
-		$spellGrade = $data[Phase::PREPARATION->value];
+		$spellGrade = $data[Phase::Preparation->value];
 		if ($spellGrade !== null && !is_array($spellGrade)) {
 			throw new UnserializeException('Invalid BattleSpell defined.');
 		}
-		$spellGrade = $data[Phase::COMBAT->value];
+		$spellGrade = $data[Phase::Combat->value];
 		if ($spellGrade !== null && !is_array($spellGrade)) {
 			throw new UnserializeException('Invalid BattleSpell defined.');
 		}

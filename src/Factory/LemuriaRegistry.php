@@ -25,7 +25,7 @@ class LemuriaRegistry implements Registry
 	protected function init(): void {
 		if (!$this->parties) {
 			$this->parties = [];
-			foreach (Lemuria::Catalog()->getAll(Domain::PARTY) as $party /* @var Party $party */) {
+			foreach (Lemuria::Catalog()->getAll(Domain::Party) as $party /* @var Party $party */) {
 				$this->parties[$party->Uuid()] = $party;
 			}
 		}

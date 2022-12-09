@@ -69,7 +69,7 @@ final readonly class Intelligence
 		} else {
 			foreach ($this->region->Residents() as $otherUnit /* @var Unit $otherUnit */) {
 				$otherParty = $otherUnit->Party();
-				if ($otherParty !== $party && $otherParty->Type() === Type::PLAYER) {
+				if ($otherParty !== $party && $otherParty->Type() === Type::Player) {
 					if ($otherUnit->IsLooting() && $otherUnit->Size() > 0) {
 						$heirs->add($otherUnit);
 					}

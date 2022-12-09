@@ -15,7 +15,7 @@ class Unit extends AbstractModel
 		$this->addInteger('aura', null);
 		$this->addFloat('health', 1.0);
 		$this->addBool('isGuarding');
-		$this->addInteger('battleRow', BattleRow::REFUGEE->value);
+		$this->addInteger('battleRow', BattleRow::Refugee->value);
 		$this->addBool('isHiding');
 		$this->addBool('isLooting', true);
 		$this->addBool('disguiseAs');

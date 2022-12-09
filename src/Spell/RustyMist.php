@@ -19,6 +19,6 @@ final class RustyMist extends AbstractBattleSpell
 	}
 
 	public function Phase(): Phase {
-		return Phase::PREPARATION;
+		return Phase::Preparation;
 	}
 }

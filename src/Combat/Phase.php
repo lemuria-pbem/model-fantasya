@@ -4,7 +4,7 @@ namespace Lemuria\Model\Fantasya\Combat;
 
 enum Phase : int
 {
-	case PREPARATION = 0;
+	case Preparation = 0;
 
-	case COMBAT = 1;
+	case Combat = 1;
 }

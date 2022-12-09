@@ -49,7 +49,7 @@ class Construction extends Entity implements Collectible, Collector
 	 */
 	public static function get(Id $id): self {
 		/** @var Construction $construction */
-		$construction = Lemuria::Catalog()->get($id, Domain::CONSTRUCTION);
+		$construction = Lemuria::Catalog()->get($id, Domain::Construction);
 		return $construction;
 	}
 
@@ -66,7 +66,7 @@ class Construction extends Entity implements Collectible, Collector
 	 * Get the catalog domain.
 	 */
 	public function Catalog(): Domain {
-		return Domain::CONSTRUCTION;
+		return Domain::Construction;
 	}
 
 

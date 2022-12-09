@@ -36,7 +36,7 @@ class Census implements \Countable
 			}
 			$this->getPeople($region)->add($unit);
 		}
-		$this->atlas->sort(SortMode::NORTH_TO_SOUTH);
+		$this->atlas->sort(SortMode::NorthToSouth);
 	}
 
 	public function Party(): Party {

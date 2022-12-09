@@ -65,7 +65,7 @@ class People extends EntitySet
 	/**
 	 * Reorder a unit in the community.
 	 */
-	public function reorder(Unit $unit, Unit $position, Reorder $order = Reorder::FLIP): People
+	public function reorder(Unit $unit, Unit $position, Reorder $order = Reorder::Flip): People
 	{
 		$this->reorderEntity($unit->Id(), $position->Id(), $order);
 		return $this;
@@ -74,12 +74,12 @@ class People extends EntitySet
 	/**
 	 * Sort the units.
 	 */
-	public function sort(SortMode $mode = SortMode::BY_ID, ?Party $party = null): People {
+	public function sort(SortMode $mode = SortMode::ById, ?Party $party = null): People {
 		switch ($mode) {
-			case SortMode::BY_ID :
+			case SortMode::ById :
 				$this->sortUsing(new ById());
 				break;
-			case SortMode::BY_PARTY :
+			case SortMode::ByParty :
 				$this->sortUsing(new ByParty($party));
 				break;
 			default :

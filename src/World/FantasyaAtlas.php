@@ -27,9 +27,9 @@ class FantasyaAtlas extends Atlas
 		return $this;
 	}
 
-	public function sort(SortMode $mode = SortMode::BY_ID): Atlas {
+	public function sort(SortMode $mode = SortMode::ById): Atlas {
 		switch ($mode) {
-			case SortMode::BY_RESIDENTS :
+			case SortMode::ByResidents :
 				$this->sortUsing(new ByResidents());
 				break;
 			default :

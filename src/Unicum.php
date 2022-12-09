@@ -35,7 +35,7 @@ class Unicum extends Entity implements Collectible
 	 */
 	public static function get(Id $id): Unicum {
 		/** @var Unicum $unicum */
-		$unicum = Lemuria::Catalog()->get($id, Domain::UNICUM);
+		$unicum = Lemuria::Catalog()->get($id, Domain::Unicum);
 		return $unicum;
 	}
 
@@ -55,7 +55,7 @@ class Unicum extends Entity implements Collectible
 	}
 
 	public function Catalog(): Domain {
-		return Domain::UNICUM;
+		return Domain::Unicum;
 	}
 
 	public function Composition(): Composition {

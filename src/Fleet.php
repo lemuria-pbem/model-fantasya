@@ -34,12 +34,12 @@ class Fleet extends EntitySet
 	/**
 	 * Sort the constructions.
 	 */
-	public function sort(SortMode $mode = SortMode::BY_TYPE): Fleet {
+	public function sort(SortMode $mode = SortMode::ByType): Fleet {
 		switch ($mode) {
-			case SortMode::BY_ID :
+			case SortMode::ById :
 				$this->sortUsing(new ById());
 				break;
-			case SortMode::BY_TYPE :
+			case SortMode::ByType :
 				$this->sortUsing(new ByShip());
 				break;
 			default :

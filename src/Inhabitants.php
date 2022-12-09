@@ -32,7 +32,7 @@ class Inhabitants extends People
 
 		$owner = $this->Owner();
 		if ($unit !== $owner) {
-			$this->reorderEntity($unit->Id(), $owner->Id(), Reorder::BEFORE);
+			$this->reorderEntity($unit->Id(), $owner->Id(), Reorder::Before);
 			$this->owner = null;
 		}
 		return $this;
@@ -61,17 +61,17 @@ class Inhabitants extends People
 	/**
 	 * Reorder a unit in the inhabitants.
 	 */
-	public function reorder(Unit $unit, Unit $position, Reorder $order = Reorder::FLIP): People
+	public function reorder(Unit $unit, Unit $position, Reorder $order = Reorder::Flip): People
 	{
 		if ($unit !== $this->Owner()) {
-			if ($position !== $this->Owner() || $order >= Reorder::AFTER) {
+			if ($position !== $this->Owner() || $order >= Reorder::After) {
 				$this->reorderEntity($unit->Id(), $position->Id(), $order);
 			}
 		}
 		return $this;
 	}
 
-	public function sort(SortMode $mode = SortMode::BY_ID, ?Party $party = null): People {
+	public function sort(SortMode $mode = SortMode::ById, ?Party $party = null): People {
 		$owner = $this->Owner();
 		parent::sort($mode, $party);
 		if ($owner) {

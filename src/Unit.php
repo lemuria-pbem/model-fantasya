@@ -62,7 +62,7 @@ class Unit extends Entity implements Collectible, Collector
 
 	private bool $isGuarding = false;
 
-	private BattleRow $battleRow = BattleRow::BYSTANDER;
+	private BattleRow $battleRow = BattleRow::Bystander;
 
 	private bool $isHiding = false;
 
@@ -87,7 +87,7 @@ class Unit extends Entity implements Collectible, Collector
 	 */
 	public static function get(Id $id): Unit {
 		/** @var Unit $unit */
-		$unit = Lemuria::Catalog()->get($id, Domain::UNIT);
+		$unit = Lemuria::Catalog()->get($id, Domain::Unit);
 		return $unit;
 	}
 
@@ -102,7 +102,7 @@ class Unit extends Entity implements Collectible, Collector
 	}
 
 	public function Catalog(): Domain {
-		return Domain::UNIT;
+		return Domain::Unit;
 	}
 
 	public function Aura(): ?Aura {

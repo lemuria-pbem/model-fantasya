@@ -47,7 +47,7 @@ class Continent extends Entity implements Collector, Reassignment
 	 */
 	public static function get(Id $id): self {
 		/** @var Continent $continent */
-		$continent = Lemuria::Catalog()->get($id, Domain::CONTINENT);
+		$continent = Lemuria::Catalog()->get($id, Domain::Continent);
 		return $continent;
 	}
 
@@ -87,7 +87,7 @@ class Continent extends Entity implements Collector, Reassignment
 	 * Get the catalog domain.
 	 */
 	public function Catalog(): Domain {
-		return Domain::CONTINENT;
+		return Domain::Continent;
 	}
 
 	/**
@@ -107,7 +107,7 @@ class Continent extends Entity implements Collector, Reassignment
 	}
 
 	public function reassign(Id $oldId, Identifiable $identifiable): void {
-		if ($identifiable->Catalog() === Domain::PARTY) {
+		if ($identifiable->Catalog() === Domain::Party) {
 			$oldId = $oldId->Id();
 			$newId = $identifiable->Id()->Id();
 			if (isset($this->names[$oldId])) {
@@ -122,7 +122,7 @@ class Continent extends Entity implements Collector, Reassignment
 	}
 
 	public function remove(Identifiable $identifiable): void {
-		if ($identifiable->Catalog() === Domain::PARTY) {
+		if ($identifiable->Catalog() === Domain::Party) {
 			$id = $identifiable->Id()->Id();
 			unset($this->names[$id]);
 			unset($this->descriptions[$id]);

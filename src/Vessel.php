@@ -59,7 +59,7 @@ class Vessel extends Entity implements Collectible, Collector
 	 */
 	public static function get(Id $id): Vessel {
 		/** @var Vessel $vessel */
-		$vessel = Lemuria::Catalog()->get($id, Domain::VESSEL);
+		$vessel = Lemuria::Catalog()->get($id, Domain::Vessel);
 		return $vessel;
 	}
 
@@ -72,7 +72,7 @@ class Vessel extends Entity implements Collectible, Collector
 	}
 
 	public function Catalog(): Domain {
-		return Domain::VESSEL;
+		return Domain::Vessel;
 	}
 
 	public function Anchor(): Direction {

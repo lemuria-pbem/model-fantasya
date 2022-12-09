@@ -26,7 +26,7 @@ abstract class AbstractMagicRing extends AbstractComposition implements MagicRin
 
 	public function supports(Practice $action): bool {
 		return match($action) {
-			Practice::READ, Practice::WRITE, Practice::DESTROY => false,
+			Practice::Read, Practice::Write, Practice::Destroy => false,
 			default                                            => true
 		};
 	}

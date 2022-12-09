@@ -110,42 +110,42 @@ class LemuriaCatalog implements Catalog
 
 	public function save(): Catalog {
 		$entities = [];
-		foreach ($this->catalog[Domain::PARTY->value] as $id => $party /* @var Party $party */) {
+		foreach ($this->catalog[Domain::Party->value] as $id => $party /* @var Party $party */) {
 			$entities[$id] = $party->serialize();
 		}
 		Lemuria::Game()->setParties($entities);
 		$entities = [];
-		foreach ($this->catalog[Domain::UNIT->value] as $id => $unit /* @var Unit $unit */) {
+		foreach ($this->catalog[Domain::Unit->value] as $id => $unit /* @var Unit $unit */) {
 			$entities[$id] = $unit->serialize();
 		}
 		Lemuria::Game()->setUnits($entities);
 		$entities = [];
-		foreach ($this->catalog[Domain::TRADE->value] as $id => $trade /* @var Trade $trade */) {
+		foreach ($this->catalog[Domain::Trade->value] as $id => $trade /* @var Trade $trade */) {
 			$entities[$id] = $trade->serialize();
 		}
 		Lemuria::Game()->setTrades($entities);
 		$entities = [];
-		foreach ($this->catalog[Domain::LOCATION->value] as $id => $region /* @var Region $region */) {
+		foreach ($this->catalog[Domain::Location->value] as $id => $region /* @var Region $region */) {
 			$entities[$id] = $region->serialize();
 		}
 		Lemuria::Game()->setRegions($entities);
 		$entities = [];
-		foreach ($this->catalog[Domain::CONSTRUCTION->value] as $id => $construction /* @var Construction $construction */) {
+		foreach ($this->catalog[Domain::Construction->value] as $id => $construction /* @var Construction $construction */) {
 			$entities[$id] = $construction->serialize();
 		}
 		Lemuria::Game()->setConstructions($entities);
 		$entities = [];
-		foreach ($this->catalog[Domain::VESSEL->value] as $id => $vessel /* @var Vessel $vessel */) {
+		foreach ($this->catalog[Domain::Vessel->value] as $id => $vessel /* @var Vessel $vessel */) {
 			$entities[$id] = $vessel->serialize();
 		}
 		Lemuria::Game()->setVessels($entities);
 		$entities = [];
-		foreach ($this->catalog[Domain::CONTINENT->value] as $id => $continent /* @var Continent $continent */) {
+		foreach ($this->catalog[Domain::Continent->value] as $id => $continent /* @var Continent $continent */) {
 			$entities[$id] = $continent->serialize();
 		}
 		Lemuria::Game()->setContinents($entities);
 		$entities = [];
-		foreach ($this->catalog[Domain::UNICUM->value] as $id => $unicum /* @var Unicum $unicum */) {
+		foreach ($this->catalog[Domain::Unicum->value] as $id => $unicum /* @var Unicum $unicum */) {
 			$entities[$id] = $unicum->serialize();
 		}
 		Lemuria::Game()->setUnica($entities);
@@ -221,22 +221,22 @@ class LemuriaCatalog implements Catalog
 	 * Calls collectAll() on all collectors in the Catalog.
 	 */
 	private function callCollectAll(): void {
-		foreach ($this->catalog[Domain::PARTY->value] as $party /* @var Party $party */) {
+		foreach ($this->catalog[Domain::Party->value] as $party /* @var Party $party */) {
 			$party->collectAll();
 		}
-		foreach ($this->catalog[Domain::UNIT->value] as $unit /* @var Unit $unit */) {
+		foreach ($this->catalog[Domain::Unit->value] as $unit /* @var Unit $unit */) {
 			$unit->collectAll();
 		}
-		foreach ($this->catalog[Domain::LOCATION->value] as $region /* @var Region $region */) {
+		foreach ($this->catalog[Domain::Location->value] as $region /* @var Region $region */) {
 			$region->collectAll();
 		}
-		foreach ($this->catalog[Domain::CONSTRUCTION->value] as $construction /* @var Construction $construction */) {
+		foreach ($this->catalog[Domain::Construction->value] as $construction /* @var Construction $construction */) {
 			$construction->collectAll();
 		}
-		foreach ($this->catalog[Domain::VESSEL->value] as $vessel /* @var Vessel $vessel */) {
+		foreach ($this->catalog[Domain::Vessel->value] as $vessel /* @var Vessel $vessel */) {
 			$vessel->collectAll();
 		}
-		foreach ($this->catalog[Domain::CONTINENT->value] as $continent /* @var Continent $continent */) {
+		foreach ($this->catalog[Domain::Continent->value] as $continent /* @var Continent $continent */) {
 			$continent->collectAll();
 		}
 	}

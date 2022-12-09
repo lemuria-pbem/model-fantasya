@@ -103,14 +103,14 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	public static function get(Id $id): self {
 		/** @var Party $party */
-		$party = Lemuria::Catalog()->get($id, Domain::PARTY);
+		$party = Lemuria::Catalog()->get($id, Domain::Party);
 		return $party;
 	}
 
 	/**
 	 * Create an empty party.
 	 */
-	public function __construct(?Newcomer $newcomer = null, private Type $type = Type::PLAYER) {
+	public function __construct(?Newcomer $newcomer = null, private Type $type = Type::Player) {
 		$this->banner      = '';
 		$this->uuid        = $newcomer ? Uuid::fromString($newcomer->Uuid()) : Uuid::uuid4();
 		$this->creation    = $newcomer?->Creation() ?? time();
@@ -128,7 +128,7 @@ class Party extends Entity implements Assignable, Collector
 	 * Get the catalog domain.
 	 */
 	public function Catalog(): Domain {
-		return Domain::PARTY;
+		return Domain::Party;
 	}
 
 	public function Type(): Type {

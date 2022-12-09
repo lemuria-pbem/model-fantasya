@@ -23,7 +23,7 @@ class Presettings implements Serializable
 
 	private const IS_REPEAT = 'isRepeat';
 
-	protected BattleRow $battleRow = BattleRow::BYSTANDER;
+	protected BattleRow $battleRow = BattleRow::Bystander;
 
 	protected Id|false|null $disguiseAs = false;
 
