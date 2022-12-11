@@ -35,7 +35,7 @@ class Loot implements Serializable
 
 	private const GROUP = 'group';
 
-	private const CLASS = 'class';
+	private const CLASS_KEY = 'class';
 
 	protected int $group = self::ALL;
 
@@ -65,14 +65,14 @@ class Loot implements Serializable
 
 	public function serialize(): array {
 		return [
-			self::GROUP => $this->group, self::CLASS => $this->class->serialize()
+			self::GROUP => $this->group, self::CLASS_KEY => $this->class->serialize()
 		];
 	}
 
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);
 		$this->group = $data[self::GROUP];
-		$this->class->unserialize($data[self::CLASS]);
+		$this->class->unserialize($data[self::CLASS_KEY]);
 		return $this;
 	}
 
@@ -140,6 +140,6 @@ class Loot implements Serializable
 	 */
 	protected function validateSerializedData(array $data): void {
 		$this->validate($data, self::GROUP, Validate::Int);
-		$this->validate($data, self::CLASS, Validate::Array);
+		$this->validate($data, self::CLASS_KEY, Validate::Array);
 	}
 }

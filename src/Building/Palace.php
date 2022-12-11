@@ -38,7 +38,7 @@ final class Palace extends AbstractCastle
 	}
 
 	public function Upgrade(): Castle {
-		return self::createCastle(Stronghold::CLASS);
+		return self::createCastle(Stronghold::class);
 	}
 
 	public function Wage(): int {

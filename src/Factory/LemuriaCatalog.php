@@ -157,7 +157,7 @@ class LemuriaCatalog implements Catalog
 	 */
 	public function register(Identifiable $identifiable): Catalog {
 		$domain = $identifiable->Catalog()->value;
-		$id = $identifiable->Id()->Id();
+		$id     = $identifiable->Id()->Id();
 		if (isset($this->catalog[$domain][$id])) {
 			throw new DuplicateIdException($identifiable);
 		}
@@ -174,7 +174,7 @@ class LemuriaCatalog implements Catalog
 	 */
 	public function remove(Identifiable $identifiable): Catalog {
 		$domain = $identifiable->Catalog()->value;
-		$id = $identifiable->Id()->Id();
+		$id     = $identifiable->Id()->Id();
 		if (!isset($this->catalog[$domain][$id])) {
 			throw new NotRegisteredException($identifiable->Id());
 		}
