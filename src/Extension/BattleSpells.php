@@ -1,15 +1,19 @@
 <?php
 declare(strict_types = 1);
-namespace Lemuria\Model\Fantasya;
+namespace Lemuria\Model\Fantasya\Extension;
 
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
+use Lemuria\Model\Fantasya\BattleSpell;
+use Lemuria\Model\Fantasya\Extension;
 use Lemuria\Model\Fantasya\Combat\Phase;
+use Lemuria\Model\Fantasya\SpellGrade;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 
-class BattleSpells implements \Countable, Serializable
+class BattleSpells implements \Countable, Extension
 {
+	use ExtensionTrait;
 	use SerializableTrait;
 
 	/**

@@ -13,8 +13,10 @@ use Lemuria\Lemuria;
 use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Combat\BattleRow;
+use Lemuria\Model\Fantasya\Extension\BattleSpells;
 use Lemuria\Model\Fantasya\Extension\Trades;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Serializable;
 use Lemuria\Validate;
 
@@ -78,7 +80,7 @@ class Unit extends Entity implements Collectible, Collector
 
 	private ?Aura $aura = null;
 
-	private ?BattleSpells $battleSpells = null;
+	private bool $battleSpellsInitialized = false;
 
 	/**
 	 * Get a Unit.
@@ -107,10 +109,6 @@ class Unit extends Entity implements Collectible, Collector
 
 	public function Aura(): ?Aura {
 		return $this->aura;
-	}
-
-	public function BattleSpells(): ?BattleSpells {
-		return $this->battleSpells;
 	}
 
 	public function Inventory(): Resources {
@@ -204,6 +202,23 @@ class Unit extends Entity implements Collectible, Collector
 		return $weight;
 	}
 
+	public function BattleSpells(): ?BattleSpells {
+		if ($this->Extensions()->offsetExists(BattleSpells::class)) {
+			/** @var BattleSpells $battleSpells */
+			$battleSpells = $this->Extensions()->offsetGet(BattleSpells::class);
+			return $battleSpells;
+		}
+		if (!$this->battleSpellsInitialized) {
+			$this->battleSpellsInitialized = true;
+			if ($this->knowledge->offsetExists(Magic::class)) {
+				$battleSpells = new BattleSpells();
+				$this->Extensions()->add($battleSpells);
+				return $battleSpells;
+			}
+		}
+		return null;
+	}
+
 	public function Trades(): Trades {
 		if ($this->Extensions()->offsetExists(Trades::class)) {
 			/** @var Trades $trades */
@@ -226,21 +241,20 @@ class Unit extends Entity implements Collectible, Collector
 	}
 
 	public function serialize(): array {
-		$data                      = parent::serialize();
-		$data[self::RACE]          = getClass($this->Race());
-		$data[self::SIZE]          = $this->Size();
-		$data[self::AURA]          = $this->aura?->serialize();
-		$data[self::HEALTH]        = $this->Health();
-		$data[self::IS_GUARDING]   = $this->IsGuarding();
-		$data[self::BATTLE_ROW]    = $this->BattleRow();
-		$data[self::IS_HIDING]     = $this->IsHiding();
-		$data[self::IS_LOOTING]    = $this->IsLooting();
-		$id                        = $this->disguiseAs;
-		$data[self::DISGUISE_AS]   = $id instanceof Id ? $id->Id() : $id;
-		$data[self::INVENTORY]     = $this->Inventory()->serialize();
-		$data[self::TREASURY]      = $this->Treasury()->serialize();
-		$data[self::KNOWLEDGE]     = $this->Knowledge()->serialize();
-		$data[self::BATTLE_SPELLS] = $this->battleSpells?->serialize();
+		$data                    = parent::serialize();
+		$data[self::RACE]        = getClass($this->Race());
+		$data[self::SIZE]        = $this->Size();
+		$data[self::AURA]        = $this->aura?->serialize();
+		$data[self::HEALTH]      = $this->Health();
+		$data[self::IS_GUARDING] = $this->IsGuarding();
+		$data[self::BATTLE_ROW]  = $this->BattleRow();
+		$data[self::IS_HIDING]   = $this->IsHiding();
+		$data[self::IS_LOOTING]  = $this->IsLooting();
+		$id                      = $this->disguiseAs;
+		$data[self::DISGUISE_AS] = $id instanceof Id ? $id->Id() : $id;
+		$data[self::INVENTORY]   = $this->Inventory()->serialize();
+		$data[self::TREASURY]    = $this->Treasury()->serialize();
+		$data[self::KNOWLEDGE]   = $this->Knowledge()->serialize();
 		$this->serializeExtensions($data);
 		return $data;
 	}
@@ -266,21 +280,12 @@ class Unit extends Entity implements Collectible, Collector
 			$this->aura = new Aura();
 			$this->aura->unserialize($data[self::AURA]);
 		}
-		if (isset($data[self::BATTLE_SPELLS])) {
-			$this->battleSpells = new BattleSpells();
-			$this->battleSpells->unserialize($data[self::BATTLE_SPELLS]);
-		}
 		$this->unserializeExtensions($data);
 		return $this;
 	}
 
 	public function setAura(?Aura $aura): Unit {
 		$this->aura = $aura;
-		return $this;
-	}
-
-	public function setBattleSpells(?BattleSpells $battleSpells): Unit {
-		$this->battleSpells = $battleSpells;
 		return $this;
 	}
 
@@ -365,7 +370,6 @@ class Unit extends Entity implements Collectible, Collector
 		$this->validate($data, self::INVENTORY, Validate::Array);
 		$this->validate($data, self::TREASURY, Validate::Array);
 		$this->validate($data, self::KNOWLEDGE, Validate::Array);
-		$this->validate($data, self::BATTLE_SPELLS, Validate::ArrayOrNull);
 		$this->validateExtensions($data);
 	}
 }
