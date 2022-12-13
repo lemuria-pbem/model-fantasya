@@ -60,7 +60,10 @@ class Extensions implements \ArrayAccess, Serializable
 	public function serialize(): array {
 		$data = [];
 		foreach ($this->extensions as $class => $extension) {
-			$data[$class] = $extension->serialize();
+			$serializedExtension = $extension->serialize();
+			if ($serializedExtension) {
+				$data[$class] = $serializedExtension;
+			}
 		}
 		return $data;
 	}

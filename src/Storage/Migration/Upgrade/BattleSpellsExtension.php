@@ -20,8 +20,10 @@ class BattleSpellsExtension extends AbstractUpgrade
 				if (array_key_exists('battleSpells', $extensions)) {
 					continue;
 				}
-				$extensions['BattleSpells'] = $battleSpells;
-				$units[$u]['extensions']    = $extensions;
+				if ($battleSpells) {
+					$extensions['BattleSpells'] = $battleSpells;
+					$units[$u]['extensions']    = $extensions;
+				}
 			}
 		}
 		$this->game->setUnits($units);
