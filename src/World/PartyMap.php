@@ -4,10 +4,14 @@ namespace Lemuria\Model\Fantasya\World;
 
 use Lemuria\Model\Coordinates;
 use Lemuria\Model\Exception\MapException;
+use Lemuria\Model\Fantasya\Exception\WorldMapException;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Location;
 use Lemuria\Model\Neighbours;
 use Lemuria\Model\World;
+use Lemuria\Model\World\Beyond;
+use Lemuria\Model\World\Geometry;
+use Lemuria\Model\World\Map;
 use Lemuria\Model\World\MapCoordinates;
 use Lemuria\Model\World\Path;
 use Lemuria\Serializable;
@@ -15,7 +19,7 @@ use Lemuria\Serializable;
 /**
  * This is a decorated world that calculates map coordinates for a specific party.
  */
-final readonly class PartyMap implements World
+final readonly class PartyMap implements World, Map
 {
 	public function __construct(private World $world, private Party $party) {
 	}
@@ -29,6 +33,42 @@ final readonly class PartyMap implements World
 	 */
 	public function unserialize(array $data): Serializable {
 		return $this;
+	}
+
+	/**
+	 * @throws WorldMapException
+	 */
+	public function Geometry(): Geometry {
+		return $this->map()->Geometry();
+	}
+
+	/**
+	 * @throws WorldMapException
+	 */
+	public function Width(): int {
+		return $this->map()->Width();
+	}
+
+	/**
+	 * @throws WorldMapException
+	 */
+	public function Height(): int {
+		return $this->map()->Height();
+	}
+
+	/**
+	 * @throws WorldMapException
+	 */
+	public function isEdge(Location $location): bool {
+		return $this->map()->isEdge($location);
+	}
+
+	/**
+	 * @throws WorldMapException
+	 */
+	public function getBeyond(Location $location): Beyond {
+		$origin = $this->world->getCoordinates($this->party->Origin());
+		return $this->map()->getBeyond($location)->setOffset($origin);
 	}
 
 	/**
@@ -89,5 +129,15 @@ final readonly class PartyMap implements World
 	 */
 	public function save(): World {
 		return $this;
+	}
+
+	/**
+	 * @throws WorldMapException
+	 */
+	protected function map(): Map {
+		if ($this->world instanceof Map) {
+			return $this->world;
+		}
+		throw new WorldMapException();
 	}
 }
