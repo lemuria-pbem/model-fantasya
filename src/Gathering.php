@@ -6,7 +6,7 @@ use Lemuria\Entity;
 use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
-use Lemuria\Model\World\SortMode;
+use Lemuria\SortMode;
 use Lemuria\Sorting\ById;
 
 /**
@@ -30,9 +30,9 @@ class Gathering extends EntitySet
 	/**
 	 * Sort the parties.
 	 */
-	public function sort(SortMode $mode = SortMode::BY_ID): Gathering {
+	public function sort(SortMode $mode = SortMode::ById): Gathering {
 		switch ($mode) {
-			case SortMode::BY_ID :
+			case SortMode::ById :
 				$this->sortUsing(new ById());
 				break;
 			default :
