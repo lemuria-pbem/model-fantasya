@@ -11,13 +11,13 @@
 		}
 	],
 	"version": "1.2.0",
-	"time": "2022-12-20",
+	"time": "2022-12-24",
 
 	"require": {
 		"php": "~8.2",
 		"ext-json": "~8.2",
 		"ramsey/uuid": "~4.4|~5.0",
-		"lemuria-pbem/lemuria": "dev-feature/seaworld"
+		"lemuria-pbem/lemuria": "~1.2.0|dev-master"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~9.5|~10.0"
