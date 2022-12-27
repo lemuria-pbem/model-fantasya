@@ -15,6 +15,8 @@ class Deal implements \Stringable, Serializable
 	use BuilderTrait;
 	use SerializableTrait;
 
+	public const ADAPTING_MAX = PHP_INT_MAX;
+
 	public function __construct(private ?Commodity $commodity = null, private int $amount = 1, private int $max = 0) {
 	}
 
@@ -24,6 +26,10 @@ class Deal implements \Stringable, Serializable
 
 	public function IsVariable(): bool {
 		return $this->max > 0;
+	}
+
+	public function IsAdapting(): bool {
+		return $this->max === self::ADAPTING_MAX;
 	}
 
 	public function Commodity(): Commodity {
