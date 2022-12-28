@@ -23,6 +23,11 @@ interface Ship extends Artifact, Transport
 	public function Wood(): int;
 
 	/**
+	 * Get the maximum number of passengers that fit onto the ship.
+	 */
+	public function Size(): int;
+
+	/**
 	 * Get the tare weight.
 	 */
 	public function Tare(): int;
