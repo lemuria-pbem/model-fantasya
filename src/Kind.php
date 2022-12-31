@@ -20,5 +20,7 @@ enum Kind
 
 	case Transport;
 
+	case Trophy;
+
 	case Weapon;
 }
