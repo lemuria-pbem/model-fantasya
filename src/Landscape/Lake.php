@@ -3,8 +3,8 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Landscape;
 
 /**
- * The ocean, full of water.
+ * A freshwater expanse of water.
  */
-final class Ocean extends AbstractNavigable
+final class Lake extends AbstractNavigable
 {
 }

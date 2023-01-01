@@ -2,12 +2,13 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
+use Lemuria\Model\Fantasya\Landscape\Lake;
 use Lemuria\Model\Fantasya\Landscape\Ocean;
 use Lemuria\Model\Fantasya\Landscape\Swamp;
 
 final class WaterElemental extends AbstractElemental
 {
-	public final const LANDSCAPES = [Ocean::class, Swamp::class];
+	public final const LANDSCAPES = [Lake::class, Ocean::class, Swamp::class];
 
 	private const WEIGHT = 30 * 100;
 
