@@ -17,6 +17,8 @@ class Deal implements \Stringable, Serializable
 
 	public const ADAPTING_MAX = PHP_INT_MAX;
 
+	private array $parts;
+
 	public function __construct(private ?Commodity $commodity = null, private int $amount = 1, private int $max = 0) {
 	}
 
@@ -53,22 +55,22 @@ class Deal implements \Stringable, Serializable
 	}
 
 	public function unserialize(array $data): Serializable {
-		$parts           = $this->validateSerializedData($data);
-		$this->commodity = self::createCommodity($parts[0]);
-		$this->amount    = $parts[1];
-		$this->max       = $parts[2];
+		$this->validateSerializedData($data);
+		$this->commodity = self::createCommodity($this->parts[0]);
+		$this->amount    = $this->parts[1];
+		$this->max       = $this->parts[2];
 		return $this;
 	}
 
 	/**
 	 * @param array<string, mixed> $data
 	 */
-	protected function validateSerializedData(array $data): array {
+	protected function validateSerializedData(array $data): void {
 		$this->validate($data, 0, Validate::String);
 		if (preg_match('/^(\d+)(?:-(\d+))? ([a-zA-Z]+)$/', $data[0], $matches) !== 1) {
 			throw new UnserializeException('Deal has invalid format: ' . $data[0]);
 		}
-		return match(count($matches)) {
+		$this->parts = match(count($matches)) {
 			3 => [$matches[2], (int)$matches[1], 0],
 			4 => [$matches[3], (int)$matches[1], (int)$matches[2]],
 			default => throw new LemuriaException()
