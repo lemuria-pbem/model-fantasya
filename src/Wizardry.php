@@ -5,12 +5,13 @@ namespace Lemuria\Model\Fantasya;
 use Lemuria\Item;
 use Lemuria\ItemSet;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Singleton;
 
 /**
  * The wizardry is a set of enchantments.
  *
- * @\ArrayAccess <Spell|string, Enchantment>
- * @\Iterator <string, Enchantment>
+ * @method Enchantment offsetGet(Singleton|string $offset)
+ * @method Enchantment current()
  */
 class Wizardry extends ItemSet
 {

@@ -2,7 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\Entity;
 use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
@@ -13,8 +12,9 @@ use Lemuria\SortMode;
 /**
  * The estate in a region is the list of constructions that have been build there.
  *
- * @\ArrayAccess<int|Id, Construction>
- * @\Iterator<int, Construction>
+ * @method Construction offsetGet(int|Id $offset)
+ * @method Construction current()
+ * @method Estate getIterator()
  */
 class Estate extends EntitySet
 {
@@ -48,7 +48,7 @@ class Estate extends EntitySet
 		return $this;
 	}
 
-	protected function get(Id $id): Entity {
+	protected function get(Id $id): Construction {
 		return Construction::get($id);
 	}
 }

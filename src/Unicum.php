@@ -31,6 +31,13 @@ class Unicum extends Entity implements Collectible
 	private Composition $composition;
 
 	/**
+	 * @return array<Unicum>
+	 */
+	public static function all(): array {
+		return Lemuria::Catalog()->getAll(Domain::Unicum);
+	}
+
+	/**
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): Unicum {

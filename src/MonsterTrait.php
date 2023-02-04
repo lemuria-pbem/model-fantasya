@@ -52,7 +52,7 @@ trait MonsterTrait
 	}
 
 	/**
-	 * @return Landscape[]
+	 * @return array<Landscape>
 	 */
 	public function Environment(): array {
 		return $this->environment;

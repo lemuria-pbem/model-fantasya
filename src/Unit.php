@@ -83,6 +83,13 @@ class Unit extends Entity implements Collectible, Collector
 	private bool $battleSpellsInitialized = false;
 
 	/**
+	 * @return array<Unit>
+	 */
+	public static function all(): array {
+		return Lemuria::Catalog()->getAll(Domain::Unit);
+	}
+
+	/**
 	 * Get a Unit.
 	 *
 	 * @throws NotRegisteredException

@@ -2,15 +2,14 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\Entity;
 use Lemuria\EntitySet;
 use Lemuria\Id;
 
 /**
  * The estate in a region is the list of constructions that have been build there.
  *
- * @\ArrayAccess<int|Id, Region>
- * @\Iterator<int, Region>
+ * @method Region offsetGet(int|Id $offset)
+ * @method Region current()
  */
 class Landmass extends EntitySet
 {
@@ -27,7 +26,7 @@ class Landmass extends EntitySet
 		return $this;
 	}
 
-	protected function get(Id $id): Entity {
+	protected function get(Id $id): Region {
 		return Region::get($id);
 	}
 }

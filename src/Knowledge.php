@@ -5,12 +5,13 @@ namespace Lemuria\Model\Fantasya;
 use Lemuria\Item;
 use Lemuria\ItemSet;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Singleton;
 
 /**
  * The knowledge that a unit has represents all talents that it is able to use.
  *
- * @\ArrayAccess <Talent|string, Ability>
- * @\Iterator <string, Ability>
+ * @method Ability offsetGet(Singleton|string $offset)
+ * @method Ability current()
  */
 class Knowledge extends ItemSet
 {

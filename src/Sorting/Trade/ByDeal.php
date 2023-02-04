@@ -13,7 +13,7 @@ use Lemuria\Model\Fantasya\Market\Trade;
 class ByDeal implements EntityOrder
 {
 	/**
-	 * @return int[]
+	 * @return array<int>
 	 */
 	public function sort(EntitySet $set): array {
 		$offers  = [];

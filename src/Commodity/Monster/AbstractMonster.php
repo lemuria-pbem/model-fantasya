@@ -21,7 +21,7 @@ abstract class AbstractMonster extends AbstractRace implements Monster
 	protected ?Trophy $trophy = null;
 
 	/**
-	 * @var Landscape[]
+	 * @var array<Landscape>
 	 */
 	protected array $environment = [];
 
@@ -64,7 +64,7 @@ abstract class AbstractMonster extends AbstractRace implements Monster
 	}
 
 	/**
-	 * @return Landscape[]
+	 * @return array<Landscape>
 	 */
 	public function Environment(): array {
 		return $this->environment;

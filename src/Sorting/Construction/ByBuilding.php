@@ -58,7 +58,7 @@ class ByBuilding implements EntityOrder
 	];
 
 	/**
-	 * @return int[]
+	 * @return array<int>
 	 */
 	public function sort(EntitySet $set): array {
 		$buildings = [];

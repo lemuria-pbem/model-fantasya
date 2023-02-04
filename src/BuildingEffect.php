@@ -7,7 +7,7 @@ use function Lemuria\getClass;
 class BuildingEffect
 {
 	/**
-	 * @var array(string=>array)
+	 * @var array<string, Modification>
 	 */
 	protected array $effects = [];
 

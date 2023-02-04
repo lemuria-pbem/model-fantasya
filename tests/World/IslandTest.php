@@ -70,7 +70,7 @@ class IslandTest extends Test
 	 * @test
 	 * @depends construct
 	 */
-	public function size(Island $island): void {
+	public function sizeReturnsSize(Island $island): void {
 		$this->assertSame(1, $island->Size());
 	}
 

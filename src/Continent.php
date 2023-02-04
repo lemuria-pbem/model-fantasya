@@ -31,14 +31,21 @@ class Continent extends Entity implements Collector, Reassignment
 	private readonly Landmass $landmass;
 
 	/**
-	 * @var array(int=>string)
+	 * @var array<int, string>
 	 */
 	private array $names = [];
 
 	/**
-	 * @var array(int=>string)
+	 * @var array<int, string>
 	 */
 	private array $descriptions = [];
+
+	/**
+	 * @return array<Continent>
+	 */
+	public static function all(): array {
+		return Lemuria::Catalog()->getAll(Domain::Continent);
+	}
 
 	/**
 	 * Get a Continent.

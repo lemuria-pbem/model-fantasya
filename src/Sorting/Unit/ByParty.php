@@ -16,7 +16,7 @@ readonly class ByParty implements EntityOrder
 	}
 
 	/**
-	 * @return int[]
+	 * @return array<int>
 	 */
 	public function sort(EntitySet $set): array {
 		$own     = $this->party->Id()->Id();

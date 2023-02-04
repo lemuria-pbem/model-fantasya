@@ -24,17 +24,17 @@ use Lemuria\Version\VersionTag;
 class LemuriaCatalog implements Catalog
 {
 	/**
-	 * @var array(int=>array)
+	 * @var array<int, array>
 	 */
 	private array $catalog = [];
 
 	/**
-	 * @var Reassignment[]
+	 * @var array<Reassignment>
 	 */
 	private array $reassignments = [];
 
 	/**
-	 * @var array(int=>int)
+	 * @var array<int, int>
 	 */
 	private array $nextId = [];
 

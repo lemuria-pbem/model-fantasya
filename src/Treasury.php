@@ -2,15 +2,14 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\Entity;
 use Lemuria\EntitySet;
 use Lemuria\Id;
 
 /**
  * The treasury of a unit is the collection of all unica it possesses.
  *
- * @\ArrayAccess<int|Id, Unicum>
- * @\Iterator<int, Unicum>
+ * @method Unicum offsetGet(int|Id $offset)
+ * @method Unicum current()
  */
 class Treasury extends EntitySet
 {
@@ -33,7 +32,7 @@ class Treasury extends EntitySet
 	/**
 	 * Get an unicum by ID.
 	 */
-	protected function get(Id $id): Entity {
+	protected function get(Id $id): Unicum {
 		return Unicum::get($id);
 	}
 }

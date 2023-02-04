@@ -18,7 +18,7 @@ final class GoliathWater extends AbstractPotion
 	}
 
 	/**
-	 * @return array(string=>int)
+	 * @return array<string, int>
 	 */
 	protected function material(): array {
 		return array_fill_keys(self::INGREDIENTS, 1);

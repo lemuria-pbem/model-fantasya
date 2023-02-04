@@ -66,6 +66,13 @@ class Region extends Entity implements Collectible, Collector, Location
 	private readonly Treasury $treasury;
 
 	/**
+	 * @return array<Region>
+	 */
+	public static function all(): array {
+		return Lemuria::Catalog()->getAll(Domain::Location);
+	}
+
+	/**
 	 * Get a Region.
 	 *
 	 * @throws NotRegisteredException

@@ -2,7 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\Entity;
 use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
@@ -12,8 +11,10 @@ use Lemuria\Sorting\ById;
 /**
  * A Gathering is a set of parties.
  *
- * @\ArrayAccess<int|Id, Party>
- * @\Iterator<int, Party>
+ * @method Party offsetGet(int|Id $offset)
+ * @method Party current()
+ * @method Gathering getIterator()
+ * @method Party random()
  */
 class Gathering extends EntitySet
 {
@@ -44,7 +45,7 @@ class Gathering extends EntitySet
 	/**
 	 * Get a party by ID.
 	 */
-	protected function get(Id $id): Entity {
+	protected function get(Id $id): Party {
 		return Party::get($id);
 	}
 }

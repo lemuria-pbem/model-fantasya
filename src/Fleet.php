@@ -2,7 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\Entity;
 use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
@@ -13,8 +12,9 @@ use Lemuria\SortMode;
 /**
  * The fleet in a region is the list of vessels that have landed there.
  *
- * @\ArrayAccess<int|Id, Vessel>
- * @\Iterator<int, Vessel>
+ * @method Vessel offsetGet(int|Id $offset)
+ * @method Vessel current()
+ * @method Fleet getIterator()
  */
 class Fleet extends EntitySet
 {
@@ -48,7 +48,7 @@ class Fleet extends EntitySet
 		return $this;
 	}
 
-	protected function get(Id $id): Entity {
+	protected function get(Id $id): Vessel {
 		return Vessel::get($id);
 	}
 }

@@ -32,7 +32,7 @@ trait ArtifactTrait
 	/**
 	 * Get the material.
 	 *
-	 * @return array(string=>int)
+	 * @return array<string, int>
 	 */
 	abstract protected function material(): array;
 }

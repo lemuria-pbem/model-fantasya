@@ -9,7 +9,7 @@ use Lemuria\Serializable;
 abstract class AbstractModel
 {
 	/**
-	 * @var array(string=>mixed)
+	 * @var array<string, mixed>
 	 */
 	protected array $default = [];
 
@@ -22,7 +22,7 @@ abstract class AbstractModel
 
 	/**
 	 * @param array<string, mixed> $data
-	 * @return array(int=>string)
+	 * @return array<int, string>
 	 */
 	public function getMissing(array $data): array {
 		$missing = [];

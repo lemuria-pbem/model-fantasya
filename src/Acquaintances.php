@@ -22,14 +22,14 @@ class Acquaintances extends Gathering
 	private const IS_TOLD = 'isTold';
 
 	/**
-	 * @var array(int=>bool)
+	 * @var array<int, bool>
 	 */
 	private array $isTold = [];
 
 	/**
 	 * Get a plain data array of the model's data.
 	 *
-	 * @return int[]
+	 * @return array<int>
 	 */
 	public function serialize(): array {
 		$entities = [];

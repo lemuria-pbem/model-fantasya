@@ -15,8 +15,8 @@ use Lemuria\SortMode;
 /**
  * Trades of a unit are offers and demands on the market.
  *
- * @\ArrayAccess<int|Id, Trade>
- * @\Iterator<int, Trade>
+ * @method Trade offsetGet(int|Id $offset)
+ * @method Trade current()
  */
 class Trades extends EntitySet implements Extension
 {

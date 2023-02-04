@@ -2,7 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Building;
 
-use Lemuria\Model\Fantasya\Animal;
 use Lemuria\Model\Fantasya\Commodity\Camel;
 
 /**
@@ -10,8 +9,8 @@ use Lemuria\Model\Fantasya\Commodity\Camel;
  */
 final class CamelBreeding extends AbstractBreeding
 {
-	public function Animal(): Animal {
-		/** @var Animal $animal */
+	public function Animal(): Camel {
+		/** @var Camel $animal */
 		$animal = self::createCommodity(Camel::class);
 		return $animal;
 	}

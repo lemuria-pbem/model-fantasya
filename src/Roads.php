@@ -7,15 +7,12 @@ use Lemuria\Model\World\Direction;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 
-/**
- * @\ArrayAccess<Direction|string, float>
- */
 class Roads implements \ArrayAccess, \Countable, Serializable
 {
 	use SerializableTrait;
 
 	/**
-	 * @var array(string=>float)
+	 * @var array<string, float>
 	 */
 	private array $completion = [];
 

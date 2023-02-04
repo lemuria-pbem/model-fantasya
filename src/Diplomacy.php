@@ -21,9 +21,6 @@ use Lemuria\Validate;
  * A party can have specific relations to its acquaintances.
  * 3. Contacts
  * These are special relations to a single unit that last until the end of a game round.
- *
- * @\ArrayAccess<Relation|string, Relation>
- * @\Iterator<string, Relation>
  */
 final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializable
 {
@@ -243,7 +240,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Get all relations to a specific Party.
 	 *
-	 * @return Relation[]
+	 * @return array<Relation>
 	 */
 	public function search(Party $party): array {
 		$id        = $party->Id() . '-';

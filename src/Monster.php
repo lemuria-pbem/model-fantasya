@@ -29,7 +29,7 @@ interface Monster extends Protection, Race
 	/**
 	 * Get the living environment.
 	 *
-	 * @return Landscape[]
+	 * @return array<Landscape>
 	 */
 	public function Environment(): array;
 }

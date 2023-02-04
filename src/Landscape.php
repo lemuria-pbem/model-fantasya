@@ -12,7 +12,7 @@ interface Landscape extends Singleton
 	/**
 	 * Get the herbs that can be found in this landscape.
 	 *
-	 * @return Herb[]
+	 * @return array<Herb>
 	 */
 	public function Herbs(): array;
 

@@ -20,9 +20,7 @@ class Inhabitants extends People
 		if (!$this->owner) {
 			$this->owner = $this->first();
 		}
-		/** @var Unit $owner */
-		$owner = $this->owner ? $this->get($this->owner) : null;
-		return $owner;
+		return $this->owner ? $this->get($this->owner) : null;
 	}
 
 	public function setOwner(Unit $unit): self {

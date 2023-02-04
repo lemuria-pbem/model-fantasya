@@ -7,7 +7,7 @@ use function Lemuria\getClass;
 class TerrainEffect
 {
 	/**
-	 * @var array(string=>array)
+	 * @var array<string, array>
 	 */
 	protected array $effects = [];
 

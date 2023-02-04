@@ -16,7 +16,7 @@ abstract class AbstractLandscape implements Landscape
 	use SingletonTrait;
 
 	/**
-	 * @return Herb[]
+	 * @return array<Herb>
 	 */
 	protected function createHerbs(array $classes): array {
 		$herbs = [];

@@ -97,6 +97,13 @@ class Party extends Entity implements Assignable, Collector
 	private ?int $retirement = null;
 
 	/**
+	 * @return array<Party>
+	 */
+	public static function all(): array {
+		return Lemuria::Catalog()->getAll(Domain::Party);
+	}
+
+	/**
 	 * Get a Party.
 	 *
 	 * @throws NotRegisteredException

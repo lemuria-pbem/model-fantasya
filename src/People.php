@@ -2,7 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\Entity;
 use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
@@ -14,8 +13,10 @@ use Lemuria\SortMode;
 /**
  * The people of a player or party is the community of all its units.
  *
- * @\ArrayAccess<int|Id, Unit>
- * @\Iterator<int, Unit>
+ * @method Unit offsetGet(int|Id $offset)
+ * @method Unit current()
+ * @method People getIterator()
+ * @method Unit random()
  */
 class People extends EntitySet
 {
@@ -28,6 +29,14 @@ class People extends EntitySet
 			$size += $unit->Size();
 		}
 		return $size;
+	}
+
+	public function Weight(): int {
+		$weight = 0;
+		foreach ($this as $unit /* @var Unit $unit */) {
+			$weight += $unit->Weight();
+		}
+		return $weight;
 	}
 
 	/**
@@ -91,7 +100,7 @@ class People extends EntitySet
 	/**
 	 * Get a unit by ID.
 	 */
-	protected function get(Id $id): Entity {
+	protected function get(Id $id): Unit {
 		return Unit::get($id);
 	}
 }

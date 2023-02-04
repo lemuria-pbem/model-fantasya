@@ -46,6 +46,13 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 	private Deal $price;
 
 	/**
+	 * @return array<Trade>
+	 */
+	public static function all(): array {
+		return Lemuria::Catalog()->getAll(Domain::Trade);
+	}
+
+	/**
 	 * @throws NotRegisteredException
 	 */
 	public static function get(Id $id): Trade {

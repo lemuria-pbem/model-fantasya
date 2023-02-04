@@ -53,6 +53,13 @@ class Vessel extends Entity implements Collectible, Collector
 	private readonly Treasury $treasury;
 
 	/**
+	 * @return array<Vessel>
+	 */
+	public static function all(): array {
+		return Lemuria::Catalog()->getAll(Domain::Vessel);
+	}
+
+	/**
 	 * Get a vessel.
 	 *
 	 * @throws NotRegisteredException

@@ -5,8 +5,8 @@ namespace Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\Exception\CensusException;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\People;
-use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\Fantasya\Unit;
+use Lemuria\Model\Location;
 use Lemuria\Model\World\Atlas;
 use Lemuria\SortMode;
 
@@ -18,7 +18,7 @@ class Census implements \Countable
 	private readonly Atlas $atlas;
 
 	/**
-	 * @var array(int=>People)
+	 * @var array<int, People>
 	 */
 	private array $units = [];
 
@@ -64,10 +64,10 @@ class Census implements \Countable
 	/**
 	 * Get the units of a region.
 	 */
-	public function getPeople(Region $region): People {
-		$id = $region->Id()->Id();
+	public function getPeople(Location $location): People {
+		$id = $location->Id()->Id();
 		if (!isset($this->units[$id])) {
-			throw new CensusException($region, $this->party);
+			throw new CensusException($location, $this->party);
 		}
 		return $this->units[$id];
 	}

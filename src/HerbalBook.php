@@ -4,7 +4,6 @@ namespace Lemuria\Model\Fantasya;
 
 use Lemuria\EntitySet;
 use Lemuria\Serializable;
-use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Model\Annals;
 use Lemuria\Model\Calendar\Moment;
@@ -13,6 +12,9 @@ use Lemuria\Validate;
 
 /**
  * Each party can record the occurrence of herbs in regions.
+ *
+ * @method Region offsetGet(int|Id $offset)
+ * @method Region current()
  */
 class HerbalBook extends Annals
 {
@@ -28,7 +30,7 @@ class HerbalBook extends Annals
 	/**
 	 * Get a plain data array of the model's data.
 	 *
-	 * @return int[]
+	 * @return array<int>
 	 */
 	public function serialize(): array {
 		$entities = parent::serialize();
@@ -100,7 +102,7 @@ class HerbalBook extends Annals
 		$this->validate($data, self::HERBAGES, Validate::Array);
 	}
 
-	protected function get(Id $id): Entity {
+	protected function get(Id $id): Region {
 		return Region::get($id);
 	}
 }

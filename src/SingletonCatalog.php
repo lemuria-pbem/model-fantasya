@@ -18,7 +18,7 @@ class SingletonCatalog implements SingletonCatalogInterface
 	];
 
 	/**
-	 * @return SingletonGroup[]
+	 * @return array<SingletonGroup>
 	 */
 	public function getGroups(): array {
 		$groups = [];

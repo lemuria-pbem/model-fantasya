@@ -2,13 +2,15 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Model\Annals;
 use Lemuria\Model\Calendar\Moment;
 
 /**
  * Each party has a chronicle of visited regions.
+ *
+ * @method Region offsetGet(int|Id $offset)
+ * @method Region current()
  */
 class Chronicle extends Annals
 {
@@ -25,7 +27,7 @@ class Chronicle extends Annals
 		return null;
 	}
 
-	protected function get(Id $id): Entity {
+	protected function get(Id $id): Region {
 		return Region::get($id);
 	}
 }

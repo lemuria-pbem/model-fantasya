@@ -164,13 +164,11 @@ class Heirs implements \Countable
 
 	protected function getFirst(People $people): Unit {
 		$people->rewind();
-		/** @var Unit $unit */
 		$unit = $people->current();
 		return $unit;
 	}
 
 	protected function getRandom(People $people): Unit {
-		/** @var Unit $unit */
 		$unit = $people->random();
 		return $unit;
 	}

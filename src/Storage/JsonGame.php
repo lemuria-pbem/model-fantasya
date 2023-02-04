@@ -22,7 +22,7 @@ use Lemuria\Storage\Provider;
 abstract class JsonGame implements Game
 {
 	/**
-	 * @var array(string=>array)
+	 * @var array<string, array>
 	 */
 	private array $providers = ['r' => null, 'w' => null];
 
@@ -231,12 +231,12 @@ abstract class JsonGame implements Game
 	}
 
 	/**
-	 * @return array(string=>JsonProvider)
+	 * @return array<string, JsonProvider>
 	 */
 	abstract protected function getLoadStorage(): array;
 
 	/**
-	 * @return array(string=>JsonProvider)
+	 * @return array<string, JsonProvider>
 	 */
 	abstract protected function getSaveStorage(): array;
 

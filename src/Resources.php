@@ -14,13 +14,14 @@ use Lemuria\Model\Fantasya\Commodity\Weapon\AbstractWeapon;
 use Lemuria\Model\Fantasya\Commodity\Weapon\Repairable\AbstractRepairable as AbstractRepairableWeapon;
 use Lemuria\Model\Fantasya\Commodity\Protection\Repairable\AbstractRepairable as AbstractRepairableProtection;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Singleton;
 use Lemuria\SingletonSet;
 
 /**
  * Resources are sets of quantities.
  *
- * @\ArrayAccess <Commodity|string, Quantity>
- * @\Iterator <string, Quantity>
+ * @method Quantity offsetGet(Singleton|string $offset)
+ * @method Quantity current()
  */
 class Resources extends ItemSet
 {

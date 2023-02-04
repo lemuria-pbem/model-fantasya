@@ -22,9 +22,6 @@ use Lemuria\Validate;
 
 /**
  * Represents the prices of luxuries on the market of a region.
- *
- * @\ArrayAccess<Luxury|string, Offer>
- * @\Iterator<string, Offer>
  */
 class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 {
@@ -51,7 +48,7 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	private array $demand = [];
 
 	/**
-	 * @var array(int=>string)
+	 * @var array<int, string>
 	 */
 	private array $indices = [];
 

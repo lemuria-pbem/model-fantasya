@@ -43,6 +43,13 @@ class Construction extends Entity implements Collectible, Collector
 	private readonly Treasury $treasury;
 
 	/**
+	 * @return array<Construction>
+	 */
+	public static function all(): array {
+		return Lemuria::Catalog()->getAll(Domain::Construction);
+	}
+
+	/**
 	 * Get a construction.
 	 *
 	 * @throws NotRegisteredException
