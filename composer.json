@@ -11,7 +11,7 @@
 		}
 	],
 	"version": "1.2.3",
-	"time": "2023-02-05",
+	"time": "2023-02-08",
 
 	"require": {
 		"php": "~8.2",
@@ -20,7 +20,7 @@
 		"lemuria-pbem/lemuria": "~1.2.0|dev-master"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "~9.5|~10.0"
+		"phpunit/phpunit": "~10.0"
 	},
 	"repositories": [
 		{
@@ -31,8 +31,14 @@
 
 	"autoload": {
 		"psr-4": {
-			"Lemuria\\Model\\Fantasya\\": "src/",
-			"Lemuria\\Tests\\Model\\Fantasya\\": "tests/"
+			"Lemuria\\Model\\Fantasya\\": "src/"
 		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Lemuria\\Tests\\": "vendor/lemuria-pbem/lemuria/tests/",
+			"Lemuria\\Tests\\Model\\Fantasya\\": "tests/"
+		},
+		"files": ["vendor/lemuria-pbem/lemuria/src/Lemuria.php"]
 	}
 }
