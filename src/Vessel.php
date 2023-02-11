@@ -161,7 +161,8 @@ class Vessel extends Entity implements Collectible, Collector
 	}
 
 	public function setPort(?Construction $port): Vessel {
-		$this->port = $port;
+		$this->port   = $port;
+		$this->portId = $port?->Id()->Id();
 		return $this;
 	}
 
