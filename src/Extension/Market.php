@@ -27,7 +27,7 @@ class Market extends Fee
 	}
 
 	public function serialize(): array {
-		$data                    = parent::serialize();
+		$data                   = parent::serialize();
 		$data[self::TRADEABLES] = $this->tradeables->serialize();
 		return $data;
 	}
