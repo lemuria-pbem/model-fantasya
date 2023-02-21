@@ -1,24 +1,22 @@
 <?php
+/** @noinspection PhpIdempotentOperationInspection */
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
 use Lemuria\Model\Fantasya\Commodity\Iron;
-use Lemuria\Model\Fantasya\Commodity\Wood;
 use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\Model\Fantasya\Talent\Bladefighting;
 use Lemuria\Model\Fantasya\Talent\Weaponry;
 
 /**
- * A battleaxe.
+ * A two-handed sword.
  */
-final class Battleaxe extends AbstractWeapon
+final class Claymore extends AbstractWeapon
 {
 	public final const WEIGHT = 2 * 100;
 
 	public final const DAMAGE = [1, 8, 8];
-
-	private const WOOD = 1;
 
 	private const IRON = 2;
 
@@ -38,7 +36,7 @@ final class Battleaxe extends AbstractWeapon
 	}
 
 	protected function material(): array {
-		return [Wood::class => self::WOOD, Iron::class => self::IRON];
+		return [Iron::class => self::IRON];
 	}
 
 	protected function talent(): string {

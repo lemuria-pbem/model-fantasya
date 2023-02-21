@@ -23,7 +23,7 @@ final class Warhammer extends AbstractWeapon
 
 	private const STONE = 1;
 
-	private const IRON = 2;
+	private const IRON = 1;
 
 	private const CRAFT = 4;
 

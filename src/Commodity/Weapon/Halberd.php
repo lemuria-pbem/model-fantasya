@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpIdempotentOperationInspection */
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
@@ -6,13 +7,13 @@ use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Wood;
 use Lemuria\Model\Fantasya\Damage;
 use Lemuria\Model\Fantasya\Requirement;
-use Lemuria\Model\Fantasya\Talent\Bladefighting;
+use Lemuria\Model\Fantasya\Talent\Spearfighting;
 use Lemuria\Model\Fantasya\Talent\Weaponry;
 
 /**
- * A battleaxe.
+ * A halberd.
  */
-final class Battleaxe extends AbstractWeapon
+final class Halberd extends AbstractWeapon
 {
 	public final const WEIGHT = 2 * 100;
 
@@ -20,9 +21,9 @@ final class Battleaxe extends AbstractWeapon
 
 	private const WOOD = 1;
 
-	private const IRON = 2;
+	private const IRON = 1;
 
-	private const CRAFT = 5;
+	private const CRAFT = 4;
 
 	public function Weight(): int {
 		return self::WEIGHT;
@@ -42,6 +43,6 @@ final class Battleaxe extends AbstractWeapon
 	}
 
 	protected function talent(): string {
-		return Bladefighting::class;
+		return Spearfighting::class;
 	}
 }
