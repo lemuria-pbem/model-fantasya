@@ -2,9 +2,14 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
+use Lemuria\Collector;
 use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
+use Lemuria\Identifiable;
+use Lemuria\Lemuria;
+use Lemuria\Model\Domain;
+use Lemuria\Model\Reassignment;
 use Lemuria\SortMode;
 use Lemuria\Sorting\ById;
 
@@ -16,16 +21,28 @@ use Lemuria\Sorting\ById;
  * @method Gathering getIterator()
  * @method Party random()
  */
-class Gathering extends EntitySet
+class Gathering extends EntitySet implements Reassignment
 {
+	public function __construct(?Collector $collector = null) {
+		parent::__construct($collector);
+		Lemuria::Catalog()->addReassignment($this);
+	}
+
 	public function add(Party $party): Gathering {
 		$this->addEntity($party->Id());
 		return $this;
 	}
 
-	public function remove(Party $party): Gathering {
-		$this->removeEntity($party->Id());
-		return $this;
+	public function reassign(Id $oldId, Identifiable $identifiable): void {
+		if ($identifiable->Catalog() === Domain::Party && $this->has($oldId)) {
+			$this->replace($oldId, $identifiable->Id());
+		}
+	}
+
+	public function remove(Identifiable $identifiable): void {
+		if ($identifiable->Catalog() === Domain::Party && $this->has($identifiable->Id())) {
+			$this->removeEntity($identifiable->Id());
+		}
 	}
 
 	/**

@@ -6,6 +6,8 @@ namespace Lemuria\Model\Fantasya;
 use Lemuria\EntitySet;
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Id;
+use Lemuria\Identifiable;
+use Lemuria\Model\Domain;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\Validate;
@@ -77,8 +79,15 @@ class Acquaintances extends Gathering
 		return parent::add($party);
 	}
 
-	public function remove(Party $party): Acquaintances {
-		return parent::remove($party);
+	public function reassign(Id $oldId, Identifiable $identifiable): void {
+		parent::reassign($oldId, $identifiable);
+		if ($identifiable->Catalog() === Domain::Party) {
+			$id = $oldId->Id();
+			if (array_key_exists($id, $this->isTold)) {
+				$this->isTold[$identifiable->Id()->Id()] = $this->isTold[$id];
+				unset($this->isTold[$id]);
+			}
+		}
 	}
 
 	public function isTold(Party $party): bool {
