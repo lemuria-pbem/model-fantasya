@@ -27,7 +27,7 @@ final class Orc extends AbstractRace
 {
 	private const HITPOINTS = 23;
 
-	private const HUNGER = 10;
+	private const HUNGER = 7;
 
 	private const REFILL = 0.18;
 

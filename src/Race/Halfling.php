@@ -31,7 +31,7 @@ final class Halfling extends AbstractRace
 
 	private const FLIGHT_CHANCE = 0.5;
 
-	private const HUNGER = 5;
+	private const HUNGER = 6;
 
 	private const REFILL = 0.2;
 

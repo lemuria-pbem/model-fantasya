@@ -24,7 +24,7 @@ final class Aquan extends AbstractRace
 {
 	private const HITPOINTS = 25;
 
-	private const HUNGER = 7;
+	private const HUNGER = 8;
 
 	private const REFILL = 0.25;
 

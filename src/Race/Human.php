@@ -9,7 +9,7 @@ final class Human extends AbstractRace
 {
 	private const HITPOINTS = 20;
 
-	private const HUNGER = 5;
+	private const HUNGER = 6;
 
 	private const REFILL = 0.25;
 
