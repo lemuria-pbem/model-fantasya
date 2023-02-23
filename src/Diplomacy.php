@@ -4,8 +4,12 @@ namespace Lemuria\Model\Fantasya;
 
 use Lemuria\CountableTrait;
 use Lemuria\Id;
+use Lemuria\Identifiable;
 use Lemuria\IteratorTrait;
+use Lemuria\Lemuria;
+use Lemuria\Model\Domain;
 use Lemuria\Model\Fantasya\Exception\UnknownPartyException;
+use Lemuria\Model\Reassignment;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\Validate;
@@ -22,7 +26,7 @@ use Lemuria\Validate;
  * 3. Contacts
  * These are special relations to a single unit that last until the end of a game round.
  */
-final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializable
+final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Reassignment, Serializable
 {
 	use CountableTrait;
 	use IteratorTrait;
@@ -64,6 +68,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 
 	public function __construct(private readonly Party $party) {
 		$this->acquaintances = new Acquaintances();
+		Lemuria::Catalog()->addReassignment($this);
 	}
 
 
@@ -132,6 +137,31 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 			return $this->indices[$this->index];
 		}
 		return null;
+	}
+
+	public function reassign(Id $oldId, Identifiable $identifiable): void {
+		if ($identifiable->Catalog() === Domain::Party) {
+			foreach (array_keys($this->relations) as $key) {
+				$relation = $this->relations[$key];
+				if ($relation->Party() === $identifiable) {
+					unset($this->relations[$key]);
+					$this->indices = array_keys($this->relations);
+					$this->count--;
+					$this->add($relation);
+				}
+			}
+		}
+	}
+
+	public function remove(Identifiable $identifiable): void {
+		if ($identifiable->Catalog() === Domain::Party) {
+			foreach (array_keys($this->relations) as $key) {
+				$relation = $this->relations[$key];
+				if ($relation->Party() === $identifiable) {
+					$this->delete($relation);
+				}
+			}
+		}
 	}
 
 	/**
@@ -280,7 +310,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Serializab
 	/**
 	 * Remove a relation.
 	 */
-	public function remove(Relation $relation): Diplomacy {
+	public function delete(Relation $relation): Diplomacy {
 		$id = (string)$relation;
 		if (isset($this->relations[$id])) {
 			unset($this->relations[$id]);
