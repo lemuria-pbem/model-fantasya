@@ -6,8 +6,10 @@ use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Model\Fantasya\Sorting\Unit\ByParty;
+use Lemuria\Model\Sized;
 use Lemuria\Reorder;
 use Lemuria\Sorting\ById;
+use Lemuria\Sorting\BySize;
 use Lemuria\SortMode;
 
 /**
@@ -18,7 +20,7 @@ use Lemuria\SortMode;
  * @method People getIterator()
  * @method Unit random()
  */
-class People extends EntitySet
+class People extends EntitySet implements Sized
 {
 	/**
 	 * Count the total size of all entities.
@@ -90,6 +92,9 @@ class People extends EntitySet
 				break;
 			case SortMode::ByParty :
 				$this->sortUsing(new ByParty($party));
+				break;
+			case SortMode::BySize :
+				$this->sortUsing(new BySize());
 				break;
 			default :
 				throw new LemuriaException('Unsupported sort mode: ' . $mode->name);

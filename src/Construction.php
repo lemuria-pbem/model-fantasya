@@ -13,13 +13,14 @@ use Lemuria\Lemuria;
 use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Model\Sized;
 use Lemuria\Serializable;
 use Lemuria\Validate;
 
 /**
  * A construction is a building in a region that is inhabited by units.
  */
-class Construction extends Entity implements Collectible, Collector
+class Construction extends Entity implements Collectible, Collector, Sized
 {
 	use BuilderTrait;
 	use CollectibleTrait;

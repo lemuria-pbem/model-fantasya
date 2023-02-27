@@ -17,13 +17,14 @@ use Lemuria\Model\Fantasya\Extension\BattleSpells;
 use Lemuria\Model\Fantasya\Extension\Trades;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Talent\Magic;
+use Lemuria\Model\Sized;
 use Lemuria\Serializable;
 use Lemuria\Validate;
 
 /**
  * A unit consists of a number of persons of the same race.
  */
-class Unit extends Entity implements Collectible, Collector
+class Unit extends Entity implements Collectible, Collector, Sized
 {
 	use BuilderTrait;
 	use CollectibleTrait;
