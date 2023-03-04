@@ -13,6 +13,10 @@ use Lemuria\Id;
  */
 class Treasury extends EntitySet
 {
+	public function getClone(): Treasury {
+		return clone $this;
+	}
+
 	public function add(Unicum $unicum): Treasury {
 		$this->addEntity($unicum->Id());
 		if ($this->hasCollector()) {

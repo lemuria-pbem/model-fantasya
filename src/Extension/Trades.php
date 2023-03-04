@@ -23,6 +23,10 @@ class Trades extends EntitySet implements Extension
 	use BuilderTrait;
 	use ExtensionTrait;
 
+	public function getClone(): Trades {
+		return clone $this;
+	}
+
 	public function add(Trade $trade): self {
 		$this->addEntity($trade->Id());
 		if ($this->hasCollector()) {

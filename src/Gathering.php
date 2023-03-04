@@ -28,6 +28,10 @@ class Gathering extends EntitySet implements Reassignment
 		Lemuria::Catalog()->addReassignment($this);
 	}
 
+	public function getClone(): Gathering {
+		return clone $this;
+	}
+
 	public function add(Party $party): Gathering {
 		$this->addEntity($party->Id());
 		return $this;

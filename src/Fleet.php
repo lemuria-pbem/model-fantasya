@@ -18,6 +18,10 @@ use Lemuria\SortMode;
  */
 class Fleet extends EntitySet
 {
+	public function getClone(): Fleet {
+		return clone $this;
+	}
+
 	public function add(Vessel $vessel): self {
 		$this->addEntity($vessel->Id());
 		if ($this->hasCollector()) {

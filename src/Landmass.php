@@ -13,6 +13,10 @@ use Lemuria\Id;
  */
 class Landmass extends EntitySet
 {
+	public function getClone(): Landmass {
+		return clone $this;
+	}
+
 	public function add(Region $region): self {
 		$this->addEntity($region->Id());
 		if ($this->hasCollector()) {

@@ -18,6 +18,10 @@ use Lemuria\SortMode;
  */
 class Estate extends EntitySet
 {
+	public function getClone(): Estate {
+		return clone $this;
+	}
+
 	public function add(Construction $construction): self {
 		$this->addEntity($construction->Id());
 		if ($this->hasCollector()) {

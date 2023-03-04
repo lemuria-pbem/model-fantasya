@@ -41,6 +41,10 @@ class People extends EntitySet implements Sized
 		return $weight;
 	}
 
+	public function getClone(): People {
+		return clone $this;
+	}
+
 	/**
 	 * Get the first unit.
 	 */
