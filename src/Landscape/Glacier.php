@@ -15,7 +15,7 @@ final class Glacier extends AbstractLandscape
 
 	private const ROAD_STONES = 350;
 
-	private const WORKPLACES = 100;
+	private const WORKPLACES = 150;
 
 	private static ?array $herbs = null;
 
