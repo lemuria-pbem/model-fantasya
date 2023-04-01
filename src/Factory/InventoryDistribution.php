@@ -8,6 +8,9 @@ use Lemuria\Model\Fantasya\Unit;
 
 class InventoryDistribution
 {
+	/**
+	 * @var array<Distribution>
+	 */
 	protected array $distributions;
 
 	public function __construct(protected readonly Unit $unit) {
