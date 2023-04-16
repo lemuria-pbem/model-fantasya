@@ -80,6 +80,25 @@ final readonly class Intelligence
 	}
 
 	/**
+	 * Get the units of a region that are interested in a specific loot.
+	 */
+	public function getLooters(Unit $unit, Commodity $loot): Heirs {
+		$heirs = new Heirs($unit);
+		$party = $unit->Party();
+		foreach ($this->region->Residents() as $otherUnit) {
+			$otherParty = $otherUnit->Party();
+			if ($otherParty !== $party && $otherParty->Type() === Type::Player) {
+				if ($otherUnit->IsLooting() && $otherUnit->Size() > 0) {
+					if ($otherParty->Loot()->wants($loot)) {
+						$heirs->add($otherUnit);
+					}
+				}
+			}
+		}
+		return $heirs;
+	}
+
+	/**
 	 * Get the government of a region, which is the biggest castle in that region.
 	 */
 	public function getGovernment(): ?Construction {
