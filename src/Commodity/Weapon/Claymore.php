@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpIdempotentOperationInspection */
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
