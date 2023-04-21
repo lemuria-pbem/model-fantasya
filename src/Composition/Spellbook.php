@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya\Composition;
 
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Composition;
+use Lemuria\Model\Fantasya\Ownable;
 use Lemuria\Model\Fantasya\Readable;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Model\Fantasya\Unicum;
@@ -12,7 +13,7 @@ use Lemuria\SingletonSet;
 use Lemuria\TenantTrait;
 use Lemuria\Validate;
 
-class Spellbook extends AbstractComposition implements Readable
+class Spellbook extends AbstractComposition implements Ownable, Readable
 {
 	use TenantTrait;
 

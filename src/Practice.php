@@ -4,6 +4,8 @@ namespace Lemuria\Model\Fantasya;
 
 enum Practice
 {
+	case Create;
+
 	case Take;
 
 	case Give;

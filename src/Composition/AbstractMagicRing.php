@@ -5,12 +5,13 @@ namespace Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\Commodity\Jewelry\GoldRing;
 use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\MagicRing;
+use Lemuria\Model\Fantasya\Ownable;
 use Lemuria\Model\Fantasya\Practice;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Serializable;
 
-abstract class AbstractMagicRing extends AbstractComposition implements MagicRing
+abstract class AbstractMagicRing extends AbstractComposition implements MagicRing, Ownable
 {
 	public function Weight(): int {
 		return GoldRing::WEIGHT;

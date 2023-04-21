@@ -6,13 +6,14 @@ use function Lemuria\getClass;
 use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Model\Fantasya\Commodity\Silver;
+use Lemuria\Model\Fantasya\Ownable;
 use Lemuria\Model\Fantasya\Readable;
 use Lemuria\Model\Fantasya\Spell;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Serializable;
 use Lemuria\Validate;
 
-class Scroll extends AbstractComposition implements Readable
+class Scroll extends AbstractComposition implements Ownable, Readable
 {
 	private const SILVER = 10;
 

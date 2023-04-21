@@ -5,12 +5,13 @@ namespace Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\HerbalBook;
+use Lemuria\Model\Fantasya\Ownable;
 use Lemuria\Model\Fantasya\Readable;
 use Lemuria\Model\Fantasya\Talent\Herballore;
 use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Serializable;
 
-class HerbAlmanac extends AbstractComposition implements Readable
+class HerbAlmanac extends AbstractComposition implements Ownable, Readable
 {
 	private const SILVER = 30;
 
