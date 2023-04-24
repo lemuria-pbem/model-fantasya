@@ -173,7 +173,10 @@ abstract class JsonGame implements Game
 	}
 
 	public function setUnica(array $unica): Game {
-		return $this->setData('unica.json', $unica);
+		if (!ksort($unica)) {
+			throw new ModelException('Sorting unica failed.');
+		}
+		return $this->setData('unica.json', array_values($unica));
 	}
 
 	public function setTrades(array $trades): Game {
