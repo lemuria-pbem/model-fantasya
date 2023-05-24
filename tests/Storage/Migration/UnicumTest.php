@@ -2,9 +2,13 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Storage\Migration;
 
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Model\Fantasya\Storage\Migration\Unicum;
 
-class UnicumTest extends BaseMigrationTest
+class UnicumTest extends Migration
 {
 	public final const DATA = [
 		'id'          => 1,
@@ -14,14 +18,12 @@ class UnicumTest extends BaseMigrationTest
 		'properties'  => []
 	];
 
-	protected function setUp(): void {
-		parent::setUp();
+	#[Before]
+	protected function initIndex(): void {
 		$this->index = $this->getIndices(self::DATA);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function construct(): Unicum {
 		$unit = new Unicum();
 
@@ -30,10 +32,8 @@ class UnicumTest extends BaseMigrationTest
 		return $unit;
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getDefaultNames(Unicum $unicum): void {
 		$this->assertSame(null, $unicum->getDefault('properties'));
 	}

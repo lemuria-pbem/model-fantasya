@@ -5,9 +5,10 @@ namespace Lemuria\Tests\Model\Fantasya\Storage\Migration;
 use Lemuria\Model\Fantasya\Storage\Migration\AbstractUpgrade;
 
 use Lemuria\Model\Game;
-use Lemuria\Tests\Test;
 
-class AbstractUpgradeTest extends Test
+use Lemuria\Tests\Base;
+
+class AbstractUpgradeTest extends Base
 {
 	/**
 	 * @test

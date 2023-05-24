@@ -2,32 +2,29 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Storage\Migration;
 
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Storage\Migration\AbstractModel;
 
-use Lemuria\Tests\Test;
+use Lemuria\Tests\Base;
 
-abstract class BaseMigrationTest extends Test
+abstract class Migration extends Base
 {
 	protected array $index;
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	abstract public function construct(): AbstractModel;
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getDataMissingForCompleteModel(AbstractModel $model): void {
 		$this->assertSame([], $model->getMissing($this->getCompleteModel()));
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getDefaultForInvalidKey(AbstractModel $model): void {
 		$this->expectException(LemuriaException::class);
 

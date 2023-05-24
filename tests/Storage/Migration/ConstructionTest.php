@@ -2,9 +2,13 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Storage\Migration;
 
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Model\Fantasya\Storage\Migration\Construction;
 
-class ConstructionTest extends BaseMigrationTest
+class ConstructionTest extends Migration
 {
 	public final const DATA = [
 		'id'          => 1,
@@ -17,14 +21,12 @@ class ConstructionTest extends BaseMigrationTest
 		'extensions'  => []
 	];
 
-	protected function setUp(): void {
-		parent::setUp();
+	#[Before]
+	protected function initIndex(): void {
 		$this->index = $this->getIndices(self::DATA);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function construct(): Construction {
 		$unit = new Construction();
 
@@ -33,18 +35,14 @@ class ConstructionTest extends BaseMigrationTest
 		return $unit;
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getDefaultInhabitants(Construction $construction): void {
 		$this->assertSame([], $construction->getDefault('inhabitants'));
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getDefaultTreasury(Construction $construction): void {
 		$this->assertSame([], $construction->getDefault('treasury'));
 	}

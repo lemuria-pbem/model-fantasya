@@ -4,19 +4,9 @@ namespace Lemuria\Tests\Model\Fantasya;
 
 use function Lemuria\getClass;
 use Lemuria\ItemSet;
-use Lemuria\Lemuria;
-use Lemuria\Model\Fantasya\SingletonCatalog;
-use Lemuria\Tests\Mock\Model\ConfigMock;
-use Lemuria\Tests\Test;
 
-abstract class ModelTest extends Test
+trait Assertions
 {
-	public static function setUpBeforeClass(): void {
-		parent::setUpBeforeClass();
-		Lemuria::init(new ConfigMock());
-		Lemuria::Builder()->register(new SingletonCatalog());
-	}
-
 	/**
 	 * @param array<string, int> $expected
 	 */

@@ -2,9 +2,13 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Storage\Migration;
 
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Model\Fantasya\Storage\Migration\Unit;
 
-class UnitTest extends BaseMigrationTest
+class UnitTest extends Migration
 {
 	public final const DATA = [
 		'id'           => 812295,
@@ -26,14 +30,12 @@ class UnitTest extends BaseMigrationTest
 		'extensions'   => ['Trades' => []]
 	];
 
-	protected function setUp(): void {
-		parent::setUp();
+	#[Before]
+	protected function initIndex(): void {
 		$this->index = $this->getIndices(self::DATA);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function construct(): Unit {
 		$unit = new Unit();
 
@@ -42,10 +44,8 @@ class UnitTest extends BaseMigrationTest
 		return $unit;
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getDefaultTreasury(Unit $unit): void {
 		$this->assertSame([], $unit->getDefault('treasury'));
 	}

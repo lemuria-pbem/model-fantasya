@@ -2,18 +2,20 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Storage\Migration;
 
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Model\Fantasya\Storage\Migration\Unit;
 
-class AbstractModelTest extends BaseMigrationTest
+class AbstractModelTest extends Migration
 {
-	protected function setUp(): void {
-		parent::setUp();
+	#[Before]
+	protected function initIndex(): void {
 		$this->index = $this->getIndices(UnitTest::DATA);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function construct(): Unit {
 		$unit = new Unit();
 
@@ -22,10 +24,8 @@ class AbstractModelTest extends BaseMigrationTest
 		return $unit;
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getMissing(Unit $unit): void {
 		$data    = $this->getDataMissing(UnitTest::DATA, 'isLooting', 'treasury');
 		$missing = $unit->getMissing($data);

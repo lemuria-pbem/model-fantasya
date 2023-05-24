@@ -2,6 +2,10 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\World;
 
+use PHPUnit\Framework\Attributes\BeforeClass;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Landscape\Plain;
 use Lemuria\Model\Fantasya\Region;
@@ -9,9 +13,9 @@ use Lemuria\Model\World\Island\Island;
 use Lemuria\Model\World\Island\OctagonalLocator;
 use Lemuria\Model\World\MapCoordinates;
 
-use Lemuria\Tests\Test;
+use Lemuria\Tests\Base;
 
-class IslandTest extends Test
+class IslandTest extends Base
 {
 	protected static MapCoordinates $origin;
 
@@ -19,10 +23,8 @@ class IslandTest extends Test
 
 	protected static Region $secondRegion;
 
-	/**
-	 * Set up origin.
-	 */
-	public static function setUpBeforeClass(): void {
+	#[BeforeClass]
+	public static function initMapAndTestData(): void {
 		self::$origin = new MapCoordinates(5, 5);
 		self::$region = new Region();
 		self::$region->setLandscape(new Plain());
@@ -30,9 +32,7 @@ class IslandTest extends Test
 		self::$secondRegion->setLandscape(new Plain());
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function construct(): Island {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 
@@ -41,42 +41,32 @@ class IslandTest extends Test
 		return $island;
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function origin(Island $island): void {
 		$this->assertSame(self::$origin, $island->Origin());
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function width(Island $island): void {
 		$this->assertSame(1, $island->Width());
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function height(Island $island): void {
 		$this->assertSame(1, $island->Height());
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function sizeReturnsSize(Island $island): void {
 		$this->assertSame(1, $island->Size());
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function isMapped(Island $island): void {
 		$this->assertTrue($island->isMapped(self::$origin));
 		$this->assertFalse($island->isMapped(self::createLocation(0, 1)));
@@ -89,41 +79,31 @@ class IslandTest extends Test
 		$this->assertFalse($island->isMapped(self::createLocation(-1, 1)));
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function containsNoOtherRegion(Island $island): void {
 		$this->assertFalse($island->contains(new Region()));
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function containsRegion(Island $island): void {
 		$this->assertTrue($island->contains(self::$region));
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function get(Island $island): void {
 		$this->assertSame(self::$region, $island->get(self::$origin));
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getUnmappedCoordinates(Island $island): void {
 		$this->assertNull($island->get(self::createLocation(1, 0)));
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function extendNorth(): void {
 		$island    = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$newHeight = $island->extendNorth();
@@ -142,9 +122,7 @@ class IslandTest extends Test
 		$this->assertFalse($island->isMapped(self::createLocation(-1, 1)));
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function extendEast(): void {
 		$island   = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$newWidth = $island->extendEast();
@@ -163,9 +141,7 @@ class IslandTest extends Test
 		$this->assertFalse($island->isMapped(self::createLocation(-1, 1)));
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function extendSouth(): void {
 		$island    = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$newHeight = $island->extendSouth();
@@ -184,9 +160,7 @@ class IslandTest extends Test
 		$this->assertFalse($island->isMapped(self::createLocation(-1, 1)));
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function extendWest(): void {
 		$island   = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$newWidth = $island->extendWest();
@@ -205,19 +179,15 @@ class IslandTest extends Test
 		$this->assertFalse($island->isMapped(self::createLocation(-1, 1)));
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function addSame(Island $island): void {
 		$this->assertSame($island, $island->add(self::$origin, self::$region));
 		$this->assertSame(1, $island->Size());
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function addThrowsExceptionIfOtherAdded(Island $island): void {
 		$region = new Region();
 		$this->expectException(LemuriaException::class);
@@ -225,9 +195,7 @@ class IslandTest extends Test
 		$island->add(self::$origin, $region->setLandscape(new Plain()));
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addNorth(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 
@@ -239,9 +207,7 @@ class IslandTest extends Test
 		$this->assertSame(1 + 1, $island->Size());
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addNortheast(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$this->expectException(LemuriaException::class);
@@ -249,9 +215,7 @@ class IslandTest extends Test
 		$island->add(self::createLocation(1, 1), self::$secondRegion);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addEast(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 
@@ -263,9 +227,7 @@ class IslandTest extends Test
 		$this->assertSame(1 + 1, $island->Size());
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addSoutheast(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$this->expectException(LemuriaException::class);
@@ -273,9 +235,7 @@ class IslandTest extends Test
 		$island->add(self::createLocation(1, -1), self::$secondRegion);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addSouth(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 
@@ -289,9 +249,7 @@ class IslandTest extends Test
 		$this->assertSame(1 + 1, $island->Size());
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addSouthWest(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$this->expectException(LemuriaException::class);
@@ -299,9 +257,7 @@ class IslandTest extends Test
 		$island->add(self::createLocation(-1, -1), self::$secondRegion);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addWest(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 
@@ -315,9 +271,7 @@ class IslandTest extends Test
 		$this->assertSame(1 + 1, $island->Size());
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addNorthWest(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$this->expectException(LemuriaException::class);
@@ -325,9 +279,7 @@ class IslandTest extends Test
 		$island->add(self::createLocation(-1, 1), self::$secondRegion);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addNorthMapped(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$island->extendNorth();
@@ -341,9 +293,7 @@ class IslandTest extends Test
 		$this->assertSame(1 + 1, $island->Size());
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addNortheastMapped(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$island->extendNorth();
@@ -353,9 +303,7 @@ class IslandTest extends Test
 		$island->add(self::createLocation(1, 1), self::$secondRegion);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addEastMapped(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$island->extendNorth();
@@ -369,9 +317,7 @@ class IslandTest extends Test
 		$this->assertSame(1 + 1, $island->Size());
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addSoutheastMapped(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$island->extendEast();
@@ -381,9 +327,7 @@ class IslandTest extends Test
 		$island->add(self::createLocation(1, -1), self::$secondRegion);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addSouthMapped(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$island->extendEast();
@@ -399,9 +343,7 @@ class IslandTest extends Test
 		$this->assertSame(1 + 1, $island->Size());
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addSouthWestMapped(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$island->extendSouth();
@@ -411,9 +353,7 @@ class IslandTest extends Test
 		$island->add(self::createLocation(-1, -1), self::$secondRegion);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addWestMapped(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$island->extendNorth();
@@ -429,9 +369,7 @@ class IslandTest extends Test
 		$this->assertSame(1 + 1, $island->Size());
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function addNorthWestMapped(): void {
 		$island = new Island(self::$origin, self::$region, new OctagonalLocator());
 		$island->extendWest();

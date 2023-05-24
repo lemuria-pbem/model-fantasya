@@ -2,15 +2,15 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya;
 
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Model\Fantasya\Ability;
 
-use Lemuria\Tests\Test;
+use Lemuria\Tests\Base;
 
-class AbilityTest extends Test
+class AbilityTest extends Base
 {
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function getExperience() {
 		$this->assertSame(0, Ability::getExperience(0));
 		$this->assertSame(100, Ability::getExperience(1));
@@ -20,9 +20,7 @@ class AbilityTest extends Test
 		$this->assertSame(2500, Ability::getExperience(5));
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function getLevel() {
 		$this->assertSame(0, Ability::getLevel(0));
 		$this->assertSame(0, Ability::getLevel(99));

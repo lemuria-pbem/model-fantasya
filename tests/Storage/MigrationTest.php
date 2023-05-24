@@ -2,18 +2,19 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Storage;
 
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Storage\Migration;
 use Lemuria\Model\Fantasya\Unit;
 
+use Lemuria\Tests\Base;
 use Lemuria\Tests\Model\Fantasya\Storage\Migration\UnitTest;
-use Lemuria\Tests\Test;
 
-class MigrationTest extends Test
+class MigrationTest extends Base
 {
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function construct(): Migration {
 		$migration = new Migration(Unit::class);
 
@@ -22,27 +23,21 @@ class MigrationTest extends Test
 		return $migration;
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function constructThrowsException(): void {
 		$this->expectException(LemuriaException::class);
 
 		new Migration(self::class);
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function isUpToDate(Migration $migration): void {
 		$this->assertTrue($migration->isUpToDate(UnitTest::DATA));
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function isUpToDateFindsMissing(Migration $migration): void {
 		$data = UnitTest::DATA;
 		unset($data['aura']);
@@ -50,10 +45,8 @@ class MigrationTest extends Test
 		$this->assertFalse($migration->isUpToDate($data));
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function migrate(Migration $migration): void {
 		$data = UnitTest::DATA;
 		unset($data['health']);
@@ -67,10 +60,8 @@ class MigrationTest extends Test
 		$this->assertSame([], $migrated['treasury']);
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function migrateDoesNothing(Migration $migration): void {
 		$this->assertSame(UnitTest::DATA, $migration->migrate(UnitTest::DATA));
 	}

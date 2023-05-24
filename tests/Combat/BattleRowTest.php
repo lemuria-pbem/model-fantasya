@@ -2,15 +2,15 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Combat;
 
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Model\Fantasya\Combat\BattleRow;
 
-use Lemuria\Tests\Test;
+use Lemuria\Tests\Base;
 
-class BattleRowTest extends Test
+class BattleRowTest extends Base
 {
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function battleRowsCannotBeCompared(): void {
 		$defensive = BattleRow::Defensive;
 		$back = BattleRow::Back;
@@ -19,9 +19,7 @@ class BattleRowTest extends Test
 		$this->assertFalse($defensive > $back);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function battleRowValuesCanBeCompared(): void {
 		$defensive = BattleRow::Defensive->value;
 		$back = BattleRow::Back->value;

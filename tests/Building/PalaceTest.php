@@ -2,16 +2,16 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Building;
 
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Model\Fantasya\Building\Palace;
 use Lemuria\Model\Fantasya\Building\Tower;
 
-use Lemuria\Tests\Test;
+use Lemuria\Tests\Base;
 
-class PalaceTest extends Test
+class PalaceTest extends Base
 {
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function correctSize() {
 		$palace = new Palace();
 

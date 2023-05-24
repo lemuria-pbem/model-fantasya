@@ -2,9 +2,13 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Storage\Migration;
 
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Model\Fantasya\Storage\Migration\Vessel;
 
-class VesselTest extends BaseMigrationTest
+class VesselTest extends Migration
 {
 	public final const DATA = [
 		'id'          => 1,
@@ -18,14 +22,12 @@ class VesselTest extends BaseMigrationTest
 		'treasury'    => []
 	];
 
-	protected function setUp(): void {
-		parent::setUp();
+	#[Before]
+	protected function initIndex(): void {
 		$this->index = $this->getIndices(self::DATA);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function construct(): Vessel {
 		$unit = new Vessel();
 
@@ -34,18 +36,14 @@ class VesselTest extends BaseMigrationTest
 		return $unit;
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getDefaultPort(Vessel $vessel): void {
 		$this->assertNull($vessel->getDefault('port'));
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getDefaultTreasury(Vessel $vessel): void {
 		$this->assertSame([], $vessel->getDefault('treasury'));
 	}

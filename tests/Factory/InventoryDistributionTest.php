@@ -2,6 +2,9 @@
 declare(strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Factory;
 
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Model\Fantasya\Combat\BattleRow;
 use Lemuria\Model\Fantasya\Commodity\Horse;
 use Lemuria\Model\Fantasya\Commodity\Silver;
@@ -13,10 +16,11 @@ use Lemuria\Model\Fantasya\Factory\InventoryDistribution;
 use Lemuria\Model\Fantasya\Quantity;
 use Lemuria\Model\Fantasya\Race\Human;
 use Lemuria\Model\Fantasya\Resources;
-use Lemuria\Tests\Model\Fantasya\Mock\UnitMock;
-use Lemuria\Tests\Model\Fantasya\ModelTest;
 
-class InventoryDistributionTest extends ModelTest
+use Lemuria\Tests\Model\Fantasya\Mock\UnitMock;
+use Lemuria\Tests\Model\Fantasya\Model;
+
+class InventoryDistributionTest extends Model
 {
 	use BuilderTrait;
 
@@ -33,9 +37,7 @@ class InventoryDistributionTest extends ModelTest
 		}
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function construct(): InventoryDistribution {
 		$inventoryDistribution = new InventoryDistribution($this->unit);
 
@@ -44,20 +46,16 @@ class InventoryDistributionTest extends ModelTest
 		return $inventoryDistribution;
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function distribute(InventoryDistribution $inventoryDistribution): InventoryDistribution {
 		$this->assertSame($inventoryDistribution, $inventoryDistribution->distribute());
 
 		return $inventoryDistribution;
 	}
 
-	/**
-	 * @test
-	 * @depends distribute
-	 */
+	#[Test]
+	#[Depends('distribute')]
 	public function getDistributions(InventoryDistribution $inventoryDistribution): void {
 		$distributions = $inventoryDistribution->getDistributions();
 

@@ -2,9 +2,13 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Storage\Migration;
 
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Model\Fantasya\Storage\Migration\Party;
 
-class PartyTest extends BaseMigrationTest
+class PartyTest extends Migration
 {
 	public final const DATA = [
 		'id'          => 27742,
@@ -27,14 +31,12 @@ class PartyTest extends BaseMigrationTest
 		'presettings' => ['battleRow' => 1, 'isHiding' => true, 'disguiseAs' => false, 'isLooting'=> false]
 	];
 
-	protected function setUp(): void {
-		parent::setUp();
+	#[Before]
+	protected function initIndex(): void {
 		$this->index = $this->getIndices(self::DATA);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function construct(): Party {
 		$unit = new Party();
 
@@ -43,10 +45,8 @@ class PartyTest extends BaseMigrationTest
 		return $unit;
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getDefaultLoot(Party $party): void {
 		$this->assertSame([], $party->getDefault('loot'));
 	}

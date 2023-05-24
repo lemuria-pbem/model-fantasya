@@ -2,19 +2,20 @@
 declare(strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Factory;
 
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Exception\SingletonException;
 use Lemuria\Model\Fantasya\Commodity\Weapon\Sword;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Talent\Bladefighting;
-use Lemuria\Tests\Model\Fantasya\ModelTest;
 
-class BuilderTraitTest extends ModelTest
+use Lemuria\Tests\Model\Fantasya\Model;
+
+class BuilderTraitTest extends Model
 {
 	use BuilderTrait;
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function createTalentIsSingleton(): void {
 		$bladefighting1 = self::createTalent(Bladefighting::class);
 		$bladefighting2 = self::createTalent(Bladefighting::class);
@@ -23,9 +24,7 @@ class BuilderTraitTest extends ModelTest
 		$this->assertSame($bladefighting2, $bladefighting1);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function createInvalidTalent(): void {
 		$this->expectException(SingletonException::class);
 

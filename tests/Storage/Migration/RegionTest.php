@@ -2,9 +2,13 @@
 declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Storage\Migration;
 
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
+
 use Lemuria\Model\Fantasya\Storage\Migration\Region;
 
-class RegionTest extends BaseMigrationTest
+class RegionTest extends Migration
 {
 	public final const DATA = [
 		'id'          => 54,
@@ -21,14 +25,12 @@ class RegionTest extends BaseMigrationTest
 		'treasury'    => []
 	];
 
-	protected function setUp(): void {
-		parent::setUp();
+	#[Before]
+	protected function initIndex(): void {
 		$this->index = $this->getIndices(self::DATA);
 	}
 
-	/**
-	 * @test
-	 */
+	#[Test]
 	public function construct(): Region {
 		$unit = new Region();
 
@@ -37,18 +39,14 @@ class RegionTest extends BaseMigrationTest
 		return $unit;
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getDefaultLuxuries(Region $region): void {
 		$this->assertNull($region->getDefault('luxuries'));
 	}
 
-	/**
-	 * @test
-	 * @depends construct
-	 */
+	#[Test]
+	#[Depends('construct')]
 	public function getDefaultTreasury(Region $region): void {
 		$this->assertSame([], $region->getDefault('treasury'));
 	}
