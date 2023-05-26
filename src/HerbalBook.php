@@ -66,11 +66,26 @@ class HerbalBook extends Annals
 	}
 
 	/**
-	 * Clear the set.
+	 * @noinspection PhpIncompatibleReturnTypeInspection
 	 */
-	public function clear(): EntitySet {
+	public function clear(): HerbalBook {
 		$this->herbage = [];
 		return parent::clear();
+	}
+
+	/**
+	 * @noinspection PhpIncompatibleReturnTypeInspection
+	 */
+	public function fill(EntitySet $set): HerbalBook {
+		if ($set instanceof HerbalBook) {
+			$this->herbage = $set->herbage;
+			return parent::fill($set);
+		}
+		throw new \InvalidArgumentException();
+	}
+
+	public function getClone(): HerbalBook {
+		return clone $this;
 	}
 
 	public function record(Region $region, ?Herbage $herbage, ?int $round = null): self {

@@ -31,6 +31,11 @@ class Scroll extends AbstractComposition implements Ownable, Readable
 		return self::WEIGHT;
 	}
 
+	public function init(): Composition {
+		$this->spell = null;
+		return parent::init();
+	}
+
 	public function serialize(): array {
 		$data = [self::SPELL => $this->spell ? getClass($this->spell) : null];
 		return $data;

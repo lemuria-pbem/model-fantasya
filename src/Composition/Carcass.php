@@ -20,7 +20,7 @@ class Carcass extends AbstractComposition
 
 	private const INVENTORY = 'inventory';
 
-	protected Animal|Race $creature;
+	protected Animal|Race|null $creature = null;
 
 	protected Resources $inventory;
 
@@ -32,12 +32,17 @@ class Carcass extends AbstractComposition
 		return $this->creature->Weight();
 	}
 
-	public function Creature(): Animal|Race {
+	public function Creature(): Animal|Race|null {
 		return $this->creature;
 	}
 
 	public function Inventory(): Resources {
 		return $this->inventory;
+	}
+
+	public function init(): Composition {
+		$this->inventory->clear();
+		return parent::init();
 	}
 
 	public function serialize(): array {
@@ -63,7 +68,7 @@ class Carcass extends AbstractComposition
 
 	public function register(Unicum $tenant): Composition {
 		$this->property($tenant)->creature  = $this->creature;
-		$this->property($tenant)->inventory = $this->inventory;
+		$this->property($tenant)->inventory = $this->inventory->getClone();
 		return $this;
 	}
 

@@ -28,12 +28,16 @@ abstract class AbstractComposition implements Composition
 		return self::getAll(__DIR__);
 	}
 
-	public function getCraft(): Requirement {
-		return new Requirement(self::createTalent($this->talent()), $this->level);
+	public function init(): Composition {
+		return $this;
 	}
 
 	public function supports(Practice $action): bool {
 		return true;
+	}
+
+	public function getCraft(): Requirement {
+		return new Requirement(self::createTalent($this->talent()), $this->level);
 	}
 
 	abstract protected function talent(): string;

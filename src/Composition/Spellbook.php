@@ -37,6 +37,11 @@ class Spellbook extends AbstractComposition implements Ownable, Readable
 		return self::WEIGHT;
 	}
 
+	public function init(): Composition {
+		$this->spells->clear();
+		return parent::init();
+	}
+
 	public function serialize(): array {
 		$data = [self::SPELLS => $this->spells->serialize()];
 		return $data;

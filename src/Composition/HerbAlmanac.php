@@ -33,6 +33,11 @@ class HerbAlmanac extends AbstractComposition implements Ownable, Readable
 		return self::WEIGHT;
 	}
 
+	public function init(): Composition {
+		$this->herbalBook->clear();
+		return parent::init();
+	}
+
 	public function serialize(): array {
 		return $this->herbalBook->serialize();
 	}
@@ -43,7 +48,7 @@ class HerbAlmanac extends AbstractComposition implements Ownable, Readable
 	}
 
 	public function register(Unicum $tenant): Composition {
-		$this->property($tenant)->herbalBook = $this->herbalBook;
+		$this->property($tenant)->herbalBook = $this->herbalBook->getClone();
 		return $this;
 	}
 

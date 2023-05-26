@@ -9,6 +9,8 @@ use Lemuria\Serializable;
  */
 interface Composition extends Artifact, Commodity, Serializable
 {
+	public function init(): Composition;
+
 	public function supports(Practice $action): bool;
 
 	public function register(Unicum $tenant): Composition;
