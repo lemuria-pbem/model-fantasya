@@ -3,10 +3,9 @@ declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Combat;
 
 use PHPUnit\Framework\Attributes\Test;
+use SATHub\PHPUnit\Base;
 
 use Lemuria\Model\Fantasya\Combat\BattleRow;
-
-use Lemuria\Tests\Base;
 
 class BattleRowTest extends Base
 {

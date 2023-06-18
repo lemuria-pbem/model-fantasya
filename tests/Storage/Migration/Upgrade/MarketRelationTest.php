@@ -4,11 +4,10 @@ namespace Lemuria\Tests\Model\Fantasya\Storage\Migration\Upgrade;
 
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\Test;
+use SATHub\PHPUnit\Base;
 
 use Lemuria\Model\Fantasya\Storage\Migration\Upgrade\MarketRelation;
 use Lemuria\Model\Game;
-
-use Lemuria\Tests\Base;
 
 class MarketRelationTest extends Base
 {

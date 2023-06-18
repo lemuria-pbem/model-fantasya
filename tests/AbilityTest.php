@@ -3,10 +3,9 @@ declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya;
 
 use PHPUnit\Framework\Attributes\Test;
+use SATHub\PHPUnit\Base;
 
 use Lemuria\Model\Fantasya\Ability;
-
-use Lemuria\Tests\Base;
 
 class AbilityTest extends Base
 {

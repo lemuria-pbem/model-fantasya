@@ -5,6 +5,7 @@ namespace Lemuria\Tests\Model\Fantasya\World;
 use PHPUnit\Framework\Attributes\BeforeClass;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\Test;
+use SATHub\PHPUnit\Base;
 
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Landscape\Plain;
@@ -12,8 +13,6 @@ use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\World\Island\Island;
 use Lemuria\Model\World\Island\OctagonalLocator;
 use Lemuria\Model\World\MapCoordinates;
-
-use Lemuria\Tests\Base;
 
 class IslandTest extends Base
 {

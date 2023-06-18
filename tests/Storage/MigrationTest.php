@@ -4,12 +4,12 @@ namespace Lemuria\Tests\Model\Fantasya\Storage;
 
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\Test;
+use SATHub\PHPUnit\Base;
 
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Storage\Migration;
 use Lemuria\Model\Fantasya\Unit;
 
-use Lemuria\Tests\Base;
 use Lemuria\Tests\Model\Fantasya\Storage\Migration\UnitTest;
 
 class MigrationTest extends Base

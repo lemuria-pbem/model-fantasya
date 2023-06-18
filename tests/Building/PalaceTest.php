@@ -3,11 +3,10 @@ declare (strict_types = 1);
 namespace Lemuria\Tests\Model\Fantasya\Building;
 
 use PHPUnit\Framework\Attributes\Test;
+use SATHub\PHPUnit\Base;
 
 use Lemuria\Model\Fantasya\Building\Palace;
 use Lemuria\Model\Fantasya\Building\Tower;
-
-use Lemuria\Tests\Base;
 
 class PalaceTest extends Base
 {

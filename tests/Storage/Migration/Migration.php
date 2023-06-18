@@ -4,11 +4,10 @@ namespace Lemuria\Tests\Model\Fantasya\Storage\Migration;
 
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\Test;
+use SATHub\PHPUnit\Base;
 
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Storage\Migration\AbstractModel;
-
-use Lemuria\Tests\Base;
 
 abstract class Migration extends Base
 {
