@@ -25,5 +25,6 @@ class Party extends AbstractModel
 		$this->addArray('spellBook');
 		$this->addArray('loot');
 		$this->addSerializable('presettings', new Presettings());
+		$this->addArray('possessions');
 	}
 }

@@ -13,6 +13,7 @@ use Lemuria\Model\Fantasya\Construction;
 use Lemuria\Model\Fantasya\Continent;
 use Lemuria\Model\Fantasya\Market\Trade;
 use Lemuria\Model\Fantasya\Party;
+use Lemuria\Model\Fantasya\Realm;
 use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Model\Fantasya\Unit;
@@ -97,6 +98,10 @@ class LemuriaCatalog implements Catalog
 				$continent = new Continent();
 				$continent->unserialize($data);
 			}
+			foreach (Lemuria::Game()->getRealms() as $data) {
+				$realm = new Realm();
+				$realm->unserialize($data);
+			}
 			foreach (Lemuria::Game()->getUnica() as $data) {
 				$unicum = new Unicum();
 				$unicum->unserialize($data);
@@ -144,6 +149,11 @@ class LemuriaCatalog implements Catalog
 			$entities[$id] = $continent->serialize();
 		}
 		Lemuria::Game()->setContinents($entities);
+		$entities = [];
+		foreach ($this->catalog[Domain::Realm->value] as $id => $realm /* @var Realm $realm */) {
+			$entities[$id] = $realm->serialize();
+		}
+		Lemuria::Game()->setRealms($entities);
 		$entities = [];
 		foreach ($this->catalog[Domain::Unicum->value] as $id => $unicum /* @var Unicum $unicum */) {
 			$entities[$id] = $unicum->serialize();
@@ -238,6 +248,9 @@ class LemuriaCatalog implements Catalog
 		}
 		foreach ($this->catalog[Domain::Continent->value] as $continent /* @var Continent $continent */) {
 			$continent->collectAll();
+		}
+		foreach ($this->catalog[Domain::Realm->value] as $realm /* @var Realm $realm */) {
+			$realm->collectAll();
 		}
 	}
 }

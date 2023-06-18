@@ -146,6 +146,15 @@ class Region extends Entity implements Collectible, Collector, Location
 		return null;
 	}
 
+	public function Realm(): ?Realm {
+		if ($this->hasCollector(__FUNCTION__)) {
+			/** @var Realm $realm */
+			$realm = $this->getCollector(__FUNCTION__);
+			return $realm;
+		}
+		return null;
+	}
+
 	/**
 	 * Get a plain data array of the model's data.
 	 */

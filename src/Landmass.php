@@ -6,7 +6,7 @@ use Lemuria\EntitySet;
 use Lemuria\Id;
 
 /**
- * The estate in a region is the list of constructions that have been build there.
+ * A collection of regions.
  *
  * @method Region offsetGet(int|Id $offset)
  * @method Region current()

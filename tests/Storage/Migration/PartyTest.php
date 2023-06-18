@@ -28,7 +28,8 @@ class PartyTest extends Migration
 		'herbalBook'  => [],
 		'spellBook'   => [],
 		'loot'        => [],
-		'presettings' => ['battleRow' => 1, 'isHiding' => true, 'disguiseAs' => false, 'isLooting'=> false]
+		'presettings' => ['battleRow' => 1, 'isHiding' => true, 'disguiseAs' => false, 'isLooting'=> false],
+		'possessions' => []
 	];
 
 	#[Before]

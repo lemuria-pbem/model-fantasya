@@ -8,6 +8,7 @@ use Lemuria\Model\Fantasya\Construction;
 use Lemuria\Model\Fantasya\Continent;
 use Lemuria\Model\Fantasya\Market\Trade;
 use Lemuria\Model\Fantasya\Party;
+use Lemuria\Model\Fantasya\Realm;
 use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\Fantasya\Storage\Migration\AbstractUpgrade;
 use Lemuria\Model\Fantasya\Unicum;
@@ -92,6 +93,10 @@ abstract class JsonGame implements Game
 
 	public function getTrades(): array {
 		return $this->getData('trades.json');
+	}
+
+	public function getRealms(): array {
+		return $this->getData('realms.json');
 	}
 
 	public function getStatistics(): array {
@@ -183,6 +188,10 @@ abstract class JsonGame implements Game
 		return $this->setData('trades.json', $trades);
 	}
 
+	public function setRealms(array $realms): Game {
+		return $this->setData('realms.json', $realms);
+	}
+
 	public function setStatistics(array $statistics): Game {
 		return $this->setData('statistics.json', $statistics);
 	}
@@ -199,6 +208,10 @@ abstract class JsonGame implements Game
 		$data = $this->getParties();
 		if ($this->migrateData(Party::class, $data)) {
 			$this->setParties($data);
+		}
+		$data = $this->getRealms();
+		if ($this->migrateData(Realm::class, $data)) {
+			$this->setRealms($data);
 		}
 		$data = $this->getRegions();
 		if ($this->migrateData(Region::class, $data)) {

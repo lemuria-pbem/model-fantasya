@@ -60,6 +60,8 @@ class Party extends Entity implements Assignable, Collector
 
 	private const PRESETTINGS = 'presettings';
 
+	private const POSSESSIONS = 'possessions';
+
 	private string $banner;
 
 	private Id $origin;
@@ -79,6 +81,8 @@ class Party extends Entity implements Assignable, Collector
 	private readonly Loot $loot;
 
 	private readonly Presettings $presettings;
+
+	private readonly Possessions $possessions;
 
 	private ?array $serializedDiplomacy = null;
 
@@ -129,6 +133,7 @@ class Party extends Entity implements Assignable, Collector
 		$this->spellBook   = new SpellBook();
 		$this->loot        = new Loot();
 		$this->presettings = new Presettings();
+		$this->possessions = new Possessions($this);
 	}
 
 	/**
@@ -230,6 +235,10 @@ class Party extends Entity implements Assignable, Collector
 		return $this->presettings;
 	}
 
+	public function Possessions(): Possessions {
+		return $this->possessions;
+	}
+
 	/**
 	 * Get a plain data array of the model's data.
 	 *
@@ -252,6 +261,7 @@ class Party extends Entity implements Assignable, Collector
 		$data[self::SPELL_BOOK]   = $this->SpellBook()->serialize();
 		$data[self::LOOT]         = $this->Loot()->serialize();
 		$data[self::PRESETTINGS]  = $this->Presettings()->serialize();
+		$data[self::POSSESSIONS]  = $this->Possessions()->serialize();
 		return $data;
 	}
 
@@ -271,6 +281,7 @@ class Party extends Entity implements Assignable, Collector
 		$this->People()->unserialize($data[self::PEOPLE]);
 		$this->Chronicle()->unserialize($data[self::CHRONICLE]);
 		$this->Presettings()->unserialize($data[self::PRESETTINGS]);
+		$this->Possessions()->unserialize($data[self::POSSESSIONS]);
 		$this->serializedDiplomacy  = $data[self::DIPLOMACY];
 		$this->serializedHerbalBook = $data[self::HERBAL_BOOK];
 		$this->serializedSpellBook  = $data[self::SPELL_BOOK];
@@ -337,5 +348,6 @@ class Party extends Entity implements Assignable, Collector
 		$this->validate($data, self::SPELL_BOOK, Validate::Array);
 		$this->validate($data, self::LOOT, Validate::Array);
 		$this->validate($data, self::PRESETTINGS, Validate::Array);
+		$this->validate($data, self::POSSESSIONS, Validate::Array);
 	}
 }
