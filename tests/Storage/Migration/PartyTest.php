@@ -29,7 +29,8 @@ class PartyTest extends Migration
 		'spellBook'   => [],
 		'loot'        => [],
 		'presettings' => ['battleRow' => 1, 'isHiding' => true, 'disguiseAs' => false, 'isLooting'=> false],
-		'possessions' => []
+		'possessions' => [],
+		'regulation'  => ['entities' => [], 'quotas' => []]
 	];
 
 	#[Before]

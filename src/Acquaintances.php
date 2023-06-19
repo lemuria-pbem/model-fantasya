@@ -47,6 +47,7 @@ class Acquaintances extends Gathering
 	 * Restore the model's data from serialized data.
 	 *
 	 * @param array<string, array> $data
+	 * @noinspection DuplicatedCode
 	 */
 	public function unserialize(array $data): Serializable {
 		$this->validateSerializedData($data);

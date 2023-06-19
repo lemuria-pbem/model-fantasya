@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Storage\Migration;
 
 use Lemuria\Model\Fantasya\Party\Presettings;
+use Lemuria\Model\Fantasya\Regulation;
 
 class Party extends AbstractModel
 {
@@ -26,5 +27,6 @@ class Party extends AbstractModel
 		$this->addArray('loot');
 		$this->addSerializable('presettings', new Presettings());
 		$this->addArray('possessions');
+		$this->addSerializable('regulation', new Regulation());
 	}
 }
