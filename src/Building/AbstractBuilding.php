@@ -6,6 +6,9 @@ use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Building;
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\BuildingEffect;
+use Lemuria\Model\Fantasya\Commodity\Iron;
+use Lemuria\Model\Fantasya\Commodity\Stone;
+use Lemuria\Model\Fantasya\Commodity\Wood;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\Model\Fantasya\Talent\Constructing;
@@ -18,9 +21,34 @@ abstract class AbstractBuilding implements Building
 	use ArtifactTrait;
 	use BuilderTrait;
 
+	private const STRUCTURE_MATERIAL = [Wood::class => true, Stone::class => true, Iron::class => true];
+
 	private ?Requirement $craft = null;
 
 	private ?BuildingEffect $buildingEffect = null;
+
+	private ?int $structurePoints = null;
+
+	public function BuildingEffect(): BuildingEffect {
+		if (!$this->buildingEffect) {
+			$this->buildingEffect = new BuildingEffect();
+			$this->fill($this->buildingEffect);
+		}
+		return $this->buildingEffect;
+	}
+
+	public function StructurePoints(): int {
+		if ($this->structurePoints === null) {
+			$this->structurePoints = 0;
+			foreach ($this->getMaterial() as $quantity) {
+				$commodity = $quantity->Commodity();
+				if (isset(self::STRUCTURE_MATERIAL[$commodity::class])) {
+					$this->structurePoints += $quantity->Count();
+				}
+			}
+		}
+		return $this->structurePoints;
+	}
 
 	/**
 	 * Get the needed craft to create this artifact.
@@ -47,14 +75,6 @@ abstract class AbstractBuilding implements Building
 	public function correctSize(int $size): int {
 		$this->validateSize($size);
 		return $size;
-	}
-
-	public function BuildingEffect(): BuildingEffect {
-		if (!$this->buildingEffect) {
-			$this->buildingEffect = new BuildingEffect();
-			$this->fill($this->buildingEffect);
-		}
-		return $this->buildingEffect;
 	}
 
 	protected function validateSize(int $size): void {

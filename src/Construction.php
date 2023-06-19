@@ -102,6 +102,10 @@ class Construction extends Entity implements Collectible, Collector, Sized
 		return $this->treasury;
 	}
 
+	public function StructurePoints(): int {
+		return $this->size * $this->building->StructurePoints();
+	}
+
 	/**
 	 * Get a plain data array of the model's data.
 	 */
