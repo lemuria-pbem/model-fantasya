@@ -244,6 +244,29 @@ class Region extends Entity implements Collectible, Collector, Location
 	}
 
 	/**
+	 * Check if a continuous finished road to the target region exists.
+	 *
+	 * This method works correctly for target regions that are exactly two regions away.
+	 */
+	public function hasRoadTo(Region $region): bool {
+		foreach ($this->getNeighbourPaths($region) as $path) {
+			/** @var Direction $sDirection */
+			$sDirection = $path[0];
+			/** @var Region $neighbour */
+			$neighbour = $path[1];
+			/** @var Direction $fDirection */
+			$fDirection = $path[2];
+			if ($this->Roads()->offsetGet($sDirection) >= 1.0 && $region->Roads()->offsetGet($fDirection) >= 1.0) {
+				$roads = $neighbour->Roads();
+				if ($roads->offsetGet($sDirection->getOpposite()) >= 1.0 && $roads->offsetGet($fDirection->getOpposite()) >= 1.0) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Check that a serialized data array is valid.
 	 *
 	 * @param array<string, mixed> $data
@@ -259,5 +282,30 @@ class Region extends Entity implements Collectible, Collector, Location
 		$this->validate($data, self::RESIDENTS, Validate::Array);
 		$this->validate($data, self::LUXURIES, Validate::ArrayOrNull);
 		$this->validate($data, self::TREASURY, Validate::Array);
+	}
+
+	/**
+	 * @return array<array>
+	 */
+	private function getNeighbourPaths(Region $target): array {
+		$world = Lemuria::World();
+		$paths = [];
+		foreach ($world->getNeighbours($this) as $direction => $region) {
+			$paths[$region->Id()->Id()] = [$direction, $region];
+		}
+		$keepIds = [];
+		foreach ($world->getNeighbours($target) as $direction => $region) {
+			$id = $region->Id()->Id();
+			if (isset($paths[$id])) {
+				$paths[$id][] = $direction;
+				$keepIds[$id] = true;
+			}
+		}
+		foreach (array_keys($paths) as $id) {
+			if (!isset($keepIds[$id])) {
+				unset($paths[$id]);
+			}
+		}
+		return $paths;
 	}
 }
