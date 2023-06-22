@@ -99,9 +99,9 @@ final readonly class Intelligence
 	}
 
 	/**
-	 * Get the government of a region, which is the biggest castle in that region.
+	 * Get the biggest castle in that region.
 	 */
-	public function getGovernment(): ?Construction {
+	public function getCastle(): ?Construction {
 		$castle  = null;
 		$biggest = 0;
 		foreach ($this->region->Estate() as $construction /* @var Construction $construction */) {
@@ -117,11 +117,29 @@ final readonly class Intelligence
 	}
 
 	/**
+	 * Get the government of a region, which is the biggest castle in that region that is inhabited.
+	 */
+	public function getGovernment(): ?Construction {
+		$castle  = null;
+		$biggest = 0;
+		foreach ($this->region->Estate() as $construction /* @var Construction $construction */) {
+			if ($construction->Building() instanceof Castle) {
+				$size = $construction->Size();
+				if ($size > $biggest && !$construction->Inhabitants()->isEmpty()) {
+					$castle  = $construction;
+					$biggest = $size;
+				}
+			}
+		}
+		return $castle;
+	}
+
+	/**
 	 * Get the wage of the region that every peasant can earn.
 	 */
 	public function getWage(int $defaultWage): int {
 		/** @var Castle $castle */
-		$castle = $this->getGovernment()?->Building();
+		$castle = $this->getCastle()?->Building();
 		return $castle?->Wage() ?? $defaultWage;
 	}
 
