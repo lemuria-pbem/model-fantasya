@@ -95,7 +95,7 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 			if ($this->trade === self::OFFER) {
 				$amount = $this->goods->Maximum();
 			} else {
-				$amount = $this->goods->Maximum() * $this->price->Maximum();
+				$amount = $this->goods->IsVariable() ? $this->goods->Maximum() * $this->price->Maximum() : $this->price->Maximum();
 			}
 		}
 		return $reserve->Count() >= $amount;
