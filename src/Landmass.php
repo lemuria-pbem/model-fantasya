@@ -27,6 +27,9 @@ class Landmass extends EntitySet
 
 	public function remove(Region $region): self {
 		$this->removeEntity($region->Id());
+		if ($this->hasCollector()) {
+			$region->removeCollector($this->collector());
+		}
 		return $this;
 	}
 

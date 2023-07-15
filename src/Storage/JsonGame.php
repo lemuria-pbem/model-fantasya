@@ -189,7 +189,10 @@ abstract class JsonGame implements Game
 	}
 
 	public function setRealms(array $realms): Game {
-		return $this->setData('realms.json', $realms);
+		if (!ksort($realms)) {
+			throw new ModelException('Sorting realms failed.');
+		}
+		return $this->setData('realms.json', array_values($realms));
 	}
 
 	public function setStatistics(array $statistics): Game {

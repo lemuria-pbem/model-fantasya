@@ -78,9 +78,12 @@ class Regulation extends Landmass
 		return $this->quota[$id] ?? null;
 	}
 
-	protected function addEntity(Id $id, Quotas $quotas = null): void {
+	protected function addEntity(Id $id): void {
 		parent::addEntity($id);
-		$this->quota[$id->Id()] = $quotas ?: new Quotas();
+		$id = $id->Id();
+		if (!isset($this->quota[$id])) {
+			$this->quota[$id] = new Quotas();
+		}
 	}
 
 	protected function removeEntity(Id $id): void {
