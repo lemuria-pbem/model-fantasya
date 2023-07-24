@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya;
 
 use Lemuria\Model\Fantasya\Building\Castle;
 use Lemuria\Model\Fantasya\Party\Type;
+use Lemuria\Model\World\Direction;
 
 /**
  * Helper class for region information.
@@ -135,12 +136,22 @@ final readonly class Intelligence
 	}
 
 	/**
-	 * Get the wage of the region that every peasant can earn.
+	 * Get the infrastructure of the region.
 	 */
-	public function getWage(int $defaultWage): int {
-		/** @var Castle $castle */
-		$castle = $this->getCastle()?->Building();
-		return $castle?->Wage() ?? $defaultWage;
+	public function getInfrastructure(): int {
+		$infrastructure = 0;
+		foreach ($this->region->Estate() as $construction) {
+			$infrastructure += $construction->StructurePoints();
+		}
+		$roads = $this->region->Roads();
+		if ($roads) {
+			$stones = $this->region->Landscape()->RoadStones();
+			foreach (Direction::cases() as $direction) {
+				$completion      = $roads[$direction] ?? 0.0;
+				$infrastructure += (int)round($completion * $stones);
+			}
+		}
+		return $infrastructure;
 	}
 
 	/**
