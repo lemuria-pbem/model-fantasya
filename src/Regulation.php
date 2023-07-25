@@ -19,7 +19,7 @@ class Regulation extends Landmass
 	private const QUOTAS = 'quotas';
 
 	/**
-	 * @var array<string, Quotas>
+	 * @var array<int, Quotas>
 	 */
 	private array $quota = [];
 
@@ -54,9 +54,11 @@ class Regulation extends Landmass
 		}
 
 		for ($i = 0; $i < $n; $i++) {
+			$id = $entities[$i];
+			$this->addEntity(new Id($id));
 			$quota = new Quotas();
 			$quota->unserialize($quotas[$i]);
-			$this->addEntity(new Id($entities[$i]), $quota);
+			$this->quota[$id] = $quota;
 		}
 		return $this;
 	}
