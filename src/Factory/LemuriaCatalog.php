@@ -70,6 +70,18 @@ class LemuriaCatalog implements Catalog
 
 	public function load(): Catalog {
 		if (!$this->isLoaded) {
+			foreach (Lemuria::Game()->getContinents() as $data) {
+				$continent = new Continent();
+				$continent->unserialize($data);
+			}
+			foreach (Lemuria::Game()->getRegions() as $data) {
+				$region = new Region();
+				$region->unserialize($data);
+			}
+			foreach (Lemuria::Game()->getRealms() as $data) {
+				$realm = new Realm();
+				$realm->unserialize($data);
+			}
 			foreach (Lemuria::Game()->getParties() as $data) {
 				$party = new Party();
 				$party->unserialize($data);
@@ -82,10 +94,6 @@ class LemuriaCatalog implements Catalog
 				$trade = new Trade(true);
 				$trade->unserialize($data);
 			}
-			foreach (Lemuria::Game()->getRegions() as $data) {
-				$region = new Region();
-				$region->unserialize($data);
-			}
 			foreach (Lemuria::Game()->getConstructions() as $data) {
 				$construction = new Construction();
 				$construction->unserialize($data);
@@ -93,14 +101,6 @@ class LemuriaCatalog implements Catalog
 			foreach (Lemuria::Game()->getVessels() as $data) {
 				$vessel = new Vessel();
 				$vessel->unserialize($data);
-			}
-			foreach (Lemuria::Game()->getContinents() as $data) {
-				$continent = new Continent();
-				$continent->unserialize($data);
-			}
-			foreach (Lemuria::Game()->getRealms() as $data) {
-				$realm = new Realm();
-				$realm->unserialize($data);
 			}
 			foreach (Lemuria::Game()->getUnica() as $data) {
 				$unicum = new Unicum();

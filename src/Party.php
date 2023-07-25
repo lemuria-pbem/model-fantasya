@@ -306,6 +306,7 @@ class Party extends Entity implements Assignable, Collector
 	 */
 	public function collectAll(): Collector {
 		$this->People()->addCollectorsToAll();
+		$this->Possessions()->addCollectorsToAll();
 		return $this;
 	}
 

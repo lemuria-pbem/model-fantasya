@@ -5,6 +5,7 @@ namespace Lemuria\Model\Fantasya;
 use Lemuria\EntitySet;
 use Lemuria\Id;
 use Lemuria\Model\Exception\NotRegisteredException;
+use Lemuria\Serializable;
 
 /**
  * The possessions of a party are its realms.
@@ -15,7 +16,19 @@ use Lemuria\Model\Exception\NotRegisteredException;
  */
 class Possessions extends EntitySet
 {
+	/**
+	 * @var array<int, int>
+	 */
 	private array $identifierMap = [];
+
+	public function unserialize(array $data): Serializable {
+		parent::unserialize($data);
+		foreach ($data as $id) {
+			$realm = Realm::get(new Id($id));
+			$this->identifierMap[$realm->Identifier()->Id()] = $id;
+		}
+		return $this;
+	}
 
 	public function getClone(): Possessions {
 		return clone $this;
