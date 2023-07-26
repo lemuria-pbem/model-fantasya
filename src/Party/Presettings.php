@@ -23,6 +23,8 @@ class Presettings implements Serializable
 
 	private const IS_REPEAT = 'isRepeat';
 
+	private const EXPLORING = 'exploring';
+
 	protected BattleRow $battleRow = BattleRow::Bystander;
 
 	protected Id|false|null $disguiseAs = false;
@@ -32,6 +34,8 @@ class Presettings implements Serializable
 	protected bool $isLooting = true;
 
 	protected bool $isRepeat = false;
+
+	protected Exploring $exploring = Exploring::Not;
 
 	public function BattleRow(): BattleRow {
 		return $this->battleRow;
@@ -56,13 +60,18 @@ class Presettings implements Serializable
 		return $this->isRepeat;
 	}
 
+	public function Exploring(): Exploring {
+		return $this->exploring;
+	}
+
 	public function serialize(): array {
 		return [
 			self::BATTLE_ROW  => $this->BattleRow()->value,
 			self::IS_HIDING   => $this->IsHiding(),
 			self::DISGUISE_AS => $this->disguiseAs instanceof Id ? $this->disguiseAs->Id() : $this->disguiseAs,
 			self::IS_LOOTING  => $this->IsLooting(),
-			self::IS_REPEAT   => $this->IsRepeat()
+			self::IS_REPEAT   => $this->IsRepeat(),
+			self::EXPLORING   => $this->exploring->name
 		];
 	}
 
@@ -74,6 +83,7 @@ class Presettings implements Serializable
 		$this->setIsRepeat($data[self::IS_REPEAT]);
 		$id               = $data[self::DISGUISE_AS];
 		$this->disguiseAs = is_int($id) ? new Id($id) : $id;
+		$this->setExploring(Exploring::parse($data[self::EXPLORING]));
 		return $this;
 	}
 
@@ -102,6 +112,11 @@ class Presettings implements Serializable
 		return $this;
 	}
 
+	public function setExploring(Exploring $exploring): Presettings {
+		$this->exploring = $exploring;
+		return $this;
+	}
+
 	/**
 	 * Check that a serialized data array is valid.
 	 *
@@ -116,5 +131,6 @@ class Presettings implements Serializable
 		}
 		$this->validate($data, self::IS_LOOTING, Validate::Bool);
 		$this->validate($data, self::IS_REPEAT, Validate::Bool);
+		$this->validateEnum($data, self::EXPLORING, Exploring::class);
 	}
 }
