@@ -20,6 +20,4 @@ interface Castle extends Building
 	public function Downgrade(): Castle;
 
 	public function Upgrade(): Castle;
-
-	public function Wage(): int;
 }

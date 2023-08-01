@@ -9,8 +9,6 @@ final class Stronghold extends AbstractCastle
 {
 	private const TALENT = 5;
 
-	private const WAGE = 15;
-
 	private const DEFENSE = 3;
 
 	private const MIN_SIZE = 250;
@@ -39,9 +37,5 @@ final class Stronghold extends AbstractCastle
 
 	public function Upgrade(): Castle {
 		return self::createCastle(Citadel::class);
-	}
-
-	public function Wage(): int {
-		return self::WAGE;
 	}
 }

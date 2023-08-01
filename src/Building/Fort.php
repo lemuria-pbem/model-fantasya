@@ -9,8 +9,6 @@ final class Fort extends AbstractCastle
 {
 	private const TALENT = 2;
 
-	private const WAGE = 12;
-
 	private const DEFENSE = 0;
 
 	private const MIN_SIZE = 2;
@@ -39,9 +37,5 @@ final class Fort extends AbstractCastle
 
 	public function Upgrade(): Castle {
 		return self::createCastle(Tower::class);
-	}
-
-	public function Wage(): int {
-		return self::WAGE;
 	}
 }

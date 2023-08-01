@@ -9,8 +9,6 @@ final class Megapolis extends AbstractCastle
 {
 	private const TALENT = 15;
 
-	private const WAGE = 18;
-
 	private const DEFENSE = 5;
 
 	private const MIN_SIZE = 31250;
@@ -39,9 +37,5 @@ final class Megapolis extends AbstractCastle
 
 	public function Upgrade(): Castle {
 		return $this;
-	}
-
-	public function Wage(): int {
-		return self::WAGE;
 	}
 }

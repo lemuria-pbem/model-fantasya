@@ -9,8 +9,6 @@ final class Acropolis extends AbstractCastle
 {
 	private const TALENT = 10;
 
-	private const WAGE = 17;
-
 	private const DEFENSE = 5;
 
 	private const MIN_SIZE = 6250;
@@ -39,9 +37,5 @@ final class Acropolis extends AbstractCastle
 
 	public function Upgrade(): Castle {
 		return self::createCastle(Megapolis::class);
-	}
-
-	public function Wage(): int {
-		return self::WAGE;
 	}
 }

@@ -9,8 +9,6 @@ final class Citadel extends AbstractCastle
 {
 	private const TALENT = 7;
 
-	private const WAGE = 16;
-
 	private const DEFENSE = 4;
 
 	private const MIN_SIZE = 1250;
@@ -39,9 +37,5 @@ final class Citadel extends AbstractCastle
 
 	public function Upgrade(): Castle {
 		return self::createCastle(Acropolis::class);
-	}
-
-	public function Wage(): int {
-		return self::WAGE;
 	}
 }
