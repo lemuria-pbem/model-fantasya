@@ -10,6 +10,7 @@ use Lemuria\Model\Location;
 use Lemuria\Model\Neighbours;
 use Lemuria\Model\World;
 use Lemuria\Model\World\Beyond;
+use Lemuria\Model\World\Direction;
 use Lemuria\Model\World\Geometry;
 use Lemuria\Model\World\Map;
 use Lemuria\Model\World\MapCoordinates;
@@ -108,6 +109,13 @@ final readonly class PartyMap implements World, Map
 	 */
 	public function getPath(Location $start, World\Direction $direction, int $distance): Path {
 		return $this->world->getPath($start, $direction, $distance);
+	}
+
+	/**
+	 * Get the neighbours of a region in alternative directions.
+	 */
+	public function getAlternatives(Location $location, Direction $direction): Neighbours {
+		return $this->world->getAlternatives($location, $direction);
 	}
 
 	/**
