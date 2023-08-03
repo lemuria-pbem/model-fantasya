@@ -256,7 +256,7 @@ class Region extends Entity implements Collectible, Collector, Location
 			$neighbour = $path[1];
 			/** @var Direction $fDirection */
 			$fDirection = $path[2];
-			if ($this->Roads()->offsetGet($sDirection) >= 1.0 && $region->Roads()->offsetGet($fDirection) >= 1.0) {
+			if ($this->Roads()?->offsetGet($sDirection) >= 1.0 && $region->Roads()->offsetGet($fDirection) >= 1.0) {
 				$roads = $neighbour->Roads();
 				if ($roads->offsetGet($sDirection->getOpposite()) >= 1.0 && $roads->offsetGet($fDirection->getOpposite()) >= 1.0) {
 					return true;

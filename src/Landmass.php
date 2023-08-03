@@ -13,6 +13,10 @@ use Lemuria\Id;
  */
 class Landmass extends EntitySet
 {
+	public function serialize(): array {
+		return $this->sortSerialized(parent::serialize());
+	}
+
 	public function getClone(): Landmass {
 		return clone $this;
 	}
@@ -35,5 +39,10 @@ class Landmass extends EntitySet
 
 	protected function get(Id $id): Region {
 		return Region::get($id);
+	}
+
+	protected function sortSerialized(array $data): array {
+		sort($data);
+		return $data;
 	}
 }

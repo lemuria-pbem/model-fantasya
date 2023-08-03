@@ -4,7 +4,6 @@ namespace Lemuria\Model\Fantasya;
 
 use Lemuria\EntitySet;
 use Lemuria\Id;
-use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Serializable;
 
 /**
@@ -17,17 +16,23 @@ use Lemuria\Serializable;
 class Possessions extends EntitySet
 {
 	/**
-	 * @var array<int, int>
+	 * @var array<int, Id>
 	 */
 	private array $identifierMap = [];
 
 	public function unserialize(array $data): Serializable {
 		parent::unserialize($data);
 		foreach ($data as $id) {
-			$realm = Realm::get(new Id($id));
+			$id    = new Id($id);
+			$realm = Realm::get($id);
 			$this->identifierMap[$realm->Identifier()->Id()] = $id;
 		}
 		return $this;
+	}
+
+	public function identify(Id $id): ?Id {
+		$map = $id->Id();
+		return $this->identifierMap[$map] ?? null;
 	}
 
 	public function getClone(): Possessions {
@@ -35,8 +40,8 @@ class Possessions extends EntitySet
 	}
 
 	public function add(Realm $realm): Possessions {
-		$this->addEntity($realm->Identifier());
-		$this->identifierMap[$realm->Identifier()->Id()] = $realm->Id()->Id();
+		$this->addEntity($realm->Id());
+		$this->identifierMap[$realm->Identifier()->Id()] = $realm->Id();
 		if ($this->hasCollector()) {
 			$realm->addCollector($this->collector());
 		}
@@ -44,7 +49,7 @@ class Possessions extends EntitySet
 	}
 
 	public function remove(Realm $realm): Possessions {
-		$this->removeEntity($realm->Identifier());
+		$this->removeEntity($realm->Id());
 		unset($this->identifierMap[$realm->Identifier()->Id()]);
 		if ($this->hasCollector()) {
 			$realm->removeCollector($this->collector());
@@ -53,11 +58,6 @@ class Possessions extends EntitySet
 	}
 
 	protected function get(Id $id): Realm {
-		$index = $id->Id();
-		if (!isset($this->identifierMap[$index])) {
-			throw new NotRegisteredException($id);
-		}
-		$id = new Id($this->identifierMap[$index]);
 		return Realm::get($id);
 	}
 }

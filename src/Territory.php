@@ -31,4 +31,11 @@ class Territory extends Landmass
 			$this->central = null;
 		}
 	}
+
+	protected function sortSerialized(array $data): array {
+		$central = array_shift($data);
+		sort($data);
+		array_unshift($data, $central);
+		return $data;
+	}
 }
