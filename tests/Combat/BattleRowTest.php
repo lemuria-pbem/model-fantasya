@@ -23,7 +23,5 @@ class BattleRowTest extends Base
 		$defensive = BattleRow::Defensive->value;
 		$back = BattleRow::Back->value;
 		$this->assertTrue($defensive < $back);
-		$this->assertFalse($defensive == $back);
-		$this->assertFalse($defensive > $back);
 	}
 }
