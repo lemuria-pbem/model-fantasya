@@ -23,9 +23,10 @@ use Lemuria\Sorting\ById;
  */
 class Gathering extends EntitySet implements Reassignment
 {
+	private bool $isReassign = false;
+
 	public function __construct(?Collector $collector = null) {
 		parent::__construct($collector);
-		Lemuria::Catalog()->addReassignment($this);
 	}
 
 	public function getClone(): Gathering {
@@ -59,6 +60,14 @@ class Gathering extends EntitySet implements Reassignment
 				break;
 			default :
 				throw new LemuriaException('Unsupported sort mode: ' . $mode->name);
+		}
+		return $this;
+	}
+
+	public function addReassignment(): Gathering {
+		if (!$this->isReassign) {
+			Lemuria::Catalog()->addReassignment($this);
+			$this->isReassign = true;
 		}
 		return $this;
 	}
