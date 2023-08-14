@@ -4,7 +4,6 @@ namespace Lemuria\Model\Fantasya;
 
 use Lemuria\EntitySet;
 use Lemuria\Id;
-use Lemuria\Serializable;
 
 /**
  * The possessions of a party are its realms.
@@ -20,7 +19,7 @@ class Possessions extends EntitySet
 	 */
 	private array $identifierMap = [];
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data);
 		foreach ($data as $id) {
 			$id    = new Id($id);
@@ -35,11 +34,11 @@ class Possessions extends EntitySet
 		return $this->identifierMap[$map] ?? null;
 	}
 
-	public function getClone(): Possessions {
+	public function getClone(): static {
 		return clone $this;
 	}
 
-	public function add(Realm $realm): Possessions {
+	public function add(Realm $realm): static {
 		$this->addEntity($realm->Id());
 		$this->identifierMap[$realm->Identifier()->Id()] = $realm->Id();
 		if ($this->hasCollector()) {
@@ -48,7 +47,7 @@ class Possessions extends EntitySet
 		return $this;
 	}
 
-	public function remove(Realm $realm): Possessions {
+	public function remove(Realm $realm): static {
 		$this->removeEntity($realm->Id());
 		unset($this->identifierMap[$realm->Identifier()->Id()]);
 		if ($this->hasCollector()) {

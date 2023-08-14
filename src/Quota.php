@@ -15,7 +15,7 @@ class Quota
 		return $this->threshold;
 	}
 
-	public function setThreshold(int|float $threshold): Quota {
+	public function setThreshold(int|float $threshold): static {
 		$this->threshold = $threshold;
 		return $this;
 	}

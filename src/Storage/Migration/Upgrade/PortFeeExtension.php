@@ -24,7 +24,7 @@ class PortFeeExtension extends AbstractUpgrade
 		$this->extensions = $extensions->serialize();
 	}
 
-	public function upgrade(): AbstractUpgrade {
+	public function upgrade(): static {
 		$constructions = $this->game->getConstructions();
 		foreach ($constructions as $c => $construction) {
 			if ($construction['building'] === 'Port') {

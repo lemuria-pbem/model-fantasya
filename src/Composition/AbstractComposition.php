@@ -28,7 +28,7 @@ abstract class AbstractComposition implements Composition
 		return self::getAll(__DIR__);
 	}
 
-	public function init(): Composition {
+	public function init(): static {
 		return $this;
 	}
 

@@ -5,13 +5,11 @@ namespace Lemuria\Model\Fantasya\Composition;
 use function Lemuria\getClass;
 use Lemuria\Lemuria;
 use Lemuria\Model\Fantasya\Animal;
-use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\Practice;
 use Lemuria\Model\Fantasya\Race;
 use Lemuria\Model\Fantasya\Resources;
 use Lemuria\Model\Fantasya\Talent\NullTalent;
 use Lemuria\Model\Fantasya\Unicum;
-use Lemuria\Serializable;
 use Lemuria\Validate;
 
 class Carcass extends AbstractComposition
@@ -40,7 +38,7 @@ class Carcass extends AbstractComposition
 		return $this->inventory;
 	}
 
-	public function init(): Composition {
+	public function init(): static {
 		$this->inventory->clear();
 		return parent::init();
 	}
@@ -49,7 +47,7 @@ class Carcass extends AbstractComposition
 		return [self::CREATURE => getClass($this->creature), self::INVENTORY => $this->inventory->serialize()];
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		$creature = Lemuria::Builder()->create($data[self::CREATURE]);
 		if ($creature instanceof Animal || $creature instanceof Race) {
@@ -66,13 +64,13 @@ class Carcass extends AbstractComposition
 		};
 	}
 
-	public function register(Unicum $tenant): Composition {
+	public function register(Unicum $tenant): static {
 		$this->property($tenant)->creature  = $this->creature;
 		$this->property($tenant)->inventory = $this->inventory->getClone();
 		return $this;
 	}
 
-	public function reshape(Unicum $tenant): Composition {
+	public function reshape(Unicum $tenant): static {
 		$this->creature  = $this->property($tenant)->creature;
 		$this->inventory = $this->property($tenant)->inventory;
 		return $this;

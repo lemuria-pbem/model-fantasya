@@ -17,12 +17,12 @@ class Knowledge extends ItemSet
 {
 	use BuilderTrait;
 
-	public function add(Ability $ability): Knowledge {
+	public function add(Ability $ability): static {
 		$this->addItem($ability);
 		return $this;
 	}
 
-	public function remove(Ability $ability): Knowledge {
+	public function remove(Ability $ability): static {
 		$this->removeItem($ability);
 		return $this;
 	}

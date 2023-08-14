@@ -32,24 +32,24 @@ class Aura implements Serializable
 		return [self::AURA => $this->aura, self::MAXIMUM => $this->maximum];
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		$this->aura    = $data[self::AURA];
 		$this->maximum = $data[self::MAXIMUM];
 		return $this;
 	}
 
-	public function setAura(int $aura): Aura {
+	public function setAura(int $aura): static {
 		$this->aura = $aura;
 		return $this;
 	}
 
-	public function setMaximum(int $maximum): Aura {
+	public function setMaximum(int $maximum): static {
 		$this->maximum = $maximum;
 		return $this;
 	}
 
-	public function consume(int $aura): Aura {
+	public function consume(int $aura): static {
 		if ($aura > $this->aura) {
 			throw new LemuriaException('The magician has not enough Aura left.');
 		}

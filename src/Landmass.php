@@ -21,7 +21,7 @@ class Landmass extends EntitySet
 		return clone $this;
 	}
 
-	public function add(Region $region): self {
+	public function add(Region $region): static {
 		$this->addEntity($region->Id());
 		if ($this->hasCollector()) {
 			$region->addCollector($this->collector());
@@ -29,7 +29,7 @@ class Landmass extends EntitySet
 		return $this;
 	}
 
-	public function remove(Region $region): self {
+	public function remove(Region $region): static {
 		$this->removeEntity($region->Id());
 		if ($this->hasCollector()) {
 			$region->removeCollector($this->collector());

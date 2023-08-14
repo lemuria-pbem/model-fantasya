@@ -6,7 +6,6 @@ use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Id;
-use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\Validate;
 
@@ -40,7 +39,7 @@ class Regulation extends Landmass
 	 * @param array<string, array> $data
 	 * @noinspection DuplicatedCode
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		if ($this->count() > 0) {
 			$this->clear();
@@ -63,7 +62,7 @@ class Regulation extends Landmass
 		return $this;
 	}
 
-	public function clear(): Regulation {
+	public function clear(): static {
 		$this->quota = [];
 		return parent::clear();
 	}
@@ -71,7 +70,7 @@ class Regulation extends Landmass
 	/**
 	 * @throws LemuriaException
 	 */
-	public function fill(EntitySet $set): Regulation {
+	public function fill(EntitySet $set): static {
 		throw new LemuriaException('Not implemented.');
 	}
 

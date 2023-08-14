@@ -6,7 +6,6 @@ use Lemuria\Exception\UnserializeException;
 use Lemuria\Model\Fantasya\Extension;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Quantity;
-use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\Validate;
 
@@ -32,7 +31,7 @@ class Fee implements Extension
 		return [self::FEE => $fee];
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		$fee = $data[self::FEE];
 		if (is_array($fee)) {

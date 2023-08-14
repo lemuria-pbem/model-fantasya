@@ -182,7 +182,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Reassignme
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		$this->acquaintances->unserialize($data[self::ACQUAINTANCES]);
 

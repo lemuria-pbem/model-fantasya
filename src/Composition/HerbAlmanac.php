@@ -3,13 +3,11 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Composition;
 
 use Lemuria\Model\Fantasya\Commodity\Silver;
-use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\HerbalBook;
 use Lemuria\Model\Fantasya\Ownable;
 use Lemuria\Model\Fantasya\Readable;
 use Lemuria\Model\Fantasya\Talent\Herballore;
 use Lemuria\Model\Fantasya\Unicum;
-use Lemuria\Serializable;
 
 class HerbAlmanac extends AbstractComposition implements Ownable, Readable
 {
@@ -33,7 +31,7 @@ class HerbAlmanac extends AbstractComposition implements Ownable, Readable
 		return self::WEIGHT;
 	}
 
-	public function init(): Composition {
+	public function init(): static {
 		$this->herbalBook->clear();
 		return parent::init();
 	}
@@ -42,17 +40,17 @@ class HerbAlmanac extends AbstractComposition implements Ownable, Readable
 		return $this->herbalBook->serialize();
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->herbalBook->unserialize($data);
 		return $this;
 	}
 
-	public function register(Unicum $tenant): Composition {
+	public function register(Unicum $tenant): static {
 		$this->property($tenant)->herbalBook = $this->herbalBook->getClone();
 		return $this;
 	}
 
-	public function reshape(Unicum $tenant): Composition {
+	public function reshape(Unicum $tenant): static {
 		$this->herbalBook = $this->property($tenant)->herbalBook;
 		return $this;
 	}

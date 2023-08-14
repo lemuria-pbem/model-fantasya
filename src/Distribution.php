@@ -12,7 +12,7 @@ class Distribution extends Resources
 		return $this->size;
 	}
 
-	public function setSize(int $size): Distribution {
+	public function setSize(int $size): static {
 		$this->size = $size;
 		return $this;
 	}

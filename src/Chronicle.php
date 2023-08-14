@@ -14,7 +14,7 @@ use Lemuria\Model\Calendar\Moment;
  */
 class Chronicle extends Annals
 {
-	public function add(Region $region): self {
+	public function add(Region $region): static {
 		$this->addEntity($region->Id());
 		return $this;
 	}

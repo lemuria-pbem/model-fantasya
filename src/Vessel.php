@@ -14,7 +14,6 @@ use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\World\Direction;
-use Lemuria\Serializable;
 use Lemuria\Validate;
 
 /**
@@ -64,7 +63,7 @@ class Vessel extends Entity implements Collectible, Collector
 	 *
 	 * @throws NotRegisteredException
 	 */
-	public static function get(Id $id): Vessel {
+	public static function get(Id $id): self {
 		/** @var Vessel $vessel */
 		$vessel = Lemuria::Catalog()->get($id, Domain::Vessel);
 		return $vessel;
@@ -134,7 +133,7 @@ class Vessel extends Entity implements Collectible, Collector
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data);
 		$this->setAnchor(Direction::from($data[self::ANCHOR]));
 		$this->initPort($data[self::PORT]);
@@ -149,29 +148,29 @@ class Vessel extends Entity implements Collectible, Collector
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
 	 */
-	public function collectAll(): Collector {
+	public function collectAll(): static {
 		$this->Passengers()->addCollectorsToAll();
 		$this->Treasury()->addCollectorsToAll();
 		return $this;
 	}
 
-	public function setAnchor(Direction $anchor): Vessel {
+	public function setAnchor(Direction $anchor): static {
 		$this->anchor = $anchor;
 		return $this;
 	}
 
-	public function setPort(?Construction $port): Vessel {
+	public function setPort(?Construction $port): static {
 		$this->port   = $port;
 		$this->portId = $port?->Id()->Id();
 		return $this;
 	}
 
-	public function setShip(Ship $ship): Vessel {
+	public function setShip(Ship $ship): static {
 		$this->ship = $ship;
 		return $this;
 	}
 
-	public function setCompletion(float $completion): Vessel {
+	public function setCompletion(float $completion): static {
 		$completion       = round(abs($completion), 4);
 		$this->completion = min($completion, 1.0);
 		return $this;

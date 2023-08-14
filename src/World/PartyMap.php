@@ -15,7 +15,6 @@ use Lemuria\Model\World\Geometry;
 use Lemuria\Model\World\Map;
 use Lemuria\Model\World\MapCoordinates;
 use Lemuria\Model\World\Path;
-use Lemuria\Serializable;
 
 /**
  * This is a decorated world that calculates map coordinates for a specific party.
@@ -32,7 +31,7 @@ final readonly class PartyMap implements World, Map
 	/**
 	 * Not implemented.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		return $this;
 	}
 
@@ -128,14 +127,14 @@ final readonly class PartyMap implements World, Map
 	/**
 	 * Not implemented.
 	 */
-	public function load(): World {
+	public function load(): static {
 		return $this;
 	}
 
 	/**
 	 * Not implemented.
 	 */
-	public function save(): World {
+	public function save(): static {
 		return $this;
 	}
 

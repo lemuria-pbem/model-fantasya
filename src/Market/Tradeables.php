@@ -4,7 +4,6 @@ namespace Lemuria\Model\Fantasya\Market;
 
 use Lemuria\Exception\SingletonException;
 use Lemuria\Model\Fantasya\Commodity;
-use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\SingletonSet;
 use Lemuria\Validate;
@@ -27,7 +26,7 @@ class Tradeables extends SingletonSet
 		return [self::IS_EXCLUSION => $this->isExclusion, self::GOODS => parent::serialize()];
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data[self::GOODS]);
 		$this->isExclusion = $data[self::IS_EXCLUSION];
 		return $this;
@@ -38,12 +37,12 @@ class Tradeables extends SingletonSet
 		return $this->IsExclusion() ? !$isListed : $isListed;
 	}
 
-	public function setIsExclusion(bool $isExclusion): Tradeables {
+	public function setIsExclusion(bool $isExclusion): static {
 		$this->isExclusion = $isExclusion;
 		return $this;
 	}
 
-	public function allow(Commodity $commodity): Tradeables {
+	public function allow(Commodity $commodity): static {
 		if ($this->isExclusion) {
 			$this->delete($commodity);
 		} else {
@@ -52,7 +51,7 @@ class Tradeables extends SingletonSet
 		return $this;
 	}
 
-	public function ban(Commodity $commodity): Tradeables {
+	public function ban(Commodity $commodity): static {
 		if ($this->isExclusion) {
 			$this->add($commodity);
 		} else {

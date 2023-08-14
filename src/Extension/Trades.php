@@ -23,11 +23,11 @@ class Trades extends EntitySet implements Extension
 	use BuilderTrait;
 	use ExtensionTrait;
 
-	public function getClone(): Trades {
+	public function getClone(): static {
 		return clone $this;
 	}
 
-	public function add(Trade $trade): self {
+	public function add(Trade $trade): static {
 		$this->addEntity($trade->Id());
 		if ($this->hasCollector()) {
 			$trade->addCollector($this->collector());
@@ -35,7 +35,7 @@ class Trades extends EntitySet implements Extension
 		return $this;
 	}
 
-	public function remove(Trade $trade): self {
+	public function remove(Trade $trade): static {
 		$this->removeEntity($trade->Id());
 		return $this;
 	}
@@ -43,7 +43,7 @@ class Trades extends EntitySet implements Extension
 	/**
 	 * Sort the constructions.
 	 */
-	public function sort(SortMode $mode = SortMode::ByType): Trades {
+	public function sort(SortMode $mode = SortMode::ByType): static {
 		switch ($mode) {
 			case SortMode::ById :
 				$this->sortUsing(new ById());

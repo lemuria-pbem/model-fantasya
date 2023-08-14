@@ -91,7 +91,7 @@ class Prognoses implements \ArrayAccess, \Countable, \Iterator, Data
 		return $data;
 	}
 
-	public function unserialize(mixed $data): Data {
+	public function unserialize(mixed $data): static {
 		if (is_array($data)) {
 			foreach ($data as $class => $prognosisData) {
 				Lemuria::Builder()->create($class);

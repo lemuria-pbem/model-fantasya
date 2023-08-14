@@ -41,7 +41,7 @@ class People extends EntitySet implements Sized
 		return $weight;
 	}
 
-	public function getClone(): People {
+	public function getClone(): static {
 		return clone $this;
 	}
 
@@ -61,7 +61,7 @@ class People extends EntitySet implements Sized
 		return $id ? Unit::get($id) : null;
 	}
 
-	public function add(Unit $unit): People {
+	public function add(Unit $unit): static {
 		$this->addEntity($unit->Id());
 		if ($this->hasCollector()) {
 			$unit->addCollector($this->collector());
@@ -69,7 +69,7 @@ class People extends EntitySet implements Sized
 		return $this;
 	}
 
-	public function remove(Unit $unit): People {
+	public function remove(Unit $unit): static {
 		$this->removeEntity($unit->Id());
 		if ($this->hasCollector()) {
 			$unit->removeCollector($this->collector());
@@ -80,7 +80,7 @@ class People extends EntitySet implements Sized
 	/**
 	 * Reorder a unit in the community.
 	 */
-	public function reorder(Unit $unit, Unit $position, Reorder $order = Reorder::Flip): People
+	public function reorder(Unit $unit, Unit $position, Reorder $order = Reorder::Flip): static
 	{
 		$this->reorderEntity($unit->Id(), $position->Id(), $order);
 		return $this;
@@ -89,7 +89,7 @@ class People extends EntitySet implements Sized
 	/**
 	 * Sort the units.
 	 */
-	public function sort(SortMode $mode = SortMode::ById, ?Party $party = null): People {
+	public function sort(SortMode $mode = SortMode::ById, ?Party $party = null): static {
 		switch ($mode) {
 			case SortMode::ById :
 				$this->sortUsing(new ById());

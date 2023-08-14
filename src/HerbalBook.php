@@ -3,7 +3,6 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use Lemuria\EntitySet;
-use Lemuria\Serializable;
 use Lemuria\Id;
 use Lemuria\Model\Annals;
 use Lemuria\Model\Calendar\Moment;
@@ -48,7 +47,7 @@ class HerbalBook extends Annals
 	 *
 	 * @param array<string, array> $data
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data);
 		$entities = $data[parent::ENTITIES];
 		$herbages = $data[self::HERBAGES];
@@ -65,18 +64,12 @@ class HerbalBook extends Annals
 		return $this;
 	}
 
-	/**
-	 * @noinspection PhpIncompatibleReturnTypeInspection
-	 */
-	public function clear(): HerbalBook {
+	public function clear(): static {
 		$this->herbage = [];
 		return parent::clear();
 	}
 
-	/**
-	 * @noinspection PhpIncompatibleReturnTypeInspection
-	 */
-	public function fill(EntitySet $set): HerbalBook {
+	public function fill(EntitySet $set): static {
 		if ($set instanceof HerbalBook) {
 			$this->herbage = $set->herbage;
 			return parent::fill($set);
@@ -84,11 +77,11 @@ class HerbalBook extends Annals
 		throw new \InvalidArgumentException();
 	}
 
-	public function getClone(): HerbalBook {
+	public function getClone(): static {
 		return clone $this;
 	}
 
-	public function record(Region $region, ?Herbage $herbage, ?int $round = null): self {
+	public function record(Region $region, ?Herbage $herbage, ?int $round = null): static {
 		$id = $region->Id();
 		$this->addEntity($id, $round);
 		$this->herbage[$id->Id()] = $herbage;

@@ -18,7 +18,6 @@ use Lemuria\Model\Fantasya\Extension\Trades;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Model\Sized;
-use Lemuria\Serializable;
 use Lemuria\Validate;
 
 /**
@@ -95,7 +94,7 @@ class Unit extends Entity implements Collectible, Collector, Sized
 	 *
 	 * @throws NotRegisteredException
 	 */
-	public static function get(Id $id): Unit {
+	public static function get(Id $id): self {
 		/** @var Unit $unit */
 		$unit = Lemuria::Catalog()->get($id, Domain::Unit);
 		return $unit;
@@ -242,7 +241,7 @@ class Unit extends Entity implements Collectible, Collector, Sized
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
 	 */
-	public function collectAll(): Collector {
+	public function collectAll(): static {
 		$this->Treasury()->addCollectorsToAll();
 		$this->Trades()->addCollectorsToAll();
 		return $this;
@@ -270,7 +269,7 @@ class Unit extends Entity implements Collectible, Collector, Sized
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data);
 		$this->setRace(self::createRace($data[self::RACE]));
 		$this->setSize($data[self::SIZE]);
@@ -292,47 +291,47 @@ class Unit extends Entity implements Collectible, Collector, Sized
 		return $this;
 	}
 
-	public function setAura(?Aura $aura): Unit {
+	public function setAura(?Aura $aura): static {
 		$this->aura = $aura;
 		return $this;
 	}
 
-	public function setRace(Race $race): Unit {
+	public function setRace(Race $race): static {
 		$this->race = $race;
 		return $this;
 	}
 
-	public function setSize(int $size): Unit {
+	public function setSize(int $size): static {
 		$this->size = $size;
 		return $this;
 	}
 
-	public function setHealth(float $health): Unit {
+	public function setHealth(float $health): static {
 		$this->health = $health;
 		return $this;
 	}
 
-	public function setIsGuarding(bool $isGuarding): Unit {
+	public function setIsGuarding(bool $isGuarding): static {
 		$this->isGuarding = $isGuarding;
 		return $this;
 	}
 
-	public function setBattleRow(BattleRow $battleRow): Unit {
+	public function setBattleRow(BattleRow $battleRow): static {
 		$this->battleRow = $battleRow;
 		return $this;
 	}
 
-	public function setIsHiding(bool $isHiding): Unit {
+	public function setIsHiding(bool $isHiding): static {
 		$this->isHiding = $isHiding;
 		return $this;
 	}
 
-	public function setIsLooting(bool $isLooting): Unit {
+	public function setIsLooting(bool $isLooting): static {
 		$this->isLooting = $isLooting;
 		return $this;
 	}
 
-	public function setDisguise(Party|false|null $party = null): Unit {
+	public function setDisguise(Party|false|null $party = null): static {
 		if ($party) {
 			if ($party === $this->Party()) {
 				$this->disguiseAs = null;
@@ -345,7 +344,7 @@ class Unit extends Entity implements Collectible, Collector, Sized
 		return $this;
 	}
 
-	public function replaceId(Id $id): Unit {
+	public function replaceId(Id $id): static {
 		$oldId = $this->Id();
 		$this->setId($id);
 		$this->Party()->People()->replace($oldId, $id);

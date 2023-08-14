@@ -55,7 +55,7 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 	/**
 	 * @throws NotRegisteredException
 	 */
-	public static function get(Id $id): Trade {
+	public static function get(Id $id): self {
 		/** @var Trade $trade */
 		$trade = Lemuria::Catalog()->get($id, Domain::Trade);
 		return $trade;
@@ -131,7 +131,7 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 		return $data;
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		$this->setId(new Id(($data[self::ID])));
 		$this->trade    = $data[self::IS_OFFER];
@@ -141,22 +141,22 @@ class Trade implements \Stringable, Collectible, Identifiable, Serializable
 		return $this;
 	}
 
-	public function setTrade(bool $isOffer): Trade {
+	public function setTrade(bool $isOffer): static {
 		$this->trade = $isOffer;
 		return $this;
 	}
 
-	public function setIsRepeat(bool $isRepeat): Trade {
+	public function setIsRepeat(bool $isRepeat): static {
 		$this->isRepeat = $isRepeat;
 		return $this;
 	}
 
-	public function setGoods(Deal $goods): Trade {
+	public function setGoods(Deal $goods): static {
 		$this->goods = $goods;
 		return $this;
 	}
 
-	public function setPrice(Deal $price): Trade {
+	public function setPrice(Deal $price): static {
 		$this->price = $price;
 		return $this;
 	}

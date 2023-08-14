@@ -18,11 +18,11 @@ use Lemuria\SortMode;
  */
 class Fleet extends EntitySet
 {
-	public function getClone(): Fleet {
+	public function getClone(): static {
 		return clone $this;
 	}
 
-	public function add(Vessel $vessel): self {
+	public function add(Vessel $vessel): static {
 		$this->addEntity($vessel->Id());
 		if ($this->hasCollector()) {
 			$vessel->addCollector($this->collector());
@@ -30,7 +30,7 @@ class Fleet extends EntitySet
 		return $this;
 	}
 
-	public function remove(Vessel $vessel): self {
+	public function remove(Vessel $vessel): static {
 		$this->removeEntity($vessel->Id());
 		return $this;
 	}
@@ -38,7 +38,7 @@ class Fleet extends EntitySet
 	/**
 	 * Sort the constructions.
 	 */
-	public function sort(SortMode $mode = SortMode::ByType): Fleet {
+	public function sort(SortMode $mode = SortMode::ByType): static {
 		switch ($mode) {
 			case SortMode::ById :
 				$this->sortUsing(new ById());

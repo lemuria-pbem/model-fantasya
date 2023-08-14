@@ -10,7 +10,7 @@ class IsRepeatPresetting extends AbstractUpgrade
 
 	protected string $after = '1.1.0';
 
-	public function upgrade(): AbstractUpgrade {
+	public function upgrade(): static {
 		$parties = $this->game->getParties();
 		foreach ($parties as $p => $party) {
 			if (!array_key_exists('isRepeat', $party['presettings'])) {

@@ -3,13 +3,11 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Composition;
 
 use Lemuria\Model\Fantasya\Commodity\Jewelry\GoldRing;
-use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\MagicRing;
 use Lemuria\Model\Fantasya\Ownable;
 use Lemuria\Model\Fantasya\Practice;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Model\Fantasya\Unicum;
-use Lemuria\Serializable;
 
 abstract class AbstractMagicRing extends AbstractComposition implements MagicRing, Ownable
 {
@@ -21,7 +19,7 @@ abstract class AbstractMagicRing extends AbstractComposition implements MagicRin
 		return [];
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		return $this;
 	}
 
@@ -32,11 +30,11 @@ abstract class AbstractMagicRing extends AbstractComposition implements MagicRin
 		};
 	}
 
-	public function register(Unicum $tenant): Composition {
+	public function register(Unicum $tenant): static {
 		return $this;
 	}
 
-	public function reshape(Unicum $tenant): Composition {
+	public function reshape(Unicum $tenant): static {
 		return $this;
 	}
 

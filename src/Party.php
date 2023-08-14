@@ -19,7 +19,6 @@ use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Party\Presettings;
 use Lemuria\Model\Fantasya\Party\Type;
-use Lemuria\Serializable;
 use Lemuria\Validate;
 
 /**
@@ -278,7 +277,7 @@ class Party extends Entity implements Assignable, Collector
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data);
 		$this->type       = Type::from($data[self::TYPE]);
 		$this->banner     = $data[self::BANNER];
@@ -304,7 +303,7 @@ class Party extends Entity implements Assignable, Collector
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
 	 */
-	public function collectAll(): Collector {
+	public function collectAll(): static {
 		$this->People()->addCollectorsToAll();
 		$this->Possessions()->addCollectorsToAll();
 		return $this;
@@ -314,22 +313,22 @@ class Party extends Entity implements Assignable, Collector
 		return $this->retirement !== null;
 	}
 
-	public function setBanner(string $banner): Party {
+	public function setBanner(string $banner): static {
 		$this->banner = $banner;
 		return $this;
 	}
 
-	public function setOrigin(Region $origin): Party {
+	public function setOrigin(Region $origin): static {
 		$this->origin = $origin->Id();
 		return $this;
 	}
 
-	public function setRace(Race $race): Party {
+	public function setRace(Race $race): static {
 		$this->race = $race;
 		return $this;
 	}
 
-	public function retire(): Party {
+	public function retire(): static {
 		if ($this->People()->count() > 0) {
 			throw new LemuriaException('A party that has units cannot be retired.');
 		}

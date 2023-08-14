@@ -12,7 +12,6 @@ use Lemuria\Lemuria;
 use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Reassignment;
-use Lemuria\Serializable;
 use Lemuria\Validate;
 
 /**
@@ -82,7 +81,7 @@ class Continent extends Entity implements Collector, Reassignment
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data);
 		$this->landmass->unserialize($data[self::LANDMASS]);
 		$this->names        = $data[self::NAMES];
@@ -101,7 +100,7 @@ class Continent extends Entity implements Collector, Reassignment
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
 	 */
-	public function collectAll(): Collector {
+	public function collectAll(): static {
 		$this->landmass->addCollectorsToAll();
 		return $this;
 	}
@@ -156,7 +155,7 @@ class Continent extends Entity implements Collector, Reassignment
 		return $this->descriptions[$id] ?? $this->Description();
 	}
 
-	public function setNameFor(Party $party, ?string $name = null): Continent {
+	public function setNameFor(Party $party, ?string $name = null): static {
 		$id = $party->Id()->Id();
 		if ($name) {
 			$this->names[$id] = $name;
@@ -166,7 +165,7 @@ class Continent extends Entity implements Collector, Reassignment
 		return $this;
 	}
 
-	public function setDescriptionFor(Party $party, ?string $description = null): Continent {
+	public function setDescriptionFor(Party $party, ?string $description = null): static {
 		$id = $party->Id()->Id();
 		if ($description) {
 			$this->descriptions[$id] = $description;

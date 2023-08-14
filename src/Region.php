@@ -15,7 +15,6 @@ use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Location;
 use Lemuria\Model\World\Direction;
-use Lemuria\Serializable;
 use Lemuria\Validate;
 
 /**
@@ -77,7 +76,7 @@ class Region extends Entity implements Collectible, Collector, Location
 	 *
 	 * @throws NotRegisteredException
 	 */
-	public static function get(Id $id): Region {
+	public static function get(Id $id): self {
 		/** @var Region $region */
 		$region = Lemuria::Catalog()->get($id, Domain::Location);
 		return $region;
@@ -175,7 +174,7 @@ class Region extends Entity implements Collectible, Collector, Location
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data);
 		$this->setLandscape(self::createLandscape($data[self::LANDSCAPE]));
 		$this->Resources()->unserialize($data[self::RESOURCES]);
@@ -211,7 +210,7 @@ class Region extends Entity implements Collectible, Collector, Location
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
 	 */
-	public function collectAll(): Collector {
+	public function collectAll(): static {
 		$this->Residents()->addCollectorsToAll();
 		$this->Estate()->addCollectorsToAll();
 		$this->Fleet()->addCollectorsToAll();
@@ -223,22 +222,22 @@ class Region extends Entity implements Collectible, Collector, Location
 		return isset($this->roads[$direction->value]) && $this->roads[$direction->value] >= 1.0;
 	}
 
-	public function setLandscape(Landscape $landscape): Region {
+	public function setLandscape(Landscape $landscape): static {
 		$this->landscape = $landscape;
 		return $this;
 	}
 
-	public function setRoads(?Roads $roads): Region {
+	public function setRoads(?Roads $roads): static {
 		$this->roads = $roads;
 		return $this;
 	}
 
-	public function setHerbage(?Herbage $herbage): Region {
+	public function setHerbage(?Herbage $herbage): static {
 		$this->herbage = $herbage;
 		return $this;
 	}
 
-	public function setLuxuries(?Luxuries $luxuries): Region {
+	public function setLuxuries(?Luxuries $luxuries): static {
 		$this->luxuries = $luxuries;
 		return $this;
 	}

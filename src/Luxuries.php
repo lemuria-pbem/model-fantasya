@@ -148,7 +148,7 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$class  = $data[self::OFFER];
 		$price  = $data[self::PRICE];
 		$luxury = self::createCommodity($class);

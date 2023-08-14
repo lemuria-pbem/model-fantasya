@@ -48,7 +48,7 @@ class Container implements Commodity
 		return $this->commodities;
 	}
 
-	public function setResources(Resources $resources): Container {
+	public function setResources(Resources $resources): static {
 		$this->commodities->clear();
 		$this->weight = 0;
 		foreach ($resources as $quantity /* @var Quantity $quantity */) {

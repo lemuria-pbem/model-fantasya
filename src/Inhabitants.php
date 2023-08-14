@@ -2,7 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\EntitySet;
 use Lemuria\Exception\EntitySetException;
 use Lemuria\Exception\EntitySetReplaceException;
 use Lemuria\Id;
@@ -23,7 +22,7 @@ class Inhabitants extends People
 		return $this->owner ? $this->get($this->owner) : null;
 	}
 
-	public function setOwner(Unit $unit): self {
+	public function setOwner(Unit $unit): static {
 		if (!$this->has($unit->Id())) {
 			throw new EntitySetException($unit->Id());
 		}
@@ -39,7 +38,7 @@ class Inhabitants extends People
 	/**
 	 * Clear the inhabitants.
 	 */
-	public function clear(): EntitySet {
+	public function clear(): static {
 		parent::clear();
 		$this->owner = null;
 		return $this;
@@ -59,7 +58,7 @@ class Inhabitants extends People
 	/**
 	 * Reorder a unit in the inhabitants.
 	 */
-	public function reorder(Unit $unit, Unit $position, Reorder $order = Reorder::Flip): People
+	public function reorder(Unit $unit, Unit $position, Reorder $order = Reorder::Flip): static
 	{
 		if ($unit !== $this->Owner()) {
 			if ($position !== $this->Owner() || $order >= Reorder::After) {
@@ -69,7 +68,7 @@ class Inhabitants extends People
 		return $this;
 	}
 
-	public function sort(SortMode $mode = SortMode::ById, ?Party $party = null): People {
+	public function sort(SortMode $mode = SortMode::ById, ?Party $party = null): static {
 		$owner = $this->Owner();
 		parent::sort($mode, $party);
 		if ($owner) {

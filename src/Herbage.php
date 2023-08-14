@@ -36,7 +36,7 @@ class Herbage implements Serializable
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		reset($data);
 		$herb = self::createCommodity(key($data));
 		if ($herb instanceof Herb) {
@@ -47,7 +47,7 @@ class Herbage implements Serializable
 		throw new UnserializeException('Commodity is not a Herb.');
 	}
 
-	public function setOccurrence(float $occurrence): Herbage {
+	public function setOccurrence(float $occurrence): static {
 		$this->occurrence = max(0.0, min(1.0, $occurrence));
 		return $this;
 	}

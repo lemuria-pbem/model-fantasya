@@ -69,7 +69,7 @@ class Relation
 	/**
 	 * Replace agreements.
 	 */
-	public function set(int $agreement): Relation {
+	public function set(int $agreement): static {
 		$this->agreement = $this->validate($agreement);
 		return $this;
 	}
@@ -77,7 +77,7 @@ class Relation
 	/**
 	 * Set a specific agreement.
 	 */
-	public function add(int $agreement): Relation {
+	public function add(int $agreement): static {
 		if ($this->validate($agreement) === self::NONE) {
 			$this->agreement = self::NONE;
 		} else {
@@ -89,7 +89,7 @@ class Relation
 	/**
 	 * Unset a specific agreement.
 	 */
-	public function remove(int $agreement): Relation {
+	public function remove(int $agreement): static {
 		if ($this->validate($agreement) !== self::NONE) {
 			$agreement       = self::ALL ^ $agreement;
 			$this->agreement &= $agreement;

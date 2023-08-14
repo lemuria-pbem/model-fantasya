@@ -17,6 +17,7 @@
       <w>battleaxe</w>
       <w>bauernlieb</w>
       <w>baumringel</w>
+      <w>befehlschecker</w>
       <w>berserkerblut</w>
       <w>berserkerblute</w>
       <w>beschr</w>
@@ -29,8 +30,10 @@
       <w>bugleweed</w>
       <w>carnassial</w>
       <w>carriagemaking</w>
+      <w>cherrypicking</w>
       <w>coord</w>
       <w>crossbowing</w>
+      <w>demurrage</w>
       <w>dragonship</w>
       <w>dwarves</w>
       <w>einheit</w>
@@ -51,6 +54,7 @@
       <w>gapgrowth</w>
       <w>gebaeude</w>
       <w>gegenstaende</w>
+      <w>gegenstandsklassen</w>
       <w>gehirnschmalze</w>
       <w>gewuerze</w>
       <w>goliathwaesser</w>
@@ -58,6 +62,7 @@
       <w>goliathwässer</w>
       <w>greifenei</w>
       <w>greifeneier</w>
+      <w>greifenzucht</w>
       <w>griffinegg</w>
       <w>groesse</w>
       <w>gruene</w>
@@ -90,6 +95,7 @@
       <w>kakteenschwitze</w>
       <w>kapitaen</w>
       <w>katapultbedienung</w>
+      <w>katapultbeschuss</w>
       <w>katapultschiessen</w>
       <w>katapultschießen</w>
       <w>knotroot</w>
@@ -122,6 +128,7 @@
       <w>pferdeglücke</w>
       <w>quacksalver</w>
       <w>regionsentwicklung</w>
+      <w>reisszaehne</w>
       <w>relicensing</w>
       <w>reportformate</w>
       <w>roadmaking</w>
@@ -139,6 +146,7 @@
       <w>serializables</w>
       <w>siebenmeilentee</w>
       <w>siebenmeilentees</w>
+      <w>sieged</w>
       <w>signum</w>
       <w>snowcrystal</w>
       <w>spaltwachse</w>
@@ -153,14 +161,17 @@
       <w>streitaexte</w>
       <w>sublicenses</w>
       <w>sublicensing</w>
+      <w>talentpunkt</w>
       <w>talentstufe</w>
       <w>talentveränderungen</w>
       <w>talentübersicht</w>
       <w>taxcollecting</w>
       <w>ternes</w>
+      <w>totenschaedel</w>
       <w>traenke</w>
       <w>ucfirst</w>
       <w>uebergeben</w>
+      <w>undup</w>
       <w>ungirt</w>
       <w>unguard</w>
       <w>unguarding</w>

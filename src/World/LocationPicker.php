@@ -66,7 +66,7 @@ class LocationPicker implements \ArrayAccess, \Countable
 	/**
 	 * Filter for regions of a specific landscape.
 	 */
-	public function landscape(Landscape|string $landscape): LocationPicker {
+	public function landscape(Landscape|string $landscape): static {
 		$locations = [];
 		$filter    = getClass($landscape);
 		foreach ($this->landscapes as $type => $indices) {
@@ -86,7 +86,7 @@ class LocationPicker implements \ArrayAccess, \Countable
 	/**
 	 * Filter for regions that are land next to an ocean.
 	 */
-	public function coastal(): LocationPicker {
+	public function coastal(): static {
 		$locations                                = [];
 		$this->landscapes[getClass(Ocean::class)] = [];
 		$world                                    = Lemuria::World();
@@ -112,7 +112,7 @@ class LocationPicker implements \ArrayAccess, \Countable
 	/**
 	 * Filter for regions that have no residents.
 	 */
-	public function void(): LocationPicker {
+	public function void(): static {
 		$locations = [];
 		$i         = 0;
 		foreach ($this->landscapes as $type => $indices) {
@@ -130,7 +130,7 @@ class LocationPicker implements \ArrayAccess, \Countable
 		return $this;
 	}
 
-	public function reset(): LocationPicker {
+	public function reset(): static {
 		$this->locations  = [];
 		$this->landscapes = [];
 		$i = 0;

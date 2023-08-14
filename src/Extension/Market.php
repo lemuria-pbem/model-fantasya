@@ -4,7 +4,6 @@ namespace Lemuria\Model\Fantasya\Extension;
 
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Market\Tradeables;
-use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\Validate;
 
@@ -32,7 +31,7 @@ class Market extends Fee
 		return $data;
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data);
 		$this->tradeables->unserialize($data[self::TRADEABLES]);
 		return $this;

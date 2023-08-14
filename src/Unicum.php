@@ -11,7 +11,6 @@ use Lemuria\Lemuria;
 use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
-use Lemuria\Serializable;
 use Lemuria\Validate;
 
 /**
@@ -40,7 +39,7 @@ class Unicum extends Entity implements Collectible
 	/**
 	 * @throws NotRegisteredException
 	 */
-	public static function get(Id $id): Unicum {
+	public static function get(Id $id): self {
 		/** @var Unicum $unicum */
 		$unicum = Lemuria::Catalog()->get($id, Domain::Unicum);
 		return $unicum;
@@ -53,7 +52,7 @@ class Unicum extends Entity implements Collectible
 		return $data;
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data);
 		$category = self::createComposition($data[self::COMPOSITION]);
 		$category->unserialize($data[self::PROPERTIES]);
@@ -76,12 +75,12 @@ class Unicum extends Entity implements Collectible
 		return $this->findCollector(self::COLLECTORS);
 	}
 
-	public function setComposition(Composition $composition): Unicum {
+	public function setComposition(Composition $composition): static {
 		$this->composition = $composition->register($this);
 		return $this;
 	}
 
-	public function replaceId(Id $id): Unicum {
+	public function replaceId(Id $id): static {
 		$this->composition->reshape($this);
 		$oldId = $this->Id();
 		$this->setId($id);

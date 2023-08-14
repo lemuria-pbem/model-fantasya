@@ -83,7 +83,7 @@ class Market implements \ArrayAccess, Data
 		return $data;
 	}
 
-	public function unserialize(mixed $data): Data {
+	public function unserialize(mixed $data): static {
 		if (is_array($data)) {
 			foreach ($data as $class => $numberData) {
 				if (!isset($this->commodities[$class])) {

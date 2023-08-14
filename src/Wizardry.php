@@ -17,12 +17,12 @@ class Wizardry extends ItemSet
 {
 	use BuilderTrait;
 
-	public function add(Enchantment $enchantment): Wizardry {
+	public function add(Enchantment $enchantment): static {
 		$this->addItem($enchantment);
 		return $this;
 	}
 
-	public function remove(Enchantment $enchantment): Wizardry {
+	public function remove(Enchantment $enchantment): static {
 		$this->removeItem($enchantment);
 		return $this;
 	}

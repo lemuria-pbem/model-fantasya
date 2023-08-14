@@ -11,7 +11,7 @@ class ExploringPresetting extends AbstractUpgrade
 
 	protected string $after = '1.4.0';
 
-	public function upgrade(): AbstractUpgrade {
+	public function upgrade(): static {
 		$parties = $this->game->getParties();
 		foreach ($parties as $p => $party) {
 			if (!array_key_exists('exploring', $party['presettings'])) {

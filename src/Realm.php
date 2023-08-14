@@ -11,7 +11,6 @@ use Lemuria\Id;
 use Lemuria\Lemuria;
 use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
-use Lemuria\Serializable;
 use Lemuria\Validate;
 
 /**
@@ -88,7 +87,7 @@ class Realm extends Entity implements Collectible, Collector
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data);
 		$this->identifier = new Id($data[self::IDENTIFIER]);
 		$this->territory->unserialize($data[self::TERRITORY]);
@@ -99,12 +98,12 @@ class Realm extends Entity implements Collectible, Collector
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
 	 */
-	public function collectAll(): Collector {
+	public function collectAll(): static {
 		$this->territory->addCollectorsToAll();
 		return $this;
 	}
 
-	public function setIdentifier(Id $identifier): Realm {
+	public function setIdentifier(Id $identifier): static {
 		$this->identifier = $identifier;
 		return $this;
 	}

@@ -25,13 +25,13 @@ abstract class AbstractUpgrade
 	public function __construct(protected Game $game) {
 	}
 
-	abstract public function upgrade(): AbstractUpgrade;
+	abstract public function upgrade(): static;
 
 	public function isPending(string $version): bool {
 		return $version >= $this->before && $version < $this->after;
 	}
 
-	protected function finish(): AbstractUpgrade {
+	protected function finish(): static {
 		$calendar = $this->game->getCalendar();
 		if ($calendar['version'] < $this->after) {
 			$calendar['version'] = $this->after;

@@ -3,14 +3,12 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Composition;
 
 use function Lemuria\getClass;
-use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Ownable;
 use Lemuria\Model\Fantasya\Readable;
 use Lemuria\Model\Fantasya\Spell;
 use Lemuria\Model\Fantasya\Talent\Magic;
-use Lemuria\Serializable;
 use Lemuria\Validate;
 
 class Scroll extends AbstractComposition implements Ownable, Readable
@@ -31,7 +29,7 @@ class Scroll extends AbstractComposition implements Ownable, Readable
 		return self::WEIGHT;
 	}
 
-	public function init(): Composition {
+	public function init(): static {
 		$this->spell = null;
 		return parent::init();
 	}
@@ -41,7 +39,7 @@ class Scroll extends AbstractComposition implements Ownable, Readable
 		return $data;
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$spell = $data[self::SPELL];
 		if ($spell) {
 			$this->spell = self::createSpell($spell);
@@ -49,12 +47,12 @@ class Scroll extends AbstractComposition implements Ownable, Readable
 		return $this;
 	}
 
-	public function register(Unicum $tenant): Composition {
+	public function register(Unicum $tenant): static {
 		$this->property($tenant)->spell = $this->spell;
 		return $this;
 	}
 
-	public function reshape(Unicum $tenant): Composition {
+	public function reshape(Unicum $tenant): static {
 		$this->spell = $this->property($tenant)->spell;
 		return $this;
 	}

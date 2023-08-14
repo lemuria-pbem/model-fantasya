@@ -70,7 +70,7 @@ class Roads implements \ArrayAccess, \Countable, Serializable
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->completion = [];
 		foreach ($data as $direction => $completion) {
 			$this->offsetSet($direction, $completion);

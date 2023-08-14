@@ -10,7 +10,7 @@ class BattleSpellsExtension extends AbstractUpgrade
 
 	protected string $after = '1.2.0';
 
-	public function upgrade(): AbstractUpgrade {
+	public function upgrade(): static {
 		$units = $this->game->getUnits();
 		foreach ($units as $u => $unit) {
 			if (array_key_exists('battleSpells', $unit)) {

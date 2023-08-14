@@ -11,7 +11,7 @@ class BuildingEffect
 	 */
 	protected array $effects = [];
 
-	public function add(Modification $modification): BuildingEffect {
+	public function add(Modification $modification): static {
 		$talent = getClass($modification->Talent());
 		$this->effects[$talent] = $modification;
 		return $this;

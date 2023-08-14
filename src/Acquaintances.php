@@ -3,12 +3,10 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\EntitySet;
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Id;
 use Lemuria\Identifiable;
 use Lemuria\Model\Domain;
-use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\Validate;
 
@@ -49,7 +47,7 @@ class Acquaintances extends Gathering
 	 * @param array<string, array> $data
 	 * @noinspection DuplicatedCode
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		if ($this->count() > 0) {
 			$this->clear();
@@ -71,12 +69,12 @@ class Acquaintances extends Gathering
 	/**
 	 * Clear the set.
 	 */
-	public function clear(): EntitySet {
+	public function clear(): static {
 		$this->isTold = [];
 		return parent::clear();
 	}
 
-	public function add(Party $party): Acquaintances {
+	public function add(Party $party): static {
 		return parent::add($party);
 	}
 
@@ -99,7 +97,7 @@ class Acquaintances extends Gathering
 		return false;
 	}
 
-	public function tell(Party $party): Acquaintances {
+	public function tell(Party $party): static {
 		$this->addEntity($party->Id(), true);
 		return $this;
 	}

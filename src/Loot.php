@@ -69,7 +69,7 @@ class Loot implements Serializable
 		];
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		$this->group = $data[self::GROUP];
 		$this->class->unserialize($data[self::CLASS_KEY]);
@@ -90,7 +90,7 @@ class Loot implements Serializable
 		return ($this->group & $group) === $group;
 	}
 
-	public function set(int $group): Loot {
+	public function set(int $group): static {
 		if ($group < self::NOTHING) {
 			throw new LemuriaException();
 		}
@@ -110,7 +110,7 @@ class Loot implements Serializable
 		return $this;
 	}
 
-	public function remove(int $group): Loot {
+	public function remove(int $group): static {
 		if ($group < self::NOTHING) {
 			throw new LemuriaException();
 		}

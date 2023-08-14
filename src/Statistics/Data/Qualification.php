@@ -99,7 +99,7 @@ class Qualification implements \ArrayAccess, \Countable, \Iterator, Data
 		return $data;
 	}
 
-	public function unserialize(mixed $data): Data {
+	public function unserialize(mixed $data): static {
 		if (is_array($data)) {
 			foreach ($data as $class => $prognosesData) {
 				Lemuria::Builder()->create($class);

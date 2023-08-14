@@ -75,7 +75,7 @@ class Presettings implements Serializable
 		];
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		$this->setBattleRow(BattleRow::from($data[self::BATTLE_ROW]));
 		$this->setIsHiding($data[self::IS_HIDING]);
@@ -87,32 +87,32 @@ class Presettings implements Serializable
 		return $this;
 	}
 
-	public function setBattleRow(BattleRow $battleRow): Presettings {
+	public function setBattleRow(BattleRow $battleRow): static {
 		$this->battleRow = $battleRow;
 		return $this;
 	}
 
-	public function setDisguise(Id|false|null $disguise = null): Presettings {
+	public function setDisguise(Id|false|null $disguise = null): static {
 		$this->disguiseAs = $disguise;
 		return $this;
 	}
 
-	public function setIsHiding(bool $isHiding): Presettings {
+	public function setIsHiding(bool $isHiding): static {
 		$this->isHiding = $isHiding;
 		return $this;
 	}
 
-	public function setIsLooting(bool $isLooting): Presettings {
+	public function setIsLooting(bool $isLooting): static {
 		$this->isLooting = $isLooting;
 		return $this;
 	}
 
-	public function setIsRepeat(bool $isRepeat): Presettings {
+	public function setIsRepeat(bool $isRepeat): static {
 		$this->isRepeat = $isRepeat;
 		return $this;
 	}
 
-	public function setExploring(Exploring $exploring): Presettings {
+	public function setExploring(Exploring $exploring): static {
 		$this->exploring = $exploring;
 		return $this;
 	}

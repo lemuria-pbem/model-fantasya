@@ -2,7 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\EntitySet;
 use Lemuria\Id;
 
 /**
@@ -19,7 +18,7 @@ class Territory extends Landmass
 		return $this->central ? $this->get($this->central) : null;
 	}
 
-	public function clear(): EntitySet {
+	public function clear(): static {
 		parent::clear();
 		$this->central = null;
 		return $this;

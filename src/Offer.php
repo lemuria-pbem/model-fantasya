@@ -18,7 +18,7 @@ class Offer
 		return $this->price;
 	}
 
-	public function setPrice(int $price): Offer {
+	public function setPrice(int $price): static {
 		$this->price = $price;
 		return $this;
 	}

@@ -11,7 +11,7 @@ class TerrainEffect
 	 */
 	protected array $effects = [];
 
-	public function add(Landscape $landscape, Modification $modification): TerrainEffect {
+	public function add(Landscape $landscape, Modification $modification): static {
 		$landscape = getClass($landscape);
 		$talent    = getClass($modification->Talent());
 		$this->effects[$landscape][$talent] = $modification;

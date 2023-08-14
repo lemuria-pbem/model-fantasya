@@ -11,7 +11,7 @@ class WorldGeometry extends AbstractUpgrade
 
 	protected string $after = '1.2.0';
 
-	public function upgrade(): AbstractUpgrade {
+	public function upgrade(): static {
 		$world = $this->game->getWorld();
 		if (!isset($world['geometry'])) {
 			$newWorld             = ['origin' => $world['origin']];

@@ -23,7 +23,7 @@ class WearResources extends Resources
 	/**
 	 * When filling, transform some items into repairables.
 	 */
-	public function fill(ItemSet $set): ItemSet {
+	public function fill(ItemSet $set): static {
 		foreach ($set as $item) {
 			if ($item instanceof Quantity) {
 				$this->addWorn($item);
@@ -37,7 +37,7 @@ class WearResources extends Resources
 		return $this;
 	}
 
-	public function setWear(float $probability): WearResources {
+	public function setWear(float $probability): static {
 		if ($probability < 0.0 || $probability > 1.0) {
 			throw new LemuriaException('Wear probability must be in interval [0.0; 1.0].');
 		}

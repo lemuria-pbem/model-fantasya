@@ -3,7 +3,6 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Extension;
 
 use Lemuria\Model\Fantasya\Extension;
-use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\Validate;
 
@@ -24,7 +23,7 @@ class Duty implements Extension
 		return [self::DUTY => $this->duty];
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		$this->duty = $data[self::DUTY];
 		return $this;

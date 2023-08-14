@@ -18,11 +18,11 @@ use Lemuria\SortMode;
  */
 class Estate extends EntitySet
 {
-	public function getClone(): Estate {
+	public function getClone(): static {
 		return clone $this;
 	}
 
-	public function add(Construction $construction): self {
+	public function add(Construction $construction): static {
 		$this->addEntity($construction->Id());
 		if ($this->hasCollector()) {
 			$construction->addCollector($this->collector());
@@ -30,7 +30,7 @@ class Estate extends EntitySet
 		return $this;
 	}
 
-	public function remove(Construction $construction): self {
+	public function remove(Construction $construction): static {
 		$this->removeEntity($construction->Id());
 		return $this;
 	}
@@ -38,7 +38,7 @@ class Estate extends EntitySet
 	/**
 	 * Sort the constructions.
 	 */
-	public function sort(SortMode $mode = SortMode::ByType): Estate {
+	public function sort(SortMode $mode = SortMode::ByType): static {
 		switch ($mode) {
 			case SortMode::ById :
 				$this->sortUsing(new ById());

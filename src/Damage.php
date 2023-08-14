@@ -27,7 +27,7 @@ class Damage implements \Stringable
 		return $this->count . 'd' . $this->dice . '+' . $this->addition;
 	}
 
-	public function reducedBy(float $reduction): Damage {
+	public function reducedBy(float $reduction): static {
 		$this->dice     = (int)ceil((1.0 - $reduction) * $this->dice);
 		$this->addition = (int)ceil((1.0 - $reduction) * $this->addition);
 		return $this;

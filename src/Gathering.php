@@ -29,11 +29,11 @@ class Gathering extends EntitySet implements Reassignment
 		parent::__construct($collector);
 	}
 
-	public function getClone(): Gathering {
+	public function getClone(): static {
 		return clone $this;
 	}
 
-	public function add(Party $party): Gathering {
+	public function add(Party $party): static {
 		$this->addEntity($party->Id());
 		return $this;
 	}
@@ -53,7 +53,7 @@ class Gathering extends EntitySet implements Reassignment
 	/**
 	 * Sort the parties.
 	 */
-	public function sort(SortMode $mode = SortMode::ById): Gathering {
+	public function sort(SortMode $mode = SortMode::ById): static {
 		switch ($mode) {
 			case SortMode::ById :
 				$this->sortUsing(new ById());
@@ -64,7 +64,7 @@ class Gathering extends EntitySet implements Reassignment
 		return $this;
 	}
 
-	public function addReassignment(): Gathering {
+	public function addReassignment(): static {
 		if (!$this->isReassign) {
 			Lemuria::Catalog()->addReassignment($this);
 			$this->isReassign = true;

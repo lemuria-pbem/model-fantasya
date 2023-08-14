@@ -20,14 +20,14 @@ class FantasyaAtlas extends Atlas
 		$this->landmass = new NullContainer();
 	}
 
-	public function add(Location $location): Atlas {
+	public function add(Location $location): static {
 		if ($this->landmass->contains($location)) {
 			return parent::add($location);
 		}
 		return $this;
 	}
 
-	public function sort(SortMode $mode = SortMode::ById): Atlas {
+	public function sort(SortMode $mode = SortMode::ById): static {
 		switch ($mode) {
 			case SortMode::ByResidents :
 				$this->sortUsing(new ByResidents());
@@ -38,7 +38,7 @@ class FantasyaAtlas extends Atlas
 		return $this;
 	}
 
-	public function forContinent(Continent $continent): FantasyaAtlas {
+	public function forContinent(Continent $continent): static {
 		$this->landmass = $continent->Landmass();
 		return $this;
 	}

@@ -14,7 +14,6 @@ use Lemuria\Model\Domain;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Sized;
-use Lemuria\Serializable;
 use Lemuria\Validate;
 
 /**
@@ -122,7 +121,7 @@ class Construction extends Entity implements Collectible, Collector, Sized
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		parent::unserialize($data);
 		$this->setBuilding($this->createBuilding($data[self::BUILDING]));
 		$this->setSize($data[self::SIZE]);
@@ -136,13 +135,13 @@ class Construction extends Entity implements Collectible, Collector, Sized
 	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
 	 * then.
 	 */
-	public function collectAll(): Collector {
+	public function collectAll(): static {
 		$this->Inhabitants()->addCollectorsToAll();
 		$this->Treasury()->addCollectorsToAll();
 		return $this;
 	}
 
-	public function setBuilding(Building $building): Construction {
+	public function setBuilding(Building $building): static {
 		$this->building = $building;
 		$correctedSize  = $building->correctSize($this->size);
 		if ($correctedSize !== $this->size) {
@@ -151,7 +150,7 @@ class Construction extends Entity implements Collectible, Collector, Sized
 		return $this;
 	}
 
-	public function setSize(int $size): Construction {
+	public function setSize(int $size): static {
 		$this->size        = $size;
 		$correctedBuilding = $this->building->correctBuilding($size);
 		if ($correctedBuilding !== $this->building) {

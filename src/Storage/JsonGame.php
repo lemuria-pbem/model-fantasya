@@ -107,99 +107,99 @@ abstract class JsonGame implements Game
 		return $this->getData('strings.json');
 	}
 
-	public function setCalendar(array $calendar): Game {
+	public function setCalendar(array $calendar): static {
 		return $this->setData('calendar.json', $calendar);
 	}
 
-	public function setConstructions(array $constructions): Game {
+	public function setConstructions(array $constructions): static {
 		if (!ksort($constructions)) {
 			throw new ModelException('Sorting constructions failed.');
 		}
 		return $this->setData('constructions.json', array_values($constructions));
 	}
 
-	public function setMessages(array $messages): Game {
+	public function setMessages(array $messages): static {
 		return $this->setData('messages.json', $messages);
 	}
 
-	public function setParties(array $parties): Game {
+	public function setParties(array $parties): static {
 		if (!ksort($parties)) {
 			throw new ModelException('Sorting parties failed.');
 		}
 		return $this->setData('parties.json', array_values($parties));
 	}
 
-	public function setOrders(array $orders): Game {
+	public function setOrders(array $orders): static {
 		return $this->setData('orders.json', $orders);
 	}
 
-	public function setRegions(array $regions): Game {
+	public function setRegions(array $regions): static {
 		if (!ksort($regions)) {
 			throw new ModelException('Sorting regions failed.');
 		}
 		return $this->setData('regions.json', array_values($regions));
 	}
 
-	public function setUnits(array $units): Game {
+	public function setUnits(array $units): static {
 		if (!ksort($units)) {
 			throw new ModelException('Sorting units failed.');
 		}
 		return $this->setData('units.json', array_values($units));
 	}
 
-	public function setVessels(array $vessels): Game {
+	public function setVessels(array $vessels): static {
 		if (!ksort($vessels)) {
 			throw new ModelException('Sorting vessels failed.');
 		}
 		return $this->setData('vessels.json', array_values($vessels));
 	}
 
-	public function setWorld(array $world): Game {
+	public function setWorld(array $world): static {
 		return $this->setData('world.json', $world);
 	}
 
-	public function setEffects(array $effects): Game {
+	public function setEffects(array $effects): static {
 		return $this->setData('effects.json', $effects);
 	}
 
-	public function setNewcomers(array $newcomers): Game {
+	public function setNewcomers(array $newcomers): static {
 		return $this->setData('newcomers.json', $newcomers);
 	}
 
-	public function setContinents(array $continents): Game {
+	public function setContinents(array $continents): static {
 		if (!ksort($continents)) {
 			throw new ModelException('Sorting continents failed.');
 		}
 		return $this->setData('continents.json', array_values($continents));
 	}
 
-	public function setHostilities(array $hostilities): Game {
+	public function setHostilities(array $hostilities): static {
 		return $this->setData('hostilities.json', $hostilities);
 	}
 
-	public function setUnica(array $unica): Game {
+	public function setUnica(array $unica): static {
 		if (!ksort($unica)) {
 			throw new ModelException('Sorting unica failed.');
 		}
 		return $this->setData('unica.json', array_values($unica));
 	}
 
-	public function setTrades(array $trades): Game {
+	public function setTrades(array $trades): static {
 		return $this->setData('trades.json', $trades);
 	}
 
-	public function setRealms(array $realms): Game {
+	public function setRealms(array $realms): static {
 		if (!ksort($realms)) {
 			throw new ModelException('Sorting realms failed.');
 		}
 		return $this->setData('realms.json', array_values($realms));
 	}
 
-	public function setStatistics(array $statistics): Game {
+	public function setStatistics(array $statistics): static {
 		return $this->setData('statistics.json', $statistics);
 	}
 
-	public function migrate(): Game {
+	public function migrate(): static {
 		$data = $this->getConstructions();
 		if ($this->migrateData(Construction::class, $data)) {
 			$this->setConstructions($data);
@@ -282,7 +282,7 @@ abstract class JsonGame implements Game
 		return $this->getProvider('r', $fileName)->read($fileName);
 	}
 
-	private function setData(string $fileName, array $data): JsonGame {
+	private function setData(string $fileName, array $data): static {
 		$this->getProvider('w', $fileName)->write($fileName, $data);
 		return $this;
 	}

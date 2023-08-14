@@ -71,14 +71,14 @@ class Extensions implements \ArrayAccess, Serializable
 	/**
 	 * Restore the model's data from serialized data.
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		foreach ($data as $class => $extension) {
 			$this->extensions[$class] = $this->createExtension($class)->unserialize($extension);
 		}
 		return $this;
 	}
 
-	public function add(Extension $extension): Extensions {
+	public function add(Extension $extension): static {
 		$this->offsetSet($extension, $extension);
 		return $this;
 	}

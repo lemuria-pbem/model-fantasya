@@ -37,7 +37,7 @@ class SpellGrade implements Serializable
 		return [getClass($this->spell) => $this->level];
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		$spell = self::createSpell(key($data));
 		if ($spell instanceof BattleSpell) {

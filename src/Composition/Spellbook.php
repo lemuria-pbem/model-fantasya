@@ -3,12 +3,10 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Composition;
 
 use Lemuria\Model\Fantasya\Commodity\Silver;
-use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\Ownable;
 use Lemuria\Model\Fantasya\Readable;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Model\Fantasya\Unicum;
-use Lemuria\Serializable;
 use Lemuria\SingletonSet;
 use Lemuria\TenantTrait;
 use Lemuria\Validate;
@@ -37,7 +35,7 @@ class Spellbook extends AbstractComposition implements Ownable, Readable
 		return self::WEIGHT;
 	}
 
-	public function init(): Composition {
+	public function init(): static {
 		$this->spells->clear();
 		return parent::init();
 	}
@@ -47,17 +45,17 @@ class Spellbook extends AbstractComposition implements Ownable, Readable
 		return $data;
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->spells->unserialize($data[self::SPELLS]);
 		return $this;
 	}
 
-	public function register(Unicum $tenant): Composition {
+	public function register(Unicum $tenant): static {
 		$this->property($tenant)->spells = $this->spells;
 		return $this;
 	}
 
-	public function reshape(Unicum $tenant): Composition {
+	public function reshape(Unicum $tenant): static {
 		$this->spells = $this->property($tenant)->spells;
 		return $this;
 	}

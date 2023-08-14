@@ -8,7 +8,6 @@ use Lemuria\Model\Fantasya\BattleSpell;
 use Lemuria\Model\Fantasya\Extension;
 use Lemuria\Model\Fantasya\Combat\Phase;
 use Lemuria\Model\Fantasya\SpellGrade;
-use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 
 class BattleSpells implements \Countable, Extension
@@ -60,7 +59,7 @@ class BattleSpells implements \Countable, Extension
 		return $data;
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		foreach ($data as $phase => $spell) {
 			$this->spells[$phase] = $this->unserializeBattleSpell($spell);
@@ -79,7 +78,7 @@ class BattleSpells implements \Countable, Extension
 		return false;
 	}
 
-	public function add(SpellGrade $spell): BattleSpells {
+	public function add(SpellGrade $spell): static {
 		$phase = $spell->Spell()->Phase()->value;
 		if (array_key_exists($phase, $this->spells)) {
 			$this->spells[$phase] = $spell;
@@ -88,7 +87,7 @@ class BattleSpells implements \Countable, Extension
 		throw new LemuriaException('Invalid battle spell phase in ' . $spell->Spell() . '.');
 	}
 
-	public function remove(BattleSpell $spell): BattleSpells {
+	public function remove(BattleSpell $spell): static {
 		if (!$this->has($spell)) {
 			throw new LemuriaException('Battle spell not set: ' . $spell);
 		}

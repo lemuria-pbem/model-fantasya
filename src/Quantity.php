@@ -29,13 +29,13 @@ class Quantity extends Item
 		return $this->Count() * $this->Commodity()->Weight();
 	}
 
-	public function add(Quantity $quantity): Quantity {
+	public function add(Quantity $quantity): static {
 		$this->addItem($quantity);
 
 		return $this;
 	}
 
-	public function remove(Quantity $quantity): Quantity {
+	public function remove(Quantity $quantity): static {
 		$this->removeItem($quantity);
 
 		return $this;

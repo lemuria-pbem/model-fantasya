@@ -29,13 +29,13 @@ class Gang extends Item
 		return $this->Count() * $this->Race()->Weight();
 	}
 
-	public function add(Gang $gang): Gang {
+	public function add(Gang $gang): static {
 		$this->addItem($gang);
 
 		return $this;
 	}
 
-	public function remove(Gang $gang): Gang {
+	public function remove(Gang $gang): static {
 		$this->removeItem($gang);
 
 		return $this;

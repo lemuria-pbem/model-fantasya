@@ -19,13 +19,13 @@ class Enchantment extends Item
 		return $spell;
 	}
 
-	public function add(Enchantment $enchantment): Enchantment {
+	public function add(Enchantment $enchantment): static {
 		$this->addItem($enchantment);
 
 		return $this;
 	}
 
-	public function remove(Enchantment $enchantment): Enchantment {
+	public function remove(Enchantment $enchantment): static {
 		$this->removeItem($enchantment);
 
 		return $this;

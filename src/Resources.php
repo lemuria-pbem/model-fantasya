@@ -45,16 +45,16 @@ class Resources extends ItemSet
 		return self::$all;
 	}
 
-	public function getClone(): Resources {
+	public function getClone(): static {
 		return clone $this;
 	}
 
-	public function add(Quantity $quantity): Resources {
+	public function add(Quantity $quantity): static {
 		$this->addItem($quantity);
 		return $this;
 	}
 
-	public function remove(Quantity $quantity): Resources {
+	public function remove(Quantity $quantity): static {
 		$this->removeItem($quantity);
 		return $this;
 	}

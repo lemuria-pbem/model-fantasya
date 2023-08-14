@@ -14,7 +14,7 @@ class FillEasternOcean extends AbstractUpgrade
 
 	protected string $after = '1.2.9';
 
-	public function upgrade(): AbstractUpgrade {
+	public function upgrade(): static {
 		$continents = $this->game->getContinents();
 		$regions    = $this->game->getRegions();
 		if (count($regions) > self::REGION_COUNT || count($continents[1]['landmass']) > self::REGION_COUNT) {

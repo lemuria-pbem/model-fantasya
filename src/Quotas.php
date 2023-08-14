@@ -84,7 +84,7 @@ class Quotas implements \ArrayAccess, \Countable, \Iterator, Serializable
 	/**
 	 * @param array<string, int|float> $data
 	 */
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		if ($this->count() > 0) {
 			$this->clear();
@@ -129,7 +129,7 @@ class Quotas implements \ArrayAccess, \Countable, \Iterator, Serializable
 	/**
 	 * Clear the set.
 	 */
-	public function clear(): Quotas {
+	public function clear(): static {
 		$this->indices = [];
 		$this->quota   = [];
 		$this->index   = 0;

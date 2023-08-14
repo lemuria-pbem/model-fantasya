@@ -54,7 +54,7 @@ class Deal implements \Stringable, Serializable
 		return [$this->__toString()];
 	}
 
-	public function unserialize(array $data): Serializable {
+	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		$this->commodity = self::createCommodity($this->parts[0]);
 		$this->amount    = $this->parts[1];

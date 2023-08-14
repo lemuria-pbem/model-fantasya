@@ -68,7 +68,7 @@ class LemuriaCatalog implements Catalog
 		return $this->catalog[$domain->value];
 	}
 
-	public function load(): Catalog {
+	public function load(): static {
 		if (!$this->isLoaded) {
 			foreach (Lemuria::Game()->getContinents() as $data) {
 				$continent = new Continent();
@@ -113,7 +113,7 @@ class LemuriaCatalog implements Catalog
 		return $this;
 	}
 
-	public function save(): Catalog {
+	public function save(): static {
 		$entities = [];
 		foreach ($this->catalog[Domain::Party->value] as $id => $party /* @var Party $party */) {
 			$entities[$id] = $party->serialize();
@@ -165,7 +165,7 @@ class LemuriaCatalog implements Catalog
 	/**
 	 * @throws DuplicateIdException
 	 */
-	public function register(Identifiable $identifiable): Catalog {
+	public function register(Identifiable $identifiable): static {
 		$domain = $identifiable->Catalog()->value;
 		$id     = $identifiable->Id()->Id();
 		if (isset($this->catalog[$domain][$id])) {
@@ -182,7 +182,7 @@ class LemuriaCatalog implements Catalog
 	/**
 	 * @throws NotRegisteredException
 	 */
-	public function remove(Identifiable $identifiable): Catalog {
+	public function remove(Identifiable $identifiable): static {
 		$domain = $identifiable->Catalog()->value;
 		$id     = $identifiable->Id()->Id();
 		if (!isset($this->catalog[$domain][$id])) {
@@ -193,7 +193,7 @@ class LemuriaCatalog implements Catalog
 		return $this;
 	}
 
-	public function reassign(Identifiable $identifiable, ?Id $oldId = null): Catalog {
+	public function reassign(Identifiable $identifiable, ?Id $oldId = null): static {
 		foreach ($this->reassignments as $reassignment) {
 			$oldId ? $reassignment->reassign($oldId, $identifiable) : $reassignment->remove($identifiable);
 		}
@@ -206,7 +206,7 @@ class LemuriaCatalog implements Catalog
 		return $id;
 	}
 
-	public function addReassignment(Reassignment $listener): Catalog {
+	public function addReassignment(Reassignment $listener): static {
 		$this->reassignments[] = $listener;
 		return $this;
 	}

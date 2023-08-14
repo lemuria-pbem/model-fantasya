@@ -21,7 +21,7 @@ class InventoryDistribution
 	public function __construct(protected readonly Unit $unit) {
 	}
 
-	public function distribute(): InventoryDistribution {
+	public function distribute(): static {
 		$this->createDistributions();
 		$this->cloneInventory();
 		$this->distributeInventory();

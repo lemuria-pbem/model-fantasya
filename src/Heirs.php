@@ -33,7 +33,7 @@ class Heirs implements \Countable
 			   $this->otherConstruction->count() + $this->otherVessel->count();
 	}
 
-	public function add(Unit $unit): Heirs {
+	public function add(Unit $unit): static {
 		$construction = $unit->Construction();
 		if ($construction) {
 			if ($construction === $this->construction) {

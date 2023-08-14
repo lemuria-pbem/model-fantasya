@@ -30,6 +30,9 @@
       <option name="IGNORE_GLOBAL_NAMESPACE" value="true" />
     </inspection_tool>
     <inspection_tool class="PhpUnnecessaryLocalVariableInspection" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="PhpUnnecessaryStaticReferenceInspection" enabled="true" level="WEAK WARNING" enabled_by_default="false">
+      <scope name="All Changed Files" level="WEAK WARNING" enabled="true" />
+    </inspection_tool>
     <inspection_tool class="PhpUnused" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="SpellCheckingInspection" enabled="true" level="INFORMATION" enabled_by_default="true">
       <scope name="All Changed Files" level="TYPO" enabled="true">

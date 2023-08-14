@@ -13,11 +13,11 @@ use Lemuria\Id;
  */
 class Treasury extends EntitySet
 {
-	public function getClone(): Treasury {
+	public function getClone(): static {
 		return clone $this;
 	}
 
-	public function add(Unicum $unicum): Treasury {
+	public function add(Unicum $unicum): static {
 		$this->addEntity($unicum->Id());
 		if ($this->hasCollector()) {
 			$unicum->addCollector($this->collector());
@@ -25,7 +25,7 @@ class Treasury extends EntitySet
 		return $this;
 	}
 
-	public function remove(Unicum $unicum): Treasury {
+	public function remove(Unicum $unicum): static {
 		$this->removeEntity($unicum->Id());
 		if ($this->hasCollector()) {
 			$unicum->removeCollector($this->collector());
