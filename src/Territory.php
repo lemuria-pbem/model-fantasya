@@ -3,6 +3,7 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use Lemuria\Id;
+use Lemuria\Sorting\Location\North2South;
 
 /**
  * A collection of regions that have a central.
@@ -21,6 +22,11 @@ class Territory extends Landmass
 	public function clear(): static {
 		parent::clear();
 		$this->central = null;
+		return $this;
+	}
+
+	public function sort(): static {
+		$this->sortUsing(new North2South());
 		return $this;
 	}
 
