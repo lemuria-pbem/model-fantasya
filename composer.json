@@ -10,14 +10,14 @@
 			"email": "lemuria@online.de"
 		}
 	],
-	"version": "1.4.12",
+	"version": "1.5.0",
 	"time": "2024-01-21",
 
 	"require": {
 		"php": "~8.2",
 		"ext-json": "~8.2",
 		"ramsey/uuid": "~4.7|~5.0",
-		"lemuria-pbem/lemuria": "~1.4.0|dev-master"
+		"lemuria-pbem/lemuria": "~1.5.0|dev-feature/NPC"
 	},
 	"require-dev": {
 		"sat-hub/phpunit": "~1.10.1"
