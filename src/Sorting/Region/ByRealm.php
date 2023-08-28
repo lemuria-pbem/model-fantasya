@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya\Sorting\Region;
 
 use Lemuria\EntitySet;
 use Lemuria\Model\Fantasya\Party;
+use Lemuria\Model\Fantasya\Region;
 use Lemuria\Model\World\Atlas;
 use Lemuria\Sorting\Location\North2South;
 
@@ -26,8 +27,9 @@ class ByRealm extends North2South
 		$north2South = [];
 		foreach ($this->getSortedLocations($set) as $row) {
 			ksort($row);
-			foreach ($row as $id) {
-				$north2South[] = $id->Id()->Id();
+			foreach ($row as $region) {
+				/** @var Region $region */
+				$north2South[$region->Continent()->Id()->Id()][] = $region->Id()->Id();
 			}
 		}
 		$ids    = [];
@@ -39,14 +41,20 @@ class ByRealm extends North2South
 		}
 
 		$sorted = [];
-		foreach ($north2South as $id) {
-			if (!isset($ids[$id])) {
-				$sorted[] = $id;
-			} elseif (isset($realms[$id])) {
-				$sorted = array_merge($sorted, $realms[$id]);
+		foreach ($north2South as $continent => $locations) {
+			foreach ($locations as $id) {
+				if (!isset($ids[$id])) {
+					$sorted[$continent][] = $id;
+				} elseif (isset($realms[$id])) {
+					if (isset($sorted[$continent])) {
+						$sorted[$continent] = array_merge($sorted[$continent], $realms[$id]);
+					} else {
+						$sorted[$continent] = $realms[$id];
+					}
+				}
 			}
 		}
-		return $sorted;
+		return array_merge(...$sorted);
 	}
 
 	/**
