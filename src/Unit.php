@@ -2,6 +2,7 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
+use Lemuria\Model\World\Direction;
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
@@ -62,7 +63,7 @@ class Unit extends Entity implements Collectible, Collector, Sized
 
 	private float $health = 1.0;
 
-	private bool $isGuarding = false;
+	private Direction|false $isGuarding = false;
 
 	private BattleRow $battleRow = BattleRow::Bystander;
 
@@ -143,7 +144,11 @@ class Unit extends Entity implements Collectible, Collector, Sized
 	}
 
 	public function IsGuarding(): bool {
-		return $this->isGuarding;
+		return (bool)$this->isGuarding;
+	}
+
+	public function GuardDirection(): Direction {
+		return $this->isGuarding ?: Direction::None;
 	}
 
 	public function BattleRow(): BattleRow {
@@ -253,7 +258,7 @@ class Unit extends Entity implements Collectible, Collector, Sized
 		$data[self::SIZE]        = $this->Size();
 		$data[self::AURA]        = $this->aura?->serialize();
 		$data[self::HEALTH]      = $this->Health();
-		$data[self::IS_GUARDING] = $this->IsGuarding();
+		$data[self::IS_GUARDING] = $this->isGuarding ? $this->isGuarding->value : false;
 		$data[self::BATTLE_ROW]  = $this->BattleRow();
 		$data[self::IS_HIDING]   = $this->IsHiding();
 		$data[self::IS_LOOTING]  = $this->IsLooting();
@@ -274,7 +279,8 @@ class Unit extends Entity implements Collectible, Collector, Sized
 		$this->setRace(self::createRace($data[self::RACE]));
 		$this->setSize($data[self::SIZE]);
 		$this->setHealth($data[self::HEALTH]);
-		$this->setIsGuarding($data[self::IS_GUARDING]);
+		$isGuarding = $data[self::IS_GUARDING];
+		$this->setIsGuarding(is_string($isGuarding) ? Direction::from($isGuarding) : false);
 		$this->setBattleRow(BattleRow::from($data[self::BATTLE_ROW]));
 		$this->setIsHiding($data[self::IS_HIDING]);
 		$this->setIsLooting($data[self::IS_LOOTING]);
@@ -311,7 +317,10 @@ class Unit extends Entity implements Collectible, Collector, Sized
 		return $this;
 	}
 
-	public function setIsGuarding(bool $isGuarding): static {
+	public function setIsGuarding(Direction|bool $isGuarding): static {
+		if ($isGuarding === true) {
+			$isGuarding = Direction::None;
+		}
 		$this->isGuarding = $isGuarding;
 		return $this;
 	}
@@ -366,11 +375,14 @@ class Unit extends Entity implements Collectible, Collector, Sized
 		$this->validate($data, self::SIZE, Validate::Int);
 		$this->validate($data, self::AURA, Validate::ArrayOrNull);
 		$this->validate($data, self::HEALTH, Validate::Float);
-		$this->validate($data, self::IS_GUARDING, Validate::Bool);
+		$isGuarding = $this->validateDataKey($data, self::IS_GUARDING);
+		if ($isGuarding !== false) {
+			$this->validateEnum($data, self::IS_GUARDING, Direction::class);
+		}
 		$this->validate($data, self::BATTLE_ROW, Validate::Int);
 		$this->validate($data, self::IS_HIDING, Validate::Bool);
 		$this->validate($data, self::IS_LOOTING, Validate::Bool);
-		$disguiseAs = $data[self::DISGUISE_AS];
+		$disguiseAs = $this->validateDataKey($data, self::DISGUISE_AS);
 		if (!is_bool($disguiseAs) || $disguiseAs) {
 			$this->validate($data, self::DISGUISE_AS, Validate::IntOrNull);
 		}
