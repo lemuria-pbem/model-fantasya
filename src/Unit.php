@@ -2,7 +2,6 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\Model\World\Direction;
 use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
@@ -19,6 +18,7 @@ use Lemuria\Model\Fantasya\Extension\Trades;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Talent\Magic;
 use Lemuria\Model\Sized;
+use Lemuria\Model\World\Direction;
 use Lemuria\Validate;
 
 /**
@@ -47,6 +47,8 @@ class Unit extends Entity implements Collectible, Collector, Sized
 
 	private const IS_LOOTING = 'isLooting';
 
+	private const IS_TRANSPORTING = 'isTransporting';
+
 	private const DISGUISE_AS = 'disguiseAs';
 
 	private const INVENTORY = 'inventory';
@@ -70,6 +72,8 @@ class Unit extends Entity implements Collectible, Collector, Sized
 	private bool $isHiding = false;
 
 	private bool $isLooting = true;
+
+	private bool $isTransporting = false;
 
 	private Id|false|null $disguiseAs = false;
 
@@ -163,6 +167,10 @@ class Unit extends Entity implements Collectible, Collector, Sized
 		return $this->isLooting;
 	}
 
+	public function IsTransporting(): bool {
+		return $this->isTransporting;
+	}
+
 	public function Disguise(): Party|false|null {
 		if ($this->disguiseAs instanceof Id) {
 			return Party::get($this->disguiseAs);
@@ -253,20 +261,21 @@ class Unit extends Entity implements Collectible, Collector, Sized
 	}
 
 	public function serialize(): array {
-		$data                    = parent::serialize();
-		$data[self::RACE]        = getClass($this->Race());
-		$data[self::SIZE]        = $this->Size();
-		$data[self::AURA]        = $this->aura?->serialize();
-		$data[self::HEALTH]      = $this->Health();
-		$data[self::IS_GUARDING] = $this->isGuarding ? $this->isGuarding->value : false;
-		$data[self::BATTLE_ROW]  = $this->BattleRow();
-		$data[self::IS_HIDING]   = $this->IsHiding();
-		$data[self::IS_LOOTING]  = $this->IsLooting();
-		$id                      = $this->disguiseAs;
-		$data[self::DISGUISE_AS] = $id instanceof Id ? $id->Id() : $id;
-		$data[self::INVENTORY]   = $this->Inventory()->serialize();
-		$data[self::TREASURY]    = $this->Treasury()->serialize();
-		$data[self::KNOWLEDGE]   = $this->Knowledge()->serialize();
+		$data                        = parent::serialize();
+		$data[self::RACE]            = getClass($this->Race());
+		$data[self::SIZE]            = $this->Size();
+		$data[self::AURA]            = $this->aura?->serialize();
+		$data[self::HEALTH]          = $this->Health();
+		$data[self::IS_GUARDING]     = $this->isGuarding ? $this->isGuarding->value : false;
+		$data[self::BATTLE_ROW]      = $this->BattleRow();
+		$data[self::IS_HIDING]       = $this->IsHiding();
+		$data[self::IS_LOOTING]      = $this->IsLooting();
+		$data[self::IS_TRANSPORTING] = $this->IsTransporting();
+		$id                          = $this->disguiseAs;
+		$data[self::DISGUISE_AS]     = $id instanceof Id ? $id->Id() : $id;
+		$data[self::INVENTORY]       = $this->Inventory()->serialize();
+		$data[self::TREASURY]        = $this->Treasury()->serialize();
+		$data[self::KNOWLEDGE]       = $this->Knowledge()->serialize();
 		$this->serializeExtensions($data);
 		return $data;
 	}
@@ -284,6 +293,7 @@ class Unit extends Entity implements Collectible, Collector, Sized
 		$this->setBattleRow(BattleRow::from($data[self::BATTLE_ROW]));
 		$this->setIsHiding($data[self::IS_HIDING]);
 		$this->setIsLooting($data[self::IS_LOOTING]);
+		$this->setIsTransporting($data[self::IS_TRANSPORTING]);
 		$id               = $data[self::DISGUISE_AS];
 		$this->disguiseAs = is_int($id) ? new Id($id) : $id;
 		$this->Inventory()->unserialize($data[self::INVENTORY]);
@@ -340,6 +350,11 @@ class Unit extends Entity implements Collectible, Collector, Sized
 		return $this;
 	}
 
+	public function setIsTransporting(bool $isTransporting): static {
+		$this->isTransporting = $isTransporting;
+		return $this;
+	}
+
 	public function setDisguise(Party|false|null $party = null): static {
 		if ($party) {
 			if ($party === $this->Party()) {
@@ -382,6 +397,7 @@ class Unit extends Entity implements Collectible, Collector, Sized
 		$this->validate($data, self::BATTLE_ROW, Validate::Int);
 		$this->validate($data, self::IS_HIDING, Validate::Bool);
 		$this->validate($data, self::IS_LOOTING, Validate::Bool);
+		$this->validate($data, self::IS_TRANSPORTING, Validate::Bool);
 		$disguiseAs = $this->validateDataKey($data, self::DISGUISE_AS);
 		if (!is_bool($disguiseAs) || $disguiseAs) {
 			$this->validate($data, self::DISGUISE_AS, Validate::IntOrNull);

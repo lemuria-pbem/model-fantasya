@@ -18,6 +18,7 @@ class Unit extends AbstractModel
 		$this->addInteger('battleRow', BattleRow::Refugee->value);
 		$this->addBool('isHiding');
 		$this->addBool('isLooting', true);
+		$this->addBool('isTransporting');
 		$this->addBool('disguiseAs');
 		$this->addArray('inventory');
 		$this->addArray('treasury');
