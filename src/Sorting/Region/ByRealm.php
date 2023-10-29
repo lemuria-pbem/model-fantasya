@@ -24,16 +24,19 @@ class ByRealm extends North2South
 	 * @return array<int>
 	 */
 	public function sort(EntitySet $set): array {
+		$allRegions  = [];
 		$north2South = [];
 		foreach ($this->getSortedLocations($set) as $row) {
 			ksort($row);
 			foreach ($row as $region) {
 				/** @var Region $region */
-				$north2South[$region->Continent()->Id()->Id()][] = $region->Id()->Id();
+				$id                                              = $region->Id()->Id();
+				$allRegions[$id]                                 = true;
+				$north2South[$region->Continent()->Id()->Id()][] = $id;
 			}
 		}
 		$ids    = [];
-		$realms = $this->getRealmRegions();
+		$realms = $this->getRealmRegions($allRegions);
 		foreach ($realms as $regions) {
 			foreach ($regions as $id) {
 				$ids[$id] = true;
@@ -60,7 +63,7 @@ class ByRealm extends North2South
 	/**
 	 * @return array<int, array<int>>
 	 */
-	protected function getRealmRegions(): array {
+	protected function getRealmRegions(array $allRegions): array {
 		$centers = [];
 		foreach ($this->party->Possessions() as $realm) {
 			$territory = $realm->Territory()->sort();
@@ -68,9 +71,14 @@ class ByRealm extends North2South
 			if ($center) {
 				$regions = [];
 				foreach ($territory as $region) {
-					$regions[] = $region->Id()->Id();
+					$id = $region->Id()->Id();
+					if (isset($allRegions[$id])) {
+						$regions[] = $id;
+					}
 				}
-				$centers[$center->Id()->Id()] = $regions;
+				if (!empty($regions)) {
+					$centers[$center->Id()->Id()] = $regions;
+				}
 			}
 		}
 		return $centers;
