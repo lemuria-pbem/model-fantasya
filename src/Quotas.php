@@ -114,8 +114,8 @@ class Quotas implements \ArrayAccess, \Countable, \Iterator, Serializable
 	 */
 	public function delete(string|Commodity|Quota $commodity): void {
 		$class = getClass($commodity instanceof Quota ? $commodity->Commodity() : $commodity);
-		unset($this->singletons[$class]);
-		$this->indices = array_keys($this->singletons);
+		unset($this->quota[$class]);
+		$this->indices = array_keys($this->quota);
 		$this->count--;
 		if ($this->index >= $this->count) {
 			if ($this->count === 0) {
