@@ -34,11 +34,11 @@ class BattleSpells implements \Countable, Extension
 	}
 
 	public function Preparation(): ?SpellGrade {
-		return $this->spells[Phase::Preparation->value];
+		return $this->spells[Phase::Preparation->value] ?? null;
 	}
 
 	public function Combat(): ?SpellGrade {
-		return $this->spells[Phase::Combat->value];
+		return $this->spells[Phase::Combat->value] ?? null;
 	}
 
 	public function count(): int {
@@ -91,7 +91,7 @@ class BattleSpells implements \Countable, Extension
 		if (!$this->has($spell)) {
 			throw new LemuriaException('Battle spell not set: ' . $spell);
 		}
-		unset($this->spells[$spell->Phase()->value]);
+		$this->spells[$spell->Phase()->value] = null;
 		return $this;
 	}
 
