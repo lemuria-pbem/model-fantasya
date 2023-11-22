@@ -17,11 +17,11 @@ final class Horse implements Animal, RawMaterial, Transport
 	use RawMaterialTrait;
 	use SingletonTrait;
 
-	private const PAYLOAD = 20 * 100;
+	private const int PAYLOAD = 20 * 100;
 
-	private const SPEED = 2;
+	private const int SPEED = 2;
 
-	private const WEIGHT = 50 * 100;
+	private const int WEIGHT = 50 * 100;
 
 	public function Weight(): int {
 		return self::WEIGHT;

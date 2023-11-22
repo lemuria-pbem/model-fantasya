@@ -7,15 +7,15 @@ namespace Lemuria\Model\Fantasya\Ship;
  */
 final class Longboat extends AbstractShip
 {
-	private const CAPTAIN = 2;
+	private const int CAPTAIN = 2;
 
-	private const CREW = 10;
+	private const int CREW = 10;
 
-	private const PAYLOAD = 500 * 100;
+	private const int PAYLOAD = 500 * 100;
 
-	private const SPEED = 4;
+	private const int SPEED = 4;
 
-	private const WOOD = 50;
+	private const int WOOD = 50;
 
 	public function Captain(): int {
 		return self::CAPTAIN;

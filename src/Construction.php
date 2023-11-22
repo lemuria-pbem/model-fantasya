@@ -26,13 +26,13 @@ class Construction extends Entity implements Collectible, Collector, Sized
 	use CollectorTrait;
 	use ExtensionTrait;
 
-	private const BUILDING = 'building';
+	private const string BUILDING = 'building';
 
-	private const SIZE = 'size';
+	private const string SIZE = 'size';
 
-	private const INHABITANTS = 'inhabitants';
+	private const string INHABITANTS = 'inhabitants';
 
-	private const TREASURY = 'treasury';
+	private const string TREASURY = 'treasury';
 
 	private Building $building;
 

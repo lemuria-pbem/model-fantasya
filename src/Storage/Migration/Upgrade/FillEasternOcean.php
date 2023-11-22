@@ -8,7 +8,7 @@ use Lemuria\Model\Fantasya\Storage\Migration\AbstractUpgrade;
 
 class FillEasternOcean extends AbstractUpgrade
 {
-	private const REGION_COUNT = 5250;
+	private const int REGION_COUNT = 5250;
 
 	protected string $before = '1.2.0';
 

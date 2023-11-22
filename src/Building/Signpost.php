@@ -13,15 +13,15 @@ use Lemuria\Model\Fantasya\Commodity\Wood;
  */
 final class Signpost extends AbstractBuilding
 {
-	private const TALENT = 1;
+	private const int TALENT = 1;
 
-	private const SILVER = 50;
+	private const int SILVER = 50;
 
-	private const WOOD = 1;
+	private const int WOOD = 1;
 
-	private const STONE = 1;
+	private const int STONE = 1;
 
-	private const IRON = 1;
+	private const int IRON = 1;
 
 	public function Dependency(): ?Building {
 		return Building::IS_INDEPENDENT;

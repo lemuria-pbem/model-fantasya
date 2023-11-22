@@ -11,7 +11,7 @@ class Duty implements Extension
 	use ExtensionTrait;
 	use SerializableTrait;
 
-	private const DUTY = 'duty';
+	private const string DUTY = 'duty';
 
 	protected float $duty = 0.0;
 

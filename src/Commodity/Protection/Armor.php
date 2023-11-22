@@ -10,13 +10,13 @@ use Lemuria\Model\Fantasya\Commodity\Iron;
  */
 final class Armor extends AbstractProtection implements Armature
 {
-	public final const WEIGHT = 4 * 100;
+	public final const int WEIGHT = 4 * 100;
 
-	public final const BLOCK = 7;
+	public final const int BLOCK = 7;
 
-	private const CRAFT = 4;
+	private const int CRAFT = 4;
 
-	private const IRON = 5;
+	private const int IRON = 5;
 
 	public function Weight(): int {
 		return self::WEIGHT;

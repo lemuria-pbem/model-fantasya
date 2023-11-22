@@ -46,7 +46,10 @@ use Lemuria\Model\Fantasya\Construction;
  */
 class ByBuilding implements EntityOrder
 {
-	protected const ORDER = [
+	/**
+	 * @type array<string>
+	 */
+	protected const array ORDER = [
 		Monument::class,
 		Megapolis::class, Acropolis::class, Citadel::class, Stronghold::class, Palace::class, Tower::class, Fort::class, Site::class,
 		Market::class, Magespire::class, College::class, Tavern::class,

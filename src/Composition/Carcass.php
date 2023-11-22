@@ -14,9 +14,9 @@ use Lemuria\Validate;
 
 class Carcass extends AbstractComposition
 {
-	private const CREATURE = 'creature';
+	private const string CREATURE = 'creature';
 
-	private const INVENTORY = 'inventory';
+	private const string INVENTORY = 'inventory';
 
 	protected Animal|Race|null $creature = null;
 

@@ -9,11 +9,11 @@ use Lemuria\Model\Fantasya\Commodity\Gold;
  */
 class GoldRing extends AbstractJewelry
 {
-	public const WEIGHT = 10;
+	public const int WEIGHT = 10;
 
-	private const CRAFT = 3;
+	private const int CRAFT = 3;
 
-	private const GOLD = 1;
+	private const int GOLD = 1;
 
 	public function Weight(): int {
 		return self::WEIGHT;

@@ -10,7 +10,7 @@ use Lemuria\SingletonTrait;
  */
 final class Silver implements Commodity
 {
-	private const WEIGHT = 1;
+	private const int WEIGHT = 1;
 
 	use SingletonTrait;
 

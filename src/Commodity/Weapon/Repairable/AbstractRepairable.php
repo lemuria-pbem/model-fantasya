@@ -21,7 +21,7 @@ abstract class AbstractRepairable implements Commodity, Repairable, Weapon
 	use BuilderTrait;
 	use CommodityTrait;
 
-	private const REDUCTION = 0.25;
+	private const float REDUCTION = 0.25;
 
 	public static function all(): SingletonSet {
 		return self::getAll(__DIR__);

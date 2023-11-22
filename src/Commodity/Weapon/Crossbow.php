@@ -13,15 +13,18 @@ use Lemuria\Model\Fantasya\Talent\Crossbowing;
  */
 final class Crossbow extends AbstractWeapon
 {
-	public final const WEIGHT = 2 * 100;
+	public final const int WEIGHT = 2 * 100;
 
-	private const DAMAGE = [2, 4, 6];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [2, 4, 6];
 
-	private const WOOD = 1;
+	private const int WOOD = 1;
 
-	private const CRAFT = 3;
+	private const int CRAFT = 3;
 
-	private const INTERVAL = 2;
+	private const int INTERVAL = 2;
 
 	public function Weight(): int {
 		return self::WEIGHT;

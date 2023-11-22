@@ -11,11 +11,14 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Waterfinder;
  */
 final class Desert extends AbstractLandscape
 {
-	private const HERBS = [Peyote::class, Sandreeker::class, Waterfinder::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array HERBS = [Peyote::class, Sandreeker::class, Waterfinder::class];
 
-	private const ROAD_STONES = 150;
+	private const int ROAD_STONES = 150;
 
-	private const WORKPLACES = 500;
+	private const int WORKPLACES = 500;
 
 	private static ?array $herbs = null;
 

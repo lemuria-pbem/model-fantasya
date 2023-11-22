@@ -14,21 +14,24 @@ use Lemuria\Model\Fantasya\Transport;
  */
 final class Catapult extends AbstractWeapon implements Transport
 {
-	public final const WEIGHT = 100 * 100;
+	public final const int WEIGHT = 100 * 100;
 
-	private const DAMAGE = [3, 10, 5];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [3, 10, 5];
 
-	private const WOOD = 10;
+	private const int WOOD = 10;
 
-	private const CRAFT = 3;
+	private const int CRAFT = 3;
 
-	private const HITS = 3;
+	private const int HITS = 3;
 
-	private const INTERVAL = 5;
+	private const int INTERVAL = 5;
 
-	private const PAYLOAD = 10 * 100;
+	private const int PAYLOAD = 10 * 100;
 
-	private const SPEED = 1;
+	private const int SPEED = 1;
 
 	public function Weight(): int {
 		return self::WEIGHT;

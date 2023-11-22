@@ -6,9 +6,9 @@ use Lemuria\Model\Fantasya\Combat\Phase;
 
 final class ElementalBeing extends AbstractBattleSpell
 {
-	private const AURA = 12;
+	private const int AURA = 12;
 
-	private const DIFFICULTY = 6;
+	private const int DIFFICULTY = 6;
 
 	protected bool $isIncremental = false;
 

@@ -27,19 +27,19 @@ use Lemuria\Model\Fantasya\Talent\Trading;
  */
 final class Halfling extends AbstractRace
 {
-	private const HITPOINTS = 17;
+	private const int HITPOINTS = 17;
 
-	private const FLIGHT_CHANCE = 0.5;
+	private const float FLIGHT_CHANCE = 0.5;
 
-	private const HUNGER = 6;
+	private const int HUNGER = 6;
 
-	private const REFILL = 0.2;
+	private const float REFILL = 0.2;
 
-	private const PAYLOAD = 5 * 100;
+	private const int PAYLOAD = 5 * 100;
 
-	private const RECRUITING = 60;
+	private const int RECRUITING = 60;
 
-	private const WEIGHT = 8 * 100;
+	private const int WEIGHT = 8 * 100;
 
 	public function Hitpoints(): int {
 		return self::HITPOINTS;

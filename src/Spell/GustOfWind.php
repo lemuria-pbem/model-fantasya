@@ -4,9 +4,9 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class GustOfWind extends AbstractBattleSpell
 {
-	private const AURA = 1;
+	private const int AURA = 1;
 
-	private const DIFFICULTY = 4;
+	private const int DIFFICULTY = 4;
 
 	protected bool $isIncremental = false;
 

@@ -7,7 +7,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Luxury;
  */
 final class Balsam extends AbstractLuxury
 {
-	private const VALUE = 4;
+	private const int VALUE = 4;
 
 	public function Value(): int {
 		return self::VALUE;

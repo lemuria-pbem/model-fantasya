@@ -17,13 +17,13 @@ final class Elephant implements Animal, RawMaterial, Transport
 	use RawMaterialTrait;
 	use SingletonTrait;
 
-	private const PAYLOAD = 240 * 100;
+	private const int PAYLOAD = 240 * 100;
 
-	private const SPEED = 1;
+	private const int SPEED = 1;
 
-	private const WEIGHT = 240 * 100;
+	private const int WEIGHT = 240 * 100;
 
-	private const CRAFT = 2;
+	private const int CRAFT = 2;
 
 	public function Weight(): int {
 		return self::WEIGHT;

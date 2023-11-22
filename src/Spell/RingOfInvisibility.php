@@ -4,9 +4,9 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class RingOfInvisibility extends AbstractSpell
 {
-	private const AURA = 32;
+	private const int AURA = 32;
 
-	private const DIFFICULTY = 8;
+	private const int DIFFICULTY = 8;
 
 	protected bool $isIncremental = false;
 

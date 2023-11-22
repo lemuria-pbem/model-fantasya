@@ -10,9 +10,12 @@ use Lemuria\Model\Fantasya\Commodity\Herb\IceBegonia;
 
 final class HealingPotion extends AbstractPotion
 {
-	private const LEVEL = 4;
+	private const int LEVEL = 4;
 
-	private const INGREDIENTS = [Bugleweed::class, CaveLichen::class, Elvendear::class, Flatroot::class, IceBegonia::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array INGREDIENTS = [Bugleweed::class, CaveLichen::class, Elvendear::class, Flatroot::class, IceBegonia::class];
 
 	public function Level(): int {
 		return self::LEVEL;

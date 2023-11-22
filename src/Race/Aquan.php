@@ -22,17 +22,17 @@ use Lemuria\Model\Fantasya\Talent\Woodchopping;
  */
 final class Aquan extends AbstractRace
 {
-	private const HITPOINTS = 25;
+	private const int HITPOINTS = 25;
 
-	private const HUNGER = 8;
+	private const int HUNGER = 8;
 
-	private const REFILL = 0.25;
+	private const float REFILL = 0.25;
 
-	private const PAYLOAD = 5 * 100;
+	private const int PAYLOAD = 5 * 100;
 
-	private const RECRUITING = 80;
+	private const int RECRUITING = 80;
 
-	private const WEIGHT = 10 * 100;
+	private const int WEIGHT = 10 * 100;
 
 	public function Hitpoints(): int {
 		return self::HITPOINTS;

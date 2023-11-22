@@ -8,9 +8,12 @@ use Lemuria\Model\Fantasya\Landscape\Swamp;
 
 final class WaterElemental extends AbstractElemental
 {
-	public final const LANDSCAPES = [Lake::class, Ocean::class, Swamp::class];
+	/**
+	 * @type array<string>
+	 */
+	public final const array LANDSCAPES = [Lake::class, Ocean::class, Swamp::class];
 
-	private const WEIGHT = 30 * 100;
+	private const int WEIGHT = 30 * 100;
 
 	public function __construct() {
 		parent::__construct(self::LANDSCAPES);

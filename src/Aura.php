@@ -12,9 +12,9 @@ class Aura implements Serializable
 {
 	use SerializableTrait;
 
-	private const AURA = 'aura';
+	private const string AURA = 'aura';
 
-	private const MAXIMUM = 'maximum';
+	private const string MAXIMUM = 'maximum';
 
 	private int $aura = 0;
 

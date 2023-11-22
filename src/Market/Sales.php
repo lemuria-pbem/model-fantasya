@@ -13,11 +13,11 @@ use Lemuria\Model\Fantasya\Unit;
  */
 class Sales implements \Countable
 {
-	public final const AVAILABLE = 0;
+	public final const int AVAILABLE = 0;
 
-	public final const FORBIDDEN = 1;
+	public final const int FORBIDDEN = 1;
 
-	public final const UNSATISFIABLE = 2;
+	public final const int UNSATISFIABLE = 2;
 
 	protected Tradeables $tradeables;
 

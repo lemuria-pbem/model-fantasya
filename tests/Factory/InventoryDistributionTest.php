@@ -24,7 +24,10 @@ class InventoryDistributionTest extends Model
 {
 	use BuilderTrait;
 
-	protected final const INVENTORY = [Bow::class => 5, Horse::class => 25, Silver::class => 506, Sword::class => 10];
+	/**
+	 * @type array<string, int>
+	 */
+	protected final const array INVENTORY = [Bow::class => 5, Horse::class => 25, Silver::class => 506, Sword::class => 10];
 
 	protected UnitMock $unit;
 

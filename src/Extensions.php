@@ -9,7 +9,7 @@ use Lemuria\Serializable;
 
 class Extensions implements \ArrayAccess, Serializable
 {
-	protected const NAMESPACE = 'Lemuria\\Model\\Fantasya\\Extension\\';
+	protected const string NAMESPACE = 'Lemuria\\Model\\Fantasya\\Extension\\';
 
 	/**
 	 * @var array<string, Extension>

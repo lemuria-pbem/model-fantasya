@@ -8,11 +8,14 @@ use Lemuria\Model\Fantasya\Commodity\Herb\SpiderIvy;
 
 final class WaterOfLife extends AbstractPotion
 {
-	public final const SAPLINGS = 10;
+	public final const int SAPLINGS = 10;
 
-	private const LEVEL = 2;
+	private const int LEVEL = 2;
 
-	private const INGREDIENTS = [Knotroot::class, Rockweed::class, SpiderIvy::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array INGREDIENTS = [Knotroot::class, Rockweed::class, SpiderIvy::class];
 
 	public function Level(): int {
 		return self::LEVEL;

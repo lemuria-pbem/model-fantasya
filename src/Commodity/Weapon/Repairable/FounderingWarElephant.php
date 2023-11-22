@@ -14,7 +14,7 @@ use Lemuria\Model\Fantasya\Talent\Weaponry;
  */
 final class FounderingWarElephant extends AbstractRepairable implements Animal
 {
-	private const ELEPHANT = 1;
+	private const int ELEPHANT = 1;
 
 	public function Weight(): int {
 		return WarElephant::WEIGHT;

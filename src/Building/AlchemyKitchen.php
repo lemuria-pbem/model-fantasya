@@ -17,23 +17,23 @@ use Lemuria\Model\Fantasya\Talent\Alchemy;
  */
 final class AlchemyKitchen extends AbstractBuilding
 {
-	private const TALENT = 6;
+	private const int TALENT = 6;
 
-	private const UPKEEP = 300;
+	private const int UPKEEP = 300;
 
-	private const FEED = 10;
+	private const int FEED = 10;
 
-	private const SILVER = 300;
+	private const int SILVER = 300;
 
-	private const WOOD = 3;
+	private const int WOOD = 3;
 
-	private const STONE = 5;
+	private const int STONE = 5;
 
-	private const IRON = 3;
+	private const int IRON = 3;
 
-	private const GOLD = 1;
+	private const int GOLD = 1;
 
-	private const USEFUL_SIZE = 5;
+	private const int USEFUL_SIZE = 5;
 
 	public function Dependency(): ?Building {
 		return self::createBuilding(Stronghold::class);

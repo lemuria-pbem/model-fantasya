@@ -10,7 +10,10 @@ use Lemuria\Model\Fantasya\Storage\Migration\Party;
 
 class PartyTest extends Migration
 {
-	public final const DATA = [
+	/**
+	 * @type array<string, mixed>
+	 */
+	public final const array DATA = [
 		'id'          => 27742,
 		'name'        => 'Lemurianer',
 		'description' => 'Die Lemurianer streben die Vorherrschaft über den ganzen Kontinent Lemuria an.',

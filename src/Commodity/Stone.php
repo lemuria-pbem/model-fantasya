@@ -16,7 +16,7 @@ final class Stone implements Material, RawMaterial
 	use RawMaterialTrait;
 	use SingletonTrait;
 
-	private const WEIGHT = 60 * 100;
+	private const int WEIGHT = 60 * 100;
 
 	/**
 	 * Check if this raw material is available in infinite amounts.

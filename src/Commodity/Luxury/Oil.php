@@ -7,7 +7,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Luxury;
  */
 final class Oil extends AbstractLuxury
 {
-	private const VALUE = 3;
+	private const int VALUE = 3;
 
 	public function Value(): int {
 		return self::VALUE;

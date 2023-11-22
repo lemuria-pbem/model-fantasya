@@ -11,17 +11,20 @@ use Lemuria\Model\Fantasya\Landscape\Swamp;
 
 final class Zombie extends AbstractMonster
 {
-	private const HITPOINTS = 18;
+	private const int HITPOINTS = 18;
 
-	private const PAYLOAD = 5 * 100;
+	private const int PAYLOAD = 5 * 100;
 
-	private const WEIGHT = 5 * 100;
+	private const int WEIGHT = 5 * 100;
 
-	private const HITS = 1;
+	private const int HITS = 1;
 
-	private const DAMAGE = [1, 3, 0];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [1, 3, 0];
 
-	private const SKILL = 1;
+	private const int SKILL = 1;
 
 	public function __construct() {
 		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE), self::HITS);

@@ -4,9 +4,9 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class GazeOfTheBasilisk extends AbstractBattleSpell
 {
-	private const AURA = 1;
+	private const int AURA = 1;
 
-	private const DIFFICULTY = 9;
+	private const int DIFFICULTY = 9;
 
 	public function Aura(): int {
 		return self::AURA;

@@ -22,25 +22,28 @@ final class Griffin implements Animal, Monster
 	use MonsterTrait;
 	use SingletonTrait;
 
-	private const PAYLOAD = 50 * 100;
+	private const int PAYLOAD = 50 * 100;
 
-	private const SPEED = 5;
+	private const int SPEED = 5;
 
-	private const WEIGHT = 120 * 100;
+	private const int WEIGHT = 120 * 100;
 
-	private const BLOCK = 1;
+	private const int BLOCK = 1;
 
-	private const HITPOINTS = 30;
+	private const int HITPOINTS = 30;
 
-	private const FLIGHT_CHANCE = 1.0;
+	private const float FLIGHT_CHANCE = 1.0;
 
-	private const DAMAGE = [2, 5, 0];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [2, 5, 0];
 
-	private const SKILL = 5;
+	private const int SKILL = 5;
 
-	private const TROPHY = GriffinFeather::class;
+	private const string TROPHY = GriffinFeather::class;
 
-	private const RECREATION = 0.6;
+	private const float RECREATION = 0.6;
 
 	protected ?SingletonSet $loot = null;
 

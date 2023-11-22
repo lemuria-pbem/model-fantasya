@@ -25,17 +25,17 @@ class Vessel extends Entity implements Collectible, Collector
 	use CollectibleTrait;
 	use CollectorTrait;
 
-	private const ANCHOR = 'anchor';
+	private const string ANCHOR = 'anchor';
 
-	private const PORT = 'port';
+	private const string PORT = 'port';
 
-	private const SHIP = 'ship';
+	private const string SHIP = 'ship';
 
-	private const COMPLETION = 'completion';
+	private const string COMPLETION = 'completion';
 
-	private const PASSENGERS = 'passengers';
+	private const string PASSENGERS = 'passengers';
 
-	private const TREASURY = 'treasury';
+	private const string TREASURY = 'treasury';
 
 	private Direction $anchor = Direction::IN_DOCK;
 

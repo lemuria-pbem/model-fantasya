@@ -7,13 +7,13 @@ namespace Lemuria\Model\Fantasya\Building;
  */
 final class Acropolis extends AbstractCastle
 {
-	private const TALENT = 10;
+	private const int TALENT = 10;
 
-	private const DEFENSE = 5;
+	private const int DEFENSE = 5;
 
-	private const MIN_SIZE = 6250;
+	private const int MIN_SIZE = 6250;
 
-	public final const MAX_SIZE = 31249;
+	public final const int MAX_SIZE = 31249;
 
 	public function Defense(): int {
 		return self::DEFENSE;

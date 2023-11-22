@@ -12,21 +12,21 @@ use Lemuria\Model\Fantasya\Modification;
 use Lemuria\Model\Fantasya\Talent\Quarrying;
 
 /**
- * A shack for stone masons that improves quarrying.
+ * A shack for stonemasons that improves quarrying.
  */
 final class Shack extends AbstractBuilding
 {
-	private const TALENT = 3;
+	private const int TALENT = 3;
 
-	private const FEED = 5;
+	private const int FEED = 5;
 
-	private const SILVER = 100;
+	private const int SILVER = 100;
 
-	private const WOOD = 2;
+	private const int WOOD = 2;
 
-	private const STONE = 3;
+	private const int STONE = 3;
 
-	private const IRON = 2;
+	private const int IRON = 2;
 
 	public function Dependency(): ?Building {
 		return Building::IS_INDEPENDENT;

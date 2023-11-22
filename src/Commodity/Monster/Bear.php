@@ -12,19 +12,22 @@ use Lemuria\Model\Fantasya\Landscape\Plain;
 
 final class Bear extends AbstractMonster
 {
-	private const HITPOINTS = 40;
+	private const int HITPOINTS = 40;
 
-	private const PAYLOAD = 10 * 100;
+	private const int PAYLOAD = 10 * 100;
 
-	private const WEIGHT = 40 * 100;
+	private const int WEIGHT = 40 * 100;
 
-	private const DAMAGE = [1, 7, 1];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [1, 7, 1];
 
-	private const SKILL = 3;
+	private const int SKILL = 3;
 
-	private const TROPHY = Carnassial::class;
+	private const string TROPHY = Carnassial::class;
 
-	private const RECREATION = 0.6;
+	private const float RECREATION = 0.6;
 
 	public function __construct() {
 		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE));

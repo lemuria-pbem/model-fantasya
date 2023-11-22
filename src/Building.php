@@ -7,11 +7,11 @@ namespace Lemuria\Model\Fantasya;
  */
 interface Building extends Artifact
 {
-	public final const IS_FREE = 0;
+	public final const int IS_FREE = 0;
 
-	public final const IS_INDEPENDENT = null;
+	public final const null IS_INDEPENDENT = null;
 
-	public final const IS_UNLIMITED = 0;
+	public final const int IS_UNLIMITED = 0;
 
 	/**
 	 * Get the building that must exist as a precondition.

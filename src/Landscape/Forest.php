@@ -11,9 +11,12 @@ use Lemuria\Model\Fantasya\Commodity\Herb\SpiderIvy;
  */
 final class Forest extends Plain
 {
-	public final const TREES = 600;
+	public final const int TREES = 600;
 
-	private const HERBS = [CobaltFungus::class, Elvendear::class, SpiderIvy::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array HERBS = [CobaltFungus::class, Elvendear::class, SpiderIvy::class];
 
 	private static ?array $herbs = null;
 

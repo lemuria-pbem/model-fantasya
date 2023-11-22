@@ -4,9 +4,9 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class Airship extends AbstractSpell
 {
-	private const AURA = 1;
+	private const int AURA = 1;
 
-	private const DIFFICULTY = 9;
+	private const int DIFFICULTY = 9;
 
 	protected bool $isIncremental = false;
 

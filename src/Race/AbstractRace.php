@@ -17,9 +17,9 @@ abstract class AbstractRace implements Race
 	use BuilderTrait;
 	use SingletonTrait;
 
-	private const SPEED = 1;
+	private const int SPEED = 1;
 
-	private const FLIGHT_CHANCE = 0.25;
+	private const float FLIGHT_CHANCE = 0.25;
 
 	private ?Knowledge $modifications = null;
 

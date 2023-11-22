@@ -11,11 +11,14 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Knotroot;
  */
 final class Swamp extends AbstractLandscape
 {
-	private const HERBS = [Bubblemorel::class, Bugleweed::class, Knotroot::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array HERBS = [Bubblemorel::class, Bugleweed::class, Knotroot::class];
 
-	private const ROAD_STONES = 250;
+	private const int ROAD_STONES = 250;
 
-	private const WORKPLACES = 2000;
+	private const int WORKPLACES = 2000;
 
 	private static ?array $herbs = null;
 

@@ -16,19 +16,19 @@ use Lemuria\Model\Fantasya\Talent\Woodchopping;
  */
 final class Sawmill extends AbstractBuilding
 {
-	private const TALENT = 5;
+	private const int TALENT = 5;
 
-	private const UPKEEP = 100;
+	private const int UPKEEP = 100;
 
-	private const FEED = 5;
+	private const int FEED = 5;
 
-	private const SILVER = 250;
+	private const int SILVER = 250;
 
-	private const WOOD = 6;
+	private const int WOOD = 6;
 
-	private const STONE = 3;
+	private const int STONE = 3;
 
-	private const IRON = 5;
+	private const int IRON = 5;
 
 	public function Dependency(): ?Building {
 		return self::createBuilding(Cabin::class);

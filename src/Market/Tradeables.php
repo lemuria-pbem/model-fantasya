@@ -12,9 +12,9 @@ class Tradeables extends SingletonSet
 {
 	use SerializableTrait;
 
-	private const IS_EXCLUSION = 'isExclusion';
+	private const string IS_EXCLUSION = 'isExclusion';
 
-	private const GOODS = 'goods';
+	private const string GOODS = 'goods';
 
 	private bool $isExclusion = true;
 

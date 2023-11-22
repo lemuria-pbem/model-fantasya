@@ -8,13 +8,16 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Sandreeker;
 
 final class DrinkOfCreation extends AbstractPotion
 {
-	public final const PERSONS = 10;
+	public final const int PERSONS = 10;
 
-	private const LEVEL = 2;
+	private const int LEVEL = 2;
 
-	private const WEEKS = 3;
+	private const int WEEKS = 3;
 
-	private const INGREDIENTS = [Gapgrowth::class, IceBegonia::class, Sandreeker::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array INGREDIENTS = [Gapgrowth::class, IceBegonia::class, Sandreeker::class];
 
 	public function Level(): int {
 		return self::LEVEL;

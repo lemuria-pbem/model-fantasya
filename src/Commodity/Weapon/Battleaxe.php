@@ -14,15 +14,18 @@ use Lemuria\Model\Fantasya\Talent\Weaponry;
  */
 final class Battleaxe extends AbstractWeapon
 {
-	public final const WEIGHT = 2 * 100;
+	public final const int WEIGHT = 2 * 100;
 
-	public final const DAMAGE = [1, 8, 8];
+	/**
+	 * @type array<int>
+	 */
+	public final const array DAMAGE = [1, 8, 8];
 
-	private const WOOD = 1;
+	private const int WOOD = 1;
 
-	private const IRON = 2;
+	private const int IRON = 2;
 
-	private const CRAFT = 5;
+	private const int CRAFT = 5;
 
 	public function Weight(): int {
 		return self::WEIGHT;

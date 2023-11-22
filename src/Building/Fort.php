@@ -7,13 +7,13 @@ namespace Lemuria\Model\Fantasya\Building;
  */
 final class Fort extends AbstractCastle
 {
-	private const TALENT = 2;
+	private const int TALENT = 2;
 
-	private const DEFENSE = 0;
+	private const int DEFENSE = 0;
 
-	private const MIN_SIZE = 2;
+	private const int MIN_SIZE = 2;
 
-	public final const MAX_SIZE = 9;
+	public final const int MAX_SIZE = 9;
 
 	public function Defense(): int {
 		return self::DEFENSE;

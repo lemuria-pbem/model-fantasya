@@ -10,7 +10,7 @@ use Lemuria\Model\Fantasya\Repairable;
  */
 final class CarriageWreck extends Carriage implements Repairable
 {
-	private const WOOD = 1;
+	private const int WOOD = 1;
 
 	public function Commodity(): Commodity {
 		return self::createCommodity(Carriage::class);

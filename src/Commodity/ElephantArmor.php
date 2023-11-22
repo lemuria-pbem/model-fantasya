@@ -17,11 +17,11 @@ class ElephantArmor implements Artifact, Commodity
 	use ArtifactTrait;
 	use BuilderTrait;
 
-	private const CRAFT = 5;
+	private const int CRAFT = 5;
 
-	private const WEIGHT = 50 * 100;
+	private const int WEIGHT = 50 * 100;
 
-	private const IRON = 10;
+	private const int IRON = 10;
 
 	private ?Requirement $craft = null;
 

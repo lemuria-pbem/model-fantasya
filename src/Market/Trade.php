@@ -18,19 +18,19 @@ use Lemuria\Validate;
 
 class Trade implements \Stringable, Collectible, Identifiable, Serializable
 {
-	public final const DEMAND = false;
+	public final const false DEMAND = false;
 
-	public final const OFFER = true;
+	public final const true OFFER = true;
 
-	private const ID = 'id';
+	private const string ID = 'id';
 
-	private const IS_OFFER = 'isOffer';
+	private const string IS_OFFER = 'isOffer';
 
-	private const IS_REPEAT = 'isRepeat';
+	private const string IS_REPEAT = 'isRepeat';
 
-	private const GOODS = 'goods';
+	private const string GOODS = 'goods';
 
-	private const PRICE = 'price';
+	private const string PRICE = 'price';
 
 	use BuilderTrait;
 	use CollectibleTrait;

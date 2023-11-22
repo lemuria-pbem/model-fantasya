@@ -7,13 +7,16 @@ use Lemuria\Model\Fantasya\Damage;
 
 abstract class AbstractElemental extends AbstractMonster
 {
-	private const HITPOINTS = 300;
+	private const int HITPOINTS = 300;
 
-	private const HITS = 5;
+	private const int HITS = 5;
 
-	private const DAMAGE = [2, 3, 4];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [2, 3, 4];
 
-	private const SKILL = 8;
+	private const int SKILL = 8;
 
 	public function __construct(array $landscapes) {
 		$this->weapon = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE), self::HITS);

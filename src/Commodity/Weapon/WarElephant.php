@@ -20,23 +20,26 @@ final class WarElephant extends AbstractWeapon implements Animal, Transport
 {
 	use SingletonTrait;
 
-	public const WEIGHT = 300 * 100;
+	public const int WEIGHT = 300 * 100;
 
-	public final const DAMAGE = [1, 20, 4];
+	/**
+	 * @type array<int>
+	 */
+	public final const array DAMAGE = [1, 20, 4];
 
-	private const WOOD = 2;
+	private const int WOOD = 2;
 
-	private const ELEPHANT_ARMOR = 1;
+	private const int ELEPHANT_ARMOR = 1;
 
-	private const ELEPHANT = 1;
+	private const int ELEPHANT = 1;
 
-	private const CRAFT = 5;
+	private const int CRAFT = 5;
 
-	private const HITS = 3;
+	private const int HITS = 3;
 
-	private const PAYLOAD = 180 * 100;
+	private const int PAYLOAD = 180 * 100;
 
-	private const SPEED = 1;
+	private const int SPEED = 1;
 
 	public function Weight(): int {
 		return self::WEIGHT;

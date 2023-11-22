@@ -6,9 +6,9 @@ use Lemuria\Model\Fantasya\Navigable;
 
 abstract class AbstractNavigable extends AbstractLandscape implements Navigable
 {
-	private const ROAD_STONES = 0;
+	private const int ROAD_STONES = 0;
 
-	private const WORKPLACES = 0;
+	private const int WORKPLACES = 0;
 
 	private static array $herbs = [];
 

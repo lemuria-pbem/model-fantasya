@@ -9,13 +9,16 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Snowcrystal;
 
 final class PeasantJoy extends AbstractPotion
 {
-	public final const PEASANTS = 1000;
+	public final const int PEASANTS = 1000;
 
-	private const LEVEL = 3;
+	private const int LEVEL = 3;
 
-	private const WEEKS = 3;
+	private const int WEEKS = 3;
 
-	private const INGREDIENTS = [Bubblemorel::class, Elvendear::class, Mandrake::class, Snowcrystal::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array INGREDIENTS = [Bubblemorel::class, Elvendear::class, Mandrake::class, Snowcrystal::class];
 
 	public function Level(): int {
 		return self::LEVEL;

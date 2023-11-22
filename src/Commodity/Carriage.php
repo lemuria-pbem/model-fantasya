@@ -18,13 +18,13 @@ class Carriage implements Artifact, Commodity, Transport
 	use ArtifactTrait;
 	use BuilderTrait;
 
-	private const CRAFT = 1;
+	private const int CRAFT = 1;
 
-	private const PAYLOAD = 140 * 100;
+	private const int PAYLOAD = 140 * 100;
 
-	private const SPEED = 2;
+	private const int SPEED = 2;
 
-	private const WEIGHT = 40 * 100;
+	private const int WEIGHT = 40 * 100;
 
 	private const WOOD = 5;
 

@@ -6,9 +6,9 @@ use Lemuria\Model\Fantasya\Combat\Phase;
 
 final class GhostEnemy extends AbstractBattleSpell
 {
-	private const AURA = 1;
+	private const int AURA = 1;
 
-	private const DIFFICULTY = 7;
+	private const int DIFFICULTY = 7;
 
 	public function Aura(): int {
 		return self::AURA;

@@ -15,9 +15,9 @@ abstract class AbstractHerb implements Herb
 	use RawMaterialTrait;
 	use SingletonTrait;
 
-	private const LEVEL = 3;
+	private const int LEVEL = 3;
 
-	private const WEIGHT = 1;
+	private const int WEIGHT = 1;
 
 	public static function all(): SingletonSet {
 		return self::getAll(__DIR__);

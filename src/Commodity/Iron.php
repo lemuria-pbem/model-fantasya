@@ -16,7 +16,7 @@ final class Iron implements Material, RawMaterial
 	use RawMaterialTrait;
 	use SingletonTrait;
 
-	private const WEIGHT = 5 * 100;
+	private const int WEIGHT = 5 * 100;
 
 	public function IsInfinite(): bool {
 		return true;

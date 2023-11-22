@@ -7,15 +7,15 @@ namespace Lemuria\Model\Fantasya\Ship;
  */
 final class Dragonship extends AbstractShip
 {
-	private const CAPTAIN = 3;
+	private const int CAPTAIN = 3;
 
-	private const CREW = 50;
+	private const int CREW = 50;
 
-	private const PAYLOAD = 1000 * 100;
+	private const int PAYLOAD = 1000 * 100;
 
-	private const SPEED = 5;
+	private const int SPEED = 5;
 
-	private const WOOD = 100;
+	private const int WOOD = 100;
 
 	public function Captain(): int {
 		return self::CAPTAIN;

@@ -15,11 +15,11 @@ class Spellbook extends AbstractComposition implements Ownable, Readable
 {
 	use TenantTrait;
 
-	private const SPELLS = 'spells';
+	private const string SPELLS = 'spells';
 
-	private const SILVER = 1000;
+	private const int SILVER = 1000;
 
-	private const WEIGHT = 50;
+	private const int WEIGHT = 50;
 
 	protected SingletonSet $spells;
 

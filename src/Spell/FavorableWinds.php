@@ -4,11 +4,11 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class FavorableWinds extends AbstractSpell
 {
-	public const SPEED_BONUS = 2;
+	public const int SPEED_BONUS = 2;
 
-	private const AURA = 25;
+	private const int AURA = 25;
 
-	private const DIFFICULTY = 5;
+	private const int DIFFICULTY = 5;
 
 	protected bool $isIncremental = false;
 

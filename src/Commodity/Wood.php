@@ -16,7 +16,7 @@ final class Wood implements Material, RawMaterial
 	use RawMaterialTrait;
 	use SingletonTrait;
 
-	private const WEIGHT = 5 * 100;
+	private const int WEIGHT = 5 * 100;
 
 	public function Weight(): int {
 		return self::WEIGHT;

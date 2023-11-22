@@ -9,7 +9,10 @@ abstract class AbstractCommodity
 {
 	use BuilderTrait;
 
-	private const RESOURCES = [Iron::class, Stone::class, Wood::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array RESOURCES = [Iron::class, Stone::class, Wood::class];
 
 	private static ?SingletonSet $resources = null;
 

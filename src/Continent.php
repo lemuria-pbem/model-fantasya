@@ -21,11 +21,11 @@ class Continent extends Entity implements Collector, Reassignment
 {
 	use CollectorTrait;
 
-	private const LANDMASS = 'landmass';
+	private const string LANDMASS = 'landmass';
 
-	private const NAMES = 'names';
+	private const string NAMES = 'names';
 
-	private const DESCRIPTIONS = 'descriptions';
+	private const string DESCRIPTIONS = 'descriptions';
 
 	private readonly Landmass $landmass;
 

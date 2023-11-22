@@ -29,39 +29,39 @@ class Party extends Entity implements Assignable, Collector
 	use BuilderTrait;
 	use CollectorTrait;
 
-	private const TYPE = 'type';
+	private const string TYPE = 'type';
 
-	private const BANNER = 'banner';
+	private const string BANNER = 'banner';
 
-	private const UUID = 'uuid';
+	private const string UUID = 'uuid';
 
-	private const CREATION = 'creation';
+	private const string CREATION = 'creation';
 
-	private const ROUND = 'round';
+	private const string ROUND = 'round';
 
-	private const RETIREMENT = 'retirement';
+	private const string RETIREMENT = 'retirement';
 
-	private const ORIGIN = 'origin';
+	private const string ORIGIN = 'origin';
 
-	private const RACE = 'race';
+	private const string RACE = 'race';
 
-	private const DIPLOMACY = 'diplomacy';
+	private const string DIPLOMACY = 'diplomacy';
 
-	private const PEOPLE = 'people';
+	private const string PEOPLE = 'people';
 
-	private const CHRONICLE = 'chronicle';
+	private const string CHRONICLE = 'chronicle';
 
-	private const HERBAL_BOOK = 'herbalBook';
+	private const string HERBAL_BOOK = 'herbalBook';
 
-	private const SPELL_BOOK = 'spellBook';
+	private const string SPELL_BOOK = 'spellBook';
 
-	private const LOOT = 'loot';
+	private const string LOOT = 'loot';
 
-	private const PRESETTINGS = 'presettings';
+	private const string PRESETTINGS = 'presettings';
 
-	private const POSSESSIONS = 'possessions';
+	private const string POSSESSIONS = 'possessions';
 
-	private const REGULATION = 'regulation';
+	private const string REGULATION = 'regulation';
 
 	private string $banner;
 
@@ -340,7 +340,6 @@ class Party extends Entity implements Assignable, Collector
 	 * Check that a serialized data array is valid.
 	 *
 	 * @param array<string, mixed> $data
-	 * @noinspection DuplicatedCode
 	 */
 	protected function validateSerializedData(array $data): void {
 		parent::validateSerializedData($data);

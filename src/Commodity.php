@@ -17,7 +17,10 @@ use Lemuria\Singleton;
  */
 interface Commodity extends Singleton
 {
-	public final const MISC = [
+	/**
+	 * @type array<string>
+	 */
+	public final const array MISC = [
 		Silver::class, Wood::class, Stone::class, Iron::class, Gold::class,
 		...Transport::ANIMALS, Carriage::class, CarriageWreck::class,
 		Griffinegg::class

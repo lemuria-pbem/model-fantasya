@@ -18,14 +18,17 @@ use Lemuria\Validate;
  */
 class Unicum extends Entity implements Collectible
 {
-	protected final const COLLECTORS = [Unit::class, Construction::class, Vessel::class, Region::class];
+	/**
+	 * @type array<string>
+	 */
+	protected final const array COLLECTORS = [Unit::class, Construction::class, Vessel::class, Region::class];
 
 	use BuilderTrait;
 	use CollectibleTrait;
 
-	private const COMPOSITION = 'composition';
+	private const string COMPOSITION = 'composition';
 
-	private const PROPERTIES = 'properties';
+	private const string PROPERTIES = 'properties';
 
 	private Composition $composition;
 

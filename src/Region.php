@@ -26,23 +26,23 @@ class Region extends Entity implements Collectible, Collector, Location
 	use CollectibleTrait;
 	use CollectorTrait;
 
-	private const LANDSCAPE = 'landscape';
+	private const string LANDSCAPE = 'landscape';
 
-	private const ROADS = 'roads';
+	private const string ROADS = 'roads';
 
-	private const HERBAGE = 'herbage';
+	private const string HERBAGE = 'herbage';
 
-	private const RESOURCES = 'resources';
+	private const string RESOURCES = 'resources';
 
-	private const ESTATE = 'estate';
+	private const string ESTATE = 'estate';
 
-	private const FLEET = 'fleet';
+	private const string FLEET = 'fleet';
 
-	private const RESIDENTS = 'residents';
+	private const string RESIDENTS = 'residents';
 
-	private const LUXURIES = 'luxuries';
+	private const string LUXURIES = 'luxuries';
 
-	private const TREASURY = 'treasury';
+	private const string TREASURY = 'treasury';
 
 	private Landscape $landscape;
 

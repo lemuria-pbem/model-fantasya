@@ -19,13 +19,13 @@ use Lemuria\Model\Fantasya\Landscape\Plain;
 
 final class Skeleton extends AbstractMonster
 {
-	private const HITPOINTS = 20;
+	private const int HITPOINTS = 20;
 
-	private const PAYLOAD = 5 * 100;
+	private const int PAYLOAD = 5 * 100;
 
-	private const WEIGHT = 5 * 100;
+	private const int WEIGHT = 5 * 100;
 
-	private const TROPHY = Skull::class;
+	private const string TROPHY = Skull::class;
 
 	public function __construct() {
 		$this->trophy        = self::createTrophy(self::TROPHY);

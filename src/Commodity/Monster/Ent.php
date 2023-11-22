@@ -10,21 +10,24 @@ use Lemuria\Model\Fantasya\Landscape\Swamp;
 
 final class Ent extends AbstractMonster
 {
-	private const BLOCK = 3;
+	private const int BLOCK = 3;
 
-	private const HITPOINTS = 450;
+	private const int HITPOINTS = 450;
 
-	private const PAYLOAD = 100 * 100;
+	private const int PAYLOAD = 100 * 100;
 
-	private const WEIGHT = 240 * 100;
+	private const int WEIGHT = 240 * 100;
 
-	private const HITS = 2;
+	private const int HITS = 2;
 
-	private const DAMAGE = [3, 5, 3];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [3, 5, 3];
 
-	private const SKILL = 4;
+	private const int SKILL = 4;
 
-	private const RECREATION = 0.1;
+	private const float RECREATION = 0.1;
 
 	public function __construct() {
 		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE), self::HITS);

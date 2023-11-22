@@ -11,11 +11,14 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Rockweed;
  */
 final class Mountain extends AbstractLandscape
 {
-	private const HERBS = [CaveLichen::class, Gapgrowth::class, Rockweed::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array HERBS = [CaveLichen::class, Gapgrowth::class, Rockweed::class];
 
-	private const ROAD_STONES = 200;
+	private const int ROAD_STONES = 200;
 
-	private const WORKPLACES = 1000;
+	private const int WORKPLACES = 1000;
 
 	private static ?array $herbs = null;
 

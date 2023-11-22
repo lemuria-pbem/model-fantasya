@@ -21,7 +21,7 @@ abstract class AbstractRepairable implements Commodity, Protection, Repairable
 	use BuilderTrait;
 	use CommodityTrait;
 
-	private const EFFECTIVITY = 0.75;
+	private const float EFFECTIVITY = 0.75;
 
 	private Requirement $craft;
 

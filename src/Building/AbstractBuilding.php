@@ -21,7 +21,10 @@ abstract class AbstractBuilding implements Building
 	use ArtifactTrait;
 	use BuilderTrait;
 
-	private const STRUCTURE_MATERIAL = [Wood::class => true, Stone::class => true, Iron::class => true];
+	/**
+	 * @type array<string, true>
+	 */
+	private const array STRUCTURE_MATERIAL = [Wood::class => true, Stone::class => true, Iron::class => true];
 
 	private ?Requirement $craft = null;
 

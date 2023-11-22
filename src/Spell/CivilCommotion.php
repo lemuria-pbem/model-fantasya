@@ -4,9 +4,9 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class CivilCommotion extends AbstractSpell
 {
-	private const AURA = 4;
+	private const int AURA = 4;
 
-	private const DIFFICULTY = 2;
+	private const int DIFFICULTY = 2;
 
 	protected bool $isIncremental = false;
 

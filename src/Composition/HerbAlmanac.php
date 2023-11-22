@@ -11,9 +11,9 @@ use Lemuria\Model\Fantasya\Unicum;
 
 class HerbAlmanac extends AbstractComposition implements Ownable, Readable
 {
-	private const SILVER = 30;
+	private const int SILVER = 30;
 
-	private const WEIGHT = 5;
+	private const int WEIGHT = 5;
 
 	protected int $level = Herballore::EXPLORE_LEVEL;
 

@@ -7,9 +7,12 @@ use Lemuria\Model\Fantasya\Landscape\Highland;
 
 final class FireElemental extends AbstractElemental
 {
-	public final const LANDSCAPES = [Desert::class, Highland::class];
+	/**
+	 * @type array<string>
+	 */
+	public final const array LANDSCAPES = [Desert::class, Highland::class];
 
-	private const WEIGHT = 3 * 100;
+	private const int WEIGHT = 3 * 100;
 
 	public function __construct() {
 		parent::__construct(self::LANDSCAPES);

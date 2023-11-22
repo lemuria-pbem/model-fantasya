@@ -25,17 +25,17 @@ use Lemuria\Model\Fantasya\Talent\Woodchopping;
  */
 final class Orc extends AbstractRace
 {
-	private const HITPOINTS = 23;
+	private const int HITPOINTS = 23;
 
-	private const HUNGER = 7;
+	private const int HUNGER = 7;
 
-	private const REFILL = 0.18;
+	private const float REFILL = 0.18;
 
-	private const PAYLOAD = 5 * 100;
+	private const int PAYLOAD = 5 * 100;
 
-	private const RECRUITING = 70;
+	private const int RECRUITING = 70;
 
-	private const WEIGHT = 10 * 100;
+	private const int WEIGHT = 10 * 100;
 
 	public function Hitpoints(): int {
 		return self::HITPOINTS;

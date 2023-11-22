@@ -7,9 +7,12 @@ use Lemuria\Model\Fantasya\Landscape\Plain;
 
 final class EarthElemental extends AbstractElemental
 {
-	public final const LANDSCAPES = [Mountain::class, Plain::class];
+	/**
+	 * @type array<string>
+	 */
+	public final const array LANDSCAPES = [Mountain::class, Plain::class];
 
-	private const WEIGHT = 300 * 100;
+	private const int WEIGHT = 300 * 100;
 
 	public function __construct() {
 		parent::__construct(self::LANDSCAPES);

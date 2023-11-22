@@ -6,7 +6,7 @@ use Lemuria\Model\Game;
 
 abstract class AbstractUpgrade
 {
-	private const NAMESPACE = __NAMESPACE__ . '\\Upgrade\\';
+	private const string NAMESPACE = __NAMESPACE__ . '\\Upgrade\\';
 
 	protected string $before;
 

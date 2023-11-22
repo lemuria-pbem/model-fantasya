@@ -7,13 +7,13 @@ namespace Lemuria\Model\Fantasya\Building;
  */
 final class Stronghold extends AbstractCastle
 {
-	private const TALENT = 5;
+	private const int TALENT = 5;
 
-	private const DEFENSE = 3;
+	private const int DEFENSE = 3;
 
-	private const MIN_SIZE = 250;
+	private const int MIN_SIZE = 250;
 
-	public final const MAX_SIZE = 1249;
+	public final const int MAX_SIZE = 1249;
 
 	public function Defense(): int {
 		return self::DEFENSE;

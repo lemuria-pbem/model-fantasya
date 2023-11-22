@@ -7,7 +7,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Trophy;
  */
 final class GriffinFeather extends AbstractTrophy
 {
-	private const WEIGHT = 1;
+	private const int WEIGHT = 1;
 
 	public function Weight(): int {
 		return self::WEIGHT;

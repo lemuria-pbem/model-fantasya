@@ -7,7 +7,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Luxury;
  */
 final class Gem extends AbstractLuxury
 {
-	private const VALUE = 8;
+	private const int VALUE = 8;
 
 	public function Value(): int {
 		return self::VALUE;

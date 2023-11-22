@@ -7,15 +7,15 @@ namespace Lemuria\Model\Fantasya\Ship;
  */
 final class Galleon extends AbstractShip
 {
-	private const CAPTAIN = 6;
+	private const int CAPTAIN = 6;
 
-	private const CREW = 80;
+	private const int CREW = 80;
 
-	private const PAYLOAD = 6000 * 100;
+	private const int PAYLOAD = 6000 * 100;
 
-	private const SPEED = 4;
+	private const int SPEED = 4;
 
-	private const WOOD = 350;
+	private const int WOOD = 350;
 
 	public function Captain(): int {
 		return self::CAPTAIN;

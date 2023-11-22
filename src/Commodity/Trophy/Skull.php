@@ -7,7 +7,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Trophy;
  */
 final class Skull extends AbstractTrophy
 {
-	private const WEIGHT = 50;
+	private const int WEIGHT = 50;
 
 	public function Weight(): int {
 		return self::WEIGHT;

@@ -14,21 +14,21 @@ use Lemuria\Model\Fantasya\Commodity\Wood;
  */
 abstract class AbstractBreeding extends AbstractBuilding
 {
-	private const TALENT = 3;
+	private const int TALENT = 3;
 
-	private const UPKEEP = 100;
+	private const int UPKEEP = 100;
 
-	private const FEED = 5;
+	private const int FEED = 5;
 
-	private const SILVER = 100;
+	private const int SILVER = 100;
 
-	private const WOOD = 5;
+	private const int WOOD = 5;
 
-	private const STONE = 3;
+	private const int STONE = 3;
 
-	private const IRON = 2;
+	private const int IRON = 2;
 
-	private const USEFUL_SIZE = 3;
+	private const int USEFUL_SIZE = 3;
 
 	public function Dependency(): ?Building {
 		return Building::IS_INDEPENDENT;

@@ -16,19 +16,19 @@ use Lemuria\Model\Fantasya\Talent\Shipbuilding;
  */
 final class Dockyard extends AbstractBuilding
 {
-	private const TALENT = 5;
+	private const int TALENT = 5;
 
-	private const UPKEEP = 100;
+	private const int UPKEEP = 100;
 
-	private const FEED = 5;
+	private const int FEED = 5;
 
-	private const SILVER = 500;
+	private const int SILVER = 500;
 
-	private const WOOD = 10;
+	private const int WOOD = 10;
 
-	private const STONE = 15;
+	private const int STONE = 15;
 
-	private const IRON = 10;
+	private const int IRON = 10;
 
 	public function Dependency(): ?Building {
 		return self::createBuilding(Palace::class);

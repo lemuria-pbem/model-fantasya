@@ -6,9 +6,9 @@ use Lemuria\Model\Fantasya\Combat\Phase;
 
 final class Quickening extends AbstractBattleSpell
 {
-	private const AURA = 10;
+	private const int AURA = 10;
 
-	private const DIFFICULTY = 8;
+	private const int DIFFICULTY = 8;
 
 	public function Aura(): int {
 		return self::AURA;

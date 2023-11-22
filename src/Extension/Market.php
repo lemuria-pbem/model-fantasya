@@ -13,7 +13,7 @@ class Market extends Fee
 	use ExtensionTrait;
 	use SerializableTrait;
 
-	private const TRADEABLES = 'tradeables';
+	private const string TRADEABLES = 'tradeables';
 
 	protected Tradeables $tradeables;
 

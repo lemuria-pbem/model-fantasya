@@ -13,11 +13,11 @@ final class Pegasus implements Animal, Transport
 {
 	use SingletonTrait;
 
-	private const PAYLOAD = 20 * 100;
+	private const int PAYLOAD = 20 * 100;
 
-	private const SPEED = 3;
+	private const int SPEED = 3;
 
-	private const WEIGHT = 50 * 100;
+	private const int WEIGHT = 50 * 100;
 
 	public function Weight(): int {
 		return self::WEIGHT;

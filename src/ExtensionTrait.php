@@ -7,7 +7,7 @@ use Lemuria\Validate;
 
 trait ExtensionTrait
 {
-	private const EXTENSIONS = 'extensions';
+	private const string EXTENSIONS = 'extensions';
 
 	private readonly Extensions $extensions;
 

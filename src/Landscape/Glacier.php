@@ -11,11 +11,14 @@ use Lemuria\Model\Fantasya\Commodity\Herb\WhiteHemlock;
  */
 final class Glacier extends AbstractLandscape
 {
-	private const HERBS = [IceBegonia::class, Snowcrystal::class, WhiteHemlock::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array HERBS = [IceBegonia::class, Snowcrystal::class, WhiteHemlock::class];
 
-	private const ROAD_STONES = 350;
+	private const int ROAD_STONES = 350;
 
-	private const WORKPLACES = 150;
+	private const int WORKPLACES = 150;
 
 	private static ?array $herbs = null;
 

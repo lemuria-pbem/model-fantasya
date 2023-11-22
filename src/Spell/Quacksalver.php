@@ -4,11 +4,11 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class Quacksalver extends AbstractSpell
 {
-	private const AURA = 1;
+	private const int AURA = 1;
 
-	private const DIFFICULTY = 1;
+	private const int DIFFICULTY = 1;
 
-	private const ORDER = 2;
+	private const int ORDER = 2;
 
 	public function Aura(): int {
 		return self::AURA;

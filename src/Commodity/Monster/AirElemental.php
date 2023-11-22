@@ -7,9 +7,12 @@ use Lemuria\Model\Fantasya\Landscape\Glacier;
 
 final class AirElemental extends AbstractElemental
 {
-	public final const LANDSCAPES = [Forest::class, Glacier::class];
+	/**
+	 * @type array<string>
+	 */
+	public final const array LANDSCAPES = [Forest::class, Glacier::class];
 
-	private const WEIGHT = 20 * 100;
+	private const int WEIGHT = 20 * 100;
 
 	public function __construct() {
 		parent::__construct(self::LANDSCAPES);

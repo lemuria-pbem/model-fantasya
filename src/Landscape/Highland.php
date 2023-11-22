@@ -11,11 +11,14 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Windbag;
  */
 final class Highland extends AbstractLandscape
 {
-	private const HERBS = [FjordFungus::class, Mandrake::class, Windbag::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array HERBS = [FjordFungus::class, Mandrake::class, Windbag::class];
 
-	private const ROAD_STONES = 100;
+	private const int ROAD_STONES = 100;
 
-	private const WORKPLACES = 4000;
+	private const int WORKPLACES = 4000;
 
 	private static ?array $herbs = null;
 

@@ -13,17 +13,17 @@ use Lemuria\Model\Fantasya\Commodity\Wood;
  */
 final class Magespire extends AbstractBuilding
 {
-	private const TALENT = 5;
+	private const int TALENT = 5;
 
-	private const UPKEEP = 500;
+	private const int UPKEEP = 500;
 
-	private const SILVER = 500;
+	private const int SILVER = 500;
 
-	private const WOOD = 3;
+	private const int WOOD = 3;
 
-	private const STONE = 5;
+	private const int STONE = 5;
 
-	private const IRON = 3;
+	private const int IRON = 3;
 
 	public function Dependency(): ?Building {
 		return Building::IS_INDEPENDENT;

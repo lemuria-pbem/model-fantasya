@@ -12,17 +12,17 @@ use Lemuria\Model\Fantasya\Commodity\Wood;
  */
 final class Quay extends AbstractBuilding
 {
-	private const TALENT = 2;
+	private const int TALENT = 2;
 
-	private const UPKEEP = 30;
+	private const int UPKEEP = 30;
 
-	private const USEFUL_SIZE = 5;
+	private const int USEFUL_SIZE = 5;
 
-	private const SILVER = 50;
+	private const int SILVER = 50;
 
-	private const WOOD = 2;
+	private const int WOOD = 2;
 
-	private const IRON = 1;
+	private const int IRON = 1;
 
 	public function Dependency(): ?Building {
 		return Building::IS_INDEPENDENT;

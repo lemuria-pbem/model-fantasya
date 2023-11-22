@@ -7,9 +7,12 @@ use Lemuria\Model\Fantasya\Commodity\Herb\Flatroot;
 
 final class DrinkOfTruth extends AbstractPotion
 {
-	private const LEVEL = 1;
+	private const int LEVEL = 1;
 
-	private const INGREDIENTS = [FjordFungus::class, Flatroot::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array INGREDIENTS = [FjordFungus::class, Flatroot::class];
 
 	public function Level(): int {
 		return self::LEVEL;

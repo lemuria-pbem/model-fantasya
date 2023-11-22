@@ -7,15 +7,15 @@ namespace Lemuria\Model\Fantasya\Ship;
  */
 final class Trireme extends AbstractShip
 {
-	private const CAPTAIN = 5;
+	private const int CAPTAIN = 5;
 
-	private const CREW = 120;
+	private const int CREW = 120;
 
-	private const PAYLOAD = 2000 * 100;
+	private const int PAYLOAD = 2000 * 100;
 
-	private const SPEED = 8;
+	private const int SPEED = 8;
 
-	private const WOOD = 200;
+	private const int WOOD = 200;
 
 	public function Captain(): int {
 		return self::CAPTAIN;

@@ -7,13 +7,13 @@ namespace Lemuria\Model\Fantasya\Building;
  */
 final class Palace extends AbstractCastle
 {
-	private const TALENT = 4;
+	private const int TALENT = 4;
 
-	private const DEFENSE = 2;
+	private const int DEFENSE = 2;
 
-	private const MIN_SIZE = 50;
+	private const int MIN_SIZE = 50;
 
-	public final const MAX_SIZE = 249;
+	public final const int MAX_SIZE = 249;
 
 	public function Defense(): int {
 		return self::DEFENSE;

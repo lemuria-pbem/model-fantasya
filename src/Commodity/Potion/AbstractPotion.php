@@ -17,7 +17,7 @@ abstract class AbstractPotion implements Potion
 	use CommodityTrait;
 	use RawMaterialTrait;
 
-	private const WEIGHT = 10;
+	private const int WEIGHT = 10;
 
 	public static function all(): SingletonSet {
 		return self::getAll(__DIR__);

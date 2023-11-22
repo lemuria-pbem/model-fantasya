@@ -6,13 +6,13 @@ use Lemuria\Model\Fantasya\Landscape\Swamp;
 
 final class Ghoul extends AbstractMonster
 {
-	private const HITPOINTS = 15;
+	private const int HITPOINTS = 15;
 
-	private const PAYLOAD = 5 * 100;
+	private const int PAYLOAD = 5 * 100;
 
-	private const WEIGHT = 5 * 100;
+	private const int WEIGHT = 5 * 100;
 
-	private const RECREATION = 0.5;
+	private const float RECREATION = 0.5;
 
 	public function __construct() {
 		$this->environment[] = self::createLandscape(Swamp::class);

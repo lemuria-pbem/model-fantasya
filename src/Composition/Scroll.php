@@ -13,11 +13,11 @@ use Lemuria\Validate;
 
 class Scroll extends AbstractComposition implements Ownable, Readable
 {
-	private const SILVER = 10;
+	private const int SILVER = 10;
 
-	private const WEIGHT = 1;
+	private const int WEIGHT = 1;
 
-	private const SPELL = 'spell';
+	private const string SPELL = 'spell';
 
 	protected ?Spell $spell = null;
 

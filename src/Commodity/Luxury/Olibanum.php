@@ -7,7 +7,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Luxury;
  */
 final class Olibanum extends AbstractLuxury
 {
-	private const VALUE = 5;
+	private const int VALUE = 5;
 
 	public function Value(): int {
 		return self::VALUE;

@@ -4,9 +4,9 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class SoundlessShadow extends AbstractSpell
 {
-	private const AURA = 1;
+	private const int AURA = 1;
 
-	private const DIFFICULTY = 1;
+	private const int DIFFICULTY = 1;
 
 	public function Aura(): int {
 		return self::AURA;

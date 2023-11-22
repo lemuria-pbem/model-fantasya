@@ -7,7 +7,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Luxury;
  */
 final class Spice extends AbstractLuxury
 {
-	private const VALUE = 6;
+	private const int VALUE = 6;
 
 	public function Value(): int {
 		return self::VALUE;

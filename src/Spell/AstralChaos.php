@@ -6,11 +6,11 @@ use Lemuria\Model\Fantasya\Combat\Phase;
 
 final class AstralChaos extends AbstractBattleSpell
 {
-	private const AURA = 6;
+	private const int AURA = 6;
 
-	private const DIFFICULTY = 6;
+	private const int DIFFICULTY = 6;
 
-	private const ORDER = 2;
+	private const int ORDER = 2;
 
 	protected bool $isIncremental = false;
 

@@ -31,33 +31,33 @@ class Unit extends Entity implements Collectible, Collector, Sized
 	use CollectorTrait;
 	use ExtensionTrait;
 
-	private const RACE = 'race';
+	private const string RACE = 'race';
 
-	private const SIZE = 'size';
+	private const string SIZE = 'size';
 
-	private const AURA = 'aura';
+	private const string AURA = 'aura';
 
-	private const HEALTH = 'health';
+	private const string HEALTH = 'health';
 
-	private const IS_GUARDING = 'isGuarding';
+	private const string IS_GUARDING = 'isGuarding';
 
-	private const BATTLE_ROW = 'battleRow';
+	private const string BATTLE_ROW = 'battleRow';
 
-	private const IS_HIDING = 'isHiding';
+	private const string IS_HIDING = 'isHiding';
 
-	private const IS_LOOTING = 'isLooting';
+	private const string IS_LOOTING = 'isLooting';
 
-	private const IS_TRANSPORTING = 'isTransporting';
+	private const string IS_TRANSPORTING = 'isTransporting';
 
-	private const DISGUISE_AS = 'disguiseAs';
+	private const string DISGUISE_AS = 'disguiseAs';
 
-	private const INVENTORY = 'inventory';
+	private const string INVENTORY = 'inventory';
 
-	private const TREASURY = 'treasury';
+	private const string TREASURY = 'treasury';
 
-	private const KNOWLEDGE = 'knowledge';
+	private const string KNOWLEDGE = 'knowledge';
 
-	private const BATTLE_SPELLS = 'battleSpells';
+	private const string BATTLE_SPELLS = 'battleSpells';
 
 	private Race $race;
 
@@ -382,7 +382,6 @@ class Unit extends Entity implements Collectible, Collector, Sized
 	 * Check that a serialized data array is valid.
 	 *
 	 * @param array<string, mixed> $data
-	 * @noinspection DuplicatedCode
 	 */
 	protected function validateSerializedData(array $data): void {
 		parent::validateSerializedData($data);

@@ -13,17 +13,17 @@ use Lemuria\Model\Fantasya\Commodity\Wood;
  */
 final class Port extends AbstractBuilding
 {
-	private const TALENT = 5;
+	private const int TALENT = 5;
 
-	private const UPKEEP = 200;
+	private const int UPKEEP = 200;
 
-	private const SILVER = 300;
+	private const int SILVER = 300;
 
-	private const WOOD = 5;
+	private const int WOOD = 5;
 
-	private const STONE = 10;
+	private const int STONE = 10;
 
-	private const IRON = 4;
+	private const int IRON = 4;
 
 	public function Dependency(): ?Building {
 		return self::createBuilding(Palace::class);

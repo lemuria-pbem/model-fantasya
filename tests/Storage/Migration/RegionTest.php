@@ -10,7 +10,10 @@ use Lemuria\Model\Fantasya\Storage\Migration\Region;
 
 class RegionTest extends Migration
 {
-	public final const DATA = [
+	/**
+	 * @type array<string, mixed>
+	 */
+	public final const array DATA = [
 		'id'          => 54,
 		'name'        => 'Schattental',
 		'description' => '',

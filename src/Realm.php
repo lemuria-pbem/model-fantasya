@@ -21,9 +21,9 @@ class Realm extends Entity implements Collectible, Collector
 	use CollectibleTrait;
 	use CollectorTrait;
 
-	private const IDENTIFIER = 'identifier';
+	private const string IDENTIFIER = 'identifier';
 
-	private const TERRITORY = 'territory';
+	private const string TERRITORY = 'territory';
 
 	private Id $identifier;
 

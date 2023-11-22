@@ -12,7 +12,10 @@ use Lemuria\Model\Fantasya\Talent\Bowmaking;
  */
 final class UngirtCrossbow extends AbstractRepairable
 {
-	private const DAMAGE = [1, 4, 6];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [1, 4, 6];
 
 	public function Weight(): int {
 		return Crossbow::WEIGHT;

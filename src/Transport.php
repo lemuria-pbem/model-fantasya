@@ -15,7 +15,10 @@ use Lemuria\Singleton;
  */
 interface Transport extends Singleton
 {
-	public final const ANIMALS = [Horse::class, Camel::class, Elephant::class, Pegasus::class, Griffin::class, WarElephant::class];
+	/**
+	 * @type array<string>
+	 */
+	public final const array ANIMALS = [Horse::class, Camel::class, Elephant::class, Pegasus::class, Griffin::class, WarElephant::class];
 
 	/**
 	 * Get the maximum weight of payload.

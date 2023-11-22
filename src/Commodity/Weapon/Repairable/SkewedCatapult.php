@@ -12,9 +12,12 @@ use Lemuria\Model\Fantasya\Talent\Carriagemaking;
  */
 final class SkewedCatapult extends AbstractRepairable
 {
-	private const DAMAGE = [3, 7, 4];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [3, 7, 4];
 
-	private const HITS = 1;
+	private const int HITS = 1;
 
 	public function Weight(): int {
 		return Catapult::WEIGHT;

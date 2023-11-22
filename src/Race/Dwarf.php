@@ -34,17 +34,17 @@ use Lemuria\Model\Fantasya\TerrainEffect;
  */
 final class Dwarf extends AbstractRace
 {
-	private const HITPOINTS = 25;
+	private const int HITPOINTS = 25;
 
-	private const HUNGER = 8;
+	private const int HUNGER = 8;
 
-	private const REFILL = 0.2;
+	private const float REFILL = 0.2;
 
-	private const PAYLOAD = 5 * 100;
+	private const int PAYLOAD = 5 * 100;
 
-	private const RECRUITING = 110;
+	private const int RECRUITING = 110;
 
-	private const WEIGHT = 10 * 100;
+	private const int WEIGHT = 10 * 100;
 
 	public function Hitpoints(): int {
 		return self::HITPOINTS;

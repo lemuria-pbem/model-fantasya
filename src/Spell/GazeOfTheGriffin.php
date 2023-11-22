@@ -4,9 +4,9 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class GazeOfTheGriffin extends AbstractSpell
 {
-	private const AURA = 4;
+	private const int AURA = 4;
 
-	private const DIFFICULTY = 4;
+	private const int DIFFICULTY = 4;
 
 	protected bool $isIncremental = false;
 

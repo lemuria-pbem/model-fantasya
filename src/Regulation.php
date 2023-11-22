@@ -13,9 +13,9 @@ class Regulation extends Landmass
 {
 	use SerializableTrait;
 
-	private const ENTITIES = 'entities';
+	private const string ENTITIES = 'entities';
 
-	private const QUOTAS = 'quotas';
+	private const string QUOTAS = 'quotas';
 
 	/**
 	 * @var array<int, Quotas>

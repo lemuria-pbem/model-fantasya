@@ -19,7 +19,7 @@ class HerbalBook extends Annals
 {
 	use BuilderTrait;
 
-	private const HERBAGES = 'herbages';
+	private const string HERBAGES = 'herbages';
 
 	/**
 	 * @var array<int, Herbage>

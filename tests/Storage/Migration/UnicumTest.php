@@ -10,7 +10,10 @@ use Lemuria\Model\Fantasya\Storage\Migration\Unicum;
 
 class UnicumTest extends Migration
 {
-	public final const DATA = [
+	/**
+	 * @type array<string, mixed>
+	 */
+	public final const array DATA = [
 		'id'          => 1,
 		'name'        => 'Unicum',
 		'description' => '',

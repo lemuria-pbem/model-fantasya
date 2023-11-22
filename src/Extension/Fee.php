@@ -15,7 +15,7 @@ class Fee implements Extension
 	use ExtensionTrait;
 	use SerializableTrait;
 
-	private const FEE = 'fee';
+	private const string FEE = 'fee';
 
 	protected Quantity|float|null $fee = null;
 

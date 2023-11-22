@@ -9,7 +9,10 @@ use Lemuria\Model\Fantasya\Damage;
  */
 final class Fists extends NativeMelee
 {
-	private const DAMAGE = [1, 5, 0];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [1, 5, 0];
 
 	public function __construct() {
 		parent::__construct(1, new Damage(...self::DAMAGE));

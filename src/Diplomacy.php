@@ -32,15 +32,15 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Reassignme
 	use IteratorTrait;
 	use SerializableTrait;
 
-	private const ACQUAINTANCES = 'acquaintances';
+	private const string ACQUAINTANCES = 'acquaintances';
 
-	private const RELATIONS = 'relations';
+	private const string RELATIONS = 'relations';
 
-	private const PARTY = 'party';
+	private const string PARTY = 'party';
 
-	private const REGION = 'region';
+	private const string REGION = 'region';
 
-	private const AGREEMENT = 'agreement';
+	private const string AGREEMENT = 'agreement';
 
 	/**
 	 * @var Acquaintances

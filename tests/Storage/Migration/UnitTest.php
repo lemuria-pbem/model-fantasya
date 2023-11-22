@@ -10,7 +10,10 @@ use Lemuria\Model\Fantasya\Storage\Migration\Unit;
 
 class UnitTest extends Migration
 {
-	public final const DATA = [
+	/**
+	 * @type array<string, mixed>
+	 */
+	public final const array DATA = [
 		'id'           => 812295,
 		'name'         => 'Herr der Schatten',
 		'description'  => 'Dieser mysteriöse Mann leitet die Geschicke der Lemurianer.',

@@ -4,9 +4,9 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class AstralPassage extends AbstractSpell
 {
-	private const AURA = 5;
+	private const int AURA = 5;
 
-	private const DIFFICULTY = 5;
+	private const int DIFFICULTY = 5;
 
 	protected bool $isIncremental = false;
 

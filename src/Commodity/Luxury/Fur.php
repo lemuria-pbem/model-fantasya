@@ -7,7 +7,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Luxury;
  */
 final class Fur extends AbstractLuxury
 {
-	private const VALUE = 7;
+	private const int VALUE = 7;
 
 	public function Value(): int {
 		return self::VALUE;

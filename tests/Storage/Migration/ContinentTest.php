@@ -10,7 +10,10 @@ use Lemuria\Model\Fantasya\Storage\Migration\Continent;
 
 class ContinentTest extends Migration
 {
-	public final const DATA = [
+	/**
+	 * @type array<string, mixed>
+	 */
+	public final const array DATA = [
 		'id'           => 1,
 		'name'         => 'Lemuria Alpha',
 		'description'  => 'Eine große Landmasse erhebt sich inmitten des unendlichen Ozeans.',

@@ -10,7 +10,7 @@ use Lemuria\SingletonTrait;
  */
 final class Peasant implements Commodity
 {
-	private const WEIGHT = 10 * 100;
+	private const int WEIGHT = 10 * 100;
 
 	use SingletonTrait;
 

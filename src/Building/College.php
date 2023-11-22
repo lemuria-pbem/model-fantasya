@@ -13,21 +13,21 @@ use Lemuria\Model\Fantasya\Commodity\Wood;
  */
 final class College extends AbstractBuilding
 {
-	private const TALENT = 4;
+	private const int TALENT = 4;
 
-	private const UPKEEP = 500;
+	private const int UPKEEP = 500;
 
-	private const FEED = 50;
+	private const int FEED = 50;
 
-	private const USEFUL_SIZE = 10;
+	private const int USEFUL_SIZE = 10;
 
-	private const SILVER = 500;
+	private const int SILVER = 500;
 
-	private const WOOD = 5;
+	private const int WOOD = 5;
 
-	private const STONE = 5;
+	private const int STONE = 5;
 
-	private const IRON = 1;
+	private const int IRON = 1;
 
 	public function Dependency(): ?Building {
 		return self::createBuilding(Stronghold::class);

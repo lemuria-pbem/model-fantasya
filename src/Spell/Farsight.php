@@ -4,9 +4,9 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class Farsight extends AbstractSpell
 {
-	private const AURA = 3;
+	private const int AURA = 3;
 
-	private const DIFFICULTY = 3;
+	private const int DIFFICULTY = 3;
 
 	protected bool $isIncremental = false;
 

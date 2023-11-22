@@ -7,37 +7,37 @@ namespace Lemuria\Model\Fantasya;
  */
 class Relation
 {
-	public final const NONE = 0;
+	public final const int NONE = 0;
 
-	public final const TELL = 1;
+	public final const int TELL = 1;
 
-	public final const TRADE = 2;
+	public final const int TRADE = 2;
 
-	public final const EARN = 4;
+	public final const int EARN = 4;
 
-	public final const RESOURCES = 8;
+	public final const int RESOURCES = 8;
 
-	public final const ENTER = 16;
+	public final const int ENTER = 16;
 
-	public final const MARKET = 32;
+	public final const int MARKET = 32;
 
-	public final const GIVE = 64;
+	public final const int GIVE = 64;
 
-	public final const PASS = 128;
+	public final const int PASS = 128;
 
-	public final const GUARD = 256;
+	public final const int GUARD = 256;
 
-	public final const PERCEPTION = 512;
+	public final const int PERCEPTION = 512;
 
-	public final const DISGUISE = 1024;
+	public final const int DISGUISE = 1024;
 
-	public final const SILVER = 2048;
+	public final const int SILVER = 2048;
 
-	public final const FOOD = 4096;
+	public final const int FOOD = 4096;
 
-	public final const COMBAT = 8192;
+	public final const int COMBAT = 8192;
 
-	public final const ALL = 16383;
+	public final const int ALL = 16383;
 
 	private int $agreement = self::NONE;
 

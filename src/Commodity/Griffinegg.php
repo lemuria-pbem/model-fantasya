@@ -12,7 +12,7 @@ final class Griffinegg implements Commodity
 {
 	use SingletonTrait;
 
-	private const WEIGHT = 20 * 100;
+	private const int WEIGHT = 20 * 100;
 
 	public function Weight(): int {
 		return self::WEIGHT;

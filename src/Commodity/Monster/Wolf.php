@@ -12,19 +12,22 @@ use Lemuria\Model\Fantasya\Landscape\Plain;
 
 final class Wolf extends AbstractMonster
 {
-	private const HITPOINTS = 28;
+	private const int HITPOINTS = 28;
 
-	private const PAYLOAD = 2 * 100;
+	private const int PAYLOAD = 2 * 100;
 
-	private const WEIGHT = 10 * 100;
+	private const int WEIGHT = 10 * 100;
 
-	private const DAMAGE = [1, 4, 1];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [1, 4, 1];
 
-	private const SKILL = 3;
+	private const int SKILL = 3;
 
-	private const TROPHY = WolfSkin::class;
+	private const string TROPHY = WolfSkin::class;
 
-	private const RECREATION = 0.6;
+	private const float RECREATION = 0.6;
 
 	public function __construct() {
 		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE));

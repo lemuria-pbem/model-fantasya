@@ -17,9 +17,9 @@ class Acquaintances extends Gathering
 {
 	use SerializableTrait;
 
-	private const ENTITIES = 'entities';
+	private const string ENTITIES = 'entities';
 
-	private const IS_TOLD = 'isTold';
+	private const string IS_TOLD = 'isTold';
 
 	/**
 	 * @var array<int, bool>

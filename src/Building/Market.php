@@ -15,17 +15,17 @@ use Lemuria\Model\Fantasya\Extension\Market as MarketExtension;
  */
 final class Market extends AbstractBuilding
 {
-	private const TALENT = 2;
+	private const int TALENT = 2;
 
-	private const UPKEEP = 100;
+	private const int UPKEEP = 100;
 
-	private const SILVER = 100;
+	private const int SILVER = 100;
 
-	private const WOOD = 2;
+	private const int WOOD = 2;
 
-	private const STONE = 8;
+	private const int STONE = 8;
 
-	private const IRON = 2;
+	private const int IRON = 2;
 
 	public function Dependency(): ?Building {
 		return self::createBuilding(Tower::class);

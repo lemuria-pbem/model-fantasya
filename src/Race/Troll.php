@@ -26,17 +26,17 @@ use Lemuria\Model\Fantasya\Talent\Taxcollecting;
  */
 final class Troll extends AbstractRace
 {
-	private const HITPOINTS = 30;
+	private const int HITPOINTS = 30;
 
-	private const HUNGER = 12;
+	private const int HUNGER = 12;
 
-	private const REFILL = 0.15;
+	private const float REFILL = 0.15;
 
-	private const PAYLOAD = 10 * 100;
+	private const int PAYLOAD = 10 * 100;
 
-	private const RECRUITING = 90;
+	private const int RECRUITING = 90;
 
-	private const WEIGHT = 20 * 100;
+	private const int WEIGHT = 20 * 100;
 
 	public function Hitpoints(): int {
 		return self::HITPOINTS;

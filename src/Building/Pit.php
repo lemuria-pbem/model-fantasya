@@ -16,17 +16,17 @@ use Lemuria\Model\Fantasya\Talent\Mining;
  */
 final class Pit extends AbstractBuilding
 {
-	private const TALENT = 3;
+	private const int TALENT = 3;
 
-	private const FEED = 5;
+	private const int FEED = 5;
 
-	private const SILVER = 100;
+	private const int SILVER = 100;
 
-	private const WOOD = 3;
+	private const int WOOD = 3;
 
-	private const STONE = 3;
+	private const int STONE = 3;
 
-	private const IRON = 1;
+	private const int IRON = 1;
 
 	public function Dependency(): ?Building {
 		return Building::IS_INDEPENDENT;

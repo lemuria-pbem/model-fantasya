@@ -10,7 +10,10 @@ use Lemuria\Factory\SingletonGroup;
  */
 class SingletonCatalog implements SingletonCatalogInterface
 {
-	private const GROUPS = [
+	/**
+	 * @type array<string>
+	 */
+	private const array GROUPS = [
 		'Building', 'Landscape', 'Race', 'Ship', 'Talent', 'Commodity', 'Spell',
 		'Commodity\\Herb', 'Commodity\\Jewelry', 'Commodity\\Luxury', 'Commodity\\Monster', 'Commodity\\Potion',
 		'Commodity\\Protection', 'Commodity\\Protection\\Repairable', 'Commodity\\Trophy',

@@ -30,15 +30,18 @@ class Luxuries implements \ArrayAccess, \Countable, \Iterator, Serializable
 	use IteratorTrait;
 	use SerializableTrait;
 
-	public final const LUXURIES = [
+	/**
+	 * @type array<string>
+	 */
+	public final const array LUXURIES = [
 		Balsam::class, Fur::class, Gem::class, Myrrh::class, Oil::class, Olibanum::class, Silk::class, Spice::class
 	];
 
-	private const OFFER = 'offer';
+	private const string OFFER = 'offer';
 
-	private const PRICE = 'price';
+	private const string PRICE = 'price';
 
-	private const DEMAND = 'demand';
+	private const string DEMAND = 'demand';
 
 	private ?Offer $offer;
 

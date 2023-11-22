@@ -6,9 +6,9 @@ use Lemuria\Model\Fantasya\Combat\Phase;
 
 final class RustyMist extends AbstractBattleSpell
 {
-	private const AURA = 3;
+	private const int AURA = 3;
 
-	private const DIFFICULTY = 6;
+	private const int DIFFICULTY = 6;
 
 	public function Aura(): int {
 		return self::AURA;

@@ -13,9 +13,9 @@ class Plain extends AbstractLandscape
 {
 	private const HERBS = [Flatroot::class, Owlsgaze::class, TangyTemerity::class];
 
-	private const ROAD_STONES = 50;
+	private const int ROAD_STONES = 50;
 
-	private const WORKPLACES = 10000;
+	private const int WORKPLACES = 10000;
 
 	private static ?array $herbs = null;
 

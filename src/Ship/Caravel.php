@@ -7,15 +7,15 @@ namespace Lemuria\Model\Fantasya\Ship;
  */
 final class Caravel extends AbstractShip
 {
-	private const CAPTAIN = 4;
+	private const int CAPTAIN = 4;
 
-	private const CREW = 30;
+	private const int CREW = 30;
 
-	private const PAYLOAD = 3000 * 100;
+	private const int PAYLOAD = 3000 * 100;
 
-	private const SPEED = 6;
+	private const int SPEED = 6;
 
-	private const WOOD = 250;
+	private const int WOOD = 250;
 
 	public function Captain(): int {
 		return self::CAPTAIN;

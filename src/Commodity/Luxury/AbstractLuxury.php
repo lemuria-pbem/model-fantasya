@@ -16,7 +16,7 @@ abstract class AbstractLuxury implements Luxury
 	use CommodityTrait;
 	use SingletonTrait;
 
-	private const WEIGHT = 1 * 100;
+	private const int WEIGHT = 1 * 100;
 
 	public static function all(): SingletonSet {
 		return self::getAll(__DIR__);

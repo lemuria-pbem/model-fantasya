@@ -6,9 +6,9 @@ use Lemuria\Model\Fantasya\Combat\Phase;
 
 final class SongOfPeace extends AbstractBattleSpell
 {
-	private const AURA = 1;
+	private const int AURA = 1;
 
-	private const DIFFICULTY = 2;
+	private const int DIFFICULTY = 2;
 
 	public function Aura(): int {
 		return self::AURA;

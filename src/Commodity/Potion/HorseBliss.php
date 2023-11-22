@@ -9,13 +9,16 @@ use Lemuria\Model\Fantasya\Commodity\Herb\TangyTemerity;
 
 final class HorseBliss extends AbstractPotion
 {
-	public final const HORSES = 50;
+	public final const int HORSES = 50;
 
-	private const LEVEL = 3;
+	private const int LEVEL = 3;
 
-	private const WEEKS = 3;
+	private const int WEEKS = 3;
 
-	private const INGREDIENTS = [CobaltFungus::class, Knotroot::class, Peyote::class, TangyTemerity::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array INGREDIENTS = [CobaltFungus::class, Knotroot::class, Peyote::class, TangyTemerity::class];
 
 	public function Level(): int {
 		return self::LEVEL;

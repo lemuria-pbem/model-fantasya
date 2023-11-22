@@ -7,11 +7,14 @@ use Lemuria\Model\Fantasya\Commodity\Herb\FjordFungus;
 
 final class GoliathWater extends AbstractPotion
 {
-	public final const PERSONS = 10;
+	public final const int PERSONS = 10;
 
-	private const LEVEL = 1;
+	private const int LEVEL = 1;
 
-	private const INGREDIENTS = [Bubblemorel::class, FjordFungus::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array INGREDIENTS = [Bubblemorel::class, FjordFungus::class];
 
 	public function Level(): int {
 		return self::LEVEL;

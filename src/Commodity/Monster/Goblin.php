@@ -24,19 +24,22 @@ use Lemuria\Model\Fantasya\Landscape\Swamp;
 
 final class Goblin extends AbstractMonster
 {
-	private const HITPOINTS = 14;
+	private const int HITPOINTS = 14;
 
-	private const PAYLOAD = 3 * 100;
+	private const int PAYLOAD = 3 * 100;
 
-	private const WEIGHT = 6 * 100;
+	private const int WEIGHT = 6 * 100;
 
-	private const DAMAGE = [1, 2, 0];
+	/**
+	 * @type array<int>
+	 */
+	private const array DAMAGE = [1, 2, 0];
 
-	private const SKILL = 1;
+	private const int SKILL = 1;
 
-	private const TROPHY = GoblinEar::class;
+	private const string TROPHY = GoblinEar::class;
 
-	private const RECREATION = 1.0;
+	private const float RECREATION = 1.0;
 
 	public function __construct() {
 		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE));

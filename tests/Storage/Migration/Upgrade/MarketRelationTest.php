@@ -11,11 +11,17 @@ use Lemuria\Model\Game;
 
 class MarketRelationTest extends Base
 {
-	protected const RELATIONS = [
+	/**
+	 * @type array<string, int>
+	 */
+	protected const array RELATIONS = [
 		['agreement' => 2 + 4 + 16 + 32 + 512]
 	];
 
-	protected const MIGRATED = [
+	/**
+	 * @type array<string, int>
+	 */
+	protected const array MIGRATED = [
 		['agreement' => 2 + 4 + 16 + 64 + 1024]
 	];
 

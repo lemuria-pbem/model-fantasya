@@ -13,17 +13,17 @@ class Presettings implements Serializable
 {
 	use SerializableTrait;
 
-	private const BATTLE_ROW = 'battleRow';
+	private const string BATTLE_ROW = 'battleRow';
 
-	private const IS_HIDING = 'isHiding';
+	private const string IS_HIDING = 'isHiding';
 
-	private const DISGUISE_AS = 'disguiseAs';
+	private const string DISGUISE_AS = 'disguiseAs';
 
-	private const IS_LOOTING = 'isLooting';
+	private const string IS_LOOTING = 'isLooting';
 
-	private const IS_REPEAT = 'isRepeat';
+	private const string IS_REPEAT = 'isRepeat';
 
-	private const EXPLORING = 'exploring';
+	private const string EXPLORING = 'exploring';
 
 	protected BattleRow $battleRow = BattleRow::Bystander;
 

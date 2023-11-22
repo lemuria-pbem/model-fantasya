@@ -10,11 +10,14 @@ use Lemuria\Model\Fantasya\Commodity\Herb\WhiteHemlock;
 
 final class BerserkBlood extends AbstractPotion
 {
-	public final const PERSONS = 10;
+	public final const int PERSONS = 10;
 
-	private const LEVEL = 4;
+	private const int LEVEL = 4;
 
-	private const INGREDIENTS = [Bugleweed::class, Mandrake::class, Owlsgaze::class, Sandreeker::class, WhiteHemlock::class];
+	/**
+	 * @type array<string>
+	 */
+	private const array INGREDIENTS = [Bugleweed::class, Mandrake::class, Owlsgaze::class, Sandreeker::class, WhiteHemlock::class];
 
 	public function Level(): int {
 		return self::LEVEL;

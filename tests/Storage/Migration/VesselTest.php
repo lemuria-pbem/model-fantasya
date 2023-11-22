@@ -10,7 +10,10 @@ use Lemuria\Model\Fantasya\Storage\Migration\Vessel;
 
 class VesselTest extends Migration
 {
-	public final const DATA = [
+	/**
+	 * @type array<string, mixed>
+	 */
+	public final const array DATA = [
 		'id'          => 1,
 		'name'        => 'Alpha Primus',
 		'description' => 'Die Alpha Primus ist eigentlich nur das Ergebnis eines Testaufbaus von Schiffbauer Jon.',

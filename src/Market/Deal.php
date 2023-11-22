@@ -15,7 +15,7 @@ class Deal implements \Stringable, Serializable
 	use BuilderTrait;
 	use SerializableTrait;
 
-	public const ADAPTING_MAX = PHP_INT_MAX;
+	public const int ADAPTING_MAX = PHP_INT_MAX;
 
 	private array $parts;
 

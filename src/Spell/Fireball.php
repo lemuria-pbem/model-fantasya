@@ -4,9 +4,9 @@ namespace Lemuria\Model\Fantasya\Spell;
 
 final class Fireball extends AbstractBattleSpell
 {
-	private const AURA = 1;
+	private const int AURA = 1;
 
-	private const DIFFICULTY = 3;
+	private const int DIFFICULTY = 3;
 
 	public function Aura(): int {
 		return self::AURA;

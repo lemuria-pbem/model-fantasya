@@ -28,17 +28,17 @@ use Lemuria\Model\Fantasya\TerrainEffect;
  */
 final class Elf extends AbstractRace
 {
-	private const HITPOINTS = 22;
+	private const int HITPOINTS = 22;
 
-	private const HUNGER = 6;
+	private const int HUNGER = 6;
 
-	private const REFILL = 0.33;
+	private const float REFILL = 0.33;
 
-	private const PAYLOAD = 5 * 100;
+	private const int PAYLOAD = 5 * 100;
 
-	private const RECRUITING = 130;
+	private const int RECRUITING = 130;
 
-	private const WEIGHT = 10 * 100;
+	private const int WEIGHT = 10 * 100;
 
 	public function Hitpoints(): int {
 		return self::HITPOINTS;

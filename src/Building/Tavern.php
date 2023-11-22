@@ -13,19 +13,19 @@ use Lemuria\Model\Fantasya\Commodity\Wood;
  */
 final class Tavern extends AbstractBuilding
 {
-	private const TALENT = 3;
+	private const int TALENT = 3;
 
-	private const UPKEEP = 50;
+	private const int UPKEEP = 50;
 
-	private const FEED = 4;
+	private const int FEED = 4;
 
-	private const SILVER = 200;
+	private const int SILVER = 200;
 
-	private const WOOD = 3;
+	private const int WOOD = 3;
 
-	private const STONE = 4;
+	private const int STONE = 4;
 
-	private const IRON = 1;
+	private const int IRON = 1;
 
 	public function Dependency(): ?Building {
 		return Building::IS_INDEPENDENT;

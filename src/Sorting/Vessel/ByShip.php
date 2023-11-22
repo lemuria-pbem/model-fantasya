@@ -18,7 +18,10 @@ use Lemuria\Model\Fantasya\Vessel;
  */
 class ByShip implements EntityOrder
 {
-	protected const ORDER = [
+	/**
+	 * @type array<string>
+	 */
+	protected const array ORDER = [
 		Galleon::class, Trireme::class, Caravel::class, Dragonship::class, Longboat::class, Boat::class
 	];
 

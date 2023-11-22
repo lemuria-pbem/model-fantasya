@@ -7,13 +7,13 @@ namespace Lemuria\Model\Fantasya\Building;
  */
 final class Citadel extends AbstractCastle
 {
-	private const TALENT = 7;
+	private const int TALENT = 7;
 
-	private const DEFENSE = 4;
+	private const int DEFENSE = 4;
 
-	private const MIN_SIZE = 1250;
+	private const int MIN_SIZE = 1250;
 
-	public final const MAX_SIZE = 6249;
+	public final const int MAX_SIZE = 6249;
 
 	public function Defense(): int {
 		return self::DEFENSE;
