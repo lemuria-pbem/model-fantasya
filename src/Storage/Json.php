@@ -22,6 +22,10 @@ final class Json
 
 	public final const int ENCODE_OPTIONS = JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION;
 
+	public static function isValid(string $json): bool {
+		return json_validate($json, self::DEPTH);
+	}
+
 	/**
 	 * @param string $json
 	 * @return array
