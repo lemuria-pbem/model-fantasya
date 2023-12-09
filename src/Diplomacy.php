@@ -141,6 +141,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Reassignme
 
 	public function reassign(Id $oldId, Identifiable $identifiable): void {
 		if ($identifiable->Catalog() === Domain::Party) {
+			$this->acquaintances->reassign($oldId, $identifiable);
 			foreach (array_keys($this->relations) as $key) {
 				$relation = $this->relations[$key];
 				if ($relation->Party() === $identifiable) {
@@ -155,6 +156,7 @@ final class Diplomacy implements \ArrayAccess, \Countable, \Iterator, Reassignme
 
 	public function remove(Identifiable $identifiable): void {
 		if ($identifiable->Catalog() === Domain::Party) {
+			$this->acquaintances->remove($identifiable);
 			foreach (array_keys($this->relations) as $key) {
 				$relation = $this->relations[$key];
 				if ($relation->Party() === $identifiable) {
