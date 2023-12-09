@@ -28,12 +28,12 @@ abstract class AbstractUpgrade
 	abstract public function upgrade(): static;
 
 	public function isPending(string $version): bool {
-		return $version >= $this->before && $version < $this->after;
+		return version_compare($version, $this->before) >= 0 && version_compare($version, $this->after) < 0;
 	}
 
 	protected function finish(): static {
 		$calendar = $this->game->getCalendar();
-		if ($calendar['version'] < $this->after) {
+		if (version_compare($calendar['version'], $this->after) < 0) {
 			$calendar['version'] = $this->after;
 			$this->game->setCalendar($calendar);
 		}
