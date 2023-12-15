@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\World;
 
+use Lemuria\Exception\InvalidClassTypeException;
 use Lemuria\Model\Coordinates;
 use Lemuria\Model\Exception\MapException;
 use Lemuria\Model\Fantasya\Exception\WorldMapException;
@@ -15,6 +16,7 @@ use Lemuria\Model\World\Geometry;
 use Lemuria\Model\World\Map;
 use Lemuria\Model\World\MapCoordinates;
 use Lemuria\Model\World\Path;
+use Lemuria\Model\World\PathStrategy;
 
 /**
  * This is a decorated world that calculates map coordinates for a specific party.
@@ -115,6 +117,15 @@ final readonly class PartyMap implements World, Map
 	 */
 	public function getAlternatives(Location $location, Direction $direction): Neighbours {
 		return $this->world->getAlternatives($location, $direction);
+	}
+
+	/**
+	 * Find a path between two locations.
+	 *
+	 * @throws InvalidClassTypeException
+	 */
+	public function findPath(Location $from, Location $to, string $pathStrategy): PathStrategy {
+		return $this->world->findPath($from, $to, $pathStrategy);
 	}
 
 	/**
