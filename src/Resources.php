@@ -2,6 +2,9 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
+use Lemuria\Exception\LemuriaException;
+use Lemuria\Model\Fantasya\Sorting\ByCommodity;
+use Lemuria\SortMode;
 use function Lemuria\getClass;
 use Lemuria\Item;
 use Lemuria\ItemSet;
@@ -56,6 +59,20 @@ class Resources extends ItemSet
 
 	public function remove(Quantity $quantity): static {
 		$this->removeItem($quantity);
+		return $this;
+	}
+
+	/**
+	 * Sort the constructions.
+	 */
+	public function sort(SortMode $mode = SortMode::ByType): static {
+		switch ($mode) {
+			case SortMode::ByType :
+				$this->sortUsing(new ByCommodity());
+				break;
+			default :
+				throw new LemuriaException('Unsupported sort mode: ' . $mode->name);
+		}
 		return $this;
 	}
 
