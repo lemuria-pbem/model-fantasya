@@ -4,7 +4,7 @@ namespace Lemuria\Model\Fantasya;
 
 use Lemuria\SingletonSet;
 
-interface Monster extends Protection, Race
+interface Monster extends Protection, Race, TrophySource
 {
 	/**
 	 * Get the native weapon.
@@ -15,11 +15,6 @@ interface Monster extends Protection, Race
 	 * Get the items that this monster takes from loot.
 	 */
 	public function Loot(): SingletonSet;
-
-	/**
-	 * Get the trophy that can be gained in combat against this monster.
-	 */
-	public function Trophy(): ?Trophy;
 
 	/**
 	 * Get the health recreation factor.
