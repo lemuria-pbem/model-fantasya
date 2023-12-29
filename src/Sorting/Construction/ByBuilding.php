@@ -2,6 +2,15 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya\Sorting\Construction;
 
+use Lemuria\Model\Fantasya\Building\Cave;
+use Lemuria\Model\Fantasya\Building\ForesterLodge;
+use Lemuria\Model\Fantasya\Building\Greenhouse;
+use Lemuria\Model\Fantasya\Building\HerbalHut;
+use Lemuria\Model\Fantasya\Building\HuntingLodge;
+use Lemuria\Model\Fantasya\Building\MushroomCave;
+use Lemuria\Model\Fantasya\Building\Oasis;
+use Lemuria\Model\Fantasya\Building\Plantation;
+use Lemuria\Model\Fantasya\Building\Shop;
 use function Lemuria\getClass;
 use Lemuria\EntityOrder;
 use Lemuria\EntitySet;
@@ -52,12 +61,13 @@ class ByBuilding implements EntityOrder
 	protected const array ORDER = [
 		Monument::class,
 		Megapolis::class, Acropolis::class, Citadel::class, Stronghold::class, Palace::class, Tower::class, Fort::class, Site::class,
-		Market::class, Magespire::class, College::class, Tavern::class,
+		Market::class, Shop::class, Magespire::class, College::class, Tavern::class,
 		AlchemyKitchen::class, Blacksmith::class, Saddlery::class, Workshop::class,
-		Cabin::class, Sawmill::class, Shack::class, Quarry::class, Pit::class, Mine::class,
+		Cabin::class, Sawmill::class, Shack::class, Quarry::class, Pit::class, Mine::class, HerbalHut::class, Greenhouse::class,
 		HorseBreeding::class, CamelBreeding::class, GriffinBreeding::class,
+		HuntingLodge::class, MushroomCave::class, Oasis::class, Plantation::class, ForesterLodge::class,
 		Lighthouse::class, Port::class, Dockyard::class, Quay::class, Canal::class,
-		Ruin::class, Signpost::class
+		Signpost::class, Cave::class, Ruin::class
 	];
 
 	/**
