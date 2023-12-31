@@ -73,7 +73,7 @@ class Resources extends ItemSet
 				$this->sortUsing(new ByCommodity());
 				break;
 			default :
-				throw new LemuriaException('Unsupported sort mode: ' . $mode->name);
+				return parent::sort($mode);
 		}
 		return $this;
 	}
