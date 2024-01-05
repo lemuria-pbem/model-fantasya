@@ -2,11 +2,13 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Spell;
 
-final class Earthquake extends AbstractSpell
+final class DetectMetals extends AbstractSpell
 {
-	private const int AURA = 25;
+	private const int AURA = 4;
 
-	private const int DIFFICULTY = 9;
+	private const int DIFFICULTY = 2;
+
+	protected bool $isIncremental = false;
 
 	public function Aura(): int {
 		return self::AURA;
