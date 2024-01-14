@@ -7,7 +7,7 @@ use Lemuria\Model\Fantasya\Extensions;
 use Lemuria\Model\Fantasya\Storage\Migration\AbstractUpgrade;
 use Lemuria\Model\Game;
 
-class QuayFeeExtension extends AbstractUpgrade
+class CanalFeeExtension extends AbstractUpgrade
 {
 	protected string $before = '1.2.2';
 
@@ -25,7 +25,7 @@ class QuayFeeExtension extends AbstractUpgrade
 	public function upgrade(): static {
 		$constructions = $this->game->getConstructions();
 		foreach ($constructions as $c => $construction) {
-			if ($construction['building'] === 'Quay') {
+			if ($construction['building'] === 'Canal') {
 				$extensions = $construction['extensions'];
 				foreach ($this->extensions as $class => $extension) {
 					if (!isset($extensions[$class])) {
