@@ -278,16 +278,16 @@ abstract class JsonGame implements Game
 		return $hasChanges;
 	}
 
-	private function getData(string $fileName): array {
+	protected function getData(string $fileName): array {
 		return $this->getProvider('r', $fileName)->read($fileName);
 	}
 
-	private function setData(string $fileName, array $data): static {
+	protected function setData(string $fileName, array $data): static {
 		$this->getProvider('w', $fileName)->write($fileName, $data);
 		return $this;
 	}
 
-	private function getProvider(string $rw, string $fileName): Provider {
+	protected function getProvider(string $rw, string $fileName): Provider {
 		if (isset($this->providers[$rw][$fileName])) {
 			return $this->checkProvider($this->providers[$rw][$fileName]);
 		}
