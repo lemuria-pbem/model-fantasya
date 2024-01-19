@@ -38,7 +38,7 @@ class Sales implements \Countable
 		$this->tradeables = $market->Tradeables();
 		$this->trades     = new Trades();
 
-		foreach ($construction->Inhabitants() as $unit /* @var Unit $unit */) {
+		foreach ($construction->Inhabitants() as $unit) {
 			$this->addTrades($unit);
 		}
 	}
@@ -69,7 +69,7 @@ class Sales implements \Countable
 		if ($extensions->offsetExists(Trades::class)) {
 			/** @var Trades $trades */
 			$trades = $extensions[Trades::class];
-			foreach ($trades as $trade /* @var Trade $trade */) {
+			foreach ($trades as $trade) {
 				$goods     = $trade->Goods();
 				$commodity = $goods->Commodity();
 				if (!$this->tradeables->isAllowed($commodity)) {
