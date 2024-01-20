@@ -21,7 +21,7 @@ abstract class AbstractRepairable implements Commodity, Protection, Repairable
 	use BuilderTrait;
 	use CommodityTrait;
 
-	private const REDUCTION = 0.25;
+	private const EFFECTIVITY = 0.75;
 
 	private Requirement $craft;
 
@@ -48,6 +48,6 @@ abstract class AbstractRepairable implements Commodity, Protection, Repairable
 	}
 
 	protected function reduceBlock(int $block): int {
-		return (int)ceil(self::REDUCTION * $block);
+		return (int)ceil(self::EFFECTIVITY * $block);
 	}
 }
