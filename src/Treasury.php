@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya;
 
 use Lemuria\EntitySet;
 use Lemuria\Id;
+use Lemuria\Model\Fantasya\Extension\Valuables;
 
 /**
  * The treasury of a unit is the collection of all unica it possesses.
@@ -26,9 +27,21 @@ class Treasury extends EntitySet
 	}
 
 	public function remove(Unicum $unicum): static {
-		$this->removeEntity($unicum->Id());
+		$id = $unicum->Id();
+		$this->removeEntity($id);
 		if ($this->hasCollector()) {
-			$unicum->removeCollector($this->collector());
+			$collector = $this->collector();
+			if ($collector instanceof Unit) {
+				$extensions = $collector->Extensions();
+				if ($extensions->offsetExists(Valuables::class)) {
+					/** @var Valuables $valuables */
+					$valuables = $extensions->offsetGet(Valuables::class);
+					if ($valuables->has($id)) {
+						$valuables->remove($unicum);
+					}
+				}
+			}
+			$unicum->removeCollector($collector);
 		}
 		return $this;
 	}
