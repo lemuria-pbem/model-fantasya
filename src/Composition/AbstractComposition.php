@@ -6,6 +6,7 @@ use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\CommodityTrait;
 use Lemuria\Model\Fantasya\Composition;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
+use Lemuria\Model\Fantasya\Ownable;
 use Lemuria\Model\Fantasya\Practice;
 use Lemuria\Model\Fantasya\Requirement;
 use Lemuria\SerializableTrait;
@@ -26,6 +27,16 @@ abstract class AbstractComposition implements Composition
 
 	public static function all(): SingletonSet {
 		return self::getAll(__DIR__);
+	}
+
+	public static function ownable(): SingletonSet {
+		$set = new SingletonSet();
+		foreach (self::all() as $composition) {
+			if ($composition instanceof Ownable) {
+				$set->add($composition);
+			}
+		}
+		return $set;
 	}
 
 	public function init(): static {
