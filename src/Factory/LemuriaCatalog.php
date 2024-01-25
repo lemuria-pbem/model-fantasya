@@ -15,6 +15,7 @@ use Lemuria\Model\Fantasya\Market\Trade;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\Realm;
 use Lemuria\Model\Fantasya\Region;
+use Lemuria\Model\Fantasya\Scenario\Quest;
 use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Model\Fantasya\Unit;
 use Lemuria\Model\Fantasya\Vessel;
@@ -94,6 +95,10 @@ class LemuriaCatalog implements Catalog
 				$trade = new Trade(true);
 				$trade->unserialize($data);
 			}
+			foreach (Lemuria::Game()->getQuests() as $data) {
+				$quest = new Quest();
+				$quest->unserialize($data);
+			}
 			foreach (Lemuria::Game()->getConstructions() as $data) {
 				$construction = new Construction();
 				$construction->unserialize($data);
@@ -129,6 +134,11 @@ class LemuriaCatalog implements Catalog
 			$entities[$id] = $trade->serialize();
 		}
 		Lemuria::Game()->setTrades($entities);
+		$entities = [];
+		foreach ($this->catalog[Domain::Quest->value] as $id => $quest /* @var Quest $quest */) {
+			$entities[$id] = $quest->serialize();
+		}
+		Lemuria::Game()->setQuests($entities);
 		$entities = [];
 		foreach ($this->catalog[Domain::Location->value] as $id => $region /* @var Region $region */) {
 			$entities[$id] = $region->serialize();
