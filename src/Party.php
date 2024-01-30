@@ -28,6 +28,7 @@ class Party extends Entity implements Assignable, Collector
 {
 	use BuilderTrait;
 	use CollectorTrait;
+	use ExtensionTrait;
 
 	private const string TYPE = 'type';
 
@@ -138,6 +139,7 @@ class Party extends Entity implements Assignable, Collector
 		$this->presettings = new Presettings();
 		$this->possessions = new Possessions($this);
 		$this->regulation  = new Regulation();
+		$this->initExtensions($this);
 	}
 
 	/**

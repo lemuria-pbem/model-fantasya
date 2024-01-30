@@ -28,5 +28,6 @@ class Party extends AbstractModel
 		$this->addSerializable('presettings', new Presettings());
 		$this->addArray('possessions');
 		$this->addSerializable('regulation', new Regulation());
+		$this->addArray('extensions');
 	}
 }
