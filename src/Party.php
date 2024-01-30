@@ -273,6 +273,7 @@ class Party extends Entity implements Assignable, Collector
 		$data[self::PRESETTINGS]  = $this->Presettings()->serialize();
 		$data[self::POSSESSIONS]  = $this->Possessions()->serialize();
 		$data[self::REGULATION]   = $this->Regulation()->serialize();
+		$this->serializeExtensions($data);
 		return $data;
 	}
 
@@ -298,6 +299,7 @@ class Party extends Entity implements Assignable, Collector
 		$this->serializedHerbalBook = $data[self::HERBAL_BOOK];
 		$this->serializedSpellBook  = $data[self::SPELL_BOOK];
 		$this->serializedLoot       = $data[self::LOOT];
+		$this->unserializeExtensions($data);
 		return $this;
 	}
 
