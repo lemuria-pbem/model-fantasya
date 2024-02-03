@@ -33,7 +33,8 @@ class PartyTest extends Migration
 		'loot'        => [],
 		'presettings' => ['battleRow' => 1, 'isHiding' => true, 'disguiseAs' => false, 'isLooting'=> false],
 		'possessions' => [],
-		'regulation'  => ['entities' => [], 'quotas' => []]
+		'regulation'  => ['entities' => [], 'quotas' => []],
+		'extensions'  => []
 	];
 
 	#[Before]
