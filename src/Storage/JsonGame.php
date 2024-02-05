@@ -22,6 +22,12 @@ use Lemuria\Storage\Provider;
  */
 abstract class JsonGame implements Game
 {
+	protected const array FILES = [
+		'calendar.json', 'constructions.json', 'continents.json', 'effects.json', 'hostilities.json', 'messages.json',
+		'newcomers.json', 'orders.json', 'parties.json', 'realms.json', 'regions.json', 'statistics.json',
+		'trades.json', 'unica.json', 'units.json', 'vessels.json', 'world.json'
+	];
+
 	/**
 	 * @var array<string, array>
 	 */
@@ -200,6 +206,14 @@ abstract class JsonGame implements Game
 	}
 
 	public function migrate(): static {
+		foreach ($this->getJsonFileNames() as $fileName) {
+			$provider = $this->getProvider('r', $fileName);
+			if (!$provider->exists($fileName)) {
+				$provider = $this->getProvider('w', $fileName);
+				$provider->write($fileName, []);
+			}
+		}
+
 		$data = $this->getConstructions();
 		if ($this->migrateData(Construction::class, $data)) {
 			$this->setConstructions($data);
@@ -296,5 +310,9 @@ abstract class JsonGame implements Game
 		}
 		$type = $rw === 'w' ? 'write' : 'read';
 		throw new LemuriaException('Default ' . $type . ' provider not defined.');
+	}
+
+	protected function getJsonFileNames(): array {
+		return self::FILES;
 	}
 }
