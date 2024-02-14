@@ -24,6 +24,11 @@ interface Building extends Artifact
 	public function Feed(): int;
 
 	/**
+	 * Get the maximum allowed size of the building.
+	 */
+	public function MaxSize(): int;
+
+	/**
 	 * Get the talent level needed to create the building.
 	 */
 	public function Talent(): int;

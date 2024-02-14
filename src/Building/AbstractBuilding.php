@@ -32,6 +32,10 @@ abstract class AbstractBuilding implements Building
 
 	private ?int $structurePoints = null;
 
+	public function MaxSize(): int {
+		return Building::IS_UNLIMITED;
+	}
+
 	public function BuildingEffect(): BuildingEffect {
 		if (!$this->buildingEffect) {
 			$this->buildingEffect = new BuildingEffect();

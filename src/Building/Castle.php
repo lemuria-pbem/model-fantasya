@@ -13,8 +13,6 @@ interface Castle extends Building
 
 	public function Defense(): int;
 
-	public function MaxSize(): int;
-
 	public function MinSize(): int;
 
 	public function Downgrade(): Castle;

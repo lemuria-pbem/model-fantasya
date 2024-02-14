@@ -27,6 +27,10 @@ final class Hut extends AbstractBuilding
 		return Building::IS_FREE;
 	}
 
+	public function MaxSize(): int {
+		return self::MAX_SIZE;
+	}
+
 	public function Talent(): int {
 		return self::TALENT;
 	}
