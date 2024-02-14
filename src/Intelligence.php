@@ -62,13 +62,13 @@ final readonly class Intelligence
 		$heirs = new Heirs($unit);
 		$party = $unit->Party();
 		if ($sameParty) {
-			foreach ($this->getUnits($party) as $otherUnit /* @var Unit $otherUnit */) {
+			foreach ($this->getUnits($party) as $otherUnit) {
 				if ($otherUnit->IsLooting() && $otherUnit->Size() > 0) {
 					$heirs->add($otherUnit);
 				}
 			}
 		} else {
-			foreach ($this->region->Residents() as $otherUnit /* @var Unit $otherUnit */) {
+			foreach ($this->region->Residents() as $otherUnit) {
 				$otherParty = $otherUnit->Party();
 				if ($otherParty !== $party && $otherParty->Type() === Type::Player) {
 					if ($otherUnit->IsLooting() && $otherUnit->Size() > 0) {
