@@ -3,7 +3,7 @@ declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Composition;
 
 use Lemuria\Model\Fantasya\Spell;
-use Lemuria\Model\Fantasya\Spell\RingOfInvisibility as RingOfInvisibilitySpell;
+use Lemuria\Model\Fantasya\Spell\RingOfInvisibilitySpell;
 
 class RingOfInvisibility extends AbstractMagicRing
 {

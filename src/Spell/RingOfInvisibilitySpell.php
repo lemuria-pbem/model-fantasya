@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Spell;
 
-final class RingOfInvisibility extends AbstractSpell
+final class RingOfInvisibilitySpell extends AbstractSpell
 {
 	private const int AURA = 32;
 
