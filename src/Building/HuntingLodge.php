@@ -6,9 +6,13 @@ use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
+use Lemuria\Model\Fantasya\Landscape\Forest;
+use Lemuria\Model\Fantasya\Landscape\Plain;
 
 final class HuntingLodge extends AbstractFarm
 {
+	private const array LANDSCAPES = [Plain::class, Forest::class];
+
 	private const int TALENT = 3;
 
 	private const int USEFUL_SIZE = 10;
@@ -31,5 +35,9 @@ final class HuntingLodge extends AbstractFarm
 
 	protected function material(): array {
 		return [Silver::class => self::SILVER, Wood::class => self::WOOD, Stone::class => self::STONE, Iron::class => self::IRON];
+	}
+
+	protected function getLandscapes(): array {
+		return self::LANDSCAPES;
 	}
 }

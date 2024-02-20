@@ -6,9 +6,12 @@ use Lemuria\Model\Fantasya\Commodity\Iron;
 use Lemuria\Model\Fantasya\Commodity\Silver;
 use Lemuria\Model\Fantasya\Commodity\Stone;
 use Lemuria\Model\Fantasya\Commodity\Wood;
+use Lemuria\Model\Fantasya\Landscape\Desert;
 
 final class Oasis extends AbstractFarm
 {
+	private const string LANDSCAPE = Desert::class;
+
 	private const int TALENT = 3;
 
 	private const int USEFUL_SIZE = 10;
@@ -31,5 +34,9 @@ final class Oasis extends AbstractFarm
 
 	protected function material(): array {
 		return [Silver::class => self::SILVER, Wood::class => self::WOOD, Stone::class => self::STONE, Iron::class => self::IRON];
+	}
+
+	protected function getLandscapes(): array {
+		return [self::LANDSCAPE];
 	}
 }
