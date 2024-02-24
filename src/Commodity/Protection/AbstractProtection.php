@@ -5,6 +5,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Protection;
 use Lemuria\Model\Fantasya\Artifact;
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\Commodity;
+use Lemuria\Model\Fantasya\Commodity\Protection\Repairable\AbstractRepairable;
 use Lemuria\Model\Fantasya\CommodityTrait;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Protection;
@@ -25,6 +26,10 @@ abstract class AbstractProtection implements Artifact, Commodity, Protection
 
 	public static function all(): SingletonSet {
 		return self::getAll(__DIR__);
+	}
+
+	public static function allWithRepairables(): SingletonSet {
+		return self::all()->fill(AbstractRepairable::all());
 	}
 
 	public function __construct() {

@@ -2,6 +2,12 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
+use Lemuria\Model\Fantasya\Commodity\AbstractCommodity;
+use Lemuria\Model\Fantasya\Commodity\Luxury\AbstractLuxury;
+use Lemuria\Model\Fantasya\Commodity\Potion\AbstractPotion;
+use Lemuria\Model\Fantasya\Commodity\Protection\AbstractProtection;
+use Lemuria\Model\Fantasya\Commodity\Weapon\AbstractWeapon;
+use Lemuria\Model\Fantasya\Commodity\Trophy\AbstractTrophy;
 use Lemuria\Singleton;
 use Lemuria\SingletonSet;
 use Lemuria\SingletonTrait;
@@ -57,6 +63,43 @@ class Container implements Commodity
 				$this->commodities->add($commodity);
 				$this->weight += $quantity->Weight();
 			}
+		}
+		return $this;
+	}
+
+	public function fill(): static {
+		switch ($this->type) {
+			case Kind::Luxury :
+				$this->commodities->fill(AbstractLuxury::all());
+				break;
+			case Kind::Potion :
+				$this->commodities->fill(AbstractPotion::all());
+				break;
+			case Kind::Protection :
+			case Kind::Shield :
+				foreach (AbstractProtection::allWithRepairables() as $commodity) {
+					if (self::isKindOf($commodity, $this->type)) {
+						$this->commodities->add($commodity);
+					}
+				}
+				break;
+			case Kind::Trophy :
+				$this->commodities->fill(AbstractTrophy::all());
+				break;
+			case Kind::Weapon :
+				foreach (AbstractWeapon::allWithRepairables() as $commodity) {
+					if (self::isKindOf($commodity, $this->type)) {
+						$this->commodities->add($commodity);
+					}
+				}
+				break;
+			default :
+				foreach (AbstractCommodity::all() as $commodity) {
+					if (self::isKindOf($commodity, $this->type)) {
+						$this->commodities->add($commodity);
+					}
+				}
+				break;
 		}
 		return $this;
 	}

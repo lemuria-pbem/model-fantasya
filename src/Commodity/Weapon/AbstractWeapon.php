@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya\Commodity\Weapon;
 
 use Lemuria\Model\Fantasya\ArtifactTrait;
 use Lemuria\Model\Fantasya\Commodity;
+use Lemuria\Model\Fantasya\Commodity\Weapon\Repairable\AbstractRepairable;
 use Lemuria\Model\Fantasya\CommodityTrait;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Requirement;
@@ -21,6 +22,10 @@ abstract class AbstractWeapon implements Commodity, Weapon
 
 	public static function all(): SingletonSet {
 		return self::getAll(__DIR__);
+	}
+
+	public static function allWithRepairables(): SingletonSet {
+		return self::all()->fill(AbstractRepairable::all());
 	}
 
 	public function Hits(): int {
