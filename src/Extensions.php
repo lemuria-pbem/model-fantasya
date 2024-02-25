@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya;
 
 use function Lemuria\getClass;
 use Lemuria\Collector;
+use Lemuria\Exception\LemuriaException;
 use Lemuria\Model\Fantasya\Exception\ExtensionNotFoundException;
 use Lemuria\Serializable;
 
@@ -76,6 +77,20 @@ class Extensions implements \ArrayAccess, Serializable
 			$this->extensions[$class] = $this->createExtension($class)->unserialize($extension);
 		}
 		return $this;
+	}
+
+	public function init(Extension|string $extension, ?\Closure $constructor = null): Extension {
+		$class = is_string($extension) ? $extension : $extension::class;
+		$name  = getClass($class);
+		if (isset($this->extensions[$name])) {
+			return $this->extensions[$name];
+		}
+		$extension = $constructor ? $constructor() : new $class();
+		if ($extension instanceof $class && $extension instanceof Extension) {
+			$this->extensions[$name] = $extension;
+			return $extension;
+		}
+		throw new LemuriaException('Extension class mismatch.');
 	}
 
 	public function add(Extension $extension): static {
