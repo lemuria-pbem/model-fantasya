@@ -26,7 +26,7 @@ class ByResidents implements EntityOrder
 			}
 			$residents[$region->Id()->Id()] = $n;
 		}
-		asort($residents);
+		asort($residents, SORT_NUMERIC);
 		return array_keys($residents);
 	}
 }
