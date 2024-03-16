@@ -3,7 +3,6 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use function Lemuria\getClass;
-use Lemuria\Exception\LemuriaException;
 use Lemuria\Item;
 use Lemuria\ItemSet;
 use Lemuria\Model\Fantasya\Commodity\Herb\AbstractHerb;

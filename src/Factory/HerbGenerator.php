@@ -68,6 +68,7 @@ class HerbGenerator
 			}
 			$this->neighbours[$landscape]++;
 		}
+		return $this;
 	}
 
 	public function getHerb(): ?Herb {

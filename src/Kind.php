@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\Exception\LemuriaException;
-
 enum Kind
 {
 	case Animal;

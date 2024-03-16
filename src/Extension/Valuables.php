@@ -5,7 +5,6 @@ namespace Lemuria\Model\Fantasya\Extension;
 use Lemuria\EntitySet;
 use Lemuria\Exception\LemuriaException;
 use Lemuria\Exception\UnserializeEntityException;
-use Lemuria\Exception\UnserializeException;
 use Lemuria\Id;
 use Lemuria\Model\Fantasya\Extension;
 use Lemuria\Model\Fantasya\Factory\BuilderTrait;

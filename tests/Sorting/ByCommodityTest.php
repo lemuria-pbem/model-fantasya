@@ -20,9 +20,9 @@ class ByCommodityTest extends Model
 {
 	use BuilderTrait;
 
-	protected const RESOURCES = [Camel::class => 1, Bugleweed::class => 3, Silver::class => 123, Sword::class => 1, Gem::class => 5, Carriage::class => 1];
+	protected const array RESOURCES = [Camel::class => 1, Bugleweed::class => 3, Silver::class => 123, Sword::class => 1, Gem::class => 5, Carriage::class => 1];
 
-	protected const SORTED = [Silver::class, Carriage::class, Sword::class, Camel::class, Gem::class, Bugleweed::class];
+	protected const array SORTED = [Silver::class, Carriage::class, Sword::class, Camel::class, Gem::class, Bugleweed::class];
 
 	#[Test]
 	public function construct(): ByCommodity {
