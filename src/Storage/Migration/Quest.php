@@ -6,6 +6,7 @@ class Quest extends AbstractModel
 {
 	public function __construct() {
 		$this->addInteger('id');
+		$this->addInteger('owner');
 		$this->addString('controller');
 		$this->addArray('payload');
 	}

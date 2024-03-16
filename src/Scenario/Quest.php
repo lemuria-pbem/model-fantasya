@@ -16,13 +16,16 @@ use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\Scenario\Quest\Controller;
 use Lemuria\Model\Fantasya\Unit;
+use Lemuria\Model\Reassignment;
 use Lemuria\Serializable;
 use Lemuria\SerializableTrait;
 use Lemuria\Validate;
 
-class Quest implements \Stringable, Collectible, Identifiable, Serializable
+class Quest implements \Stringable, Collectible, Identifiable, Reassignment, Serializable
 {
 	private const string ID = 'id';
+
+	private const string OWNER = 'owner';
 
 	private const string CONTROLLER = 'controller';
 
@@ -32,6 +35,8 @@ class Quest implements \Stringable, Collectible, Identifiable, Serializable
 	use CollectibleTrait;
 	use IdentifiableTrait;
 	use SerializableTrait;
+
+	private int $owner;
 
 	private readonly Controller $controller;
 
@@ -57,14 +62,12 @@ class Quest implements \Stringable, Collectible, Identifiable, Serializable
 		return Domain::Quest;
 	}
 
-	public function Controller(): Controller {
-		return $this->controller;
+	public function Owner(): Unit {
+		return Unit::get(new Id($this->owner));
 	}
 
-	public function Unit(): Unit {
-		/** @var Unit $unit */
-		$unit = $this->getCollector(__FUNCTION__);
-		return $unit;
+	public function Controller(): Controller {
+		return $this->controller;
 	}
 
 	public function Payload(): Payload {
@@ -75,9 +78,22 @@ class Quest implements \Stringable, Collectible, Identifiable, Serializable
 		return $this->controller . ' ' . $this->Id();
 	}
 
+	public function reassign(Id $oldId, Identifiable $identifiable): void {
+		if ($identifiable->Catalog() === Domain::Quest && $oldId->Id() === $this->owner) {
+			$this->owner = $identifiable->Id()->Id();
+		}
+	}
+
+	public function remove(Identifiable $identifiable): void {
+		if ($identifiable->Catalog() === Domain::Quest && $identifiable->Id()->Id() === $this->owner) {
+			$this->owner = 0;
+		}
+	}
+
 	public function serialize(): array {
 		return [
 			self::ID         => $this->Id()->Id(),
+			self::OWNER      => $this->owner,
 			self::CONTROLLER => getClass($this->controller),
 			self::PAYLOAD    => $this->payload->serialize()
 		];
@@ -86,7 +102,8 @@ class Quest implements \Stringable, Collectible, Identifiable, Serializable
 	public function unserialize(array $data): static {
 		$this->validateSerializedData($data);
 		$this->setId(new Id(($data[self::ID])));
-		$controller = Lemuria::Builder()->create($data[self::CONTROLLER]);
+		$this->owner = $data[self::OWNER];
+		$controller  = Lemuria::Builder()->create($data[self::CONTROLLER]);
 		if ($controller instanceof Controller) {
 			$this->setController($controller);
 			$this->payload->unserialize($data[self::PAYLOAD]);
@@ -145,6 +162,7 @@ class Quest implements \Stringable, Collectible, Identifiable, Serializable
 	 */
 	protected function validateSerializedData(array $data): void {
 		$this->validate($data, self::ID, Validate::Int);
+		$this->validate($data, self::OWNER, Validate::Int);
 		$this->validate($data, self::CONTROLLER, Validate::String);
 		$this->validate($data, self::PAYLOAD, Validate::Array);
 	}

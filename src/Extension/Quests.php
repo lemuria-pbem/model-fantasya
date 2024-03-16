@@ -39,9 +39,6 @@ class Quests extends EntitySet implements Extension
 
 	public function add(Quest $quest): static {
 		$this->addEntity($quest->Id());
-		if ($this->hasCollector()) {
-			$quest->addCollector($this->collector());
-		}
 		return $this;
 	}
 
