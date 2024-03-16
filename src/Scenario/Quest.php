@@ -113,6 +113,11 @@ class Quest implements \Stringable, Collectible, Identifiable, Reassignment, Ser
 		return $this;
 	}
 
+	public function setOwner(Unit $owner): static {
+		$this->owner = $owner->Id()->Id();
+		return $this;
+	}
+
 	public function setController(Controller $controller): static {
 		$this->controller = $controller;
 		$this->payload    = $controller->createPayload();
