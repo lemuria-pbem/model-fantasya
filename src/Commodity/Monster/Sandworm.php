@@ -9,26 +9,28 @@ use Lemuria\Model\Fantasya\Landscape\Desert;
 
 final class Sandworm extends AbstractMonster
 {
-	private const int BLOCK = 4;
+	private const int BLOCK = 5;
 
-	private const int HITPOINTS = 1200;
+	private const int HITPOINTS = 1500;
 
 	private const int PAYLOAD = 150 * 100;
 
 	private const int WEIGHT = 600 * 100;
 
-	private const int HITS = 5;
+	private const int HITS = 6;
 
 	/**
 	 * @type array<int>
 	 */
-	private const array DAMAGE = [3, 8, 5];
+	private const array DAMAGE = [4, 7, 4];
 
-	private const int SKILL = 4;
+	private const int SKILL = 8;
 
 	private const string TROPHY = EbonyTooth::class;
 
-	private const float RECREATION = 0.25;
+	private const float FLIGHT_CHANCE = 1.0;
+
+	private const float RECREATION = 0.4;
 
 	public function __construct() {
 		$this->weapon        = new NativeMelee(self::SKILL, new Damage(...self::DAMAGE), self::HITS);
@@ -50,6 +52,10 @@ final class Sandworm extends AbstractMonster
 
 	public function Weight(): int {
 		return self::WEIGHT;
+	}
+
+	public function FlightChance(): float {
+		return self::FLIGHT_CHANCE;
 	}
 
 	public function Recreation(): float {
