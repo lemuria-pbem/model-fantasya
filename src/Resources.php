@@ -18,6 +18,7 @@ use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Sorting\ByCommodity;
 use Lemuria\Singleton;
 use Lemuria\SingletonSet;
+use Lemuria\Sorting\BySingleton;
 use Lemuria\SortMode;
 
 /**
@@ -68,6 +69,9 @@ class Resources extends ItemSet
 	 */
 	public function sort(SortMode $mode = SortMode::ByType): static {
 		switch ($mode) {
+			case SortMode::Alphabetically :
+				$this->sortUsing(new BySingleton());
+				break;
 			case SortMode::ByType :
 				$this->sortUsing(new ByCommodity());
 				break;

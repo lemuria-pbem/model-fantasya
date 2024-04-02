@@ -7,6 +7,7 @@ use Lemuria\Exception\LemuriaException;
 use Lemuria\Id;
 use Lemuria\Model\Fantasya\Sorting\Vessel\ByShip;
 use Lemuria\Sorting\ById;
+use Lemuria\Sorting\ByName;
 use Lemuria\SortMode;
 
 /**
@@ -40,6 +41,9 @@ class Fleet extends EntitySet
 	 */
 	public function sort(SortMode $mode = SortMode::ByType): static {
 		switch ($mode) {
+			case SortMode::Alphabetically :
+				$this->sortUsing(new ByName());
+				break;
 			case SortMode::ById :
 				$this->sortUsing(new ById());
 				break;

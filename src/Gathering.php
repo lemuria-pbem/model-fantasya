@@ -10,6 +10,7 @@ use Lemuria\Identifiable;
 use Lemuria\Lemuria;
 use Lemuria\Model\Domain;
 use Lemuria\Model\Reassignment;
+use Lemuria\Sorting\ByName;
 use Lemuria\SortMode;
 use Lemuria\Sorting\ById;
 
@@ -55,6 +56,9 @@ class Gathering extends EntitySet implements Reassignment
 	 */
 	public function sort(SortMode $mode = SortMode::ById): static {
 		switch ($mode) {
+			case SortMode::Alphabetically :
+				$this->sortUsing(new ByName());
+				break;
 			case SortMode::ById :
 				$this->sortUsing(new ById());
 				break;

@@ -9,6 +9,7 @@ use Lemuria\Model\Fantasya\Sorting\Unit\ByParty;
 use Lemuria\Model\Sized;
 use Lemuria\Reorder;
 use Lemuria\Sorting\ById;
+use Lemuria\Sorting\ByName;
 use Lemuria\Sorting\BySize;
 use Lemuria\SortMode;
 
@@ -91,6 +92,9 @@ class People extends EntitySet implements Sized
 	 */
 	public function sort(SortMode $mode = SortMode::ById, ?Party $party = null): static {
 		switch ($mode) {
+			case SortMode::Alphabetically :
+				$this->sortUsing(new ByName());
+				break;
 			case SortMode::ById :
 				$this->sortUsing(new ById());
 				break;
