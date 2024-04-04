@@ -17,6 +17,7 @@ use Lemuria\Model\World\Map;
 use Lemuria\Model\World\MapCoordinates;
 use Lemuria\Model\World\Path;
 use Lemuria\Model\World\PathStrategy;
+use Lemuria\Model\World\Way;
 
 /**
  * This is a decorated world that calculates map coordinates for a specific party.
@@ -133,6 +134,13 @@ final readonly class PartyMap implements World, Map
 	 */
 	public function isDirection(World\Direction $direction): bool {
 		return $this->world->isDirection($direction);
+	}
+
+	/**
+	 * Get the average direction where given way leads to.
+	 */
+	public function getDirection(Way $way): Direction {
+		return $this->world->getDirection($way);
 	}
 
 	/**
