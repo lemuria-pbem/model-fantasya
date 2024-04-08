@@ -10,6 +10,9 @@ final class GiantFrog extends AbstractMonster
 {
 	private const int HITPOINTS = 25;
 
+	/**
+	 * @noinspection PhpIdempotentOperationInspection
+	 */
 	private const int PAYLOAD = 1 * 100;
 
 	private const int WEIGHT = 7 * 100;
