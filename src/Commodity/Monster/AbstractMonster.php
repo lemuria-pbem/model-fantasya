@@ -2,7 +2,6 @@
 declare(strict_types = 1);
 namespace Lemuria\Model\Fantasya\Commodity\Monster;
 
-use Lemuria\Model\Fantasya\Factory\BuilderTrait;
 use Lemuria\Model\Fantasya\Landscape;
 use Lemuria\Model\Fantasya\Monster;
 use Lemuria\Model\Fantasya\Race\AbstractRace;
@@ -12,8 +11,6 @@ use Lemuria\SingletonSet;
 
 abstract class AbstractMonster extends AbstractRace implements Monster
 {
-	use BuilderTrait;
-
 	protected ?Weapon $weapon = null;
 
 	protected ?SingletonSet $loot = null;

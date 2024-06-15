@@ -32,7 +32,7 @@ use Lemuria\Model\Fantasya\TerrainEffect;
 /**
  * Dwarfs live in the mountains.
  */
-final class Dwarf extends AbstractRace
+final class Dwarf extends AbstractPlayer
 {
 	private const int HITPOINTS = 25;
 

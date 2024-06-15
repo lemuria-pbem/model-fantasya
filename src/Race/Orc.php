@@ -23,7 +23,7 @@ use Lemuria\Model\Fantasya\Talent\Woodchopping;
 /**
  * Orcs are always in war.
  */
-final class Orc extends AbstractRace
+final class Orc extends AbstractPlayer
 {
 	private const int HITPOINTS = 23;
 

@@ -24,7 +24,7 @@ use Lemuria\Model\Fantasya\Talent\Taxcollecting;
 /**
  * Trolls are heavy creatures.
  */
-final class Troll extends AbstractRace
+final class Troll extends AbstractPlayer
 {
 	private const int HITPOINTS = 30;
 

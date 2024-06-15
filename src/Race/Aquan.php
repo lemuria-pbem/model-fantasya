@@ -20,7 +20,7 @@ use Lemuria\Model\Fantasya\Talent\Woodchopping;
 /**
  * Aquans are humans of the sea.
  */
-final class Aquan extends AbstractRace
+final class Aquan extends AbstractPlayer
 {
 	private const int HITPOINTS = 25;
 

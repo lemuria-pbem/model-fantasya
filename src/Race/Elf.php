@@ -26,7 +26,7 @@ use Lemuria\Model\Fantasya\TerrainEffect;
 /**
  * Elves live in the woods.
  */
-final class Elf extends AbstractRace
+final class Elf extends AbstractPlayer
 {
 	private const int HITPOINTS = 22;
 

@@ -21,9 +21,13 @@ use Lemuria\Model\Fantasya\Landscape\Highland;
 use Lemuria\Model\Fantasya\Landscape\Mountain;
 use Lemuria\Model\Fantasya\Landscape\Plain;
 use Lemuria\Model\Fantasya\Landscape\Swamp;
+use Lemuria\Model\Fantasya\Raiseable;
+use Lemuria\Model\Fantasya\UndeadTrait;
 
-final class Goblin extends AbstractMonster
+final class Goblin extends AbstractMonster implements Raiseable
 {
+	use UndeadTrait;
+
 	private const int HITPOINTS = 14;
 
 	private const int PAYLOAD = 3 * 100;

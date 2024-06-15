@@ -25,7 +25,7 @@ use Lemuria\Model\Fantasya\Talent\Trading;
 /**
  * Halflings are always eating.
  */
-final class Halfling extends AbstractRace
+final class Halfling extends AbstractPlayer
 {
 	private const int HITPOINTS = 17;
 

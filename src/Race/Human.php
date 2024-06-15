@@ -5,7 +5,7 @@ namespace Lemuria\Model\Fantasya\Race;
 /**
  * Humans.
  */
-final class Human extends AbstractRace
+final class Human extends AbstractPlayer
 {
 	private const int HITPOINTS = 20;
 
