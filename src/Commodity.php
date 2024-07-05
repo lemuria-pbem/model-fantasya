@@ -4,6 +4,7 @@ namespace Lemuria\Model\Fantasya;
 
 use Lemuria\Model\Fantasya\Commodity\Carriage;
 use Lemuria\Model\Fantasya\Commodity\CarriageWreck;
+use Lemuria\Model\Fantasya\Commodity\ElephantArmor;
 use Lemuria\Model\Fantasya\Commodity\Gold;
 use Lemuria\Model\Fantasya\Commodity\Griffinegg;
 use Lemuria\Model\Fantasya\Commodity\Iron;
@@ -23,7 +24,7 @@ interface Commodity extends Singleton
 	public final const array MISC = [
 		Silver::class, Wood::class, Stone::class, Iron::class, Gold::class,
 		...Transport::ANIMALS, Carriage::class, CarriageWreck::class,
-		Griffinegg::class
+		Griffinegg::class, ElephantArmor::class
 	];
 
 	/**
