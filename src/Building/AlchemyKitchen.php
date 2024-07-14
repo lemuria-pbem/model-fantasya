@@ -23,17 +23,15 @@ final class AlchemyKitchen extends AbstractBuilding
 
 	private const int FEED = 10;
 
-	private const int SILVER = 300;
+	private const int SILVER = 1500;
 
-	private const int WOOD = 3;
+	private const int WOOD = 15;
 
-	private const int STONE = 5;
+	private const int STONE = 25;
 
-	private const int IRON = 3;
+	private const int IRON = 15;
 
 	private const int GOLD = 1;
-
-	private const int USEFUL_SIZE = 5;
 
 	public function Dependency(): ?Building {
 		return self::createBuilding(Stronghold::class);
@@ -52,7 +50,7 @@ final class AlchemyKitchen extends AbstractBuilding
 	}
 
 	public function UsefulSize(): int {
-		return self::USEFUL_SIZE;
+		return Building::IS_UNLIMITED;
 	}
 
 	protected function material(): array {
