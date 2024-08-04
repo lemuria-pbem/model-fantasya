@@ -35,7 +35,7 @@ final class Halfling extends AbstractPlayer
 
 	private const float REFILL = 0.2;
 
-	private const int PAYLOAD = 5 * 100;
+	private const int PAYLOAD = 4 * 100;
 
 	private const int RECRUITING = 60;
 
