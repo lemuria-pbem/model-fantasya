@@ -10,6 +10,8 @@ final class SongOfPeace extends AbstractBattleSpell
 
 	private const int DIFFICULTY = 2;
 
+	protected bool $isIncremental = false;
+
 	public function Aura(): int {
 		return self::AURA;
 	}
