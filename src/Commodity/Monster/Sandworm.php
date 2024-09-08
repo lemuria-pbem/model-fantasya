@@ -11,7 +11,7 @@ final class Sandworm extends AbstractMonster
 {
 	private const int BLOCK = 5;
 
-	private const int HITPOINTS = 1500;
+	private const int HITPOINTS = 2500;
 
 	private const int PAYLOAD = 150 * 100;
 
