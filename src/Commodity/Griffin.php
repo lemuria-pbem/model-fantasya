@@ -24,7 +24,7 @@ final class Griffin implements Animal, Monster
 
 	private const int PAYLOAD = 50 * 100;
 
-	private const int SPEED = 5;
+	private const int SPEED = 6;
 
 	private const int WEIGHT = 120 * 100;
 
