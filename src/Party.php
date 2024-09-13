@@ -310,6 +310,8 @@ class Party extends Entity implements Assignable, Collector
 	public function collectAll(): static {
 		$this->People()->addCollectorsToAll();
 		$this->Possessions()->addCollectorsToAll();
+		// Unserialize acquaintances.
+		$this->Diplomacy(); //TODO Refactor this into an after-load event listener.
 		return $this;
 	}
 
