@@ -3,7 +3,6 @@ declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
 use Lemuria\Collector;
-use Lemuria\CollectorTrait;
 use Lemuria\Entity;
 use Lemuria\Exception\UnserializeException;
 use Lemuria\Id;
@@ -94,15 +93,6 @@ class Continent extends Entity implements Collector, Reassignment
 	 */
 	public function Catalog(): Domain {
 		return Domain::Continent;
-	}
-
-	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): static {
-		$this->landmass->addCollectorsToAll();
-		return $this;
 	}
 
 	/**

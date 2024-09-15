@@ -6,7 +6,6 @@ use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
 use Lemuria\Collector;
-use Lemuria\CollectorTrait;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
@@ -248,16 +247,6 @@ class Unit extends Entity implements Collectible, Collector, Sized
 			$this->Extensions()->add($trades);
 		}
 		return $trades;
-	}
-
-	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): static {
-		$this->Treasury()->addCollectorsToAll();
-		$this->Trades()->addCollectorsToAll();
-		return $this;
 	}
 
 	public function serialize(): array {

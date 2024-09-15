@@ -11,13 +11,13 @@
 		}
 	],
 	"version": "1.5.12",
-	"time": "2024-09-13",
+	"time": "2024-09-16",
 
 	"require": {
 		"php": "~8.3",
 		"ext-json": "~8.3",
 		"ramsey/uuid": "~4.7|~5.0",
-		"lemuria-pbem/lemuria": "~1.5.0|dev-master"
+		"lemuria-pbem/lemuria": "~1.6.0|dev-feature/dispatcher"
 	},
 	"require-dev": {
 		"sat-hub/phpunit": "~1.11.0"

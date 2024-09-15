@@ -5,7 +5,6 @@ namespace Lemuria\Model\Fantasya;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
 use Lemuria\Collector;
-use Lemuria\CollectorTrait;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
@@ -91,15 +90,6 @@ class Realm extends Entity implements Collectible, Collector
 		parent::unserialize($data);
 		$this->identifier = new Id($data[self::IDENTIFIER]);
 		$this->territory->unserialize($data[self::TERRITORY]);
-		return $this;
-	}
-
-	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): static {
-		$this->territory->addCollectorsToAll();
 		return $this;
 	}
 

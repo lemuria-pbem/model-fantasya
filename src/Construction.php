@@ -6,7 +6,6 @@ use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
 use Lemuria\Collector;
-use Lemuria\CollectorTrait;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
@@ -128,16 +127,6 @@ class Construction extends Entity implements Collectible, Collector, Sized
 		$this->inhabitants->unserialize($data[self::INHABITANTS]);
 		$this->Treasury()->unserialize($data[self::TREASURY]);
 		$this->unserializeExtensions($data);
-		return $this;
-	}
-
-	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): static {
-		$this->Inhabitants()->addCollectorsToAll();
-		$this->Treasury()->addCollectorsToAll();
 		return $this;
 	}
 

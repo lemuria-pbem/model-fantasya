@@ -6,7 +6,6 @@ use function Lemuria\getClass;
 use Lemuria\Collectible;
 use Lemuria\CollectibleTrait;
 use Lemuria\Collector;
-use Lemuria\CollectorTrait;
 use Lemuria\Entity;
 use Lemuria\Id;
 use Lemuria\Lemuria;
@@ -203,18 +202,6 @@ class Region extends Entity implements Collectible, Collector, Location
 			$this->setLuxuries($luxuries);
 		}
 		$this->Treasury()->unserialize($data[self::TREASURY]);
-		return $this;
-	}
-
-	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): static {
-		$this->Residents()->addCollectorsToAll();
-		$this->Estate()->addCollectorsToAll();
-		$this->Fleet()->addCollectorsToAll();
-		$this->Treasury()->addCollectorsToAll();
 		return $this;
 	}
 

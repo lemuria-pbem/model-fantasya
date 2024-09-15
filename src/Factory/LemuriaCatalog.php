@@ -11,6 +11,9 @@ use Lemuria\Model\Exception\DuplicateIdException;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Construction;
 use Lemuria\Model\Fantasya\Continent;
+use Lemuria\Model\Fantasya\Dispatcher\Event\Catalog\Loaded;
+use Lemuria\Model\Fantasya\Dispatcher\Event\Catalog\NextId;
+use Lemuria\Model\Fantasya\Dispatcher\Event\Catalog\Saved;
 use Lemuria\Model\Fantasya\Market\Trade;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\Realm;
@@ -25,10 +28,7 @@ use Lemuria\Version\VersionTag;
 
 class LemuriaCatalog implements Catalog
 {
-	/**
-	 * Log big IDs if this number is reached (= 10000 in base-36).
-	 */
-	protected const int ID_CHECK_THRESHOLD = 1679616;
+	private const int INITIAL_ID = 1;
 
 	/**
 	 * @var array<int, array>
@@ -48,9 +48,11 @@ class LemuriaCatalog implements Catalog
 	private bool $isLoaded = false;
 
 	public function __construct() {
+		$dispatcher = Lemuria::Dispatcher();
 		foreach (Domain::cases() as $domain) {
 			$this->catalog[$domain->value] = [];
-			$this->nextId[$domain->value]  = 1;
+			$this->nextId[$domain->value]  = self::INITIAL_ID;
+			$dispatcher->dispatch(new NextId($domain->value, self::INITIAL_ID));
 		}
 	}
 
@@ -117,8 +119,7 @@ class LemuriaCatalog implements Catalog
 				$unicum->unserialize($data);
 			}
 			$this->isLoaded = true;
-
-			$this->callCollectAll();
+			Lemuria::Dispatcher()->dispatch(new Loaded());
 		}
 		return $this;
 	}
@@ -174,6 +175,7 @@ class LemuriaCatalog implements Catalog
 			$entities[$id] = $unicum->serialize();
 		}
 		Lemuria::Game()->setUnica($entities);
+		Lemuria::Dispatcher()->dispatch(new Saved());
 		return $this;
 	}
 
@@ -188,7 +190,6 @@ class LemuriaCatalog implements Catalog
 		}
 
 		$this->catalog[$domain][$id] = $identifiable;
-		$this->checkIdSize($domain, $id);
 		if ($this->nextId[$domain] === $id) {
 			$this->searchNextId($domain);
 		}
@@ -233,17 +234,6 @@ class LemuriaCatalog implements Catalog
 	}
 
 	/**
-	 * @todo Change this into an event.
-	 */
-	protected function checkIdSize(int $domain, int $id): void {
-		if ($id > self::ID_CHECK_THRESHOLD) {
-			$domain = Domain::from($domain)->name;
-			$id     = new Id($id);
-			Lemuria::Log()->critical('A big ' . $domain . ' ID has just been created: ' . $id);
-		}
-	}
-
-	/**
 	 * Search for next available ID of given domain.
 	 */
 	private function searchNextId(int $domain): void {
@@ -252,33 +242,6 @@ class LemuriaCatalog implements Catalog
 			$id++;
 		} while (isset($this->catalog[$domain][$id]));
 		$this->nextId[$domain] = $id;
-		$this->checkIdSize($domain, $id);
-	}
-
-	/**
-	 * Calls collectAll() on all collectors in the Catalog.
-	 */
-	private function callCollectAll(): void {
-		foreach ($this->catalog[Domain::Party->value] as $party /* @var Party $party */) {
-			$party->collectAll();
-		}
-		foreach ($this->catalog[Domain::Unit->value] as $unit /* @var Unit $unit */) {
-			$unit->collectAll();
-		}
-		foreach ($this->catalog[Domain::Location->value] as $region /* @var Region $region */) {
-			$region->collectAll();
-		}
-		foreach ($this->catalog[Domain::Construction->value] as $construction /* @var Construction $construction */) {
-			$construction->collectAll();
-		}
-		foreach ($this->catalog[Domain::Vessel->value] as $vessel /* @var Vessel $vessel */) {
-			$vessel->collectAll();
-		}
-		foreach ($this->catalog[Domain::Continent->value] as $continent /* @var Continent $continent */) {
-			$continent->collectAll();
-		}
-		foreach ($this->catalog[Domain::Realm->value] as $realm /* @var Realm $realm */) {
-			$realm->collectAll();
-		}
+		Lemuria::Dispatcher()->dispatch(new NextId($domain, $id));
 	}
 }

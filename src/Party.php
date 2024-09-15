@@ -2,13 +2,13 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
+use Lemuria\Model\Fantasya\Dispatcher\Event\Catalog\Loaded;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 use function Lemuria\getClass;
 use Lemuria\Assignable;
 use Lemuria\Collector;
-use Lemuria\CollectorTrait;
 use Lemuria\Engine\Newcomer;
 use Lemuria\Entity;
 use Lemuria\Exception\LemuriaException;
@@ -140,6 +140,7 @@ class Party extends Entity implements Assignable, Collector
 		$this->possessions = new Possessions($this);
 		$this->regulation  = new Regulation();
 		$this->initExtensions($this);
+		Lemuria::Register()->addListener(new Loaded(), $this->onCatalogLoaded(...));
 	}
 
 	/**
@@ -303,18 +304,6 @@ class Party extends Entity implements Assignable, Collector
 		return $this;
 	}
 
-	/**
-	 * This method will be called by the Catalog after loading is finished; the Collector can initialize its collections
-	 * then.
-	 */
-	public function collectAll(): static {
-		$this->People()->addCollectorsToAll();
-		$this->Possessions()->addCollectorsToAll();
-		// Unserialize acquaintances.
-		$this->Diplomacy(); //TODO Refactor this into an after-load event listener.
-		return $this;
-	}
-
 	public function hasRetired(): bool {
 		return $this->retirement !== null;
 	}
@@ -366,5 +355,15 @@ class Party extends Entity implements Assignable, Collector
 		$this->validate($data, self::PRESETTINGS, Validate::Array);
 		$this->validate($data, self::POSSESSIONS, Validate::Array);
 		$this->validate($data, self::REGULATION, Validate::Array);
+	}
+
+	/**
+	 * Unserialize acquaintances.
+	 */
+	private function onCatalogLoaded(): void {
+		$this->Diplomacy();
+		$this->HerbalBook();
+		$this->SpellBook();
+		$this->Loot();
 	}
 }
