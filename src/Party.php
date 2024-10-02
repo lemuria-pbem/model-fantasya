@@ -2,13 +2,13 @@
 declare (strict_types = 1);
 namespace Lemuria\Model\Fantasya;
 
-use Lemuria\Model\Fantasya\Dispatcher\Event\Catalog\Loaded;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 use function Lemuria\getClass;
 use Lemuria\Assignable;
 use Lemuria\Collector;
+use Lemuria\Dispatcher\Event\Catalog\Loaded;
 use Lemuria\Engine\Newcomer;
 use Lemuria\Entity;
 use Lemuria\Exception\LemuriaException;
