@@ -24,11 +24,14 @@ use Lemuria\Model\Fantasya\Unicum;
 use Lemuria\Model\Fantasya\Unit;
 use Lemuria\Model\Fantasya\Vessel;
 use Lemuria\Model\Reassignment;
+use Lemuria\ProfileTrait;
 use Lemuria\Version\VersionFinder;
 use Lemuria\Version\VersionTag;
 
 class LemuriaCatalog implements Catalog
 {
+	use ProfileTrait;
+
 	private const int INITIAL_ID = 1;
 
 	/**
@@ -121,9 +124,12 @@ class LemuriaCatalog implements Catalog
 				$unicum = new Unicum();
 				$unicum->unserialize($data);
 			}
+
 			$this->isLoaded = true;
 			Lemuria::Dispatcher()->dispatch(new Loaded());
+			$this->profileAndLog(__METHOD__);
 		}
+
 		return $this;
 	}
 
@@ -179,7 +185,9 @@ class LemuriaCatalog implements Catalog
 			$entities[$id] = $unicum->serialize();
 		}
 		Lemuria::Game()->setUnica($entities);
+
 		Lemuria::Dispatcher()->dispatch(new Saved());
+		$this->profileAndLog(__METHOD__);
 		return $this;
 	}
 
