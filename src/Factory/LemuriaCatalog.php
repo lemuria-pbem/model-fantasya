@@ -14,7 +14,6 @@ use Lemuria\Model\Exception\DuplicateIdException;
 use Lemuria\Model\Exception\NotRegisteredException;
 use Lemuria\Model\Fantasya\Construction;
 use Lemuria\Model\Fantasya\Continent;
-use Lemuria\Model\Fantasya\Dispatcher\Event\Catalog\NextId;
 use Lemuria\Model\Fantasya\Market\Trade;
 use Lemuria\Model\Fantasya\Party;
 use Lemuria\Model\Fantasya\Realm;
@@ -51,13 +50,10 @@ class LemuriaCatalog implements Catalog
 
 	private bool $isLoaded = false;
 
-	#[Emit(NextId::class, 'Event is emitted for each existing Domain with the INITIAL_ID value.')]
 	public function __construct() {
-		$dispatcher = Lemuria::Dispatcher();
 		foreach (Domain::cases() as $domain) {
 			$this->catalog[$domain->value] = [];
 			$this->nextId[$domain->value]  = self::INITIAL_ID;
-			$dispatcher->dispatch(new NextId($domain->value, self::INITIAL_ID));
 		}
 	}
 
@@ -229,7 +225,6 @@ class LemuriaCatalog implements Catalog
 		return $this;
 	}
 
-	#[Emit(NextId::class)]
 	public function nextId(Domain $domain): Id {
 		$id = new Id($this->nextId[$domain->value]);
 		$this->searchNextId($domain->value);
@@ -249,13 +244,11 @@ class LemuriaCatalog implements Catalog
 	/**
 	 * Search for next available ID of given domain.
 	 */
-	#[Emit(NextId::class)]
 	private function searchNextId(int $domain): void {
 		$id = $this->nextId[$domain];
 		do {
 			$id++;
 		} while (isset($this->catalog[$domain][$id]));
 		$this->nextId[$domain] = $id;
-		Lemuria::Dispatcher()->dispatch(new NextId($domain, $id));
 	}
 }
