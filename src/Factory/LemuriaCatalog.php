@@ -26,11 +26,6 @@ use Lemuria\Version\VersionTag;
 class LemuriaCatalog implements Catalog
 {
 	/**
-	 * Log big IDs if this number is reached (= 10000 in base-36).
-	 */
-	protected const int ID_CHECK_THRESHOLD = 1679616;
-
-	/**
 	 * @var array<int, array>
 	 */
 	private array $catalog = [];
@@ -188,7 +183,6 @@ class LemuriaCatalog implements Catalog
 		}
 
 		$this->catalog[$domain][$id] = $identifiable;
-		$this->checkIdSize($domain, $id);
 		if ($this->nextId[$domain] === $id) {
 			$this->searchNextId($domain);
 		}
@@ -233,17 +227,6 @@ class LemuriaCatalog implements Catalog
 	}
 
 	/**
-	 * @todo Change this into an event.
-	 */
-	protected function checkIdSize(int $domain, int $id): void {
-		if ($id > self::ID_CHECK_THRESHOLD) {
-			$domain = Domain::from($domain)->name;
-			$id     = new Id($id);
-			Lemuria::Log()->critical('A big ' . $domain . ' ID has just been created: ' . $id);
-		}
-	}
-
-	/**
 	 * Search for next available ID of given domain.
 	 */
 	private function searchNextId(int $domain): void {
@@ -252,7 +235,6 @@ class LemuriaCatalog implements Catalog
 			$id++;
 		} while (isset($this->catalog[$domain][$id]));
 		$this->nextId[$domain] = $id;
-		$this->checkIdSize($domain, $id);
 	}
 
 	/**
